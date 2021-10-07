@@ -1,0 +1,43 @@
+<apex:page standardController="Account" tabStyle="Account" recordSetVar="Allaccounts" >
+    <apex:includeScript value="../../soap/ajax/30.0/connection.js"/>
+    <apex:includeScript value="../../soap/ajax/30.0/apex.js"/>
+     
+          
+    
+    <script type="text/javascript">
+    function myfunction(){
+        alert('Coming to my function'); 
+        var records = {!GETRECORDIDS($ObjectType.Account)}; 
+        var Id = records.length == 0 ? null : records; 
+        var message = records.length == 0 ? "all" : records.length; 
+        var term = prompt("Please enter a term from the selection below: \r\n- Fall\r\n- Winter\r\n- Spring\r\n- Summer"); 
+               if(term) { 
+            term = term.toLowerCase(); 
+        } 
+        alert('term value');
+        if(term && (term === 'fall' || term === 'spring' || term === 'winter' || term === 'summer')) { 
+            if (confirm("Click ''OK'' to generate " + term + " Student Terms for " + message + " College/University")) { 
+                var result = sforce.apex.execute("StudentTermGeneratorLightning", "generateStudentTermsForUniversities", { 
+                    accIds: Id, 
+                    termName: term 
+                }); 
+                
+                if (result[0]) { 
+                    //window.location = "{!$Site.BaseUrl}/00O30000008UE9X"; 
+                    alert('The student term generation job has started. Please allow a few minutes for them to be generated.'); 
+                } else { 
+                    alert("No reponse..."); 
+                } 
+            } 
+        } else { 
+            alert('Invalid term entered'); 
+        }
+    }
+    </script>
+   
+<apex:form >
+    <apex:commandButton action="{!Save}" value="OK" onclick="myfunction();" />     
+  <apex:commandbutton value="Cancel" action="{!cancel}"/> 
+ </apex:form>
+
+</apex:page>

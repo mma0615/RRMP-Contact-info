@@ -1,0 +1,765 @@
+<apex:page controller="GanttData"  cache="false"> <apex:slds />
+    <div id="LoaderHide" class="loader"></div>
+    <h2 id="LoadingSpinner">Loading</h2>
+    <script src="http://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js?v=7.0.3"></script> 
+    <script src="//export.dhtmlx.com/gantt/api.js?v=20180322"></script>
+    <apex:stylesheet value="http://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css?v=7.0.3"/>  
+    
+    <div id="load" >
+        <apex:form >
+            <apex:actionFunction name="CallApexMethod" action="{!UpToDate}" rerender="none">
+                <apex:param name="IdOfVm" assignTo="{!Idofnm}" value="" />
+                <apex:param name="StartDate" assignTo="{!StartDate1}" value="" />
+                <apex:param name="EndDate" assignTo="{!EndDate1}" value="" />
+            </apex:actionFunction>
+        </apex:form>
+        
+        <div id= "ForVisible">
+            <apex:form >
+                <apex:pageBlock >
+                    <div>
+                        <div style="display:inline;">
+                            <label>Step: </label>
+                            <select  class="slds-picklist" onchange="window.filter(this.value, 'Step')">
+                                <option value="ALL">ALL</option>
+                                <option value="1-Initiate">1-Initiate</option>
+                                <option value="2-Prepare">2-Prepare</option>
+                                <option value="3-Preview">3-Preview</option>
+                                <option value="4-Draft">4-Draft</option>
+                                <option value="5-Package">5-Package</option>
+                                <option value="6-Hand-Off">6-Hand-Off</option>
+                                <option value="7-Receive">7-Receive</option>
+                            </select>
+                            <label  style="margin-left:10px">Status: </label>
+                            <select  class="slds-picklist" onchange="window.filter(this.value, 'Status')">
+                                <option value="ALL">ALL</option>
+                                <option value="Not Started">Not Started</option>
+                                <option value="Off Track">Off Track</option>
+                                <option value="At Risk">At Risk</option>
+                                <option value="On Track">On Track</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Determined No Update Required">Determined No Update Required</option>
+                            </select>
+                            <div style="float:right">
+                                <a  class="slds-button slds-button--neutral slds-grow" onclick='gantt.exportToPDF({data:{data:AllData}})'>Export to PDF</a>
+                                <a  class="slds-button slds-button--neutral slds-grow" style="margin-right:15px;" onclick='gantt.exportToPNG({data:{data:AllData}})'>Export to PNG</a>
+                            </div>  
+                        </div>
+                        <div id="gantt_here" style="width:100%;height:92vh;margin-top:20px;"></div>
+                    </div>
+                </apex:pageBlock>
+            </apex:form>
+        </div>
+    </div>
+    <style>
+        #LoadingSpinner
+        {
+        color:#0099CC;
+        margin-left:50%
+        }
+        #ForVisible
+        {
+        visibility:hidden;
+        position:fixed;
+        width:100%;
+        }
+       .gantt_task_line.hidden{
+        display:none;
+        }
+        .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 40px;
+        height: 40px;
+        margin-top:10%;
+        margin-left:50%;
+        overflow: hidden;
+        
+        -webkit-animation: spin 2s linear infinite; 
+        animation: spin 2s linear infinite;
+        }
+        /* Safari */
+        @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        }
+        
+        #gantt_here {
+        height: 100%;
+        }
+        
+
+        
+        
+        .gantt_tree_content {
+        overflow:hidden;
+        text-overflow: ellipsis;
+    </style>
+    
+    <script type="text/javascript">
+    
+    var checkPageLoad =0;
+    gantt.config.grid_width = 400;
+    gantt.templates.task_text = function (s, e, task) {
+        return task.text;
+    }
+    gantt.config.columns[0].template = function (obj) {
+        return obj.text + " - <b>" + obj.progress*100 + "%</b>";
+    }
+    gantt.config.scales = [
+        {unit: "month", step: 1, format: "%F, %Y"},
+        {unit: "day", step: 1, format: "%j, %D"}
+    ];
+    gantt.config.columns =  [
+        {name:"text",label:"Title name",tree:true,min_width: 200, width:250,resize:true},
+        {name:"step",label:"Step",align:"center",min_width: 50,width: 70,resize:true},
+        {name:"status",label:"Status",align:"center",min_width:100,width:120,resize:true}        
+    ];
+    gantt.config.autoscroll = true; 
+    gantt.config.grid_elastic_columns = true;
+    
+    // gantt.refreshData();
+    
+    if({!ForCheckUser} == 1)
+    {
+        gantt.config.drag_resize = false;
+        gantt.config.drag_mode = false;
+    }
+    
+    gantt.config.drag_progress = false;
+    gantt.config.details_on_dblclick = false;
+    gantt.config.auto_types = true;
+    gantt.config.auto_scheduling = true;
+    gantt.config.auto_scheduling_compatibility = true;
+    gantt.locale.labels.section_split = "Display";
+    gantt.config.lightbox.project_sections = [
+        {name: "description", height: 70, map_to: "text", type: "textarea", focus: true},
+        {name: "split", type:"checkbox", map_to: "render", options:[
+            {key:"split", label:"Split Task"}
+        ]},
+        {name: "time", type: "duration", readonly: true, map_to: "auto"}
+    ];
+    
+    gantt.config.drag_links = false;
+    gantt.plugins({
+        tooltip: true
+    });
+    gantt.attachEvent("onGanttReady", function(){
+        var tooltips = gantt.ext.tooltips;
+        tooltips.tooltip.setViewport(gantt.$task_data);
+    });
+    gantt.templates.tooltip_text = function(start,end,task){
+        return "<b>Task:</b> "+task.text;
+    };
+   
+    gantt.init("gantt_here");
+    
+    <apex:repeat value="{!setOfWorkGroup}" var="fieldKey">
+        var f1 = gantt.addTask({
+            id:"{!fieldKey}",
+            text:"{!fieldKey}",
+            type: "project",
+            color:"white",
+            textColor:"black",
+            step:"All steps",
+            status:"All status",
+            open: true,
+        });
+    </apex:repeat>
+    
+
+    
+    <apex:repeat value="{!ListOfInventory}" var="fieldKey">
+    var checkState = "{!fieldKey.VA_EHRM_SG_Inventory_Step__c}";
+    var checkStatus = "{!fieldKey.VA_EHRM_SG_Inventory_Status__c}";
+    var colourOfRecord ='' ;
+    var TaskTextColor = '' ;
+    if(checkStatus == 'No Value Selected' || checkStatus == 'N/A')
+    {
+        colourOfRecord = 'white';
+        TaskTextColor = 'Black';
+    }
+    else if(checkStatus == 'Not Started')
+      {
+        colourOfRecord = '#7f7f7f';
+        TaskTextColor = 'white'
+    }
+        else if(checkStatus == 'Off Track')
+        {
+            colourOfRecord = '#d7242f';
+            TaskTextColor = 'white';
+        }
+            else if(checkStatus == 'At Risk')
+            {
+                colourOfRecord = '#fed362';
+                TaskTextColor = 'Black';
+            }
+                else if(checkStatus == 'On Track')
+                {
+                    colourOfRecord = '#5a832e';
+                    TaskTextColor = 'white';
+                }
+                    else if (checkStatus == 'Completed')
+                    {
+                        colourOfRecord = '#0070c0';
+                        TaskTextColor = 'white';
+                    }
+                        else if(checkStatus == 'Determined No Update Required')
+                        {
+                            colourOfRecord = 'Black';
+                            TaskTextColor = 'white';
+                        }
+                            else 
+                            {
+                                colourOfRecord = 'white';
+                                TaskTextColor = 'Black';
+                            }
+    var IntiateReturn = findDate('{!fieldKey.VA_EHRM_SG_Inventory_Initiate_Start_Date__c}','{!fieldKey.VA_EHRM_SG_Inventory_Initiate_Due_Date__c}');
+    console.log('IntiateReturn',IntiateReturn);
+    var IntiatestartDate = IntiateReturn[0];
+    var INDifference_In_Days = IntiateReturn[1];
+    
+    var PrepareReturn = findDate('{!fieldKey.VA_EHRM_SG_Inventory_Prepare_Start_Date__c}','{!fieldKey.VA_EHRM_SG_Inventory_Prepare_Due_Date__c}');
+    var PreparestartDate = PrepareReturn[0];
+    var PREDifference_In_Days = PrepareReturn[1];
+    
+    var PreviewReturn = findDate('{!fieldKey.VA_EHRM_SG_Inventory_Preview_Start_Date__c}','{!fieldKey.VA_EHRM_SG_Inventory_Preview_Due_Date__c}');
+    var PreviewstartDate = PreviewReturn[0];
+    var PREWDifference_In_Days = PreviewReturn[1];
+    
+    var DraftReturn = findDate('{!fieldKey.VA_EHRM_SG_Inventory_Draft_Start_Date__c}','{!fieldKey.VA_EHRM_SG_Inventory_Draft_Due_Date__c}');
+    var DraftstartDate = DraftReturn[0];
+    var DraftDifference_In_Days = DraftReturn[1]; 
+    
+    var PackageReturn = findDate('{!fieldKey.VA_EHRM_SG_Inventory_Package_Start_Date__c}','{!fieldKey.VA_EHRM_SG_Inventory_Package_Due_Date__c}');
+    var PackstartDate = PackageReturn[0];
+    var PackDifference_In_Days = PackageReturn[1]; 
+    
+    var HandOffReturn = findDate('{!fieldKey.VA_EHRM_SG_Inventory_Hand_Off_Start_Date__c}','{!fieldKey.VA_EHRM_SG_Inventory_Hand_Off_Due_Date__c}'); 
+    var HandstartDate = HandOffReturn[0];
+    var HandDifference_In_Days = HandOffReturn[1];
+    
+    var ReceiveReturn = findDate('{!fieldKey.VA_EHRM_SG_Inventory_Receive_Start_Date__c}','{!fieldKey.VA_EHRM_SG_Inventory_Receive_Due_Date__c}')
+    var RecstartDate = ReceiveReturn[0];
+    var ReceiveDifference_In_Days = RecstartDate[1];
+    
+    
+    if( (!(isNaN(INDifference_In_Days)))  ||  (!(isNaN(PREDifference_In_Days))) ||  (!(isNaN(PREWDifference_In_Days))) ||  (!(isNaN(DraftDifference_In_Days))) || (!(isNaN(PackDifference_In_Days)))  || (!(isNaN(HandDifference_In_Days))) || (!(isNaN(ReceiveDifference_In_Days))) )
+    {
+        var taskId1  =  gantt.addTask({
+            id:"{!fieldKey.Id}",
+            text:"{!fieldKey.VA_EHRM_SG_Inventory_Title__c}",
+            type: "project",
+            progress: 0.5,
+            render:"split",
+            open: false,
+            step: "{!fieldKey.VA_EHRM_SG_Inventory_Step__c}",
+            status: "{!fieldKey.VA_EHRM_SG_Inventory_Status__c}",
+            parent:"{!fieldKey.VA_EHRM_SG_Council_Workgroup__c}" 
+        }); 
+        
+         if(!(isNaN(INDifference_In_Days)))
+         {
+        var taskId2  =  gantt.addTask({
+            id:"{!fieldKey.Id} Intiate",
+            text:"<strong>1-Initiate</strong>",
+            start_date: IntiatestartDate,
+            duration: INDifference_In_Days,
+            parent:"{!fieldKey.Id}",
+            color:colourOfRecord,
+            progress: 0, 
+            open: true,
+            textColor:TaskTextColor
+        }); 
+    }
+    
+    if(!(isNaN(PREDifference_In_Days)))
+    {
+        var taskId3 =  gantt.addTask({
+            id:"{!fieldKey.Id} Prepare",
+            text:"<strong>2-Prepare</strong>",
+            start_date: PreparestartDate,
+            duration: PREDifference_In_Days,
+            parent:"{!fieldKey.Id}",
+            color:colourOfRecord,
+            progress: 0, 
+            open: true,
+            textColor:TaskTextColor
+        }); 
+    }
+    
+     if(!(isNaN(PREWDifference_In_Days)))
+    {
+        var taskId4 =  gantt.addTask({
+            id:"{!fieldKey.Id} Preview",
+            text:"<strong>3-Preview</strong>",
+            start_date: PreviewstartDate,
+            duration: PREWDifference_In_Days,
+            parent:"{!fieldKey.Id}",
+            color:colourOfRecord,
+            progress: 0, 
+            open: true,
+            textColor:TaskTextColor
+        }); 
+    }
+    
+     if(!(isNaN(DraftDifference_In_Days)))
+    {
+        var taskId5 =  gantt.addTask({
+            id:"{!fieldKey.Id} Draft",
+            text:"<strong>4-Draft</strong>",
+            start_date: DraftstartDate,
+            duration: DraftDifference_In_Days,
+            parent:"{!fieldKey.Id}",
+            color:colourOfRecord,
+            progress: 0, 
+            open: true,
+            textColor:TaskTextColor
+        }); 
+    }
+    
+     if(!(isNaN(PackDifference_In_Days)))
+    {
+        var taskId6 =  gantt.addTask({
+            id:"{!fieldKey.Id} Package",
+            text:"<strong>5-Package</strong>",
+            start_date: PackstartDate,
+            duration: PackDifference_In_Days,
+            parent:"{!fieldKey.Id}",
+            color:colourOfRecord,
+            progress: 0, 
+            open: true,
+            textColor:TaskTextColor
+        }); 
+    }
+    
+    if(!(isNaN(HandDifference_In_Days)))
+    {
+        var taskId7 =  gantt.addTask({
+            id:"{!fieldKey.Id} Hand",
+            text:"<strong>6-Hand-Off</strong>",
+            start_date: HandstartDate,
+            duration: HandDifference_In_Days,
+            parent:"{!fieldKey.Id}",
+            color:colourOfRecord,
+            progress: 0, 
+            open: true,
+            textColor:TaskTextColor
+        }); 
+    }
+    
+     if(!(isNaN(ReceiveDifference_In_Days)))
+    {
+        var taskId8 =  gantt.addTask({
+            id:"{!fieldKey.Id} Receive",
+            text:"<strong>7-Receive</strong>",
+            start_date: RecstartDate,
+            duration: ReceiveDifference_In_Days,
+            parent:"{!fieldKey.Id}",
+            color:colourOfRecord,
+            progress: 0, 
+            open: true,
+            textColor:TaskTextColor
+        }); 
+    }
+    }
+
+    </apex:repeat>
+    gantt.templates.task_class = function(start,end, task){
+        if(task.id == "Case Management" || task.id== "Charge Services" || task.id == "Charge Services - FMS" || task.id == "Charge Services - Rates and Charges" || task.id == "Community Care" || task.id == "HIM" || task.id == "Identity Management" || task.id == "MCAO/VERA" || task.id == "Patient Accounting" || task.id == "Registration" || task.id == "Scheduling" || task.id == "VBA/Comp & Pen")
+            return 'hidden';
+    };
+    gantt.render();
+    checkPageLoad = 1;
+    if(checkPageLoad == 1)
+    {
+        var VisiblityHide = document.getElementById("LoaderHide");
+        VisiblityHide.style["visibility"] = "hidden";
+        VisiblityHide.style["margin-top"] = "0%";
+        VisiblityHide.remove();
+        var VisiblitySpinner = document.getElementById("LoadingSpinner");
+        VisiblitySpinner.remove();
+        var Visiblility = document.getElementById("ForVisible"); 
+        Visiblility.style["visibility"] = "visible";
+    }
+    gantt.attachEvent("onAfterTaskUpdate", function(id,item)
+     {
+                          var v1 = item.start_date.toUTCString("MMMM yyyy");
+                          var d = new Date(v1);
+                          var v = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+                          var v2 = item.end_date.toUTCString("MMMM yyyy");
+                          var d1 = new Date(v2);
+                          var v3 = d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" +d1.getDate();
+                          CallApexMethod(id,v,v3);
+                      });
+    var filter_value = "ALL";
+    var filter_value2 = "ALL";
+    var AllData = [] ; 
+    window.filter = function filter(value, picklist){
+        if (picklist === 'Step') { filter_value = value;}
+        else filter_value2 = value;
+        // setPicklistFieldValue(filter_value,filter_value2);
+        AllData = []; 
+        gantt.render();
+    }
+    //   gantt.refreshData();
+    gantt.attachEvent("onBeforeTaskDisplay", function(id,task)
+                      {
+                          if(filter_value == 'ALL' && filter_value2 == 'ALL')
+                          {
+                              var getTask = gantt.getTask(task.id);
+                              var level = gantt.calculateTaskLevel(task);
+                              if(level == 0)
+                              {
+                                  var date = new Date(task.start_date),
+                                      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                      day = ("0" + date.getDate()).slice(-2);
+                                  Year = date.getFullYear();
+                                  var startDate= day+'-'+mnth+'-'+Year;
+                                  
+                                  
+                                  var WholeTask = {
+                                      id:task.id,
+                                      color: task.color,
+                                      type: task.type,
+                                      text: task.text,
+                                      textColor: task.textColor,
+                                      step: task.step,
+                                      status: task.status,
+                                      open: task.open,
+                                      duration: task.duration,
+                                      start_date: startDate,
+                                  }
+                                  AllData.push(WholeTask);
+                              }
+                              else if(level == 1)
+                              {
+                                  var date = new Date(task.start_date),
+                                      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                      day = ("0" + date.getDate()).slice(-2);
+                                  Year = date.getFullYear();
+                                  var startDate= day+'-'+mnth+'-'+Year;
+                                  
+                                  var WholeTask = { 
+                                      id:task.id,
+                                      text:task.text,
+                                      type: task.type,
+                                      progress: task.progress,
+                                      render:task.render,
+                                      open: task.open,
+                                      step:task.step,
+                                      status: task.status,
+                                      parent:task.parent,
+                                      duration: task.duration,
+                                      start_date: startDate
+                                  }
+                                  AllData.push(WholeTask);
+                              }
+                                  else if(level == 2)
+                                  {
+                                      
+                                      var date = new Date(task.start_date),
+                                          mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                          day = ("0" + date.getDate()).slice(-2);
+                                      Year = date.getFullYear();
+                                      var startDate= day+'-'+mnth+'-'+Year;
+                                      
+                                      var WholeTask = { 
+                                          id:task.id,
+                                          text:task.text,
+                                          parent:task.parent,
+                                          progress: task.progress, 
+                                          color:task.color,
+                                          open: task.open,
+                                          textColor:task.textColor,
+                                          parent:task.parent,
+                                          duration: task.duration,
+                                          start_date: startDate
+                                      }
+                                      AllData.push(WholeTask);
+                                  }
+                              return true;
+                          }
+                          else
+                          {
+                              if(task.id == "Case Management" || task.id== "Charge Services" || task.id == "Charge Services - FMS" || task.id == "Charge Services - Rates and Charges" || task.id == "Community Care" || task.id == "HIM" || task.id == "Identity Management" || task.id == "MCAO/VERA" || task.id == "Patient Accounting" || task.id == "Registration" || task.id == "Scheduling" || task.id == "VBA/Comp & Pen")
+                              {
+                                  if(hasPriority(task.id,filter_value,filter_value2))
+                                  {
+                                      var getTask = gantt.getTask(task.id);
+                                      var level = gantt.calculateTaskLevel(task);
+                                      if(level == 0)
+                                      {
+                                          var date = new Date(task.start_date),
+                                              mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                              day = ("0" + date.getDate()).slice(-2);
+                                          Year = date.getFullYear();
+                                          var startDate= day+'-'+mnth+'-'+Year;
+                                          
+                                          var WholeTask = {
+                                              id:task.id,
+                                              color: task.color,
+                                              type: task.type,
+                                              text: task.text,
+                                              textColor: task.textColor,
+                                              step: task.step,
+                                              status: task.status,
+                                              open: task.open,
+                                              duration: task.duration,
+                                              start_date: startDate,
+                                          }
+                                          AllData.push(WholeTask);
+                                      }
+                                      
+                                      return true;
+                                  }
+                                  else 
+                                  {
+                                      return false;
+                                  }
+                              } 
+                              else
+                              {
+                                  if(filter_value != 'ALL' && filter_value2 == 'ALL' )
+                                  {
+                                      if (task.step == filter_value)
+                                      {
+                                          var getTask = gantt.getTask(task.id);
+                                          var level = gantt.calculateTaskLevel(task);
+                                          
+                                          if(level == 1)
+                                          {
+                                              var date = new Date(task.start_date),
+                                                  mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                                  day = ("0" + date.getDate()).slice(-2);
+                                              Year = date.getFullYear();
+                                              var startDate= day+'-'+mnth+'-'+Year;
+                                              var WholeTask = { 
+                                                  id:task.id,
+                                                  text:task.text,
+                                                  type: task.type,
+                                                  progress: task.progress,
+                                                  render:task.render,
+                                                  open: task.open,
+                                                  step:task.step,
+                                                  status: task.status,
+                                                  parent:task.parent,
+                                                  duration: task.duration,
+                                                  start_date: startDate
+                                              }
+                                              AllData.push(WholeTask);
+                                              var AllChildren = gantt.getChildren(task.id);
+                                              for(var i=0;i<AllChildren.length;i++)
+                                              {
+                                                  var taskObj = gantt.getTask(AllChildren[i]);
+                                                  var date = new Date(taskObj.start_date),
+                                                      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                                      day = ("0" + date.getDate()).slice(-2);
+                                                  Year = date.getFullYear();
+                                                  var startDate= day+'-'+mnth+'-'+Year;
+                                                  var WholeTask = { 
+                                                      id:taskObj.id,
+                                                      text:taskObj.text,
+                                                      parent:taskObj.parent,
+                                                      progress: taskObj.progress, 
+                                                      color:taskObj.color,
+                                                      open: taskObj.open,
+                                                      textColor:taskObj.textColor,
+                                                      parent:taskObj.parent,
+                                                      duration: taskObj.duration,
+                                                      start_date: startDate
+                                                  }
+                                                  AllData.push(WholeTask);
+                                              }
+                                          }
+                                          
+                                          return true;
+                                      }
+                                  }
+                                  if(filter_value == 'ALL' && filter_value2 != 'ALL')
+                                  {
+                                      if (task.status == filter_value2)
+                                      {
+                                          var getTask = gantt.getTask(task.id);
+                                          var level = gantt.calculateTaskLevel(task);
+                                          
+                                          if(level == 1)
+                                          {
+                                              var date = new Date(task.start_date),
+                                                  mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                                  day = ("0" + date.getDate()).slice(-2);
+                                              Year = date.getFullYear();
+                                              var startDate= day+'-'+mnth+'-'+Year;
+                                              var WholeTask = { 
+                                                  id:task.id,
+                                                  text:task.text,
+                                                  type: task.type,
+                                                  progress: task.progress,
+                                                  render:task.render,
+                                                  open: task.open,
+                                                  step:task.step,
+                                                  status: task.status,
+                                                  parent:task.parent,
+                                                  duration: task.duration,
+                                                  start_date: startDate
+                                              }
+                                              AllData.push(WholeTask);
+                                              var AllChildren = gantt.getChildren(task.id);
+                                              for(var i=0;i<AllChildren.length;i++)
+                                              {
+                                                  var taskObj = gantt.getTask(AllChildren[i]);
+                                                  var date = new Date(taskObj.start_date),
+                                                      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                                      day = ("0" + date.getDate()).slice(-2);
+                                                  Year = date.getFullYear();
+                                                  var startDate= day+'-'+mnth+'-'+Year;
+                                                  var WholeTask = { 
+                                                      id:taskObj.id,
+                                                      text:taskObj.text,
+                                                      parent:taskObj.parent,
+                                                      progress: taskObj.progress, 
+                                                      color:taskObj.color,
+                                                      open: taskObj.open,
+                                                      textColor:taskObj.textColor,
+                                                      parent:taskObj.parent,
+                                                      duration: taskObj.duration,
+                                                      start_date: startDate
+                                                  }
+                                                  AllData.push(WholeTask);
+                                              }
+                                          }
+                                          return true;
+                                      }
+                                  }
+                                  if(filter_value != 'ALL' && filter_value2 != 'ALL')
+                                  {
+                                      if (task.status == filter_value2 && task.step == filter_value)
+                                      {
+                                          
+                                          var getTask = gantt.getTask(task.id);
+                                          var level = gantt.calculateTaskLevel(task);
+                                          
+                                          if(level == 1)
+                                          {
+                                              var date = new Date(task.start_date),
+                                                  mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                                  day = ("0" + date.getDate()).slice(-2);
+                                              Year = date.getFullYear();
+                                              var startDate= day+'-'+mnth+'-'+Year;
+                                              var WholeTask = { 
+                                                  id:task.id,
+                                                  text:task.text,
+                                                  type: task.type,
+                                                  progress: task.progress,
+                                                  render:task.render,
+                                                  open: task.open,
+                                                  step:task.step,
+                                                  status: task.status,
+                                                  parent:task.parent,
+                                                  duration: task.duration,
+                                                  start_date: startDate
+                                              }
+                                              AllData.push(WholeTask);
+                                              var AllChildren = gantt.getChildren(task.id);
+                                              for(var i=0;i<AllChildren.length;i++)
+                                              {
+                                                  var taskObj = gantt.getTask(AllChildren[i]);
+                                                  var date = new Date(taskObj.start_date),
+                                                      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                                                      day = ("0" + date.getDate()).slice(-2);
+                                                  Year = date.getFullYear();
+                                                  var startDate= day+'-'+mnth+'-'+Year;
+                                                  var WholeTask = { 
+                                                      id:taskObj.id,
+                                                      text:taskObj.text,
+                                                      parent:taskObj.parent,
+                                                      progress: taskObj.progress, 
+                                                      color:taskObj.color,
+                                                      open: taskObj.open,
+                                                      textColor:taskObj.textColor,
+                                                      parent:taskObj.parent,
+                                                      duration: taskObj.duration,
+                                                      start_date: startDate
+                                                  }
+                                                  AllData.push(WholeTask);
+                                              }
+                                          }
+                                          
+                                          return true;
+                                      }
+                                  }
+                              }
+                          }
+                      });
+    gantt.refreshData();
+    function hasPriority(ParentId,Value1,Value2) 
+    {
+        var child = gantt.getChildren(ParentId);
+        if(Value1 != 'ALL' && Value2 == 'ALL')
+        {
+            for (var i = 0; i < child.length; i++)
+            {
+                var taskObj = gantt.getTask(child[i]);
+                if(taskObj.step === Value1)
+                {
+                    return true;
+                }
+            }
+        }
+        else if(Value1 == 'ALL' && Value2 != 'ALL')
+        {
+            for (var i = 0; i < child.length; i++)
+            {
+                var taskObj = gantt.getTask(child[i]);
+                if(taskObj.status === Value2)
+                {
+                    return true;
+                }
+            }
+        }
+            else if(Value1 != 'ALL' && Value2 != 'ALL')
+            {
+                
+                for (var i = 0; i < child.length; i++)
+                {
+                    var taskObj = gantt.getTask(child[i]);
+                    if(taskObj.step === Value1 && taskObj.status === Value2)
+                    {
+                        return true;
+                    }
+                }
+            }
+        return false;
+    }
+    function findDate(startDate,dueDate)
+    {
+        var returnData = [];
+        var StartingDate = new Date(startDate),
+            startmnth = ("0" + (StartingDate.getMonth() + 1)).slice(-2),
+            startday = ("0" + StartingDate.getDate()).slice(-2);
+        startyear = StartingDate.getFullYear();
+        
+        var DueDate = new Date(dueDate),
+            duemnth = ("0" + (DueDate.getMonth() + 1)).slice(-2),
+            dueday = ("0" + DueDate.getDate()).slice(-2);
+        dueyear = DueDate.getFullYear();
+        var IntiatestartDate = startday+'-'+startmnth+'-'+startyear;
+        var IntiateEndDate = dueday+'-'+duemnth+'-'+dueyear;
+        var diffIntiatestartDate =startmnth+'/'+startday+'/'+startyear;
+        var diffIntiateEndDate = duemnth+'/'+dueday+'/'+dueyear;
+        var INdate1 = new Date(diffIntiatestartDate); 
+        var INdate2 = new Date(diffIntiateEndDate); 
+        var INDifference_In_Time = INdate2.getTime() - INdate1.getTime(); 
+        var INDifference_In_Days = (INDifference_In_Time / (1000 * 3600 * 24))+1;
+       
+        returnData.push(IntiatestartDate);
+        returnData.push(INDifference_In_Days);
+        return returnData;
+    }
+    </script>
+</apex:page>

@@ -1,0 +1,207 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:isUrlAddressable"
+                access="global"
+                controller="TheProviderJourney">
+
+  	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  	<aura:attribute name="journeyID" type="String" />
+  	<aura:attribute name="userJourney" type="Journey_Participant__c" />
+  	<aura:attribute name="journeyData" type="Journey__c" />
+  	<aura:attribute name="userMilestones" type="List" />
+  	<aura:attribute name="userMilestoneRelatedInfo" type="List" />
+  	<aura:attribute name="journeyMilestoneList" type="List"/>
+  	<aura:attribute name="urlFromJourney" type="Boolean"/>
+	<aura:attribute name="spinner" type="Boolean" default="false" />
+	
+  <div>
+    <div class="journeycard-box">
+        
+        <aura:if isTrue="{!v.spinner}">
+        	<lightning:spinner alternativeText="Loading" />
+        </aura:if>
+        
+      <div class="journeycard-welcome">
+        {!v.userJourney.Contact__r.FirstName}, your journey starts here!
+      </div>
+
+      <div class="journeycard-loop journeycard-container">
+        <aura:iteration items="{!v.userMilestones}" var="milestone">
+          <div class="{!milestone.Checkpoint__c ? 'journeylevel journeyCheckpoint' : 'journeylevel journey'+ milestone.Type__c}">
+
+            <aura:if isTrue="{!or($Browser.formFactor == 'DESKTOP', $Browser.formFactor == 'TABLET')}">
+              <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-4 slds-align_absolute-center">
+                  <div class="{!'journeyimage milestone'+ milestone.Type__c}">
+                    <aura:if isTrue="{!milestone.Checkpoint__c == true}">
+                      <img src="{!$Resource.JourneyIcons + '/JourneyIcons/Checkpoint.png'}"/>
+                      <aura:set attribute="else">
+                        <img src="{!$Resource.JourneyIcons + '/JourneyIcons/' + milestone.Type__c + '.png'}"/>
+                      </aura:set>
+                    </aura:if>
+                  </div>
+                </div>
+
+                <div class="{!and(milestone.Checkpoint__c == true, milestone.Checkpoint_Progress__c == 100) ?  'slds-col slds-size_2-of-4 vertical-aligntext-center' : 'slds-col slds-size_3-of-4 vertical-aligntext-center'}">
+                  <div class="journeytitle" >
+                    <aura:if isTrue="{!milestone.Milestone_URL__c != null}">
+                      <lightning:formattedUrl value="{!milestone.Milestone_URL__c}" label="{!milestone.Milestone__r.Name}" target="_blank" /><br/>
+                      <aura:set attribute="else">
+                        {!milestone.Milestone__r.Name}<br/>
+                      </aura:set>
+                    </aura:if>
+                  </div>
+                </div>
+				<aura:if isTrue="{!and(milestone.Checkpoint__c == true, milestone.Checkpoint_Progress__c == 100)}">
+                    <div class="slds-col slds-size_1-of-4 slds-align_absolute-center">
+                      <div class="imgCheckpointContainer">
+                        <div class="journeyimageCkpoint">
+                          <img src="{!$Resource.JourneyIcons + '/JourneyIcons/ckpoint.png'}"/>
+                        </div>
+                      </div>
+                    </div>
+                </aura:if>
+              </div>
+
+              <div class="slds-grid">
+                <div class=" journeyDescription slds-col slds-size_1-of-1">
+                    <lightning:formattedRichText value="{!milestone.Description__c}" class="slds-text-body_small " />
+                </div>
+              </div>
+
+              <aura:iteration items="{!v.userMilestoneRelatedInfo}" var="relatedInfo" indexVar="key">
+                <aura:if isTrue="{!milestone.Name == relatedInfo.key}">
+                  <div class="journeylinks">
+
+                    <aura:iteration items="{!relatedInfo.value}" var="relatedInformation" >
+                      <aura:if isTrue="{!relatedInformation.Description != null}">
+                        <lightning:formattedUrl value="{!relatedInformation.Description}" label="{!relatedInformation.Subject}" target="_blank" /><br/>
+                        <aura:set attribute="else">
+                          {!relatedInformation.Subject} <br/>
+                        </aura:set>
+                      </aura:if>
+                    </aura:iteration>
+                  </div>
+                </aura:if>
+              </aura:iteration>
+
+              <div class="slds-grid">
+                <div class="journeySurveyComplete slds-col slds-size_1-of-2 slds-float_left">
+                    <aura:if isTrue="{!and(milestone.Type__c == 'Survey', milestone.Milestone__r.Survey_Completion_Button__c == true)}">
+                        <lightning:button class="journeySurveyCompleteBtn" variant="brand" label="{!milestone.Milestone__r.Survey_Completion_Button_Text__c}" 
+                                          title="{!milestone.Milestone__r.Survey_Completion_Button_Text__c}" onclick="{! c.handleSurveyCompletion }"
+                                          disabled="{!milestone.Progress__c == 100}"
+                                          name="{!milestone.Id}"/>
+                    </aura:if>                
+                </div>
+                  
+                <div class="journeyprogress slds-col slds-size_1-of-2">
+                  <div class="slds-float_right">
+                  <div class="progresscount">
+                      <aura:if isTrue="{!not(milestone.Progress__c > 0)}">
+                      	  Not Started
+                          <aura:set attribute="else">
+                          	<lightning:formattedNumber value="{!milestone.Progress__c}"/>%
+                          </aura:set>
+                      </aura:if>
+                  </div>
+                  <lightning:progressBar value="{!milestone.Progress__c}" size="large" />
+                </div>
+                    </div>
+              </div>
+            </aura:if>
+
+            <aura:if isTrue="{!$Browser.formFactor == 'PHONE'}">
+              <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-4 slds-align_absolute-center">
+                  <div class="{!'journeyimage milestone'+ milestone.Type__c}">
+                    <aura:if isTrue="{!milestone.Checkpoint__c == true}">
+                      <img src="{!$Resource.JourneyIcons + '/JourneyIcons/Checkpoint.png'}"/>
+                      <aura:set attribute="else">
+                        <img src="{!$Resource.JourneyIcons + '/JourneyIcons/' + milestone.Type__c + '.png'}"/>
+                      </aura:set>
+                    </aura:if>
+                  </div>
+                </div>
+
+                <div class="{!and(milestone.Checkpoint__c == true, milestone.Checkpoint_Progress__c == 100) ?  'slds-col slds-size_2-of-4 vertical-aligntext-center' : 'slds-col slds-size_3-of-4 vertical-aligntext-center'}">
+                  <div class="journeytitle">
+                    <aura:if isTrue="{!milestone.Milestone_URL__c != null}">
+                      <lightning:formattedUrl value="{!milestone.Milestone_URL__c}" label="{!milestone.Milestone__r.Name}" target="_blank" /><br/>
+                      <aura:set attribute="else">
+                        {!milestone.Milestone__r.Name}<br/>
+                      </aura:set>
+                    </aura:if>
+                  </div>
+                </div>
+				
+                <aura:if isTrue="{!and(milestone.Checkpoint__c == true, milestone.Checkpoint_Progress__c == 100)}">
+                    <div class="slds-col slds-size_1-of-4 slds-align_absolute-center">
+                      <div class="imgCheckpointContainer">
+                        <div class="journeyimageCkpoint">
+                          <img src="{!$Resource.JourneyIcons + '/JourneyIcons/ckpoint.png'}"/>
+                        </div>
+                      </div>
+                    </div>
+                </aura:if>
+              </div>
+
+              <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning:formattedRichText value="{!milestone.Description__c}" class="journeyDescription slds-text-body_small " />
+                </div>
+              </div>
+
+              <aura:iteration items="{!v.userMilestoneRelatedInfo}" var="relatedInfo" indexVar="key">
+                <aura:if isTrue="{!milestone.Name == relatedInfo.key}">
+                  <div class="journeylinks">
+
+                    <aura:iteration items="{!relatedInfo.value}" var="relatedInformation" >
+                      <aura:if isTrue="{!relatedInformation.Description != null}">
+                        <lightning:formattedUrl value="{!relatedInformation.Description}" label="{!relatedInformation.Subject}" target="_blank" /><br/>
+                        <aura:set attribute="else">
+                          {!relatedInformation.Subject} <br/>
+                        </aura:set>
+                      </aura:if>
+                    </aura:iteration>
+                  </div>
+                </aura:if>
+              </aura:iteration>
+
+              <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-2" >
+                    <aura:if isTrue="{!and(milestone.Type__c == 'Survey', milestone.Milestone__r.Survey_Completion_Button__c == true)}">
+                        <lightning:button class="journeySurveyCompleteBtn" variant="brand" label="{!milestone.Milestone__r.Survey_Completion_Button_Text__c}" 
+                                          title="{!milestone.Milestone__r.Survey_Completion_Button_Text__c}" onclick="{! c.handleSurveyCompletion }"
+                                          disabled="{!milestone.Progress__c == 100}"
+                                          name="{!milestone.Id}"/>
+                    </aura:if>                
+                </div>
+                <div class="journeyprogress slds-col slds-size_1-of-2" >
+                  <div class="slds-float_right">
+                  <div class="progresscount">
+                    <aura:if isTrue="{!not(milestone.Progress__c > 0)}">
+                      	  Not Started 
+                          <aura:set attribute="else">
+                          	<lightning:formattedNumber value="{!milestone.Progress__c}"/>%
+                          </aura:set>
+                      </aura:if>
+                  </div>
+                  <lightning:progressBar value="{!milestone.Progress__c}" size="large" />
+                    </div>
+                </div>
+              </div>
+            </aura:if>
+          </div>
+          <div class="divider">
+            <aura:if isTrue="{!$Browser.formFactor != 'PHONE'}">
+            	<br/> 
+            </aura:if>
+              <br/>
+          </div>
+        </aura:iteration>
+
+      </div>
+	
+    </div>
+  </div>
+
+</aura:component>

@@ -1,0 +1,76 @@
+.getData {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+   margin-left: 90px;
+  margin-right: 90px; 
+  margin-top: 100px;
+}
+.picklistview{
+  width:24%;
+}
+.picklistfulldisplay{
+  width: 100%;
+  display: flex;
+}
+.uploadfilecol{
+  width: 50%
+}
+.showButton{
+  
+  font-size: 20px;
+  width: 318px;
+}
+
+.paraData{
+  padding-bottom: 20px;
+  text-align: center;
+  /* padding-left: 43%; */
+}
+
+.textData{
+  font-size: 28px;
+  text-align: center;
+}
+
+
+@media only screen and (max-width: 1040px) {
+  .getData {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-left: 0px;
+    margin-right: 0px; 
+    margin-top: 70px;
+  }
+  .paraData{
+    padding-bottom: 20px;
+    text-align: center;
+  }
+ 
+  .textData{
+    font-size: 23px;
+    text-align: center;
+
+  }
+  .showButton{
+    
+    width: 146px;
+    font-size: 17px;
+  }
+   .showinner {
+            padding-left:0%;
+            padding-right:0%;
+        }
+        .picklistview{
+          width:100%;
+        }
+        .picklistfulldisplay{
+          width: 100%;
+          display: block;
+        }
+        .uploadfilecol{
+          width: 100%;
+          margin-bottom: 6%;
+        }
+    }

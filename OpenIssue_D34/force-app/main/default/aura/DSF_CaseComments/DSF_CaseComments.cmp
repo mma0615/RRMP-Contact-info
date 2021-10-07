@@ -1,0 +1,193 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="DSF_CaseCommentsController">
+    
+    
+    <aura:attribute name="recordId"   type="String" default=""/>
+    <aura:attribute name="errorMessage" type="String" default=""/>
+    <aura:attribute name="case" type="List" default="[]"/>
+    <aura:attribute name="handledCase" type="Object" default=""/>
+    <aura:attribute name="comments"	type="List"   default="[]"/>
+    <aura:attribute name="handledComments" type="List" default="[]"/>
+    <aura:attribute name="addedComment" type="String" default=""/>
+    <aura:attribute name="screen"       type="String" default="0"/>
+    <aura:attribute name="linkedDocument" type="Object[]" default=""/>
+    <aura:attribute name="contentDocument" type="Object[]" default=""/>
+    <aura:attribute name="contentVersion" type="Object[]" default=""/>
+    <aura:attribute name="isLoaded"   type="Boolean" default="false"/>
+
+    <aura:attribute name="newCaseComment" type="Object"/>
+    
+    <!--Design attributes - values received from MyMessages component-->
+    <aura:attribute name="BackMessage"       type="String" default=""/>
+    <aura:attribute name="Downloads"         type="String" default=""/>
+    <aura:attribute name="CaseDetailsLabel"  type="String" default=""/>
+    <aura:attribute name="CaseCommentsLabel" type="String" default=""/>
+    <aura:attribute name="NoCommentsMessage" type="String" default=""/>
+    <aura:attribute name="AddCommentLabel"   type="String" default=""/>
+    <aura:attribute name="ButtonLabel"       type="String" default=""/>
+    <aura:attribute name="ModalHeader"       type="String" default=""/>
+    <aura:attribute name="NoFilesMessage"    type="String" default=""/>
+    <aura:attribute name="ColorRed"    type="String" default=""/>
+    <aura:attribute name="ColorOrange" type="String" default=""/>
+    <aura:attribute name="ColorGreen"  type="String" default=""/>
+    
+    <aura:registerEvent name="DSF_MessagesEVT" type="c:DSF_MessagesEVT" />
+    <aura:handler name="change" value="{!v.comments}" action="{!c.handleComments}"/>
+    <aura:handler name="change" value="{!v.case}"  action="{!c.handleCase}"/>
+    
+
+    <aura:if isTrue="{!v.recordId != null}" >
+        <c:DSF_sObjectHelper methodName="getSObject"
+                             object="CaseComment"
+                             fields="Id,
+                                     CommentBody,
+                                     CreatedDate,
+                                     ParentId,
+                                     CreatedById,
+                                     CreatedBy.Name"
+                             conditions="{!'ParentId = \'' + v.recordId + '\''}"
+                             orderByFields="CreatedDate DESC"
+                             output="{! v.comments  }"
+                             />
+        
+        <c:DSF_sObjectHelper methodName="getSObject"
+                             object="Case"
+                             fields="Id,
+                                     Description,
+                                     Status,
+                                     Subject, 
+                                     First_Name__c,
+                                     CreatedDate,
+                                     LastModifiedDate"
+                             conditions="{!'Case.Id = \'' + v.recordId + '\''}"
+                             output="{! v.case  }"
+                             />
+        
+        <c:DSF_sObjectHelper aura:id="filesLoader" 
+                             methodName="getSObject"
+                             object="ContentDocumentLink"
+                             fields="Id,
+                                     LinkedEntityId ,
+                                     ContentDocumentId"
+                             conditions="{!'LinkedEntityId  = \'' + v.recordId + '\''}"
+                             output="{! v.linkedDocument  }"
+                             />
+    </aura:if>
+    
+    <div class="slds-size_1-of-1 wrap">
+        <lightning:button
+                          class="slds-button button"
+                          label="back to my messages"
+                          onclick="{!c.toMyMessages}"
+                          >
+            &lt; {!v.BackMessage}
+        </lightning:button>
+    </div>
+    
+    <aura:if isTrue="{!v.isLoaded}">
+        <div class="slds-grid-vertical parent slds-size_5-of-6">
+            <div class="slds-col slds-grid slds-size_1-of-1 slds-m-top_xx-large slds-border_bottom slds-p-bottom_large">
+                
+                <h3 class="slds-col slds-size_4-of-5">{!v.handledCase.Subject}</h3>
+                <div class="slds-col slds-size_1-of-5 slds-align_absolute-center">
+                    <p class="{!'status slds-size_1-of-2 ' + v.handledCase.statusColor}">
+                        {!v.handledCase.Status}
+                    </p>
+                </div>
+                
+            </div>
+            
+            <!--Iteration for CaseComments-->
+            <aura:if isTrue="{! not(empty(v.handledComments))}">
+                <h5 class="slds-align_absolute-center slds-m-top_large"> {!v.CaseCommentsLabel}</h5>
+                <aura:iteration items="{!v.handledComments}" var="item">
+                    <div class="slds-col slds-border_bottom slds-p-bottom_large slds-p-top_large">
+                        <p class="name">{!item.CreatedBy.Name}</p>
+                        <p class="date">{!item.CreatedDate}</p>
+                        <div class="slds-p-top_large">
+                            <p>{!item.CommentBody}</p>
+                        </div>
+                    </div>
+                </aura:iteration>
+            </aura:if>
+            <aura:if isTrue="{! empty(v.handledComments)}">
+                <p class="slds-align_absolute-center slds-p-vertical_medium slds-border_bottom">{!v.NoCommentsMessage}</p>
+            </aura:if>
+            
+            <!--Case details-->
+            <h5 class="slds-align_absolute-center slds-m-top_large">{!v.CaseDetailsLabel}</h5>
+            <aura:if  isTrue="{!not(empty(v.handledCase))}">
+                <div>
+                    <div class="slds-col slds-border_bottom slds-p-bottom_large slds-p-top_large">
+                        <p class="name">{!v.handledCase.First_Name__c}</p>
+                        <p class="date">{!v.handledCase.CreatedDate}</p>
+                        <div class="slds-p-top_large">
+                            <p>{!v.handledCase.Description}</p>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+            
+            <!--Download modal button-->
+            <div class="slds-m-top_large">
+                <img class="pload-icon" src="{!$Resource.DSF_Resources + '/upload-icon.png'}"/>
+                <a class="downloads" onclick="{!c.openModal}">{!v.Downloads}</a>
+            </div> 
+            
+            <div class="input-div slds-m-top_large">
+                <p class="reply">{!v.AddCommentLabel}</p>
+                <lightning:textarea aura:id="fieldId" name="Comment to add" value="{!v.addedComment}"/>
+                
+                <aura:if isTrue="{! !empty(v.errorMessage) }">
+                    <p class="slds-size_1-of-1 slds-align_absolute-center error">{!v.errorMessage}</p>
+                </aura:if>
+                <div class="upload-wrap slds-m-top_medium slds-m-bottom_medium">
+                    <img class="pload-icon" src="{!$Resource.DSF_Resources + '/upload-icon.png'}"/>
+                    <!--Upload-->
+                    <lightning:fileUpload multiple="true" 
+                                          accept=".png,.jpg,.jpeg,.pdf,.doc,.docx,.xls,.ppt"
+                                          recordId="{!v.recordId}" 
+                                          onuploadfinished="{!c.handleUploadFinished}" />
+                </div>                     
+                
+                <lightning:button class="standardOrangeBtn" onclick="{!c.reply}" disabled="{!v.disabled}">{!v.ButtonLabel}</lightning:button>
+                
+            </div>       
+        </div>
+        <aura:set attribute="else">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </aura:set>
+    </aura:if>
+    
+    <!--MODAL-->
+    <div class="slds-modal" aura:id="modal">
+        <div class="slds-modal__container slds-size_1-of-1">
+            <div class="slds-modal__header ">
+                <lightning:buttonIcon iconName="utility:close"
+                                      onclick="{!c.closeModal}"
+                                      alternativeText="close"
+                                      variant="bare"
+                                      size="large"
+                                      class="slds-modal__close"/>   
+                <p class="slds-align_absolute-center modal-header">{!v.ModalHeader}</p>         
+            </div>
+            <div class="slds-modal__content">
+                <div class="slds-size_1-of-1 slds-align_absolute-center">
+                    <div class=" slds-grid slds-wrap slds-size_4-of-5 slds-m-vertical_small">
+                        <!--Downloads-->
+                        <aura:if isTrue="{! not(empty(v.linkedDocument))}">
+                            <aura:iteration items="{!v.linkedDocument}" var="item">
+                                <div class="slds-col slds-size_1-of-2 slds-m-vertical_medium">
+                                    <lightning:fileCard fileId="{!item.ContentDocumentId}" description="{!item.ContentDocumentId__r.Title}"/>
+                                </div>
+                            </aura:iteration>
+                            <aura:set attribute="else">
+                                <p class="slds-align_absolute-center">{!v.NoFilesMessage}</p>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="slds-backdrop" aura:id="backdrop"></div>
+</aura:component>

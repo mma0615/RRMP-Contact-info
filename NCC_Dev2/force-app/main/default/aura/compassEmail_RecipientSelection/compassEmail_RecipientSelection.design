@@ -1,0 +1,6 @@
+<design:component Label="Recipient Selection">
+	<design:attribute name="recordId" label="Campaign/Journey Id" />
+   	<design:attribute name="contactIdList" label="Recipient's ContactId List" />
+   	<design:attribute name="ccRecipients" label="CC Recipients" />
+   	<design:attribute name="bccRecipients" label="BCC Recipients" />
+</design:component>

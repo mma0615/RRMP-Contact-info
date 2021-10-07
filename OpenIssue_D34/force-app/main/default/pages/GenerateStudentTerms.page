@@ -1,0 +1,17 @@
+<apex:page standardController="Account" tabStyle="Account" recordSetVar="Allaccounts"  extensions="GenerateTerms"   >
+    <apex:form >
+        <apex:pageBlock title="Generate Student Term">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!generateStudentTermsForUniversities}" value="Confirm"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Please select the term" collapsible="false">
+                <apex:selectList value="{!termName}" multiselect="false" size="1">
+                    <apex:selectOption itemValue="Fall" itemLabel="Fall"/>
+                    <apex:selectOption itemValue="Spring" itemLabel="Spring"/>
+                    <apex:selectOption itemValue="Winter" itemLabel="Winter"/>
+                    <apex:selectOption itemValue="Summer" itemLabel="Summer"/>
+                </apex:selectList>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

@@ -1,0 +1,52 @@
+=== Test Reports
+FORMAT  FILE
+──────  ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+txt     c:\vscode-workspace\StrongBridge_BatchCampaigns\.sfdx\tools\testresults\apex\test-result.txt
+txt     c:\vscode-workspace\StrongBridge_BatchCampaigns\.sfdx\tools\testresults\apex\test-run-id.txt
+junit   c:\vscode-workspace\StrongBridge_BatchCampaigns\.sfdx\tools\testresults\apex\test-result-7073u00007hep1r-junit.xml
+json    c:\vscode-workspace\StrongBridge_BatchCampaigns\.sfdx\tools\testresults\apex\test-result-7073u00007hep1r.json
+json    c:\vscode-workspace\StrongBridge_BatchCampaigns\.sfdx\tools\testresults\apex\test-result-codecoverage.json
+
+=== Apex Code Coverage
+ID                  NAME                       % COVERED  UNCOVERED LINES
+──────────────────  ─────────────────────────  ─────────  ───────────────
+01p3u00000IDEvIAAX  batchCampaigns             99%        125
+01p3u00000IDEvJAAX  batchCampaignsSchedule     100%
+01q6A000001IoAiQAK  PatientStatusDetailUpdate  100%
+01p6A00000I3JkPQAV  AccountUpdateStatusDetail  99%        141
+01q3u000000zrCSAAY  DB_Custom_Report_4_c       100%
+
+=== Test Results
+TEST NAME                                  OUTCOME  MESSAGE  RUNTIME (MS)
+─────────────────────────────────────────  ───────  ───────  ────────────
+batchCampaignsScheduleTest.test            Pass              120
+batchCampaignsTest.testAccountOwner        Pass              4650
+batchCampaignsTest.testCampaignOwner       Pass              1366
+batchCampaignsTest.testContactOwner        Pass              1405
+batchCampaignsTest.testRecordType          Pass              1588
+DB_Custom_Report_4_c.testTrigger           Pass              744
+TestAccountUpdateStatusDetail.testMethod1  Pass              19351
+TestAccountUpdateStatusDetail.testMethod2  Pass              1493
+
+=== Test Summary
+NAME                 VALUE
+───────────────────  ───────────────────────────────────────
+Outcome              Passed
+Tests Ran            8
+Passing              8
+Failing              0
+Skipped              0
+Pass Rate            100%
+Fail Rate            0%
+Test Start Time      Aug 17, 2020 9:09 AM
+Test Execution Time  30717 ms
+Test Total Time      30717 ms
+Command Time         26567 ms
+Hostname             https://strongbridge.my.salesforce.com
+Org Id               00D6A000001i5XzUAI
+Username             jrivard@strongbridgebio.com
+Test Run Id          7073u00007hep1r
+User Id              0053u0000035EThAAM
+Test Run Coverage    99%
+Org Wide Coverage    99%
+

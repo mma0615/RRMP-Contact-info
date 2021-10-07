@@ -1,0 +1,15 @@
+<design:component>
+
+    <design:attribute name="headingImg" label="Heading Image" default=""/>
+    <design:attribute name="heading" label="Heading" default=""/>
+    <design:attribute name="subheadingPartOne" label="Subheading Before Total Price" default=""/>
+    <design:attribute name="subheadingPartTwo" label="Subheading After Total Price" default=""/>
+    <design:attribute name= "subheadingnewapplicant" label="Subheading for New Applicants" default=""/>
+    <design:attribute name="seasonFall" label="Season Fall" default=""/>
+    <design:attribute name="seasonWinter" label="Season Winter" default=""/>
+    <design:attribute name="seasonSpring" label="Season Spring" default=""/>
+    <design:attribute name="notQualified" label="Not Qualified Info Message" default=""/>
+    <design:attribute name="qualifiedInfo" label="Qualified Info Message" default=""/>
+    <design:attribute name="pending" label="Pending Info Message" default=""/>
+
+</design:component>

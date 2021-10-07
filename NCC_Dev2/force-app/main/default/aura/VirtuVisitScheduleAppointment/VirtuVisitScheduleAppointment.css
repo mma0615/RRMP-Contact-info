@@ -1,0 +1,480 @@
+.THIS .home-page{
+    width: 100%;
+    height: 100%;
+    color: #001e41;
+    font-size: 1rem;
+    background: #e5e5e5;
+}
+
+.THIS a:hover, .THIS a:focus{
+    text-decoration: none;
+}
+
+/*Menu*/
+.THIS .menu-header{
+    height: 80px;
+    background: white;
+}
+.THIS .menu-logo{
+    float: left;
+}
+.THIS .menu-logo img{
+    height: 80px;
+}
+.THIS .menu-content{
+    float: right;
+}
+
+.THIS .menu-content svg{
+	fill: #001e41;
+    transition: .5s;
+}
+
+.THIS .menu-content a:hover svg{
+	fill: white;
+}
+
+.THIS .menu-content a{
+    color: #001e41;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 80px;
+    padding: 0 1rem;
+    display: inline-block;
+    transition: .5s;
+}
+.THIS .menu-content a:hover{
+    color: white;
+    background: #001e41;
+}
+
+/*Page Header*/
+.THIS .page-header{
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 25rem;
+    overflow: hidden;
+}
+
+.THIS .page-header-content{
+}
+.THIS .header-message{
+    position: absolute;
+    bottom: 40%;
+    left: 13%;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 2.5rem;
+}
+.THIS .header-message div:first-child{
+    color: black;
+    font-weight: bold;
+}
+.THIS .header-message div:nth-child(2){
+    font-weight: 200;
+    color: #b4b4b4;
+}
+.THIS .page-header-content .buttons{
+    position: absolute;
+    bottom: 15%;
+    left: 15%;
+}
+
+.THIS .page-header-content .buttons a{
+    background: #011e41;
+    padding: 15px 20px;
+    color: white;
+    font-size: 15px;
+    margin: 2px 5px;
+    font-weight: 600;
+    display: inline-block;
+    transition: .5s;
+    border-radius: 3px;
+}
+
+.THIS .page-header-content .buttons a:first-child{
+    background: #0083c1;
+    color: white;
+}
+
+.THIS .page-header-content .buttons a:first-child:hover{
+    background: white;
+    color: #0083c1;
+}
+.THIS .page-header-content .buttons a:hover{
+    color: #011e41;
+    background: white;
+}
+
+
+
+/*Services*/
+
+.THIS .services-page{
+    color: #001e41;
+    background: #e2e7ea;
+    width: 100%;
+    margin: 0 auto;
+    padding: 5px 20px;
+    display: inline-block;
+}
+
+.THIS .services-content{
+    cursor: pointer;
+    width: 20%;
+    padding: 5px;
+    top: 0;
+    display: inline-grid;
+    position: relative;
+    moz-transition: box-shadow .2s, height .2s, z-index 0s top .2s;
+    -o-transition: box-shadow .2s, height .2s, z-index 0s top .2s;
+    -webkit-transition: box-shadow .2s, height .2s z-index 0s top .2s;
+    transition: box-shadow .2s, height .2s, z-index 0s, top .2s;
+}
+.THIS .services-content:hover {
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 20%);
+    position: relative;
+    top: -12px;
+    transform-origin: center;
+    z-index: 5;
+}
+.THIS .services-content .service-header a{
+    width: 100%;
+    color: white;
+}
+
+.THIS .services-content:nth-child(4n+2) .service-header{
+    background: #7bb003;
+    border-bottom: 5px solid #93d500;
+}
+.THIS .services-content:nth-child(4n+2) .learn-more a{
+    background: #7bb003;
+}
+.THIS .services-content:nth-child(4n+2) .learn-more a:hover{
+    color: #7bb003;
+    background: white;
+    border: 1px solid #7bb003;
+}
+.THIS .services-content:nth-child(4n+2) .learn-more a:hover svg{
+    fill: #7bb003;
+}
+
+.THIS .services-content:nth-child(4n+3) .service-header{
+    background: #ffad5f;
+    border-bottom: 5px solid #ffc288;
+}
+
+.THIS .services-content:nth-child(4n+3) .learn-more a{
+    background: #ffad5f;
+}
+.THIS .services-content:nth-child(4n+3) .learn-more a:hover{
+    color: #ffad5f;
+    background: white;
+    border: 1px solid #ffad5f;
+}
+.THIS .services-content:nth-child(4n+3) .learn-more a:hover svg{
+    fill: #ffad5f;
+}
+
+.THIS .services-content:nth-child(4n+4) .service-header{
+    background: #b10800;
+    border-bottom: 5px solid #d01007;
+}
+
+.THIS .services-content:nth-child(4n+4) .learn-more a{
+    background: #b10800;
+}
+.THIS .services-content:nth-child(4n+4) .learn-more a:hover{
+    color: #b10800;
+    background: white;
+    border: 1px solid #b10800;
+}
+.THIS .services-content:nth-child(4n+4) .learn-more a:hover svg{
+    fill: #b10800;
+}
+
+
+.THIS .service-header{
+    background: #003b71;
+    color: white;
+    padding: 2px 5px;
+    cursor: unset;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    border-bottom: 5px solid #0083c1;
+    position: relative;
+    text-align: center;
+    align-items: center;
+}
+.THIS .service-header-label{
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: white;
+}
+
+.THIS .service-header-img{
+    /*display: flex;
+    width: 50%;*/
+    position: absolute;
+    right: 5%;
+    bottom: -10%;
+    max-width: 50%;
+    width: 33%;
+}
+
+.THIS .service-info{
+    min-height: 300px;
+    background: white;
+    display: flex;
+    padding: 10px 0;
+}
+
+.THIS .service-desc{
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    max-height: 400px;
+    min-height: 400px;
+    overflow: auto;
+    position: relative;
+}
+
+
+
+.THIS .desc-header{
+    font-size: 1.5rem;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+.THIS .desc-content{
+    font-size: 15px;
+}
+.THIS .desc-content-header{
+    font-size: 1.1rem;
+    padding-bottom: 5px;
+}
+.THIS .flex{
+    display: flex;
+}
+.THIS .column50{
+    width: 50%;
+}
+
+.THIS .learn-more{
+    text-align: center;
+    width: 100%;
+}
+.THIS .learn-more a{
+    background: #001e41;
+    padding: 10px;
+    color: white;
+    font-size: 15px;
+    margin: 2px auto;
+    transition: .5s;
+    border-radius: 50%;
+}
+.THIS .learn-more a svg{
+    fill: white;
+    position: relative;
+    top: -3px;
+    left: 1px;
+
+}
+
+.THIS .learn-more a:hover{
+    color: #001e41;
+    background: white;
+    border: 1px solid #001e41;
+}
+.THIS .learn-more a:hover svg{
+    fill: #001e41;
+}
+.THIS .service-img{
+    width: 35%;
+    height: 100%;
+}
+
+.THIS .service-img img{
+    height: 100%;
+}
+
+/*Service Selected*/
+.THIS .service-selected .service-selected-header, .THIS .services-page .service-selected-header{
+    height: 100px;
+    font-size: 1.5rem;
+    color: white;
+    background: #001e41;
+    line-height: 100px;
+    text-align: center;
+    margin-bottom: 1px;
+}
+.THIS .service-selected .service-header{
+    padding: 10%;
+    background: white !important;
+    color: #001e41 !important;
+}
+.THIS .service-selected .services-content {
+    padding: 10px 5px;
+}
+
+
+
+
+/*Service Reason Page*/
+.THIS .services-reason-page .service-info{
+    min-height: 150px;
+    display: unset;
+    padding: 10px 0 20px;
+}
+.THIS .services-reason-page .service-desc{
+    max-height: 150px;
+    min-height: 150px;
+}
+.THIS .services-reason-page .service-header-label{
+    line-height: unset;
+    color: black;
+}
+
+/*Doctors List*/
+.THIS .doctor-list-page .doctor-header {
+    background: none;
+    color: black;
+    /*padding: 2px 5px;*/
+    cursor: unset;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    /*border-bottom: 5px solid #0083c1;*/
+    position: relative;
+    text-align: center;
+}
+.THIS .doctor-list-page .doctor-header a{
+    width: 100%;
+    color: white;
+}
+.THIS .doctor-list-page .doctor-header img{
+	height: 100%;
+}
+.THIS .doctor-list-page .service-info {
+    min-height: 200px;
+    background: white;
+    display: flex;
+    padding: 0;
+}
+.THIS .doctor-list-page .service-desc {
+	min-height: 200px;
+}
+.THIS .doctor-name{
+    font-weight: 700;
+    font-size: 16px;
+}
+.THIS .doctor-title{
+    font-size: 14px;
+    color: #8a95a0;
+}
+.THIS .doctor-info{
+    padding-top: 15px;
+    font-size: 14px;
+}
+.THIS .doctor-list-page .learn-more{
+    display: inline-block;
+    padding-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+/*Bubble*/
+
+.THIS .thought {
+  display:flex;
+    color: white;
+  background-color:#001e41;
+  padding:20px;
+  border-radius:30px;
+  min-width:300px;
+  max-width:500px;
+  min-height:40px;
+  margin:20px;
+  position:relative;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.THIS .thought:before,
+.THIS .thought:after {
+  content:"";
+  background-color:#001e41;
+  border-radius:50%;
+  display:block;
+  position:absolute;
+  z-index:-1;
+}
+.THIS .thought:before {
+  width:44px;
+  height:44px;
+  top:-12px;
+  left:28px;
+  box-shadow:-15px 40px 0 -12px #001e41;
+}
+.THIS .thought:after {
+  bottom:-10px;
+  right:26px;
+  width:30px;
+  height:30px;
+  box-shadow:40px -34px 0 0 #001e41,
+             -28px -6px 0 -2px #001e41,
+             -24px 17px 0 -6px #001e41,
+             -5px 25px 0 -10px #001e41;
+  
+}
+
+.THIS .services-content:nth-child(4n+2) .thought,
+.THIS .services-content:nth-child(4n+2) .thought:before,
+.THIS .services-content:nth-child(4n+2) .thought:after {
+  background-color: #7bb003;
+}
+.THIS .services-content:nth-child(4n+2) .thought:before{
+  box-shadow:-15px 40px 0 -12px #7bb003;
+}
+.THIS .services-content:nth-child(4n+2) .thought:after{
+    box-shadow:40px -34px 0 0 #7bb003,
+        -28px -6px 0 -2px #7bb003,
+        -24px 17px 0 -6px #7bb003,
+        -5px 25px 0 -10px #7bb003;
+}
+/**/
+.THIS .services-content:nth-child(4n+3) .thought,
+.THIS .services-content:nth-child(4n+3) .thought:before,
+.THIS .services-content:nth-child(4n+3) .thought:after {
+  background-color: #ffad5f;
+}
+.THIS .services-content:nth-child(4n+3) .thought:before{
+  box-shadow:-15px 40px 0 -12px #ffad5f;
+}
+.THIS .services-content:nth-child(4n+3) .thought:after{
+    box-shadow:40px -34px 0 0 #ffad5f,
+        -28px -6px 0 -2px #ffad5f,
+        -24px 17px 0 -6px #ffad5f,
+        -5px 25px 0 -10px #ffad5f;
+}
+/**/
+.THIS .services-content:nth-child(4n+4) .thought,
+.THIS .services-content:nth-child(4n+4) .thought:before,
+.THIS .services-content:nth-child(4n+4) .thought:after {
+  background-color: #b10800;
+}
+.THIS .services-content:nth-child(4n+4) .thought:before{
+  box-shadow:-15px 40px 0 -12px #b10800;
+}
+.THIS .services-content:nth-child(4n+4) .thought:after{
+    box-shadow:40px -34px 0 0 #b10800,
+        -28px -6px 0 -2px #b10800,
+        -24px 17px 0 -6px #b10800,
+        -5px 25px 0 -10px #b10800;
+}

@@ -1,0 +1,10 @@
+<aura:component description="DSF_MyToDoList_LearnMoreLink">
+    <aura:attribute name="url" type="String"/>
+    <aura:attribute name="label" type="String" default="Learn More"/>
+
+    <lightning:navigation aura:id="navService" />
+
+    <a class="learn-more-color" onclick="{!c.navigateToLink}" tabindex="-1">
+        <img src="{!$Resource.DSF_Resources +'/learn-more-icon.png'}" alternativeText=">>"/>{!v.label}
+    </a>
+</aura:component>

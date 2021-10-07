@@ -1,0 +1,20 @@
+<!--BY ANDREJA-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="header" type="String" default=""/>
+    <aura:attribute name="text" type="String" default=""/>
+
+    <div class="slds-align_absolute-center slds-grid slds-wrap look">
+        <div>
+        <div class="slds-col slds-size_1-of-1 header-look">
+            {!v.header}
+        </div>
+        </div>
+        <div>
+        <div class="slds-col slds-size_1-of-1 text-look">
+            {!v.text}
+        </div>
+        </div>
+    </div>
+
+    <br/>
+</aura:component>

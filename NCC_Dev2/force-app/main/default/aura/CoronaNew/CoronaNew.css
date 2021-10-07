@@ -1,0 +1,83 @@
+.THIS li {
+    border: 1px solid black;
+    padding: 30px;
+    background-color:white;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.THIS .test {
+   display: flex;
+   justify-content: flex-end;
+   width: 75%;
+    
+}
+
+.THIS .showImage {
+    display: none;
+}
+
+.THIS .showImageinner {
+    display: block;
+}
+.THIS .buttonCss{
+    padding-top: 0%;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .THIS .showImage {
+        display:block;
+        
+    }
+    .THIS .showImageinner {
+        display:none;
+        
+    }
+    .THIS .test {
+        width:100%;
+        justify-content: flex-start;
+    }
+ 
+}
+@media only screen and (max-width: 1024px) {
+    .THIS .buttonCss{
+        padding-top: 2%;
+    }
+}
+
+
+.THIS .dropdown{
+   color:#fe8e0c;
+    font: 400 13.3333px Arial;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 400;
+}
+
+
+.THIS .button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #fe8e0c;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    padding: 6px;
+    width: 134px;
+    transition: all .5s;
+    cursor: pointer;
+    margin: 2px;
+    font-size: 16px;
+}
+
+.THIS .button:disabled {
+  background: #dddddd;
+}
+
+.THIS .button:enabled {
+  background: #fe8e0c;
+}

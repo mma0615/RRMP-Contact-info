@@ -1,0 +1,61 @@
+.THIS {
+    background-color: white;
+    min-height: 50rem;
+}
+.THIS .material-section-title {
+    height: 11.6rem !important;
+}
+.THIS .detail-content{
+    padding:4rem 20rem;
+}
+.THIS .clear-section{
+    clear:both;
+}
+
+/*Tablet*/
+@media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) { 
+    .THIS .detail-content {
+        padding: 3rem 10rem;
+    }
+    .THIS .material-section{
+        min-height: 1024px;
+    }
+}
+
+/*Tablet - ipad pro*/
+@media only screen 
+    and (min-device-width : 1024px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) { 
+    
+    .THIS .material-section{
+        min-height: 1224px;
+    }
+}
+/* Phone */
+@media screen and (max-device-width: 640px) { 
+    .THIS .material-section-title {
+        writing-mode: unset;
+        transform: none;
+        text-align: right;
+        margin: 1rem 0rem;
+        height: 2rem !important;
+        border-bottom: 0.15rem solid #8b8c4a;
+        border-left: none;
+        font-size: 1.4rem;
+    }
+    .THIS .material-section{
+        display: inline-block;
+    }
+    .THIS .detail-container-outer {
+        padding: 1rem 1rem 5rem 1rem;
+    }
+    
+    .THIS .detail-content{
+        padding: 4rem 1rem;
+    }
+    
+}

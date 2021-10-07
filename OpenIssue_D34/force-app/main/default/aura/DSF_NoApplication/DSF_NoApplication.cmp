@@ -1,0 +1,31 @@
+<aura:component description="DSF_NoApplication" implements="forceCommunity:availableForAllPageTypes">
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:attribute name="PageHeader" type="String" default=""/>
+    <aura:attribute name="PageMessage" type="String" default=""/>
+    <aura:attribute name="Button1" type="String" default=""/>
+    <aura:attribute name="Icon"    type="String"  default=""/>
+
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+        <img class="imgStyle" src="{!$Resource.DSF_Resources + '/' + v.Icon}" />
+    </div>
+
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large slds-p-around_medium">
+        <h4>{!v.PageHeader}</h4>
+    </div>
+
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large slds-p-around_medium">
+        <p class="pStyle">{!v.PageMessage}</p>
+    </div>
+
+    <div class="slds-grid slds-wrap slds-size_1-of-1 slds-align_absolute-center">
+        <div class="slds-align_absolute-center slds-m-around_medium">
+            <lightning:button
+                    class="slds-button standardOrangeBtn"
+                    label="MY TO DO LIST"
+                    onclick="{!c.goToDash}">
+                {!v.Button1}
+            </lightning:button>
+        </div>
+    </div>
+</aura:component>

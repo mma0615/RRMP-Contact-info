@@ -1,0 +1,42 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="CommunityRaidController">
+             <aura:attribute name="isLoggedIn" type="boolean" default="false"/>
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+    <aura:attribute name="noPassword" type="boolean" default="false"/>
+    
+    <aura:attribute name="backgroundImageURL" type="String" default=""/>
+    <aura:attribute name="projectId" type="boolean" default="false"/>
+    
+    
+    <aura:attribute name="secret" type="String"/>
+    <aura:attribute name="encryptedData" type="String"/>
+    
+    <div id="loginDiv" style="{!'background:url(' + v.backgroundImageURL +') repeat;height: 100%;width: 100%; position:fixed;top: 0; left: 0; '}" onkeyup="{! c.keyPress}">
+        <div id="loginForm" style="height:100%;width:100%; top:0;bottom:0;position:fixed" class="slds-grid slds-grid--vertical-stretch">     
+            <lightning:layout multipleRows="true" verticalAlign="center" horizontalAlign="center" class="x-large loginForm">
+                <lightning:layoutItem size="12"><span class="slds-text-heading_large slds-align_absolute-center">Login</span></lightning:layoutItem>
+                <lightning:layoutItem size="12"><span class="slds-text-heading_medium slds-align_absolute-center">Trilogy Federal</span></lightning:layoutItem>
+                
+                <lightning:layoutItem size="12"><lightning:input aura:id="email" id="email" name="email" label="Email" placeholder="Email"/></lightning:layoutItem>
+                <lightning:layoutItem size="12"><lightning:input type="password" aura:id="token" id="token" name="token" label="Token" placeholder="Input Token"/></lightning:layoutItem> 
+               
+                <div class="slds-grid slds-gutters" style="margin-top: 10px;">
+                    <div class="slds-col slds-align_absolute-center">
+                        <span class="slds-align_absolute-center">
+                            <lightning:button label="Send Token" title="Send Token" onclick="{! c.sendToken }"/>
+                           
+                        </span>
+                    </div>
+                    <div class="slds-col slds-align_absolute-center">
+                        <span class="slds-align_absolute-center">
+                            <lightning:button label="Submit" title="Submit" onclick="{! c.submit }"/>
+                        </span>
+                    </div>
+                </div>
+                
+            </lightning:layout>
+           
+            
+        </div>
+    </div>
+    
+</aura:component>

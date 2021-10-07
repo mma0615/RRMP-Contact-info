@@ -1,0 +1,22 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" 
+    controller="linktreeController">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="campaignId" type="String"/>
+    <aura:attribute name="campaignEvents" type="Object"/>
+
+    <div class="slds-form-element">
+        <div class="slds-grid slds-gutters slds-wrap">
+            <ul class="slds-m-around_medium">
+                <aura:iteration items="{!v.campaignEvents}" var="event">
+                    <p><lightning:formattedUrl 
+                        value="{!event.Event_Page_URL__c}" 
+                        label="{!event.Name}" 
+                        target="_blank"/></p>
+                </aura:iteration>
+            </ul>
+        </div>
+    </div>
+
+</aura:component>

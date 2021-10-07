@@ -1,0 +1,81 @@
+<aura:component description="DSF_MyToDoList_LawfulPresence_Topic">
+
+    <aura:attribute name="submit" type="String"/>
+    <aura:attribute name="proofOfLawfulPresence" type="String"/>
+    <aura:attribute name="proofOfLawfulPresenceLink" type="String"/>
+    <aura:attribute name="uploadProofOfLawfulPresence" type="String"/>
+    <aura:attribute name="submitLawfulPresenceToLateLabel" type="String"/>
+    <aura:attribute name="lawfulPresenceCaseSubject" type="String"/>
+    <aura:attribute name="uploadProofOfLawfulPresenceToolTip" type="String"/>
+    <aura:attribute name="pendingReview" type="String"/>
+    <aura:attribute name="uploadedOn" type="String"/>
+    <aura:attribute name="submittedOn" type="String"/>
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="isBetweenDates" type="Boolean" default="true"/>
+    <aura:attribute name="isAfterEndDates" type="Boolean" default="true"/>
+    <aura:attribute name="isLawfulPresenceProofExpirationDateAfterEndDate" type="Boolean" default="true"/>
+    <aura:attribute name="dsfConfig" type="Object"/>
+    <aura:attribute name="today" type="String" />
+
+    <aura:handler name="DSF_FileUploadFinished" event="c:DSF_FileUploadFinished" action="{!c.onUploadFinished}"/>
+    <aura:registerEvent name="updateAppEvent" type="c:DSF_MyToDoLis_ApplicationUpdateEVT"/>
+    <aura:handler name="change" value="{!v.dsfConfig}" action="{!c.checkDates}" />
+
+    <lightning:overlayLibrary aura:id="lawfulPresenceFileUploader"/>
+    <lightning:navigation aura:id="navService" />
+
+    <aura:if isTrue="{!and(v.application.Federal_FA_Eligible__c == 'No', v.isBetweenDates)}">
+        <aura:if isTrue="{!!v.application.Lawful_Presence_Doc_Submission_Date__c}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <span>{!v.submit}&nbsp;<a onclick="{!c.navigateToLawfulPresenceLink}">{!v.proofOfLawfulPresence}</a>&nbsp;</span>
+                </div>
+                <a href="" tabindex="-1" style="text-decoration: none;" onclick="{!c.showFileUploader}">
+                    <img src="{!$Resource.DSF_Resources + '/upload-icon.png'}"/>
+                    <span>&nbsp;<b>{!v.uploadProofOfLawfulPresence}</b></span>
+                </a>
+                <c:DSF_Tooltip text="{!v.uploadProofOfLawfulPresenceToolTip}"/>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!and(v.application.Lawful_Presence_Req_Met__c != 'Yes', v.application.Lawful_Presence_Doc_Submission_Date__c)}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <aura:if isTrue="{!or(empty(v.application.Lawful_Presence_Proof_Expiration_Date__c), v.isLawfulPresenceProofExpirationDateAfterEndDate)}">
+                        <span>{!v.submit}&nbsp;<a onclick="{!c.navigateToLawfulPresenceLink}">{!v.proofOfLawfulPresence}</a></span>
+                        <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                            {!v.uploadedOn}&nbsp;<lightning:formattedDateTime value="{!v.application.Lawful_Presence_Doc_Submission_Date__c}"/>&nbsp;{!v.pendingReview}
+                        </div>
+                        <aura:set attribute="else">
+                            <span>{!v.submitLawfulPresenceToLateLabel}</span>
+                        </aura:set>
+                    </aura:if>
+                    
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!and(v.application.Lawful_Presence_Req_Met__c == 'Yes', v.application.Lawful_Presence_Doc_Submission_Date__c)}">
+            <div data-isPending="false" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="true"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <span>{!v.submit}&nbsp;<a onclick="{!c.navigateToLawfulPresenceLink}">{!v.proofOfLawfulPresence}</a></span>
+                    <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                        {!v.submittedOn}&nbsp;<lightning:formattedDateTime value="{!v.application.Lawful_Presence_Doc_Submission_Date__c}"/>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+    </aura:if>
+    <aura:if isTrue="{!and(v.application.Federal_FA_Eligible__c == 'No', v.isAfterEndDates)}">
+        <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+            <c:DSF_FormCircle checked="false"/>
+            <div class="slds-p-left_medium toDoList-item">
+                <span>{!v.submitLawfulPresenceToLateLabel}</span>
+            </div>
+        </div>
+    </aura:if>
+
+</aura:component>

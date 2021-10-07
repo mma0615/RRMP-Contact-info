@@ -1,0 +1,123 @@
+/*
+    Created by smilankov on 21/10/19.
+*/
+
+.THIS p {
+    font-size: 18px;
+    text-align: center;
+    font-weight: 300;
+}
+.THIS h1 {
+    text-align: center;
+}
+.THIS .slds-input {
+    border: 0.5px solid #7FB0CC;
+    border-radius: 0px;
+    height: 50px;
+}
+.THIS .slds-textarea {
+    min-height: 200px;
+    border: 0.5px solid #7FB0CC;
+    border-radius: 0px;
+}
+.THIS .upload-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+.THIS .button-col {
+    text-align: center;
+}
+.THIS .upload-file {
+    cursor: pointer;
+    display: relative;
+}
+.THIS .standardOrangeBtn {
+    border-color: #7FB0CC;
+}
+.THIS .slds-form-element__label {
+    padding-bottom: 4px;
+    font-size: 13px;
+}
+.THIS .slds-modal__container {
+    margin: auto;
+}
+.THIS .slds-modal__header  {
+    border: none;
+    position: relative;
+}
+.THIS .slds-modal__close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.THIS .slds-modal__content {
+    text-align: center;
+}
+.THIS .slds-modal__content p {
+    padding-bottom: 10px;
+}
+.THIS .test{
+    position: absolute;
+} 
+.THIS .error {
+    color: rgb(194, 57, 52);
+}
+
+
+
+/* Style for modifying upload div*/
+.THIS .slds-file-selector__dropzone {
+    border: none;
+}
+.THIS .slds-file-selector__dropzone .slds-file-selector__text{
+    display: none;
+}
+.THIS .slds-file-selector__button .slds-button__icon {
+    display: none;
+}
+.THIS .pload-icon  {
+    display: inline;
+}
+.THIS .slds-file-selector__button{
+    border: none;
+}
+.THIS .upload-wrap .slds-form-element {
+    display: inline-block;
+}
+.THIS .msgmodal {
+    padding: 7vh;
+    background-color: white;
+}
+.THIS.loginHeaderMsg {
+    color:#2574a9
+}
+
+@media only screen and  (max-height: 800px) {
+    .THIS .slds-input {
+        height: 35px;
+    }
+    .THIS .slds-textarea {
+        min-height: 100px;
+    }
+    .THIS .slds-m-bottom_large {
+        margin-bottom: 0.7rem;
+    }
+    .THIS.slds-m-bottom_large {
+        margin-bottom: 0.7rem;
+    }
+  }
+
+  @media only screen and (max-width: 450px) {
+      .THIS .mobile-no-padding {
+        padding: 0;
+      }
+      .THIS .mobile-m-top {
+        margin-top: 0.7rem;
+      }
+	  .THIS.loginHeaderMsg {
+        margin-top:0.75rem;
+    }
+	  .THIS .upload-wrap .slds-form-element {
+        width: 80%;
+    }
+  }

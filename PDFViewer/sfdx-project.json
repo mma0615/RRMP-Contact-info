@@ -1,0 +1,23 @@
+{
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "CGS_PDFViewer-01",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT"
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "50.0",
+    "packageAliases": {
+        "CGS_PDFViewer": "0Ho3i000000k9d4CAA",
+        "CGS_PDFViewer@0.1.0-1": "04t3i000001SIyfAAG",
+        "CGS_PDFViewer@0.1.0-2": "04t3i000001SIykAAG",
+        "CGS_PDFViewer-01": "0Ho3i000000PAzOCAW",
+        "CGS_PDFViewer-01@0.1.0-1": "04t3i000002al1CAAQ",
+        "CGS_PDFViewer-01@0.1.0-2": "04t3i000002al6cAAA",
+        "CGS_PDFViewer-01@0.1.0-3": "04t3i000002al6hAAA"
+    }
+}

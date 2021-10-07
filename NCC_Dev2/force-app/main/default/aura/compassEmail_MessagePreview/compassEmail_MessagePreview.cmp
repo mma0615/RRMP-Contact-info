@@ -1,0 +1,72 @@
+<aura:component access="global" controller="CompassEmailController">
+    <!--  this tag sets modal size -->
+    <aura:html tag="style">
+    	.slds-modal__container {
+    		min-height: 70vh !important;
+         	min-width: 90vw !important;
+        }
+        .slds-spinner_container{
+            background: none;
+        }
+    </aura:html>     
+    
+    <!-- load Lodash scripts -->
+    <ltng:require scripts="{!$Resource.lodash}" afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <!-- global attributes -->
+    <aura:attribute name="subject" type="String"  />
+    <aura:attribute name="orgWideEmailAddressRecord" type="OrgWideEmailAddress" />
+    <aura:attribute name="emailTemplateId" type="String"/>
+    <aura:attribute name="emailBody" type="String" />
+    <aura:attribute name="orgWideEmailList" type="OrgWideEmailAddress[]" />
+    <aura:attribute name="emailTemplateList" type="EmailTemplate[]" />
+    
+    <!-- private attribute -->
+    <aura:attribute name="isLoading" type="Boolean" default="true"/>
+    <aura:attribute name="senderOptions" type="Object[]"/>
+    <aura:attribute name="emailTemplateOptions" type="Object[]"/>
+    <aura:attribute name="selectedSender" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    
+        <aura:renderIf isTrue="{!v.isLoading}">
+                <lightning:spinner alternativeText="Loading" size="medium" />
+            <aura:set attribute="else">
+                <div class="slds-m-vertical_small slds-var-p-around_small">
+                    <lightning:combobox name="sender"
+                                        label="From"
+                                        value="{!v.selectedSender}"
+                                        placeholder="Select an Email"
+                                        options="{!v.senderOptions}"
+                                        onchange="{!c.handleSenderChange}" />
+                    <lightning:combobox aura:id="emailTemplateInput"
+                                        name="template"
+                                        label="Email Template"
+                                        value="{!v.emailTemplateId}"
+                                        placeholder="Select a Template"
+                                        options="{!v.emailTemplateOptions}"
+                                        onchange="{!c.handleTemplateChange}" 
+                                        dropdownAlignment="auto"/>
+                    <lightning:input label="Subject" 
+                                     onchange="{handleSubjectChange}" 
+                                     value="{!v.subject}"/>
+                    <lightning:inputRichText class="slds-m-top_small"
+                                             value="{!v.emailBody}"/>
+                </div>
+                <div class="slds-m-vertical_small">
+                    <lightning:card title="Email Preview" iconName="custom:custom62">
+                        <div class="slds-var-p-around_small">
+                            <aura:if isTrue="{!!v.emailBody}">
+                                <p class="slds-align_absolute-center empty-body">
+                                    Type your message or select a template to preview.
+                                </p>
+                                <aura:set attribute="else">
+                                    <lightning:formattedRichText value="{!v.emailBody}" />          	
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </lightning:card>
+                </div>
+            </aura:set>
+        </aura:renderIf>
+</aura:component>

@@ -1,0 +1,60 @@
+<aura:component implements="forceCommunity:layout" description="DSF_Dashboard_Home" access="global">
+    <aura:attribute name="topLeftContent" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="topRightContent" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="bottomLeftContent" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="bottomRightContent" type="Aura.Component[]" required="false"></aura:attribute>
+   
+    <aura:attribute name="topLeftHeader" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="topRightHeader" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="bottomLeftHeader" type="Aura.Component[]" required="false"></aura:attribute>
+    <aura:attribute name="bottomRightHeader" type="Aura.Component[]" required="false"></aura:attribute>
+   
+    <div class="slds-m-top_xx-large"></div>
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12"></div>
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12">
+
+    <div class="equal-height-container slds-grid slds-wrap slds-size_1-of-1 slds-m-bottom_medium">
+        <div class="slds-col slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size_1-of-2 slds-p-right_medium padding" >
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.topLeftHeader}</h4>
+            <div class="slds-grid slds-size_1-of-1 slds-p-top_large slds-p-bottom_large divColor" >
+                <div class="slds-p-right_x-large slds-p-left_x-large  slds-size_1-of-1" >
+                    {!v.topLeftContent}
+                </div>
+            </div>
+        </div>
+    
+        <div class="slds-col slds-grid slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size_1-of-2 slds-p-left_medium flex-column" >
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.topRightHeader}</h4>
+            <div class="slds-grid slds-size_1-of-1 slds-p-top_large slds-p-bottom_large divColor" >
+                <div class="slds-p-right_x-large slds-p-left_x-large  slds-size_1-of-1" >
+                    {!v.topRightContent}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="equal-height-container slds-grid slds-wrap slds-size_1-of-1 slds-m-bottom_medium">
+        <div class="slds-col slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size_1-of-2 slds-p-right_medium padding" >
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.bottomLeftHeader}</h4>
+            <div class="slds-grid slds-size_1-of-1 slds-p-top_large slds-p-bottom_large divColor" >
+                <div class="slds-p-right_x-large slds-p-left_x-large slds-size_1-of-1" >
+                    {!v.bottomLeftContent}
+                </div>
+            </div>
+        </div>
+    
+        <div class="slds-col slds-grid slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size_1-of-2 slds-p-left_medium flex-column" >
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.bottomRightHeader}</h4>
+            <div class="slds-grid slds-size_1-of-1 slds-p-top_large slds-p-bottom_large divColor" >
+                <div class="slds-p-right_x-large slds-p-left_x-large slds-size_1-of-1" >
+                    {!v.bottomRightContent}
+                </div>
+            </div>
+        </div>
+    </div></div>
+    </div>
+    <div class="slds-m-bottom_xx-large"></div>
+</aura:component>

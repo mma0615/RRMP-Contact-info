@@ -1,0 +1,60 @@
+.THIS h3 {
+	color: #203366;
+	font-weight: bold;
+}
+.THIS th {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+.THIS td {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+.THIS .subject {
+    width: 70%;
+}
+.THIS.table-wrap {
+    position: relative;
+}
+
+@media only screen and  (max-width: 450px) {
+    .THIS table {
+        width: 95%;
+        margin: auto;
+    }
+    .THIS th {
+        padding-left: 1vh;
+    }
+    .THIS td {
+        position:relative;
+        padding-left: 1vh;
+        padding-right: 1vh;
+    }
+    .THIS tr p {
+        position: absolute;
+        top: 20%;
+    }
+    .THIS h3 {
+        padding-left: 1vh;
+    }
+    .THIS .standardOrangeBtn {
+        margin-left: 1vh;
+    }
+    .THIS .subject {
+        width: 60%;
+    }
+}
+@media only screen and (max-width: 1100px) and (min-width: 450px) {
+
+    .THIS td {
+        position:relative;
+        padding-right:1vh;
+    }
+    .THIS td p {
+        position: absolute;
+        top: 25%;
+    }
+    .THIS .subject {
+        width: 80%;
+    }
+}

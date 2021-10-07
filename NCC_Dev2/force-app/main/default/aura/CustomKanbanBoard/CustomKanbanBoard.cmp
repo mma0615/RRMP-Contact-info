@@ -1,0 +1,194 @@
+<aura:component controller="CustomKanbanBoardController" implements="force:appHostable,flexipage:availableForAllPageTypes">
+
+    <aura:attribute name="cardSourceObjectName" type="String" access="public" required="true" default=""/>
+    <aura:attribute name="cardSourceObjectFields" type="Object" access="public" required="true" default="{}"/>
+    <aura:attribute name="kanbanColumnFieldSource" type="String" access="public" required="true" default=""/>
+    <aura:attribute name="cardFilterANDConditions" type="Object" access="public" default="{}"/>
+    <aura:attribute name="cardFilterORConditions" type="Object" access="public" default="{}"/>
+    <aura:attribute name="cardSortByField" type="String" access="public"/>
+    <aura:attribute name="cardSortByFieldLabel" type="String" access="public"/>
+    <aura:attribute name="hasRecordTypeFilter" type="Boolean" access="public" default="false"/>
+    <aura:attribute name="picklistDetails" type="List" />
+
+    <aura:attribute name="kanbanData" type="Object[]" access="private"/>
+    <aura:attribute name="isInitial" type="Boolean" access="private" default="true"/>
+    <aura:attribute name="numberOfItems" type="String" default="0 items" access="private"/>
+    <aura:attribute name="cardRecordTypeItemNumbersList" type="List" access="private"/>
+    <aura:attribute name="recordTypeFilter" type="String" access="private"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="selectedTabId" type="String" access="private"/>
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:method name="resetResults" action="{!c.resetResults}" access="public"/>
+    <aura:method name="refetchResults" action="{!c.refetchResults}" access="public"/>
+
+    <aura:html tag="style">
+        .status-section {
+            background-color: white;
+            border: 1px solid #d8dde6;
+            padding: 10px 10px -1px 10px;
+            padding-right: 15px;
+            font-weight: bold;
+            border-bottom-style: solid;
+            border-bottom-color: rgb(221, 219, 218);
+        }
+
+        .record-type-tabs .slds-is-active {
+            border-left: 1px solid rgb(27, 150, 255);
+            border-top: 1px solid rgb(27, 150, 255);
+            border-right: 1px solid rgb(27, 150, 255);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background-color: rgb(27, 150, 255);
+            color: white;
+            font-weight: bolder;
+        }
+
+        .record-type-tabs .slds-tabs_default__nav{
+            border-bottom: none;
+        }
+
+        .card-detail {
+            margin-top: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .truncate-lines {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+          
+        @supports (display: -webkit-box) {
+            .truncate-lines {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                white-space: normal;
+            }
+        }
+
+        .record-type-tabs > .slds-tabs_default__content {
+            display: none;
+        }
+    </aura:html>
+
+    <c:picklistValuesPerRecordTypeUtil objApiName="{!v.cardSourceObjectName}" objRecordTypeId="{!v.selectedTabId}"
+        onpicklistDataReceive="{!c.handlePicklistData}"></c:picklistValuesPerRecordTypeUtil>
+
+    <!-- Spinner -->
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Loading..." size="medium" />
+    </aura:if>
+
+    <!-- Record Type Filters and total number of items -->
+    <div class="status-section">
+        <div class="slds-grid slds-grid_vertical-align-center">
+            <aura:if isTrue="{!v.hasRecordTypeFilter}">
+                <div class="slds-col">
+                    <lightning:tabset selectedTabId="{!v.selectedTabId}" class="record-type-tabs slds-text-title_caps">
+                        <aura:iteration var="recordType" items="{!v.cardRecordTypeItemNumbersList}">
+                            <lightning:tab label="{!recordType.recordTypeName + ' (' + recordType.total + ')'}" id="{!recordType.recordTypeId}"></lightning:tab>
+                        </aura:iteration>
+                    </lightning:tabset>
+                </div>
+            </aura:if>
+            
+            <div class="slds-col_bump-left">
+                <div class="slds-text-body_regular">{!v.numberOfItems}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kanban Board -->
+    <aura:if isTrue="{!v.picklistDetails}">
+        <div class="slds-grid slds-path__track">
+            <div class="slds-grid slds-path__scroller-container">
+                <div class="slds-path__scroller">
+                    <div class="slds-path__scroller_inner">
+                        <div class="main-kanban-board">
+                            <div class="kanban">
+                                <div class="kanban-container">
+                                    <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                        <aura:iteration var="pickVal" items="{!v.picklistDetails}" indexVar="{!index}">
+                                            <div class="kanban-column">
+                                                <li class="slds-path__item slds-is-current slds-is-active" role="presentation">
+                                                    <span class="slds-path__link slds-path__title">{!pickVal}</span>
+                                                </li>
+                                                <div class="kanban-column-border" ondrop="{!c.drop}" ondragover="{!c.allowDrop}" >
+                                                    <ul class="kanban-column-list slds-path__nav" data-pickVal="{!pickVal}">
+                                                        <aura:iteration var="objRecord" items="{!v.kanbanData}">
+                                                            <aura:if isTrue="{!pickVal == objRecord.Status__c}">
+                                                                <li class="kanban-card slds-has-flexi-truncate" draggable="true" ondragstart="{!c.drag}" id="{!objRecord.Id}">
+                                                                    
+                                                                    <!-- Critical Priority Icon -->
+                                                                    <aura:if isTrue="{!objRecord.Priority__c == 'Critical'}">
+                                                                        <lightning:icon iconName="utility:priority" alternativeText="Critical Priority"
+                                                                            title="Critical" class="text-inline task-priority" size="xx-small" variant="error"/>
+
+                                                                        <aura:set attribute="else">
+                                                                            <!-- High Priority Icon -->
+                                                                            <aura:if isTrue="{!objRecord.Priority__c == 'High'}">
+                                                                                <lightning:icon iconName="utility:jump_to_top" alternativeText="High Priority"
+                                                                                    title="High" class="text-inline task-priority" size="xx-small" variant="warning"/>
+
+                                                                                <aura:set attribute="else">
+                                                                                    <!-- Normal Priority Icon -->
+                                                                                    <aura:if isTrue="{!objRecord.Priority__c == 'Normal'}">
+                                                                                        <lightning:icon iconName="utility:breadcrumbs" alternativeText="Normal Priority"
+                                                                                            title="Normal" class="text-inline task-priority" size="xx-small" variant="success"/>
+
+                                                                                            <!-- Low Priority Icon -->
+                                                                                            <aura:set attribute="else">
+                                                                                                <aura:if isTrue="{!objRecord.Priority__c == 'Low'}">
+                                                                                                    <lightning:icon iconName="utility:jump_to_bottom" alternativeText="Low Priority"
+                                                                                                        title="Low" class="text-inline task-priority" size="xx-small"/>
+                                                                                                </aura:if>
+                                                                                            </aura:set>
+                                                                                    </aura:if>
+                                                                                </aura:set>
+                                                                            </aura:if>
+                                                                        </aura:set>
+                                                                    </aura:if>
+                                                                    
+
+                                                                    <a href="javascript:void(0);" onclick="{!c.doView}" class="text-inline">
+                                                                        <span class="slds-truncate truncate-lines card-title" id="{!objRecord.Id}">
+                                                                            {!objRecord.Name}
+                                                                        </span>
+                                                                    </a><br/>
+                                                                    
+                                                                    <p class="truncate-lines card-detail">
+                                                                        {!objRecord.Title__c} 
+                                                                    </p>
+    
+                                                                    <p class="slds-truncate card-detail">
+                                                                        {!objRecord.Assigned_To_Name__c}
+                                                                    </p>
+    
+                                                                    <p class="slds-truncate card-detail">
+                                                                        {!objRecord.PROD_Due_Date__c}
+                                                                    </p>
+                                                                </li>
+                                                            </aura:if> 
+                                                        </aura:iteration>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            
+                                        </aura:iteration>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+</aura:component>

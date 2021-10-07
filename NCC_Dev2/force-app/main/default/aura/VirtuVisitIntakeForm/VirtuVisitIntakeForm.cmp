@@ -1,0 +1,263 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="VirtuVisitController">
+	
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- For Logged In User Checking -->
+    <aura:attribute name="loggedIn" type="Boolean" default="false"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="contact" type="Contact"/>
+    <!-- For Logged In User Checking End -->
+    
+    <aura:attribute name="intakeQuestions" type="List" />
+    <aura:attribute name="selTabId" type="string" default="Primary Reason for Visit" />
+    
+    <aura:attribute name="intakeTypesList" type="List" />
+    <aura:attribute name="intakeTypes" type="Map" />
+    <aura:attribute name="intakeTypesCounter" type="Map" />
+    <aura:attribute name="back" type="Boolean" />
+    <aura:attribute name="next" type="Boolean" />
+    <aura:attribute name="submit" type="Boolean" />
+    <aura:attribute name="submitted" type="Boolean" default="false"/>
+    
+    
+    
+    <!-- refenced by -->
+    <aura:attribute name="contactAvailability" type="string" />
+    <aura:attribute name="practiceManagementId" type="string" />
+    <aura:attribute name="selectedTimeZone" type="string" />
+    
+    <div>
+        <div class="intake-page">
+            <div class="intake-form">
+                <!-- Submittted Intake Form-->
+                <aura:if isTrue="{!v.submitted == true}">
+                    <center>Appointment Succesfully Scheduled. <br />
+                    Confirmation have been sent to your email.</center>
+                    <aura:set attribute="else">
+                        <!--<aura:iteration items="{!v.surveyQuestions}" var="sq">
+                            <div>
+                            </div>
+                            <aura:if isTrue="{!sq.Question_Type__c == 'Text'}">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label"></label>
+                                    <div class="slds-form-element__control">
+                                        <input type="text" required="true"  id="{!sq.Id}" class="slds-input" name="{!sq.Id}" question="{!sq.Description__c}" placeholder="{!sq.Description__c}" data-question-id="{!sq.Id}" onchange="{!c.handleOnClick}"/>
+                                    </div>
+                                    <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}"  aura:id="{!'data-error-id='+sq.Id" id="{!'data-error-id='+sq.Id}">
+                                        This field is required
+                                    </div>
+                                    <hr />
+                                </div>
+                            </aura:if>
+                            
+                            <aura:if isTrue="{!sq.Question_Type__c == 'Radio2'}">
+                                <fieldset id="{!sq.Id}" required="true">
+                                    <legend class="slds-form-element__legend slds-form-element__label">{!sq.Description__c}</legend>
+                                    <div class="slds-form-element__control">
+                                        <aura:iteration items="{!sq.options}" var="op">
+                                            <span class="slds-radio">
+                                                <input type="radio" id="{!sq.Id+op}" value="{!op}" name="{!sq.Id}" question="{!sq.Description__c}" required="true" data-question-id="{!sq.Id}" onclick="{!c.handleOnClick}"/>
+                                                <label class="slds-radio__label" for="{!sq.Id+op}">
+                                                    <span class="slds-radio_faux"></span>
+                                                    <span class="slds-form-element__label">{!op}</span>
+                                                </label>
+                                            </span>
+                                        </aura:iteration>
+                                        <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}" aura:id="{!'data-error-id='+sq.Id" id="{!'data-error-id='+sq.Id}">
+                                            This field is required
+                                        </div>
+                                        <hr />
+                                    </div>
+                                </fieldset>
+                            </aura:if>
+                            
+                            <aura:if isTrue="{!sq.Question_Type__c == 'Radio3'}" >
+                                <fieldset id="{!sq.Id}" class="slds-form-element multiselect" required="true">
+                                    <legend class="slds-form-element__legend slds-form-element__label">{!sq.Description__c}</legend>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-checkbox_button-group">
+                                            <aura:iteration items="{!sq.options}" var="op">
+                                                <span class="slds-button slds-checkbox_button">
+                                                    <input type="checkbox" id="{!sq.Id+op}" value="{!op}" name="{!sq.Id}" question="{!sq.Description__c}" required="true" data-question-id="{!sq.Id}" onclick="{!c.handleOnClick}"/>
+                                                    <label class="slds-checkbox_button__label" for="{!sq.Id+op}">
+                                                        <span class="slds-checkbox_faux">{!op}</span>
+                                                    </label>
+                                                </span>
+                                            </aura:iteration>
+                                        </div>
+                                        <br />
+                                        <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}"  aura:id="{!'data-error-id='+sq.Id" id="{!'data-error-id='+sq.Id}">
+                                            This field is required
+                                        </div>
+                                        <hr />
+                                    </div>
+                                </fieldset>
+                            </aura:if>
+                            <aura:if isTrue="{!sq.Question_Type__c == 'Radio'}">
+                                <fieldset id="{!sq.Id}" required="true">
+                                    <legend class="slds-form-element__legend slds-form-element__label">{!sq.Description__c}</legend>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-radio_button-group">
+                                            <aura:iteration items="{!sq.options}" var="op">
+                                                <span class="slds-button slds-radio_button">
+                                                    <input type="radio" id="{!sq.Id+op}" value="{!op}" name="{!sq.Id}" question="{!sq.Description__c}" required="true" data-question-id="{!sq.Id}" onclick="{!c.handleOnClick}"/>
+                                                    <label class="slds-radio_button__label" for="{!sq.Id+op}">
+                                                        <span class="slds-radio_faux">{!op}</span>
+                                                    </label>
+                                                </span>
+                                            </aura:iteration>
+                                        </div>
+                                        <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}" aura:id="{!'data-error-id='+sq.Id" id="{!'data-error-id='+sq.Id}">
+                                            This field is required
+                                        </div>
+                                        <hr />
+                                    </div>
+                                </fieldset>
+                            </aura:if>
+                            
+                            <aura:if isTrue="{!sq.Question_Type__c == 'Picklist'}">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label">{!sq.Description__c}</label>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-select_container" onchange="{!c.handleOnClick}">
+                                            <select name="{!sq.Id}" question="{!sq.Description__c}" class="slds-select" data-question-id="{!sq.Id}" id="{!sq.Id}" required="true">
+                                                <option value="">Please select</option>
+                                                <aura:iteration items="{!sq.options}" var="op">
+                                                    <option value="{!op}">{!op}</option>
+                                                </aura:iteration>
+                                            </select>
+                                        </div>
+                                        <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}" aura:id="{!'data-error-id='+sq.Id}" id="{!'data-error-id='+sq.Id}">
+                                            This field is required
+                                        </div>
+                                        <hr />
+                                    </div>
+                                </div>
+                            </aura:if>
+                        </aura:iteration> -->
+                        
+                        <aura:if isTrue="{!v.loggedIn}">
+                            <lightning:tabset selectedTabId="{!v.selTabId}" >
+                                <aura:iteration items="{!v.intakeQuestions}" var="intakeType" indexVar="key">
+                                    <lightning:tab label="{!intakeType.key}" id="{!intakeType.key}" aura:id="{!intakeType.key1}">
+                                        <div class="{!intakeType.key1}">
+                                            <div class="intake-type">
+                                                <div class="intake-title">{!intakeType.key}</div>
+                                                <hr />
+                                                <div class="intake-desc">{!intakeType.desc}</div>
+                                            </div>
+                                            <aura:iteration items="{!intakeType.value}" var="sq">
+                                                <aura:if isTrue="{!sq.Question_Type__c == 'Radio'}">
+                                                    <!--<fieldset id="{!sq.Id}" required="{!sq.Required__c}">
+                                                <legend class="slds-form-element__legend slds-form-element__label">{!sq.Description__c}</legend>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-radio_button-group">
+                                                        <aura:iteration items="{!sq.options}" var="op">
+                                                            <span class="slds-button slds-radio_button">
+                                                                <input type="radio" id="{!sq.Id+op}" value="{!op}" name="{!sq.Id}" question="{!sq.Description__c}" required="{!sq.Required__c}" data-question-id="{!sq.Id}" onclick="{!c.handleOnClick}"/>
+                                                                <label class="slds-radio_button__label" for="{!sq.Id+op}">
+                                                                    <span class="slds-radio_faux">{!op}</span>
+                                                                </label>
+                                                            </span>
+                                                        </aura:iteration>
+                                                    </div>
+                                                    <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}" aura:id="{!'data-error-id='+sq.Id" id="{!'data-error-id='+sq.Id}">
+                                                        This is required
+                                                    </div>
+                                                </div>
+                                                    <hr />
+                                            </fieldset>-->
+                                                    <fieldset id="{!sq.Id}" required="{!sq.Required__c}" class="slds-form-element">
+                                                        <legend class="slds-form-element__legend slds-form-element__label">{!sq.Description__c}<aura:if isTrue="{!sq.Required__c}">*</aura:if></legend>
+                                                        <div class="slds-form-element__control default-control">
+                                                            <aura:iteration items="{!sq.options}" var="op">
+                                                                <span class="slds-radio">
+                                                                    <input type="radio"  id="{!sq.Id+op}" value="{!op}" name="{!sq.Id}" question="{!sq.Description__c}" required="{!sq.Required__c}" data-question-id="{!sq.Id}" onclick="{!c.handleOnClick}"/>
+                                                                    <label class="slds-radio__label" for="{!sq.Id+op}">
+                                                                        <span class="slds-radio_faux"></span>
+                                                                        <span class="slds-form-element__label">{!op}</span>
+                                                                    </label>
+                                                                </span>
+                                                            </aura:iteration>
+                                                            <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}" aura:id="{!'data-error-id='+sq.Id" id="{!'data-error-id='+sq.Id}">
+                                                                This is required
+                                                            </div>
+                                                        </div>
+                                                        <hr />
+                                                    </fieldset>
+                                                </aura:if>
+                                                <aura:if isTrue="{!sq.Question_Type__c == 'Text'}">
+                                                    <div class="slds-form-element">
+                                                        <label class="slds-form-element__label">{!sq.Description__c}<aura:if isTrue="{!sq.Required__c}">*</aura:if></label>
+                                                        <div class="slds-form-element__control">
+                                                            <input type="text" required="{!sq.Required__c}"  id="{!sq.Id}" class="slds-input" name="{!sq.Id}" question="{!sq.Description__c}" placeholder="Your Answer" data-question-id="{!sq.Id}" onchange="{!c.handleOnClick}"/>
+                                                            <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}"  aura:id="{!'data-error-id='+sq.Id" id="{!'data-error-id='+sq.Id}">
+                                                                This is required
+                                                            </div>
+                                                        </div>
+                                                        <hr />
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!sq.Question_Type__c == 'Picklist'}">
+                                                    <div class="slds-form-element">
+                                                        <label class="slds-form-element__label">{!sq.Description__c}<aura:if isTrue="{!sq.Required__c}">*</aura:if></label>
+                                                        <div class="slds-form-element__control">
+                                                            <div class="slds-select_container" onchange="{!c.handleOnClick}">
+                                                                <select name="{!sq.Id}" question="{!sq.Description__c}" class="slds-select" data-question-id="{!sq.Id}" id="{!sq.Id}" required="{!sq.Required__c}">
+                                                                    <option value="">Please select</option>
+                                                                    <aura:iteration items="{!sq.options}" var="op">
+                                                                        <option value="{!op}">{!op}</option>
+                                                                    </aura:iteration>
+                                                                </select>
+                                                            </div>
+                                                            <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}" aura:id="{!'data-error-id='+sq.Id}" id="{!'data-error-id='+sq.Id}">
+                                                                This is required
+                                                            </div>
+                                                            <hr />
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!sq.Question_Type__c == 'MultiSelect'}" >
+                                                    <fieldset id="{!sq.Id}" class="slds-form-element multiselect" required="{!sq.Required__c}">
+                                                        <legend class="slds-form-element__legend slds-form-element__label">{!sq.Description__c}<aura:if isTrue="{!sq.Required__c}">*</aura:if></legend>
+                                                        <div class="slds-form-element__control">
+                                                            <div class="slds-checkbox_button-groups">
+                                                                <aura:iteration items="{!sq.options}" var="op">
+                                                                    <span class="slds-button slds-checkbox_buttons">
+                                                                        <input type="checkbox" id="{!sq.Id+op}" value="{!op}" name="{!sq.Id}" question="{!sq.Description__c}" required="{!sq.Required__c}" data-question-id="{!sq.Id}" onclick="{!c.handleOnClick}"/>
+                                                                        <label class="slds-checkbox_button__labels" for="{!sq.Id+op}">
+                                                                            <span class="slds-checkbox_fauxs">{!op}</span>
+                                                                        </label>
+                                                                    </span>
+                                                                </aura:iteration>
+                                                            </div>
+                                                            <br />
+                                                            <div style="display:none;color:#c23934;" data-error-id="{!sq.Id}"  aura:id="{!'data-error-id='+sq.Id" id="{!'data-error-id='+sq.Id}">
+                                                                This is required
+                                                            </div>
+                                                            <hr />
+                                                        </div>
+                                                    </fieldset>
+                                                </aura:if>
+                                            </aura:iteration>
+                                        </div>
+                                    </lightning:tab>
+                                </aura:iteration>
+                            </lightning:tabset>
+                            
+                            <div class="slds-clearfix">
+                                <!--disabled the back button on first Tab-->    
+                                <lightning:button disabled="{!v.back}" variant="neutral" label="Back" onclick="{!c.back}" />
+                                
+                                <lightning:button variant="brand" label="Continue" onclick="{!c.next}" disabled="{!v.next}"/>
+                                <aura:if isTrue="{!not(v.submit)}">
+                                    <button class="slds-button slds-button_brand" onclick="{!c.handleSubmit}" disabled="{!v.submit}" style="">Submit</button>
+                                </aura:if>
+                            </div>  
+                        </aura:if>
+                        
+                    </aura:set>
+                </aura:if>
+            </div>
+        </div>
+    </div>
+</aura:component>

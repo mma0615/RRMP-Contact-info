@@ -1,0 +1,16 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="CCEHeroController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute type="String" name="eventId" default="" />
+    <aura:attribute name="surveyPageTitle" type="String"/>
+    <div class="survey-section">
+        <div>
+            <div class="float-left">
+                <div class="survey-section-title font-section-header no-min-max-height">{!v.surveyPageTitle}</div>
+            </div>
+            <div class="survey-container-outer">
+                <c:surveyDetails/>
+            </div>
+        </div>		
+    </div>
+    <div class="clear-section"></div>
+</aura:component>

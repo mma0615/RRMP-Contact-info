@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Mass Email Message Preview</masterLabel>
+    <description>Mass Email Flow&apos;s First Screen</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="emailTemplateId" type="String" label="Email Template Id" description="Email Template's Id"/>
+            <property name="sender" type="String" label="Sender Email" description="Org Wide Email Address"/>
+            <property name="subject" type="String" label="Subject" description="Email's Subject"/>
+            <property name="emailBody" type="String" label="Email Body" description="Email's Body"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

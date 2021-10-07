@@ -1,0 +1,6 @@
+<apex:component access="global" controller="EventConfirmationController">{!FormattedDatetime}
+    <apex:attribute assignTo="{!campaignOwnerId}" description="Campaign Owner Id" name="campaign_owner_id" type="String" default=""></apex:attribute>
+    <apex:attribute assignTo="{!campaignId}" description="Campaign Id" name="campaign_id" type="String" default=""></apex:attribute>
+    <apex:attribute assignTo="{!defined_format}" description="The optional format to use for the DateTime value to be rendered" name="date_time_format" type="String" default=""></apex:attribute>
+    <apex:attribute assignTo="{!startOrEndDate}" description="To display start date, put start, for end date, put end" name="startOrEnd" type="String" default=""></apex:attribute>
+</apex:component>

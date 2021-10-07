@@ -1,0 +1,9 @@
+<design:component label="Email Summary">
+	<design:attribute name="recordId" label="Campaign/Journey Id" />
+   <design:attribute name="orgWideEmailAddressRecord" label="OrgWideEmailAddress Record" />
+   <design:attribute name="contactIdList" label="Recipient's ContactId List" />
+   <design:attribute name="ccRecipients" label="CC Recipients List" />
+   <design:attribute name="bccRecipients" label="BCC Recipients List" />
+   <design:attribute name="subject" label="Subject" />
+   <design:attribute name="emailBody" label="Email Body" />
+</design:component>

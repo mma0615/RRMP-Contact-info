@@ -1,0 +1,3 @@
+<apex:page lightningStylesheets="true" standardController="Compass_Setting__c" extensions="CompassSettingController" action="{!constructParams}">
+     <apex:detail subject="{!Compass_Setting__c.Id}" relatedList="true" inlineEdit="true"/> 
+</apex:page>

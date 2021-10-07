@@ -1,0 +1,508 @@
+/** Navigation Menu **/
+/** ------------------------------------ **/
+/** ------------------------------------ **/
+
+.THIS .compass-topnav {
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    border-bottom-style: solid;
+    border-bottom-color: #0083C1;
+    border-bottom-width: 10.5px;
+    height: 139px;
+}
+
+.THIS  .compass-topnav-right a {
+    float: left;
+    color: #333333;
+    text-align: center;
+    padding: 14px 25px;
+    text-decoration: none;
+    font-size: 14px;
+    height: 100%;
+    line-height : 100px;
+    
+}
+
+.THIS .compass-topnav-right a:hover span {
+    border-bottom: 2px solid;
+    padding-bottom: 2px;
+}
+
+.THIS  .compass-topnav-right {
+    float: right;
+    height: 100%;
+}
+
+/** Login  Section  **/
+/** ------------------------------------ **/
+/** ------------------------------------ **/
+
+.THIS .compass-topnav-profile-card {
+    vertical-align: middle;
+    display: inline-block;
+}
+.THIS .compass-topnav-profile {
+    float: left;
+    text-align: center;
+    padding: 14px 25px;
+    text-decoration: none;
+    height: 100%;
+    margin-left: 1rem;
+}
+
+.THIS  .compass-topnav-login {
+    float: left;
+    text-align: center;
+    padding: 14px 25px;
+    text-decoration: none;
+    height: 100%;
+}
+
+.THIS .compass-topnav-profile-FirstName {
+    text-align: right;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 0px;
+    color: #003B71;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+.THIS .compass-topnav-profile-LastName {
+    text-align: right;
+    font-weight: bold;
+    font-size: 16px;
+    color: #003B71;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+
+.THIS .compass-topnav-login-button {
+    background-color: #93D500; 
+    box-shadow: 0px 3px 6px #5f5f5f;
+    border-radius: 5px;    
+    border: none;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    height: 35px;
+    width: 100px;
+    margin-right: 3rem;
+    margin-left: 2rem;
+    
+}
+
+.THIS .compass-topnav-login-button:hover{
+    background-color: #6c9c03;
+}
+
+.THIS .compass-topnav-submit-card {
+    text-align: center;
+}
+
+.THIS .compass-topnav-submit-button {
+    background-color: #FFAE5E; 
+    box-shadow: 0px 3px 6px #5f5f5f;
+    border-radius: 5px;    
+    border: none;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    height: 35px;
+    width: 100px;
+}
+
+.THIS .compass-topnav-submit-button:hover{
+    background-color: #d39352; 
+}
+
+.THIS .compass-topnav-login-dropdown {
+    display: block;
+    position: absolute;
+    background-color: #ffffff;
+    width: 420px;
+    height: 209px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 15px 0px 15px 15px;
+    opacity: 1;
+    left: auto;
+    right: 4.5rem;
+    margin-top: 100px;
+    border: 2px solid #CBCBCB;
+    margin-right: 16px; 
+    padding : 15px 10px;
+    z-index: 5002;
+}
+.THIS .compass-topnav-login-dropdown-inactive {
+    display: none;
+}
+
+.THIS .compass-topnav-login-dropdown-login-txt {
+    color: #0072A8;
+    font: normal normal bold 24px/34px Calibri;
+    text-align: center;
+}
+
+.THIS .compass-topnav-login-dropdown-email-txt {
+    text-align: left;
+    font: normal normal bold 18px/22px Calibri;
+    letter-spacing: 0px;
+    color: #707070;
+    opacity: 1;
+    font-size: 18px;
+}
+
+.THIS .compass-topnav-login-dropdown-email-input {
+    height: 42px;
+    width: 100%;
+    background: #e9e9e9 0% 0% no-repeat padding-box;
+    border: 1px solid #585858;
+    border-radius: 15px;
+    opacity: 1;
+    margin: 1rem 0;
+    font-size: 18px;
+    padding : 0 1rem;
+}
+
+.THIS .compass-topnav-event-profile-img {
+    vertical-align: middle;
+    border-radius: 50%;
+    height: 47.55px;
+    width: 47.55px;
+    object-fit: cover; 
+    object-position: center; 
+    margin : 0 1rem;
+}
+
+/** -----------------------------------  **/
+
+.THIS .compass-topnav-photo-dropdown {
+    display: block;
+    position: absolute;
+    background-color: #ffffff;
+    /**width: 193px;
+    height: 125px;**/
+    width: 350px;
+    height: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 15px 0px 15px 15px;
+    opacity: 1;
+    left: auto;
+    right: 2.5rem;
+    margin-top: 100px;
+    border: 2px solid #CBCBCB;
+    margin-right: 16px; 
+    padding : 1rem 1.5rem;
+    z-index: 5004;
+}
+.THIS .compass-topnav-photo-dropdown-inactive {
+    display: none;
+}
+
+.THIS .compass-topnav-photo-dropdown-menu-txt {
+    font-size: 18px;
+    margin-bottom: 0.5rem;
+}
+
+.THIS .compass-topnav-photo-dropdown-menu-txt:hover {
+    color: rgb(173, 173, 173);
+}
+
+.THIS .name-modal {
+    /**display: none !important;**/
+    margin : 0 !important;
+}
+
+.THIS .menu-layout {
+    padding: 0 !important;
+    margin: 0 !important;
+    
+}
+
+.THIS .sign-out-button {
+    display: none !important;
+}
+
+.THIS .contact-us-link {
+    display: none !important;
+}
+/** Logo **/
+/** ------------------------------------ **/
+/** ------------------------------------ **/
+
+.THIS .compass-topnav-event-logo {
+    padding : 15px 10px;
+    float: left;
+    color: white;
+    height: 100%;
+    text-align: center;
+    max-width: 20%;
+}
+
+.THIS .compass-topnav-event-logo-img {
+    vertical-align: middle;
+    height: 100%;
+}
+
+.THIS .compass-topnav-logo {
+    float: left;
+    background-color: #011E41;
+    color: white;
+    height: 100%;
+    width: 102px;
+    text-align: center;
+}
+
+.THIS .compass-topnav-logo-img {
+    width: 102px;
+    vertical-align: middle;
+}
+
+.THIS .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+
+
+/** Mobile Logo **/
+.THIS .compass-topnav-burger-img {
+    width: 25px;
+    margin : 0 25px;
+}
+
+.THIS .compass-topnav-mobile-menu {
+    position: fixed;
+    background-color: #ffffff;
+    width: 261px;
+    height: 100vh;
+    opacity: 1;
+    top: 0;
+    right: 0;
+    z-index: 5001;
+}
+
+.THIS .compass-topnav-mobile-menu-a {
+    height: 48px !important;
+    width: 100% !important;
+    color: #2A2B2D !important;
+    opacity: 1 !important;
+    line-height: 50px !important;
+    text-align: left !important;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding-left: 25px;
+    font-weight: bolder;
+}
+
+.THIS .compass-topnav-mobile-menu-a:hover {
+    background-color: #e7e7e7!important;
+    color: #2A2B2D !important;
+}
+
+
+
+.THIS .compass-topnav-mobile-menu-background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5000;
+}
+
+.THIS .compass-topnav-mobile-menu-main {
+    height: 149px;
+    background: #001733;
+    padding-left: 25px;
+}
+
+.THIS .compass-topnav-event-profile-img-mobile {
+    vertical-align: middle;
+    height: 60px;
+    width: 60px;
+    object-fit: cover; 
+    object-position: center; 
+    border-radius: 50%;
+    margin-right: 6rem;
+    background-color: white;
+}
+
+.THIS .compass-topnav-mobile-menu-avatar {
+    padding-top: 30px;
+}
+
+.THIS .compass-topnav-mobile-menu-name {
+    padding-top: 10px;
+    font-size: 20px;
+    color: white;    
+}
+
+/** Mobile Logo **/
+.THIS .compass-topnav-cancel-img {
+    width: 25px;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+}
+
+.THIS .compass-topnav-burger {
+    display: none;
+}
+
+.THIS .compass-topnav-mobile-menu-login {
+    position: fixed;
+    top: 90px;
+    right: 186px;
+}
+
+
+.THIS .compass-topnav-event-mobile-footer-img {
+    height: 56px;
+    width: 141px;
+    margin: auto;
+}
+
+.THIS .compass-topnav-event-mobile-footer {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 30px;
+    right: 56px;
+}
+
+/** Smaller Screen **/
+@media only screen 
+and (min-device-width : 1201px) 
+and (max-device-width : 1375px){ 
+    .THIS  .compass-topnav-right a  {
+        padding: 10px 10px;
+    }
+}
+
+/** Tablet **/
+@media only screen 
+and (min-device-width : 1000px) 
+and (max-device-width : 1200px){ 
+    .THIS  .compass-topnav-right a  {
+        padding: 5px 5px;
+    }
+
+
+}
+
+
+/** Tablet **/
+@media only screen 
+and (min-device-width: 481px) 
+and (max-device-width: 1024px) 
+and (-webkit-min-device-pixel-ratio: 2) {
+    
+    .THIS .hide-mobile {
+        display: none;
+    }
+
+    .THIS .compass-topnav-profile {
+        display: none;
+    }
+
+    .THIS  .compass-topnav-right a  {
+        padding: 10px 10px;
+
+    }
+
+    .THIS .compass-topnav-burger {
+        display: block;
+    }
+
+    .THIS .compass-topnav-logo {
+        display: block;
+    }
+
+    .THIS .compass-topnav-login {
+        display: none;
+    }
+
+    .THIS .compass-topnav-login-dropdown {
+        margin-top: 150px;
+        width: 300px;
+        height: 209px;
+        right: 10px;
+        z-index: 5002;
+    }
+
+    .THIS .compass-topnav-photo-dropdown {
+        width: 300px;
+        height: 250px;
+        margin-top: 150px;
+        right: 10px;
+        z-index: 5004;
+    }
+    .THIS .compass-topnav-event-logo {
+        max-width: unset;
+    }
+
+}
+
+
+
+/** Phone **/
+@media screen and (max-device-width: 640px) { 
+
+    .THIS .compass-topnav-event-logo-img {
+        height: 100%;
+    }
+    .THIS .hide-mobile {
+        display: none;
+    }
+
+    .THIS .compass-topnav-profile {
+        display: none;
+    }
+
+    .THIS  .compass-topnav-right a  {
+        padding: 10px 10px;
+
+    }
+
+    .THIS .compass-topnav-burger {
+        display: block;
+    }
+
+    .THIS .compass-topnav-logo {
+        display: none;
+    }
+
+    .THIS .compass-topnav-login {
+        display: none;
+    }
+
+    .THIS .compass-topnav-login-dropdown {
+        margin-top: 150px;
+        width: 300px;
+        height: 209px;
+        right: 10px;
+        z-index: 5002;
+    }
+
+    .THIS .compass-topnav-photo-dropdown {
+        width: 300px;
+        height: 250px;
+        margin-top: 150px;
+        right: 10px;
+        z-index: 5004;
+    }
+    .THIS .compass-topnav-event-logo {
+        max-width: 70%;
+    }
+}

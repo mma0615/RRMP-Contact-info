@@ -1,0 +1,81 @@
+<aura:component description="DSF_MyToDoList_GPAException_Topic">
+
+    <aura:attribute name="completeTheGPAExceptionForm" type="String"/>
+    <aura:attribute name="GPAExceptionFormLinkText" type="String"/>
+    <aura:attribute name="GPAExceptionURL" type="String"/>
+    <aura:attribute name="submitCollegeTranscriptGPAException" type="String"/>
+    <aura:attribute name="contact" type="Object"/>
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="pendingReviewLabel" type="String" />
+    <aura:attribute name="dsfConfig" type="Object"/>
+    <aura:attribute name="isBetweenDates" type="Boolean" default="true"/>
+    <aura:attribute name="uploadedOn" type="String"/>
+    <aura:attribute name="taskCompletedOn" type="String"/>
+    <aura:attribute name="today" type="String"/>
+    <aura:attribute name="gpaExceptionCaseSubject" type="String"/>
+
+    <aura:handler name="change" value="{!v.dsfConfig}" action="{!c.checkDates}" />
+    <aura:handler name="DSF_FileUploadFinished" event="c:DSF_FileUploadFinished" action="{!c.onUploadFinished}"/>
+    <aura:registerEvent name="updateAppEvent" type="c:DSF_MyToDoLis_ApplicationUpdateEVT"/>
+
+    <lightning:overlayLibrary aura:id="gpaExceptionFileUploader"/>
+
+    <lightning:navigation aura:id="navService" />
+
+    <aura:if isTrue="{!v.isBetweenDates}">
+        <aura:if isTrue="{!or(v.application.App_Status_Detail__c == 'Ineligible - GPA below threshold for college selection (Community College)', v.application.App_Status_Detail__c == 'Ineligible - GPA below threshold for college selection (4-year college)')}">
+            <aura:if isTrue="{!or(
+                                or(and(lessthan(v.contact.Highest_Cumulative_HS_GPA__c, 2.5), or(v.application.College_Type__c == '4 Year College', v.application.College_Type__c == 'Community College'))),
+                                and(lessthan(v.contact.Highest_Cumulative_HS_GPA__c, 2.75), and(v.application.College_Type__c == '4 Year College', v.application.HS_GPA_Waiver_Form_Submission_Date__c == null))
+                                )}">
+
+                <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                    <c:DSF_FormCircle checked="false"/>
+                    <div class="slds-p-left_medium toDoList-item">
+                        <span>{!v.completeTheGPAExceptionForm}&nbsp;<a onclick="{!c.navigateToGPAExceptionURL}">{!v.GPAExceptionFormLinkText}</a></span>
+                    </div>
+                </div>
+
+            </aura:if>
+        </aura:if>
+
+        <aura:if isTrue="{!v.application.High_School_GPA_Waiver_Form__c == 'Yes - Incomplete'}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                 <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <span>
+                        {!v.submitCollegeTranscriptGPAException}&nbsp;
+                        <a href="" tabindex="-1" style="text-decoration: none;" onclick="{!c.showFileUploader}">
+                            <img src="{!$Resource.DSF_Resources + '/upload-icon.png'}"/>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.application.High_School_GPA_Waiver_Form__c == 'Yes - Pending'}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    {!v.submitCollegeTranscriptGPAException}
+                    <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                        {!v.uploadedOn}&nbsp;<lightning:formattedDateTime value="{!v.application.HS_GPA_Waiver_Transcript_Submission_Date__c}"/>&nbsp;{!v.pendingReviewLabel}
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.application.High_School_GPA_Waiver_Form__c == 'Yes - Approved'}">
+            <div data-isPending="false" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="true"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <span>{!v.completeTheGPAExceptionForm}&nbsp;{!v.GPAExceptionFormLinkText}</span>
+                    <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                        {!v.taskCompletedOn}&nbsp;<lightning:formattedDateTime value="{!v.application.HS_GPA_Waiver_Transcript_Submission_Date__c}"/>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+    </aura:if>
+
+</aura:component>

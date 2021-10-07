@@ -1,0 +1,164 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="CommunityIssueController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute type="String" name="eventId" default="" /> <!--Event__Id__c-->
+    <aura:attribute type="String" name="contactId" default="" /> <!--Event__Id__c-->
+    <aura:attribute type="String" name="eventRecordId" default="" /><!--Event.Id-->
+    <aura:attribute type="String" name="eventName" default="" />
+    <aura:attribute type="String" name="firstname" default="" />
+    <aura:attribute type="String" name="lastname" default="" />
+    <aura:attribute type="String" name="email" default="" />
+    <aura:attribute type="String" name="phone" default="" />
+    <aura:attribute type="String" name="description" default="" />
+    <aura:attribute type="String" name="location" default="" />
+    <aura:attribute type="String" name="session" default="" />
+    <aura:attribute type="String" name="type" default="" />
+    <aura:attribute type="Boolean" name="showSpinner" default="false" />
+    <aura:attribute type="List" name="sessionList" default="" />
+    <aura:attribute type="List" name="types" default="" />
+    <aura:attribute type="Object" name="parkingLots" default="" />
+    <aura:attribute type="String" name="selectedSessionId"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="Object" default="[]"/>
+    
+    <aura:attribute type="String" name="commentTag" default="" />
+    <aura:attribute type="String" name="commentMessage" default="" />
+    <aura:attribute name="issueTrackerPageTitle" type="String"/>
+    
+    <div>
+        <div class="contactus-section">
+            <aura:if isTrue="{!v.showSpinner}">
+                <div class="spinnerHolder">
+                    <lightning:spinner alternativeText="Loading" size="small" />
+                </div>
+                
+                <aura:set attribute="else">
+                    <div class="float-left first">
+                        <div class="contactus-section-title font-section-header no-min-max-height">{!v.issueTrackerPageTitle}</div>
+                    </div>
+                    <div class="slds-grid slds-wrap contactus-container-outer">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                            <div class="contactus-detail">
+                                <!--//commented 0201231 JL bug fix#00641:Events - Parking Lot Item Entry -->
+                                <!-- START -->
+                                <!--
+                            <div class="font-header">
+                                {!v.eventName}
+                            </div>
+                            <div class="font-body">
+                                <aura:if isTrue="{!v.location}">
+                                Location: {!v.location}
+                                </aura:if>
+                                <aura:if isTrue="{!v.session}">
+                                    <br/>
+                                    Session:  {!v.session.sessionName}
+                                </aura:if>
+                                
+                            </div>
+                            <br/>
+                            -->
+                                <!--END-->
+                                <div class="font-header">
+                                    {!v.commentTag}
+                                </div>
+                                <div class="font-body">
+                                    {!v.commentMessage}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                            <form action="/action_page.php" class="contactus-form">
+                                <!-- START //commented 0201231 JL bug fix#00641:Events - Parking Lot Item Entry -->
+                                <!-- Email -->
+                                <div>
+                                    <label for="email">Email *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:input label="hidden" type="email" id="email" name="email" value="{!v.email}" placeholder="john.doe@gmail.com" required="true" aura:id="contactUsForm" variant="label-hidden"/>
+                                </div>
+                                
+                                <!-- Session -->
+                                <div>
+                                    <label for="session">Session *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:select label="hidden" name="session" aura:id="sessionInput"  required="true"  variant="label-hidden" onchange="{!c.handleSessionChange}">
+                                        <option value="">------</option>
+                                       <aura:iteration items="{!v.sessionList}" var="session">
+                                            <option value="{!session.recordId}" selected="{!session.selected}" text="{!session.sessionFullName}"></option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                                
+                                <!-- Type -->
+                                <div>
+                                    <label for="Type">Issue Type *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:select label="hidden" name="type" value="{!v.type}" aura:id="typeInput"  required="true"  variant="label-hidden">
+                                        <option value="">-----</option>
+                                        <aura:iteration items="{!v.types}" var="type">
+                                            <option value="{!type}">{!type}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </div>
+                                
+                                <!-- Description -->
+                                <div>
+                                    <label for="subject">Description *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:textarea label="hidden" id="description" name="description" value="{!v.description}" placeholder="Description" required="true" aura:id="contactUsForm" variant="label-hidden"/>
+                                </div>
+                                
+                                <div class="input-text">
+                                    <div class="btn-base btn-submit" onclick="{!c.handleSubmit}">Submit</div>
+                                </div>
+                                <!-- END //commented 0201231 JL bug fix#00641:Events - Parking Lot Item Entry -->
+                            </form> 
+                        </div>
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div> 
+    </div>
+    <div>
+        
+        <aura:if  isTrue="{!not($Browser.isPhone)}" >
+            <div class="parkinglot-table">
+                <lightning:datatable aura:id="dtTable"
+                                     columns="{! v.columns }"
+                                     data="{! v.parkingLots }"
+                                     keyField="Id"
+                                     errors="{! v.errors }"                                    
+                                     hideCheckboxColumn  = "true"
+                                     wrapTextMaxLines="10"
+                                     />
+            </div> 
+        </aura:if>
+        
+        <aura:if  isTrue="{!$Browser.isPhone}" >
+            <div class="mobile-p-table">
+                <aura:iteration items="{!v.parkingLots}" var="parkingLot">
+                    <div class="mobile-parkinglot-table">
+                        <div class="parkinglot-header">
+                            <span>Issue ID<br />{!parkingLot.Name}</span>
+                        </div>
+                        <div class="parkinglot-info">
+                            <div class="info-title"><b>Session:</b> {!parkingLot.Session_Name}</div>
+                            <br/>
+                            <div class="info-title"><b>Type:</b> {!parkingLot.Type__c}</div>
+                            <br/>
+                            <div class="info-title"><b>Description:</b> {!parkingLot.Description__c}</div>
+                            <br/>
+                            <div class="info-title"><b>Resolution/Answer:</b> {!parkingLot.Resolution_Answer__c}</div>
+                            <br/>
+                            <div class="info-title"><b>Status:</b> {!parkingLot.Status__c}</div>
+                        </div>
+                    </div>
+                </aura:iteration>
+            </div>
+        </aura:if>
+       
+    </div> 
+</aura:component>

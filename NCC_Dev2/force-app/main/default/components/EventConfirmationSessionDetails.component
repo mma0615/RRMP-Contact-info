@@ -1,0 +1,30 @@
+<apex:component controller="EventConfirmationController" access="global">
+
+    <apex:attribute assignTo="{!campaignMemberId}"
+                    name="cpMemberId" type="String"
+                    access="global"
+                    description="Id of the campaign member that receives the email" default=""/>
+
+        <apex:dataTable value="{!Sessions}" var="s">
+            <apex:column style="padding-right: 8px; width: 150px">
+                <apex:facet name="header"><span style="font-weight: bold; text-align: center">Session Name</span></apex:facet>
+                <p style="text-align: center">{!s.Name}</p>
+            </apex:column>
+
+            <apex:column style="padding-right: 8px; width: 90px">
+                <apex:facet name="header"><span style="font-weight: bold; text-align: center">Date</span></apex:facet>
+                <p style="text-align: center">{!s.SessionDate}</p>
+            </apex:column>
+
+            <apex:column style="padding-right: 8px; width: 180px">
+                <apex:facet name="header"><span style="font-weight: bold; text-align: center">Time</span></apex:facet>
+                <p style="text-align: center">{!s.SessionTime}</p>
+            </apex:column>
+
+            <apex:column style="padding-right: 8px; width: 180px">
+                <apex:facet name="header"><span style="font-weight: bold; text-align: center">Location</span></apex:facet>
+                    <apex:outputText value="{!s.SessionLocation}" escape="false" style="text-align: center"/>
+            </apex:column>
+        </apex:dataTable>
+
+</apex:component>

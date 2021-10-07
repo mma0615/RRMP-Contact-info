@@ -1,0 +1,16 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="language" type="String" default="Español"/>
+    <aura:attribute name="languageShort" type="String" default="ES"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.checkLanguage}"/>
+
+    <div class="picker">
+        <aura:if isTrue="{!$Browser.formFactor == 'DESKTOP'}">
+            <a onclick="{!c.changeLanguage}">{!v.language}</a>
+            <aura:set attribute="else">
+                <a onclick="{!c.changeLanguage}">{!v.languageShort}</a>
+            </aura:set>
+        </aura:if>
+    </div>
+    
+</aura:component>

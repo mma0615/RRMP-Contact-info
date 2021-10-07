@@ -1,0 +1,18 @@
+<apex:page showHeader="true" sidebar="false" controller="HighSchoolContactListController">
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!contactList}" var="c">
+            <apex:column headerValue="Name">
+                <apex:outputLink value="/{!c.Id}">{!c.Name}</apex:outputLink>
+            </apex:column>
+            <apex:column value="{!c.Email}"/>
+            <apex:column value="{!c.MobilePhone}"/>
+            <apex:column value="{!c.MailingStreet}"/>
+            <apex:column value="{!c.MailingCity}"/>
+            <apex:column value="{!c.MailingState}"/>
+            <apex:column value="{!c.MailingPostalCode}"/>
+            <apex:column headerValue="School/Organization">
+                <apex:outputLink value="/{!c.accountId}">{!c.account.name}</apex:outputLink>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

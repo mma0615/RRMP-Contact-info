@@ -1,0 +1,26 @@
+<!--BY ANDREJA-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="icon"       type="String" default=""/>
+    <aura:attribute name="text"       type="String" default=""/>
+    <aura:attribute name="learn_more" type="String" default=""/>
+    <aura:attribute name="linkedText" type="String" default=""/>
+
+    <div class="slds-align_absolute-center slds-grid slds-gutters look">
+        <div class="slds-col slds-size_1-of-12 image-div-look">
+            <img class="image-look" src="{!$Resource.DSF_Resources + '/' + v.icon}" alternativeText="Image"/>
+        </div>
+        <div class="slds-col slds-size_12-of-12 slds-grid slds-wrap text-look">
+            <div class="slds-col slds-size_1-of-1 slds-wrap">
+                {!v.text}
+            </div>
+            <aura:if isTrue="{!and(v.learn_more != 'blank', v.learn_more != '')}">
+                <div class="slds-col lm-look">
+                    <a href="{!v.learn_more}" target="_blank">
+                        <img src="{!$Resource.DSF_Resources +'/learn-more-icon.png'}" alternativeText="Image"/> <p>{!v.linkedText}</p>
+                    </a>
+                </div>
+            </aura:if>
+        </div>
+    </div>
+    <br/>
+</aura:component>

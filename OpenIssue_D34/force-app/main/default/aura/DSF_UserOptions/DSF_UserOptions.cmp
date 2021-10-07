@@ -1,0 +1,32 @@
+<aura:component description="DSF_UserOptions:: Drop down options related for logged in user" implements="forceCommunity:availableForAllPageTypes">
+
+    <aura:attribute name="user" type="User"/>
+    <aura:attribute name="recordError" type="String"/>
+    <aura:attribute name="languageParam" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.checkParam}"/>
+
+    <c:DSF_UserLoader
+            output="{! v.user }"
+            userError="{! v.recordError }"
+            fields="Id,FirstName"
+    />
+    
+    <div style="display:inline-block; color: #E76E24; font-size: 16px; padding-top: 0.5vh;">{!v.user.FirstName}</div>
+
+    <div class="dropdown">
+        <div class="dropdown-content">
+            <a href="{! 'my-account' + v.languageParam}" style="padding-bottom: 1vh;">My Account</a> 
+            <aura:if isTrue="{!$Label.c.DSF_Student_Community_Instance == 'empty'}">
+                <a href="{! '/secur/logout.jsp'}">Log Out</a> 
+                <aura:set attribute="else">
+                    <a href="{! '/' + $Label.c.DSF_Student_Community_Instance + '/secur/logout.jsp'}">Log Out</a> 
+                </aura:set>
+            </aura:if>
+            
+        </div>
+
+        <div class="triangleIcon"></div>
+    </div>
+    
+</aura:component>

@@ -1,0 +1,20 @@
+.THIS .Topheader{
+    border-bottom:2px solid rgb(201, 199, 197); height:70px;text-align:center;
+}
+.THIS .header{
+    font-size: 2em;padding-top: 23px;
+}
+
+.THIS .slds-grid_vertical{
+    background:#ffffff;border:1px solid black
+}
+
+.THIS.changeStyle {
+    display:none;
+}
+.THIS.lightning-primitive-icon {
+    display: none;
+}
+.THIS.changeMe {
+   display:none;
+}

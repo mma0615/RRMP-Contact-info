@@ -1,0 +1,146 @@
+<!--
+  Created by ahasic on 10/15/19.
+ -->
+
+ <aura:component description="DSF_StudentDashboard" implements="forceCommunity:availableForAllPageTypes">
+    
+    <!-- TEST ATTRIBUTES - TO BE REMOVED -->
+    <aura:attribute name="universities" type="List" default="[]"
+    />      
+
+    <!-- MY STATUS SECTION -->    
+    <aura:attribute name="statusHeaderLabel" type="String" />
+    <aura:attribute name="statusBolded" type="String" />
+    <aura:attribute name="statusNormal" type="String" />
+    <aura:attribute name="applicationButtonStart" type="String" default="" />
+    <aura:attribute name="applicationButtonContinue" type="String" default="" />
+    <aura:attribute name="applicationButtonView" type="String" default="" />
+    <aura:attribute name="finalApplicationButtonLabel" type="String" default="" />
+    <aura:attribute name="applicationButtonURL" type="String" default="" />
+    <aura:attribute name="applicationButtonViewURL" type="String" default="" />
+    <aura:attribute name="applicationButtonViewURLRenewal" type="String" default="" />
+    <aura:attribute name="applicationButtonURLRenewal" type="String" default="" />
+    <aura:attribute name="finalApplicationButtonURL" type="String" default="" />
+    <!--added by SV-->
+     <aura:attribute name="applicationList" type="Object[]" default=""/>
+     <aura:attribute name="studentTermList" type="Object" default=""/>
+   <!--  <aura:attribute name="applicationId" type="String" />-->
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="studentTerm" type="Object"/>
+
+     <!-- MY COLLEGE CHOICE SECTION -->
+    <aura:attribute name="collegeHeaderChoiceLabel" type="String" />
+    <aura:attribute name="collegeBtnLabel" type="String" />
+    <aura:attribute name="collegeInfoLabel" type="String" />
+
+    <!-- Refresh attribute -->
+    <aura:attribute name="refresh" type="Boolean" default="false"/>
+
+     <aura:attribute name="currUser" type="User" default=""/>
+     <aura:attribute name="recordError" type="String" default=""/>
+     <aura:attribute name="currentYear" type="String" default=""/>
+
+     <aura:handler name="change" value="{!v.currUser}" action="{!c.onUserLoad}" />
+     <aura:handler name="change" value="{!v.applicationList}" action="{!c.onAppListLoad}" />
+    <aura:handler name="change" value="{!v.studentTermList}" action="{!c.onStudentTermLoad}" />
+
+     <c:DSF_UserLoader output="{!v.currUser}"
+                       userError="{!v.recordError}"
+                       fields="Id,
+                               ContactId,
+                               Contact.Application_Portal_Page_Access__c,
+                               Contact.Applications_Current_Finalist_Renewal__c,
+                               Contact.Applications_Current_Finalist_New__c,
+                               Contact.Applications_Current_Pending_Renewal__c,
+                               Contact.Applications_Current_Pending_New__c,
+                               Contact.Applications_Current_Renewal_ALL__c,
+                               Contact.Applications_Current_New_ALL__c"
+     />
+
+     <aura:if isTrue="{!not(empty(v.currUser))}">
+         <c:DSF_sObjectHelper methodName="getSObject"
+                              object="Application__c"
+                              fields="Id, Name, App_Status_Portal_Message__c"
+                              output="{!v.applicationList }"
+                              conditions="{!'Application_Submission_Year__c = \''+ v.currentYear +'\' AND Student_Name__c = \'' + v.currUser.ContactId + '\''}"/>
+
+       <aura:if isTrue="{!v.application}"> 
+           
+            <c:DSF_sObjectHelper methodName="getSObject"
+                                 object="Student_Term__c"
+                                 fields="Name,Application__c,Student_Term_Status_Portal_Message__c"
+                                 conditions="{!'Application__c = \'' + v.application.Id + '\''}"
+                                 limit="1"
+                                 output="{!v.studentTermList}"
+                                 />
+           
+         </aura:if> 
+        
+     </aura:if>
+
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="equal-height-container slds-grid slds-wrap slds-size_1-of-1 slds-m-bottom_medium">
+        
+        <!-- MY STATUS SECTION -->
+        <div class="slds-col slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size_1-of-2 slds-p-right_medium padding">
+            
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.statusHeaderLabel}</h4>
+            
+            <div class="slds-grid slds-size_1-of-1 slds-p-top_large slds-p-bottom_large divColor">
+              <!-- <div class="slds-size_1-of-4 slds-align_absolute-center">
+                    <div class="circle"></div>
+               </div> -->
+             <!--  <div class="slds-p-right_x-large slds-p-left_x-large slds-align_absolute-center">-->
+                   	 <!--	<p><b>{!v.statusBolded}</b>{!v.statusNormal}</p>-->
+                   		 	
+                     <!-- 	<p>{!v.applicationList[0].App_Status_Portal_Message__c}</p>
+                </div> -->
+                                
+                
+        <aura:if isTrue="{!and(v.studentTerm,(!v.studentTerm.Student_Term_Status_Portal_Message__c !=null))}" >
+                
+                <div class="slds-p-right_x-large slds-p-left_x-large slds-align_absolute-center"> 
+        <!--            <p><b>{!v.statusBolded}</b>{!v.statusNormal}</p> -->
+                      <p>{!v.studentTermList[0].Student_Term_Status_Portal_Message__c}</p>
+                </div>
+                  
+              
+                <aura:set attribute="else">
+                        <div class="slds-p-right_x-large slds-p-left_x-large slds-align_absolute-center">
+                 	<!-- 	<p><b>{!v.statusBolded}</b>{!v.statusNormal}</p>-->
+                   		 	
+                           
+                    		<p>{!v.applicationList[0].App_Status_Portal_Message__c}</p>
+                		</div>
+                    </aura:set>
+               </aura:if>  
+                   
+            </div>
+ <!-- uncomment this later to see the view application button on dashboard-->
+          <div class="slds-size_1-of-1 slds-p-bottom_large divColor paddingTop">
+
+               <c:DSF_ApplicationButton buttonLabel="{!v.finalApplicationButtonLabel}"
+                                       buttonURL="{!v.finalApplicationButtonURL}" 
+                                         class="button-look slds-align_absolute-center buttonMargin" 
+                /> 
+
+           </div> 
+
+        </div>
+        
+        <!-- MY COLLEGE CHOICE SECTION -->
+        <div class="slds-col slds-grid slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size_1-of-2 slds-p-left_medium flex-column">
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.collegeHeaderChoiceLabel}</h4>
+            <c:DSF_SchoolDetails aura:id = "schoolDetails"
+                    collegeHeaderChoiceLabel="{!v.collegeHeaderChoiceLabel}"
+                    collegeBtnLabel="{!v.collegeBtnLabel}"
+                    collegeInfoLabel="{!v.collegeInfoLabel}"
+                    refresh = "{!v.refresh}"
+            />
+        </div>
+        
+        
+    </div>
+
+</aura:component>

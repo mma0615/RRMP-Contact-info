@@ -1,0 +1,86 @@
+<design:component>
+    <!-- design attributes for DSF_LoginTabs -->
+    <design:attribute name="LoginTabLabel"            label="Login Tab Label"                       default=""/>
+    <design:attribute name="CreateAccountTabLabel"    label="Create Account Tab label"              default=""/>
+    <design:attribute name="ConfirmationMsg1"         label="Confirmation Message 1"                default=""/>
+    <design:attribute name="ConfirmationMsg2"         label="Confirmation Message 2"                default=""/>
+    <design:attribute name="message"                  label="Inelegible Message"                    default=""/>
+    <design:attribute name="DefaultContactUs"         label="Confirmation Link Text"                default=""/>
+    <!-- design attributes for DSF_ContactDSF component, used only for login page -->
+    <design:attribute name="TooltipMsg"               label="Get In Touch Tooltip Message"          default=""/>
+    <design:attribute name="ModalMessage"             label="Modal 1 Message"                       default=""/>
+    <design:attribute name="LoginModalMsg"            label="Modal 2 Message"                       default=""/>
+    <design:attribute name="BackToLoginMsg"           label="Back to Login Message"                 default=""/>
+    <design:attribute name="ShareFilesMsg"            label="Share Files Message"                   default=""/>
+    <design:attribute name="ShareFilesEmail"          label="Share files Email"                     default=""/>
+    <!-- design attributes for DSF_Registration component -->
+    <design:attribute name="userAlreadyExistMsg"      label="User Already Exist Error Message"      default=""/>
+    <design:attribute name="FirstNameErrorMsg"        label="First Name Error Message"              default=""/>
+    <design:attribute name="LastNameErrorMsg"         label="Last Name Error Message"               default=""/>
+    <design:attribute name="BirthdateErrorMsg"        label="Birthdate Error Message"               default=""/>
+    <design:attribute name="DpsidErrorMsg"            label="DPSID Error Message"                   default=""/>
+    <design:attribute name="NextBtnLabel"             label="Create Account Next Button Label"      default=""/>
+    <design:attribute name="FirstNameInputLabel"      label="Create Account First Name Input Label" default=""/>
+    <design:attribute name="LastNameInputLabel"       label="Create Account Last Name Input Label"  default=""/>
+    <design:attribute name="BirthdateInputLabel"      label="Create Account Birthdate Input Label"  default=""/>
+    <design:attribute name="DpsidInputLabel"          label="Create Account DPSID Input Label"      default=""/>
+    <design:attribute name="Step3EmailInputLabel"     label="Create Account Email Input Label"      default=""/>
+    <design:attribute name="Step3PassInputLabel"      label="Create Account Pw Input Label"         default=""/>
+    <design:attribute name="Step3CnfPassInputLabel"   label="Create Account Confirm Pw Input Label" default=""/>
+    <design:attribute name="CreateAccountBtnLabel"    label="Create Account Button Label"           default=""/>
+    <design:attribute name="CreateAcctMsg"            label="CreateAcctMsgLabel"                    default=""/>
+    <design:attribute name="EligibilityIntro"         label="Eligiblity Intro"                      default=""/>
+    <design:attribute name="EligibilityRow1Bolded"    label="Eligibility Row 1 Bolded Text"         default=""/>
+    <design:attribute name="EligibilityRow1Text"      label="Eligibility Row 1 Text"                default=""/>
+    <design:attribute name="EligibilityRow2Bolded"    label="Eligibility Row 2 Bolded Text"         default=""/>
+    <design:attribute name="EligibilityRow2Text"      label="Eligibility Row 2 Text"                default=""/>
+    <design:attribute name="EligibilityRow2Link"      label="Eligibility Row 2 Link"                default=""/>
+    <design:attribute name="EligibilityRow2LinkText"  label="Eligibility Row 2 Link Text"           default=""/>
+    <design:attribute name="EligibilityRow3Bolded"    label="Eligibility Row 3 Bolded Text"         default=""/>
+    <design:attribute name="EligibilityRow3Link"      label="Eligibility Row 3 Link"                default=""/>
+    <design:attribute name="EligibilityRow3LinkText"  label="Eligibility Row 3 Link Text"           default=""/>
+    <design:attribute name="EligibilityRow4Text1"     label="Eligibility Row 4 Text 1"              default=""/>
+    <design:attribute name="EligibilityRow4Bolded"    label="Eligibility Row 4 Bolded Text"         default=""/>
+    <design:attribute name="EligibilityRow4Text2"     label="Eligibility Row 4 Text 2"              default=""/>
+    <design:attribute name="EligibilityRow4Link"      label="Eligibility Row 4 Link"                default=""/>
+    <design:attribute name="EligibilityRow4LinkText"  label="Eligibility Row 4 Link Text"           default=""/>
+    <design:attribute name="EligibilityRow5Text1"     label="Eligibility Row 5 Text 1"              default=""/>
+    <design:attribute name="EligibilityRow5Link"      label="Eligibility Row 5 Link"                default=""/>
+    <design:attribute name="EligibilityRow5LinkText"  label="Eligibility Row 5 Link Text"           default=""/>
+    <design:attribute name="EligibilityRow5Text2"     label="Eligibility Row 5 Text 2"              default=""/>
+    <design:attribute name="EligibilityRow5Bolded"    label="Eligibility Row 5 Bolded Text"         default=""/>
+    <design:attribute name="EligibilityRow6Text1"     label="Eligibility Row 6 Text 1"              default=""/>
+    <design:attribute name="EligibilityRow6Link"      label="Eligibility Row 6 Link"                default=""/>
+    <design:attribute name="EligibilityRow6LinkText"  label="Eligibility Row 6 Link Text"           default=""/>
+    <design:attribute name="EligibilityRow6Text2"     label="Eligibility Row 6 Text 2"              default=""/>
+    <design:attribute name="EligibilityRow6Bolded"    label="Eligibility Row 6 Bolded Text"         default=""/>
+    <design:attribute name="EligibilityRow7Text1"     label="Eligibility Row 7 Text 1"              default=""/>
+    <design:attribute name="EligibilityRow7Link"      label="Eligibility Row 7 Link"                default=""/>
+    <design:attribute name="EligibilityRow7LinkText"  label="Eligibility Row 7 Link Text"           default=""/>
+    <design:attribute name="EligibilityRow7Text2"     label="Eligibility Row 7 Text 2"              default=""/>
+    <design:attribute name="EligibilityRow7Bolded"    label="Eligibility Row 7 Bolded Text"         default=""/>
+    <design:attribute name="CreateAccountStep3Msg"    label="Create Account Step 3 Message"         default=""/>
+    <design:attribute name="NoMatchErrorMessage"      label="No Match Error Message"                default=""/>
+    <design:attribute name="NoMatchLinkText"          label="No Match Error Message Link Text"      default=""/>
+    <!-- design attributes for DSF_Login -->
+    <design:attribute name="PasswordErrorMsg"         label="Password Error Message"                default=""/>
+    <design:attribute name="EmailErrorMsg"            label="Email Error Message"                   default=""/>
+    <design:attribute name="MailAndPassErrorMsg"      label="Email And Password Error Message"      default=""/>
+    <design:attribute name="ResetPaswordMsg1"         label="Reset Password Message 1"              default=""/>
+    <design:attribute name="ResetPaswordMsg2"         label="Reset Password Message 2"              default=""/>
+    <design:attribute name="ResetPassEmailInputLabel" label="Reset Password Email Input Label"      default=""/>
+    <design:attribute name="ForgotPasswordLink"       label="Forgot Password Link"                  default=""/>
+    <design:attribute name="ForgotEmail"              label="Forgot Email"                          default=""/>
+    <design:attribute name="ForgotEmailText1"         label="Forgot Email Text 1"                   default=""/>
+    <design:attribute name="ForgotEmailLinkText"      label="Forgot Email Link Text"                default=""/>
+    <design:attribute name="ForgotEmailText2"         label="Forgot Email Text 2"                   default=""/>
+    <design:attribute name="CreatenewAcctMsg"         label="Create New Account Msg"                default=""/>
+    <design:attribute name="EmailInputLabel"          label="Email Input Label"                     default=""/>
+    <design:attribute name="PasswordInputLabel"       label="Password Input Label"                  default=""/>
+    <design:attribute name="LogInBtnLabel"            label="Log In Button Label"                   default=""/>
+    <design:attribute name="ResetPassBtnLabel"        label="Reset Password Button Label"           default=""/>
+    <design:attribute name="NewPassInputLabel"        label="New Password Input Label"              default=""/>
+    <design:attribute name="ConfirmPassInputLabel"    label="Confirm Password Input Label"          default=""/>
+    <design:attribute name="ReturningScholar"         label="Returning Scholar"                     default=""/>
+    <design:attribute name="ReturningScholarText1"    label="Returning Scholar Text 1"             default=""/>
+</design:component>

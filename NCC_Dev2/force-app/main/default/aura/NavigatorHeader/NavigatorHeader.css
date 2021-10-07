@@ -1,0 +1,74 @@
+.THIS {
+    font-family: 'Roboto-Light';
+}
+
+@font-face{
+    font-family: 'Roboto-Light';
+    src:url(/resource/Roboto/Roboto-Light.ttf);
+}
+
+@font-face{
+    font-family: 'Roboto-Bold';
+    src:url(/resource/Roboto/Roboto-Bold.ttf);
+}
+
+.THIS.header-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.THIS .top-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 80px;
+    background-color: var(--theme-color1);
+}
+
+.THIS .app-logo{
+    height: 100%;
+}
+
+.THIS .customer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.THIS .customer-name {
+    font-family: 'Roboto-Light';
+    font-size: 25px;
+    color: white;
+    margin: 10px;
+}
+
+.THIS .lower-bar{
+    height: 175px;
+    display: flex;
+    flex-direction: row;
+}
+
+.THIS .brand-logo-container {
+    display: grid;
+    height: 100%;
+    width: 15%;
+    padding: 10px;
+}
+
+.THIS .brand-logo-container > img{
+    align-self: center;
+    justify-self:center;
+}
+
+.THIS .header-photo{
+    height: 100%;
+    width: 85%;
+}
+
+.THIS .header-photo > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

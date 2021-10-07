@@ -1,0 +1,36 @@
+<aura:component controller="LIGHTNINGREPORT.LightningReportsController" implements="force:appHostable">
+ 
+    <!-- Handle component initialization in a client-side controller -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+ 
+    <!-- Handle loading events by displaying a spinner -->
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+ 
+    <!-- Dynamically load the report rows -->
+    <aura:attribute name="reportResponse" type="Object"/>
+ 
+    <div><center><ui:spinner aura:id="spinner"/></center></div>
+ 
+    <div data-role="page" data-theme="d" id="reportPage">
+        <div role="main" class="ui-content">
+ 
+            <!-- Iterate over the list of report rows and display them -->
+            <!-- special case for the header row -->
+            <table data-role="table" data-mode="columntoggle" id="report-table" class="custom-reponsive table-stroke">
+ 
+                <thead>
+                    <LIGHTNINGREPORT:reportRowComponent row="{!v.reportResponse.reportFields}" isHeader="true"/>
+                </thead>
+                <tbody>
+                    <aura:iteration var="row" items="{!v.reportResponse.fieldDataList}">
+                        <LIGHTNINGREPORT:reportRowComponent row="{!row}" isHeader="false"/>
+                    </aura:iteration>
+                </tbody>
+ 
+            </table>
+ 
+        </div>
+    </div>
+ 
+</aura:component>

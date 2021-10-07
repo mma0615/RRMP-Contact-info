@@ -1,0 +1,15 @@
+<aura:component>
+    <aura:attribute name="listOfSelectedRecords" type="List" description="Stores list of sObject records"/>
+    <aura:attribute name="iconName" type="String"/>
+
+    <aura:iteration items="{!v.listOfSelectedRecords}" var="selectedRecord" indexVar="i">
+        <div aura:id="lookup-pill" class="slds-pill-container">
+            <lightning:pill aura:id="{i}" class="pill-size" label="{!selectedRecord.FirstName + ' ' + selectedRecord.LastName}" name="{!selectedRecord.FirstName + ' ' + selectedRecord.LastName}" onremove="{!c.clear}">
+                <aura:set attribute="media">
+                    <lightning:icon iconName="{!v.iconName}" size="x-small" alternativeText="{!v.iconName}"/>
+                </aura:set>
+            </lightning:pill>
+        </div>
+    </aura:iteration>
+    
+</aura:component>

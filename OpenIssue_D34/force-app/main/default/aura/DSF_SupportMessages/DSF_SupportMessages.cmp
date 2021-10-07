@@ -1,0 +1,95 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:attribute name="User" type="Object" default=""/>
+    <aura:attribute name="rawCases" type="List" default="[]"/>
+    <aura:attribute name="Cases" type="List" default="[]"/>
+    <aura:attribute name="selectedCase" type="Case" default=""/>
+    <aura:attribute name="caseId" type="String" default=""/>
+    <aura:attribute name="errorMessage" type="String" default=""/>
+    <aura:attribute name="isLoaded"  type="Boolean"   default="false"/>
+    <aura:attribute name="screen"   type="Integer"   default="0"/>
+    
+    <!--Design attributes - values received from MyMessages component-->
+    <aura:attribute name="CasesTableTitle"   type="String" default=""/>
+    <aura:attribute name="CasesTableHeader1" type="String" default=""/>
+    <aura:attribute name="CasesTableHeader2" type="String" default=""/>
+    <aura:attribute name="CasesTableHeader3" type="String" default=""/>
+    <aura:attribute name="NoCasesMessage"    type="String" default=""/>
+    <aura:attribute name="StatusColorRed"    type="String" default=""/>
+    <aura:attribute name="StatusColorOrange"    type="String" default=""/>
+    <aura:attribute name="StatusColorGreen"    type="String" default=""/>
+    <aura:attribute name="ButtonLabel"       type="String" default=""/>
+    
+    <aura:registerEvent name="DSF_MessagesEVT" type="c:DSF_MessagesEVT" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:handler name="change" value="{!v.rawCases}" action="{!c.handleLoadedCases}"/>    
+    
+    <aura:if isTrue="{! and(v.User != null, v.User.ContactId != null)}">
+        <c:DSF_sObjectHelper methodName="getSObject"
+                             object="Case"
+                             fields="Id,
+                                     Description,
+                                     Status,
+                                     Subject,
+                                     First_Name__c,
+                                     CreatedDate,
+                                     LastModifiedDate"
+                             conditions="{!'Case.ContactId = \'' + v.User.ContactId + '\''}"
+                             orderByFields="CreatedDate DESC"
+                             output="{! v.rawCases  }"
+                             />
+    </aura:if>
+    
+    <div class="slds-size_1-of-1 table-wrap">
+        <h3 class="slds-m-bottom_large">{!v.CasesTableTitle}</h3>
+        <table>
+            <tr class="slds-border_bottom table-header">
+                <th class="subject">
+                    {!v.CasesTableHeader1}
+                </th>
+                <th>
+                    {!v.CasesTableHeader2}
+                </th>
+                <th>
+                    {!v.CasesTableHeader3}
+                </th>
+                <th>
+                    
+                </th>
+            </tr>
+            <aura:if isTrue="{!v.isLoaded}">
+                <aura:iteration items="{!v.Cases}" var="item">
+                    <tr class="slds-border_bottom">
+                        <td class="subject slds-truncate"> 
+                            <a class="slds-truncate" onclick="{!c.showSelectedCase}" data-record-id="{!item.Id}" >{!item.Subject}</a>
+                        </td>
+                        <td class="slds-truncate">
+                            {!item.LastModifiedDate}
+                        </td>
+                        <td class="slds-truncate">
+                            {!item.ShortDate}
+                        </td>
+                        <td class="status-truncate">                          
+                            <p class="{! 'status ' + item.statusColor }">
+                                {!item.Status}
+                            </p>
+                        </td>
+                    </tr>
+                </aura:iteration>
+                <!--Lightning spinner-->
+                <aura:set attribute="else">
+                    <lightning:spinner alternativeText="Loading" size="medium" />
+                </aura:set>
+            </aura:if>
+        </table>
+        <!--Message if there are no related cases-->
+        <aura:if isTrue="{! and(empty(v.rawCases), v.isLoaded == true) }">
+            <p class="slds-align_absolute-center"> {!v.NoCasesMessage}</p>
+        </aura:if>
+        <div class="slds-m-top_medium">
+            <lightning:button class="standardOrangeBtn" onclick="{!c.startApplication}">{!v.ButtonLabel}</lightning:button>
+        </div>    
+    </div>
+    
+</aura:component>

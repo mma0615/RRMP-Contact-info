@@ -1,0 +1,279 @@
+<aura:component controller="ContactAvailabilityPage" implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="telemeetId" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    
+    <aura:attribute name="contact" type="Contact" /> 
+    <aura:attribute name="contactAvailability" type="List" /> 
+    <aura:attribute name="searchButtonClicked" type="boolean" default="false"/>
+    
+    <aura:attribute name="showConfirmDialog" type="boolean" default="false"/>
+    <aura:attribute name="contactAvailabilityId" type="string" />
+    <aura:attribute name="specialty" type="String" default=""/>
+    <aura:attribute name="specialtyvalues" type="List"/>
+    <aura:attribute name="startdate" type="date" />
+    <aura:attribute name="enddate" type="date" />
+    <aura:attribute access="private" name="error" type="String" default=""/>
+    
+    
+    <aura:attribute name="showConfirmDialogCompleted" type="boolean" default="false"/>
+    
+    <!-- output type -->
+    <aura:attribute name="subject" type="string" />
+    <aura:attribute name="castartdate" type="datetime"/>
+    <aura:attribute name="caenddate" type="datetime"/>
+    <aura:attribute name="timezone" type="string"/>
+    <aura:attribute name="type" type="string" default="Doctor"/>
+    <aura:attribute name="resourcespecialty" type="string" />
+    <aura:attribute name="status" type="string" />
+    <aura:attribute name="contactname" type="string" />
+    
+    <!-- input type -->
+    <aura:attribute name="area" type="string" />
+    <aura:attribute name="otherarea" type="string" />
+    <aura:attribute name="internalnotes" type="string" />
+    
+    
+    <aura:set attribute="body">
+        <div>
+            <div class="contact-availability-page">
+                <div class="contact-availability-content">
+                    <div class="contact-search">
+                        <div>
+                            <aura:if isTrue="{! !empty(v.error)}">
+                                <lightning:textarea name="errorMessage" value="{!v.error}" label="Error: "/>
+                            </aura:if>
+                            <div>
+                                <div>
+                                    <c:AutoComplete aura:id="contact-recordId" label="Contact Name" objectApiName="Contact" idFieldApiName="Id" valueFieldApiName="Name" />
+                                </div>
+                                <div>
+                                    <lightning:select value="{!v.specialty}" label="Specialty" aura:id="specialty-value"> 
+                                        <option value="">Choose one...</option> 
+                                        <aura:iteration items="{!v.specialtyvalues}" var="s">
+                                            <option value="{!s}">{!s}</option>
+                                        </aura:iteration>
+                                    </lightning:select>  
+                                </div>
+                            </div>     
+                            <!--<aura:if  isTrue="{!or(v.contact, v.specialty != '')}" > -->
+                            <lightning:input name="startdate" type="date" label="Start Date"  value="{!v.startdate}"/>
+                            <lightning:input name="enddate" type="date" label="End Date" value="{!v.enddate}"/>
+                            <!-- </aura:if>-->
+                            <br />
+                            <div style="text-align:right;">
+                                <lightning:button variant="brand" label="Get Contact Availability" title="Get Contact Availability" onclick="{!c.addAvailability}" />
+                                <br /><br />
+                            </div>
+                        </div>
+                        <div>
+                            <aura:if  isTrue="{!v.contact}" >
+                                <article class="slds-tile slds-media contact-view">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                            <img alt="" src="{!(v.contact.Profile_Picture_URL__c != null ? v.contact.Profile_Picture_URL__c : '')}" />
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h3 class="slds-tile__title slds-truncate">
+                                            <lightning:formattedUrl value="{!'/'+v.contact.Id}" label="{!v.contact.Name}" target="_blank" />
+                                        </h3>
+                                        <div class="slds-tile__detail">
+                                            <dl class="slds-list_horizontal slds-wrap">
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Account Name:</dt>
+                                                <dd class="slds-item_detail slds-truncate">{!v.contact.Account.Name}</dd>
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Contact Type:</dt>
+                                                <dd class="slds-item_detail slds-truncate">{!v.contact.Contact_Type__c}</dd>
+                                                <dt class="slds-item_label slds-text-color_weak slds-truncate">Email:</dt>
+                                                <dd class="slds-item_detail slds-truncate">{!v.contact.Email}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </article>
+                            </aura:if>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <div class="contact-availability-list">
+                        
+                        <aura:if isTrue="{!v.contactAvailability.length > 0}">
+                            <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout slds-table-header-fixed">
+                                <thead>
+                                    <tr class="slds-text-heading_label slds-text-title_caps">  
+                                        <th colspan="9" style="font-size:15px;text-align:center">Contact Availability</th>
+                                    </tr>
+                                </thead>
+                                <thead>sc
+                                    <tr class="slds-text-heading_label slds-text-title_caps">  
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Name</div></th>
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Contact</div></th>
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Specialty</div></th>
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Status</div></th>
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Start Date</div></th>
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">End Date</div></th>
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Duration (minutes)</div></th>
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Timezone</div></th>
+                                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Action</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.contactAvailability}" var="conava">
+                                        <tr>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    <lightning:formattedUrl value="{!'/'+conava.Id}" label="{!conava.Name}" target="_blank" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    <lightning:formattedUrl value="{!'/'+conava.Contact__c}" label="{!conava.Contact__r.Name}" target="_blank" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    {!conava.Specialties__c}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    {!conava.Status__c}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    <ui:outputDateTime value="{!conava.Start_Date_Time__c}" />
+                                                    <!--<lightning:formattedDateTime value="{!conava.Start_Date_Time__c}"
+                                                                                 year="numeric" day="2-digit" month="short" hour="2-digit" minute="2-digit"/>-->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    <ui:outputDateTime value="{!conava.End_Date_Time__c}" />
+                                                    <!--
+                                                    <lightning:formattedDateTime value="{!conava.End_Date_Time__c}"
+                                                                                 year="numeric" day="2-digit" month="short" hour="2-digit" minute="2-digit"/>-->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    {!conava.Duration_minutes__c}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    {!conava.Time_Zone__c}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="slds-cell-wrap">
+                                                    <aura:if isTrue="{!conava.Status__c == 'Open'}">
+                                                        <button class="slds-button slds-button_brand"
+                                                                onclick="{!c.handleConfirmDialog}"
+                                                                title=""
+                                                                id="{!conava.Id}"
+                                                                aria-controls="task-item-expanded" 
+                                                                aria-expanded="true">
+                                                            Schedule Connect
+                                                        </button>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!or(conava.Status__c == 'Scheduled', conava.Status__c == 'Booking In Progress', conava.Status__c == 'Completed')}">
+                                                        <button class="slds-button slds-button_brand" disabled="true">{!(conava.Status__c == 'Booking In Progress' ? 'Booked' : conava.Status__c)}</button>
+                                                        <br />
+                                                        
+                                                        <lightning:formattedRichText value="{!conava.TeleMeet__r.Meeting_URL2__c}" />
+                                                    </aura:if>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!and(v.searchButtonClicked == true , v.contactAvailability.length == 0)}">
+                            <div class="no-records">No Contact Availability found.</div>
+                        </aura:if>
+                        
+                    </div>
+                    
+                    <!--Schedule Meet Popup-->
+                    <div class="slds-m-around_xx-large">
+                        <aura:if isTrue="{!v.showConfirmDialog}">
+                            <!--Modal Box Start-->
+                            <div role="dialog" class="slds-modal slds-fade-in-open ">
+                                <div class="slds-modal__container">
+                                    <!--Modal Box Header Start-->
+                                    <header class="slds-modal__header">
+                                        <h1 class="slds-text-heading--medium">Connect</h1>
+                                    </header>
+                                    <div class="telemeet-page">
+                                        <div class="telemeet-content">
+                                            <br />
+                                            <!--<lightning:input name="subject"  label="Subject"  value="{!v.subject}" disabled="true"/>-->
+                                            <lightning:input type="datetime" name="castartdate"  label="Start Date Time"  value="{!v.castartdate}" disabled="true" />
+                                            <lightning:input type="datetime" name="caenddate"  label="End Date Time"  value="{!v.caenddate}" disabled="true"/>
+                                            <lightning:input name="timezone"  label="Time Zone"  value="{!v.timezone}" disabled="true"/>
+                                            <lightning:input name="type"  label="Type"  value="{!v.type}" disabled="true"/>
+                                            <!--<lightning:input name="area"  label="Area"  value="{!v.area}"/>
+                                   			<lightning:input name="otherarea"  label="Other Area"  value="{!v.otherarea}"/>-->
+                                            <!--<c:AutoComplete aura:id="resource-contact" label="Contact Name" objectApiName="Contact" idFieldApiName="Id" valueFieldApiName="Name" />-->
+                                            <lightning:input name="contactname"  label="Contact Name"  value="{!v.contactname}" disabled="true"/>
+                                            <lightning:input name="resourcespecialty"  label="Resource Specialty"  value="{!v.resourcespecialty}" disabled="true"/>
+                                            <lightning:input name="status"  label="Status"  value="{!v.status}" disabled="true"/>
+                                            <!--<lightning:textarea name="internalnotes"  label="Intenal Notes"  value="{!v.internalnotes}"/>-->
+                                            <!--<lightning:inputRichText value="{!v.internalnotes}" placeholder="Type something" label="Internal Notes"/>-->
+                                        </div>
+                                    </div>
+                                    <!--Modal Box Header End-->
+                                    
+                                    <!--Modal Box Content Start-->
+                                    <div class="slds-modal__content slds-p-around--medium">
+                                        <!--<center><b>Are you sure you want to schedule this meeting?</b></center>-->
+                                    </div>
+                                    <!--Modal Box Content End-->
+                                    
+                                    <!--Modal Box Button Start-->
+                                    <footer class="slds-modal__footer">
+                                        <lightning:button name='No' label='Cancel' onclick='{!c.handleConfirmDialogNo}'/>
+                                        <lightning:button variant="brand" name='Yes' label='Schedule Connect' onclick='{!c.handleConfirmDialogYes}'/>
+                                    </footer>
+                                    <!--Modal Box Button End-->
+                                </div>
+                            </div>
+                            <div class="slds-backdrop slds-backdrop--open"></div>            
+                        </aura:if>
+                    </div>
+                    <!--Schedule Meet Popup End-->
+                    
+                    
+                    <!--Schedule Meet Completed Popup-->
+                    <div class="slds-m-around_xx-large">
+                        <aura:if isTrue="{!v.showConfirmDialogCompleted}">
+                            <!--Modal Box Start-->
+                            <div role="dialog" class="slds-modal slds-fade-in-open ">
+                                <div class="slds-modal__container">
+                                    <!--Modal Box Header Start-->
+                                    <header class="slds-modal__header">
+                                        <h1 class="slds-text-heading--medium telemeet-completed">Connect Successfully Scheduled</h1>
+                                    </header>
+                                    <!--Modal Box Header End-->
+                                    
+                                    <!--Modal Box Button Start-->
+                                    <footer class="slds-modal__footer">
+                                        <lightning:button name='OK' label='OK' onclick='{!c.handleConfirmDialogNo}'/>
+                                        <lightning:button name='returntotelemeet' label='Return to Connect Record' onclick='{!c.returntotelemeet}'/>
+                                    </footer>
+                                    <!--Modal Box Button End-->
+                                </div>
+                            </div>
+                            <div class="slds-backdrop slds-backdrop--open"></div>            
+                        </aura:if>
+                    </div>
+                    <!--Schedule Meet Completed End-->
+                </div>
+            </div>
+        </div>
+    </aura:set>
+</aura:component>

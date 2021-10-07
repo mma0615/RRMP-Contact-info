@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>      
+        <target>lightning__AppPage</target>      
+        <target>lightning__RecordPage</target>      
+        <target>lightning__HomePage</target>      
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage">
+            <property label="Parent Object API Name" name="PARENAPITNAME" type="String"/>
+            <property label="Child Object API Name" name="CHILDAPINAME" type="String"/>
+            <property label="Child Field API Name" name="CHILDPARENTFIELD" type="String"/>
+            <property label="Child Field Set" name="FIELDSET" type="String"/>
+            <property label="Relationship Label" name="RELATIONSHIPLABELNAME" type="String"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

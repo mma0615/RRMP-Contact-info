@@ -1,0 +1,18 @@
+.THIS .footer-page{
+    width: 100%;
+    height: 100%;
+    color: #001e41;
+    font-size: 1rem;
+    background: #e5e5e5;
+}
+
+/*Footer*/
+.THIS .footer {
+    height: 100px;
+    padding: 15px 0 15px 0;
+    text-align: center;
+    background: #001e41;
+}
+.THIS .footer img{
+    height: 70px;
+}

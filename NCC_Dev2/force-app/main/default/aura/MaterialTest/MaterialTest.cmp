@@ -1,0 +1,9 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="MaterialTest" >
+    
+    <aura:attribute name="State" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    
+    
+    {!v.State}
+</aura:component>

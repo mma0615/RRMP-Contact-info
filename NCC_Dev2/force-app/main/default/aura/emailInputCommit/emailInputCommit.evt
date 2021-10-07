@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event for emailInput component. Returns given name and list of selected emails.">
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="emailList" type="String[]" />
+</aura:event>

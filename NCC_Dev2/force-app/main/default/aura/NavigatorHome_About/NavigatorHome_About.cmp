@@ -1,0 +1,26 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="NavigatorHomeComponentsController">
+    <aura:attribute name="sectionAttributes" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- <header class="title">
+        {!v.about_title}
+    </header>
+    <div class="container">
+        <img src="{!v.about_imageUrl}"/>
+        <p class="description">
+            <aura:unescapedHtml value="{!v.about_description}" />
+        </p>
+    </div> -->
+
+    <aura:iteration items="{!v.sectionAttributes}" var="attr">
+        <aura:if isTrue="{!equals(attr.Type__c, 'Image')}">
+            <img src="{!attr.Value__c}" />
+            <aura:set attribute="else">
+                <aura:unescapedHtml value="{!attr.Value__c}" />
+            </aura:set>
+        </aura:if>
+
+    </aura:iteration>
+
+</aura:component>

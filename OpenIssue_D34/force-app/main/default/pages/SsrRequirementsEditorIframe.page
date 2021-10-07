@@ -1,0 +1,21 @@
+<apex:page showHeader="true" sidebar="false" controller="SsrRequirementsEditorIframeController">
+  <style>
+    body {
+      overflow: hidden;
+    }
+    #theIframe {
+      height:85vh;
+    }
+  </style>
+  <apex:iframe src="/apex/ssrRequirementsEditor" scrolling="true" rendered="{!pageAccess}" id="theIframe"/>
+  <div style="text-align:center;display:none;margin-top:50px;margin-bottom:50px;" id="appDisabledMessage">
+    <div style="font-size:32px;margin-bottom:25px;">SSR Requirements Editor</div>
+    <div style="font-size:18px;margin-bottom:25px;">Sorry, this editor is not currently available for users. Please notify DSF if you have any questions or concerns. Thank you</div>
+    <div style="font-size:100px;">:(</div>
+  </div>
+  <script>
+  if({!NOT(pageAccess)}) {
+    document.getElementById("appDisabledMessage").style.display = "block";
+  }
+  </script>
+</apex:page>

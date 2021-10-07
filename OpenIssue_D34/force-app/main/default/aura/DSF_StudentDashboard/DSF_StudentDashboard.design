@@ -1,0 +1,36 @@
+<design:component>
+
+    <!-- MY STATUS SECTION -->     
+    <design:attribute name="statusHeaderLabel" label="Status Header Label" />	
+    <design:attribute name="statusBolded" label="Status Text Bolded" />	 
+    <design:attribute name="statusNormal" label="Status Text Normal" />
+    <design:attribute name="applicationButtonStart" label="Application Button Start Text"/>
+    <design:attribute name="applicationButtonContinue" label="Application Button Continue Text" />
+    <design:attribute name="applicationButtonURL" label="Application Button URL" />
+
+    <!-- MY COLLEGE CHOICE SECTION -->   
+    <design:attribute name="collegeHeaderChoiceLabel" label="College Choice Header Label" />
+    <design:attribute name="collegeBtnLabel" label="Button Label" />
+    <design:attribute name="collegeInfoLabel" label="Info Label" />
+        
+    <!-- MY MY TO DO LIST SECTION -->           
+    <design:attribute name="myToDoListHeaderLabel" label="To Do List Header" />	
+    <design:attribute name="toDoListCheckboxLabel" label="Checkbox Label" />	
+    <design:attribute name="toDoListSubheaderLabel" label="Subheader" />	
+    <design:attribute name="submitDSFApplLabel" label="Submit DSF Appl." />	
+    <design:attribute name="completeFAFSALabel" label="Complete FAFSA" />	
+    <design:attribute name="completeFAFSALinkLabel" label="Complete FAFSA Link" />	
+    <design:attribute name="submitFAFSAProofLabel" label="Submit FAFSA" />	
+    <design:attribute name="submitFAFSATooltipLabel" label="Submit FAFSA Tooltip Text" />	
+    <design:attribute name="taskSubmittedOnLabel" label="Task submitted on Text" />	
+    <design:attribute name="taskCompletedOnLabel" label="Task completed on Text" />	
+    <design:attribute name="taskUploadedOnLabel" label="Task uploaded on Text" />	
+    <design:attribute name="confirmCollegeChoiceLabel" label="Confirm College Choice Label" />	
+    <design:attribute name="financialAidRequirementsLabel" label="Financial Aid Requirements Label" />	
+    <design:attribute name="financialAidReqTooltipLabel" label="Financial Aid Req. Tooltip Text" />	
+    <design:attribute name="institutionalLabel" label="Institutional Aid Label" />	 
+    
+    <!-- MY ADVISORS SECTION -->   
+    <design:attribute name="advisorsHeaderLabel" label="Advisors Header Label" />	  
+ 	 
+</design:component>

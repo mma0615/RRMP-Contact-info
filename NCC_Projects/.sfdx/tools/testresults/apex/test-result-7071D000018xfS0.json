@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "outcome": "Passed",
+    "testsRan": 1,
+    "passing": 1,
+    "failing": 0,
+    "skipped": 0,
+    "passRate": "100%",
+    "failRate": "0%",
+    "skipRate": "0%",
+    "testStartTime": "Sat Feb 13 2021 12:32:09 PM",
+    "testExecutionTimeInMs": 28,
+    "testTotalTimeInMs": 28,
+    "commandTimeInMs": 528,
+    "hostname": "https://ncc--cpmpartial.my.salesforce.com",
+    "orgId": "00D1D0000007FnSUAU",
+    "username": "minh.ma@nationalcoordinationcenter.com.cpmpartial",
+    "testRunId": "7071D000018xfS0",
+    "userId": "0051U000007yp3LQAQ",
+    "totalLines": 0,
+    "coveredLines": 0,
+    "testRunCoverage": "0%",
+    "orgWideCoverage": "15%"
+  },
+  "tests": [
+    {
+      "id": "07M1D00000Dm85RUAR",
+      "queueItemId": "7091D000001a3pqQAA",
+      "stackTrace": null,
+      "message": null,
+      "asyncApexJobId": "7071D000018xfS0QAI",
+      "methodName": "testTaskHandlerTest_ONAFTERTRIGGER",
+      "outcome": "Pass",
+      "apexLogId": "07L1D00000BbHZOUA3",
+      "apexClass": {
+        "id": "01p1D00000Cu4w1QAB",
+        "name": "expenseHandlerTest",
+        "namespacePrefix": null,
+        "fullName": "expenseHandlerTest"
+      },
+      "runTime": 28,
+      "testTimestamp": "2021-02-13T20:32:17.000+0000",
+      "fullName": "expenseHandlerTest.testTaskHandlerTest_ONAFTERTRIGGER"
+    }
+  ],
+  "codecoverage": []
+}

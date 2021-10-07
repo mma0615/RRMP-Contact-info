@@ -1,0 +1,69 @@
+@font-face {
+   font-family: 'Muli';
+   src: url('../sfsites/c/resource/DSF_Resources/Fonts/Muli/Muli-Regular.ttf') format('truetype');
+}
+
+.THIS.font-face *
+{
+    font-family: Muli !important;
+}
+
+.THIS .font-face *
+{
+    font-family: Muli !important;
+}
+
+.THIS body {
+    /*font-family: Muli;*/
+ }
+
+.THIS #blueTextBox{
+    background-color: #203366; /*FF0000*/
+    padding: 1vw;
+}
+.THIS #greyTextBox{
+    background-color:#d1d2d4;
+    padding: 1vw;
+}
+
+.THIS #imgLogo{
+    width: 8vw;
+    height: auto; 
+}
+
+.THIS.centered {
+	margin: auto;
+}
+.THIS .pStyle{ 
+ 
+    color: white;
+    font-size : 15px;
+    line-height: 22px;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+
+}
+
+.THIS h3{
+    color: white;
+    font-size: 20px;
+}
+
+@media only screen and  (max-width: 400px) {
+    .THIS .mobile-small {
+        width: 50%;
+        padding-bottom: 3rem;
+    }
+    .THIS .mobile-small button {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .THIS .mobile-small-padding {
+        padding-bottom: 5rem;
+    }
+}
+@media only screen and  (max-width: 450px) {
+    .THIS #blueTextBox {
+        padding: 0.7rem;
+    }
+}

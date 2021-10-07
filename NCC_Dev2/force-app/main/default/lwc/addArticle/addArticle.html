@@ -1,0 +1,241 @@
+<template>
+
+    <template if:true={spinner}>
+        <div class="slds-spinner_container" style="z-index: 20000;">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner_medium" role="alert">
+                <span class="slds-assistive-text">Loading..</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </template>
+    <div class="getData">
+        <template if:true={showContact}>
+            <div class="textData">
+                <h3>Contact<span style="color:#fe8e0c;">form</span></h3>
+            </div>
+            <div class="paraData">
+                <div class="">
+                    <p>Please fill your details</p>
+                </div>
+            </div>
+            
+
+            <lightning-input data-id="firstname" label="FirstName" placeholder="Enter first name" value={recContact.FirstName}
+                onchange={handleFirstName} required></lightning-input><br />
+            <lightning-input data-id="lastname" label="LastName" placeholder="Enter last name" value={recContact.LastName} onchange={handleLastName}
+                required>
+            </lightning-input><br />
+            <lightning-input data-id="company" label="Company" placeholder="Enter company" value={recContact.Company} onchange={handleCompany}
+                required>
+            </lightning-input><br />
+            <lightning-input data-id="email" type="Email" label="Email" placeholder="Enter email" value={recContact.Email} onchange={handleEmail}
+                required>
+            </lightning-input><br /><br />
+            <button type="submit" class="slds-button slds-button_neutral showButton" onclick={handleNext}
+                style="height: 300%;background-color: #fe8e0c;color: white;top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);">Next</button>
+        </template>
+
+        <template if:false={showContact}>
+            <div class="textData">
+                <h3>New<span style="color:#fe8e0c;">Article</span></h3>
+            </div>
+
+            <lightning-input data-id="title" label="Article Title" placeholder="Title of an article" value={rec.Title} onchange={handleTitle} required>
+            </lightning-input><br />
+            <label class="slds-form-element__label" for="text-input-id-1">
+                <abbr class="slds-required" title="required">* </abbr>Url Name</label>
+            <lightning-helptext
+                content="Enter the unique URL and hyphen should be there between two words e.g. my-url-name or MY-URL-NAME">
+            </lightning-helptext>
+            <lightning-input data-id="url" label="Url Name" placeholder="my-url-name" value={rec.UrlName} onchange={handleUrl} required
+                variant="label-hidden">
+            </lightning-input>
+            <br />
+
+            <label class="slds-form-element__label" for="text-input-id-1">
+                <abbr class="slds-required" title="required">* </abbr>Source</label>
+            <lightning-helptext content="Enter the name of the original place of publication of the article e.g. Medium.">
+            </lightning-helptext>
+            <lightning-input data-id="source" type="String" placeholder="Original place of publication" label="Source" value={rec.Source__c} onchange={handleSource}
+                required variant="label-hidden"></lightning-input><br />
+
+
+            <label class="slds-form-element__label" for="text-input-id-1">
+                <abbr class="slds-required" title="required">* </abbr>Article Source URL 1</Article></label>
+            <lightning-helptext
+                content="Enter the url of your original place of publication of the article,you can enter upto 5 URL's for the reference in the below URL fields">
+            </lightning-helptext>
+            <lightning-input data-id="urlOne" label="Url Name" placeholder="https://www.google.com/" value={rec.Article_URL_1__c} onchange={handleUrlOne}
+                required variant="label-hidden">
+            </lightning-input><br />
+
+            <lightning-input data-id="urlTwo" label="Article Source URL 2" value={urlTwos} onchange={handleUrltwo}>
+            </lightning-input><br />
+
+            <lightning-input data-id="urlThree" label="Article Source URL 3" value={urlThrees}
+                onchange={handleUrlThree}>
+            </lightning-input><br />
+
+            <lightning-input data-id="urlFourth" label="Article Source URL 4" value={fourthess}
+                onchange={handleUrlFourth}>
+            </lightning-input><br />
+
+            <lightning-input data-id="urlFivth" label="Article Source URL 5" value={fivthes} onchange={handleUrlFivth}>
+            </lightning-input><br />
+
+            <lightning-input data-id="summary" label="Summary" value={rec.Summary} onchange={handleSummary} required>
+            </lightning-input><br />
+
+
+
+            <div class="">
+                <label class="slds-form-element__label" for="text-input-id-1">Select Categories</label>
+                <lightning-helptext
+                    content="You cannot select more than eight categories">
+                </lightning-helptext>
+                <div class="" style="padding-bottom: 15px;">
+
+                    <div class="picklistfulldisplay" style="padding-top:10px">
+                        <div class="picklistview">
+                            <div class="slds-m-around--x-small">
+                                <section>
+                                    <lightning-combobox name="progress" label="Target Audience" value={selectedFirst}
+                                        data-id="Target_Audiences" placeholder="Select" options={targetValues}
+                                        onchange={onChange1}>
+                                    </lightning-combobox><span id="errornames"></span>
+                                    <template for:each={selectedFirst} for:item="pills">
+                                        <lightning-pill label={pills} key={pills} name={pills}
+                                            onremove={removeFirstPill}></lightning-pill>
+                                    </template>
+                                </section>
+                            </div>
+                        </div>
+
+                        <div class="picklistview">
+                            <div class="slds-m-around--x-small">
+                                <section>
+                                    <lightning-combobox name="progress" label="Topic" value={selectedSecond}
+                                        data-id="Topic_id" placeholder="Select" options={topicValues}
+                                        onchange={onChange2}>
+                                    </lightning-combobox><span id="errorname"></span>
+                                    <template for:each={selectedSecond} for:item="pills">
+                                        <lightning-pill label={pills} key={pills} name={pills}
+                                            onremove={removeSecondPill}></lightning-pill>
+                                    </template>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="picklistview">
+                            <div class="slds-m-around--x-small">
+                                <section>
+                                    <lightning-combobox name="progress" label="Source" value={selectedThird}
+                                        data-id="Source_id" placeholder="Select" options={sourceValues}
+                                        onchange={onChange3}>
+                                    </lightning-combobox><span id="errornamess"></span>
+                                    <template for:each={selectedThird} for:item="pills">
+                                        <lightning-pill label={pills} key={pills} name={pills}
+                                            onremove={removeThirdPill}></lightning-pill>
+                                    </template>
+
+                                </section>
+                            </div>
+                        </div>
+                        <div class="picklistview">
+                            <div class="slds-m-around--x-small">
+                                <section>
+                                    <lightning-combobox name="progress" label="Source Attribute" value={selectedFourth}
+                                        data-id="Source_Attribute_id" placeholder="Select" options={attributeValues}
+                                        onchange={onChange4}>
+                                    </lightning-combobox><span id="errornamesss"></span>
+                                    <template for:each={selectedFourth} for:item="pills">
+                                        <lightning-pill label={pills} key={pills} name={pills}
+                                            onremove={removeFourthPill}></lightning-pill>
+                                    </template>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <template if:true={showOtherTarget}>
+                <label class="slds-form-element__label" for="text-input-id-1">Additional Target Audience</label>
+                <lightning-helptext
+                    content="You can enter the other category apart from the categories used in Target_audience">
+                </lightning-helptext>
+                <lightning-input data-id="otherTarget" label="other" value={rec.Additional_Target_Audience__c}
+                    onchange={handleOtherTarget} variant="label-hidden">
+                </lightning-input>
+            </template><br />
+
+            <template if:true={showOtherTopic}>
+                <label class="slds-form-element__label" for="text-input-id-1">Additional Topic</label>
+                <lightning-helptext content="You can enter the other category apart from the categories used in Topic">
+                </lightning-helptext>
+                <lightning-input data-id="otherTopic" label="other" value={rec.Additional_Topic__c}
+                    onchange={handleOtherTopic} variant="label-hidden">
+                </lightning-input>
+            </template><br />
+
+
+
+            <template if:true={showOtherSource}>
+                <label class="slds-form-element__label" for="text-input-id-1">Additional Source</label>
+                <lightning-helptext content="You can enter the other category apart from the categories used in Source">
+                </lightning-helptext>
+                <lightning-input data-id="otherSource" label="other" value={rec.Additional_Source__c}
+                    onchange={handleOtherSource} variant="label-hidden">
+                </lightning-input>
+            </template><br />
+
+            <template if:true={showOthersource_Att}>
+                <label class="slds-form-element__label" for="text-input-id-1">Additional Source Attribute</label>
+                <lightning-helptext
+                    content="You can enter the other category apart from the categories used in source_attribute">
+                </lightning-helptext>
+                <lightning-input data-id="otherSourceAtt" label="other" value={rec.Additional_Source_Attribute__c}
+                    onchange={handleOtherSource_att} variant="label-hidden">
+                </lightning-input>
+            </template><br />
+
+            <label class="slds-form-element__label" for="text-input-id-1">
+                <abbr class="slds-required" title="required">* </abbr>Description</label>
+            <lightning-input-rich-text data-id="desc" label="Description" value={rec.Description__c}
+                onchange={handledescChange} required></lightning-input-rich-text><br />
+            <div class="picklistfulldisplay">
+                <div class="uploadfilecol">
+                    <label class="slds-form-element__label" for="text-input-id-1">
+                        <abbr class="slds-required" title="required">* </abbr>Upload image for your article</label>
+                    <lightning-helptext content="Upload an image that matches your article"></lightning-helptext>
+                    <lightning-input data-id="fileupload" label="Upload image for your article" accept={acceptedFormats}
+                        name="file uploader" variant="label-hidden" onchange={handleFilesChange} type="file" multiple>
+                    </lightning-input>
+                    <div class="slds-text-body_small slds-text-color_error">{fileName}
+                    </div>
+                </div>
+                <div class="uploadfilecol">
+                    <label class="slds-form-element__label">Upload PDF of article</label>
+                    <lightning-helptext content="You can upload the PDF file for reference of your article">
+                    </lightning-helptext>
+                    <lightning-input data-id="pdfupload" label="Upload image for your article" accept={pdfFormat}
+                        name="file uploader" variant="label-hidden" onchange={handlePdfChange} type="file" multiple>
+                    </lightning-input>
+                    <div class="slds-text-body_small slds-text-color_error">{pdfName}
+                    </div>
+                </div>
+            </div>
+
+            <br /><br />
+            <button type="submit" class="slds-button slds-button_neutral" onclick={handleClick}
+                style="height: 135%;float: right;background-color: #fe8e0c;color: white;">Submit</button>
+            <button type="Back" class="slds-button slds-button_neutral" onclick={handleback}
+                style="height: 135%;Float:left;background-color: #fe8e0c;color: white;">Back</button>
+
+        </template>
+    </div>
+
+
+</template>

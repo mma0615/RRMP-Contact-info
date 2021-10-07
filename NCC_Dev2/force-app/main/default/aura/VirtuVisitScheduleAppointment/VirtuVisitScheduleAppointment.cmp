@@ -1,0 +1,330 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="VirtuVisitController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="loggedIn" type="Boolean" default="false"/>
+    <aura:attribute name="displayPractice" type="Boolean" default="false"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="contact" type="Contact"/>
+    
+    <aura:attribute name="services" type="Service__c[]"/>
+    <aura:attribute name="practices" type="Practice_Management__c[]"/>
+    
+    <!-- Service is selected -->
+    <aura:attribute name="service" type="Service__c"/>
+    
+    <aura:attribute name="serviceId" type="String"/>
+    <aura:attribute name="serviceReasons" type="List"/>
+    
+    <!-- Service is selected and displayPractice = true -->    
+    <aura:attribute name="servicePractices" type="Service_Practice__c[]"/>
+    
+    
+    <!-- Practice is selected -->
+    <aura:attribute name="practiceServices" type="Service__c[]"/>
+    <aura:attribute name="practiceId" type="String"/>
+    <aura:attribute name="practiceDoctors" type="Practice_Management_Group__c[]"/>
+    
+    
+    <!-- Service and Reason is selected -->
+    <aura:attribute name="reason" type="String"/>
+    <!--<aura:attribute name="doctors" type="Contact[]"/>-->
+    <aura:attribute name="doctors" type="Practice_Management_Group__c[]"/>
+    
+    
+    <!-- Doctor -->
+    <aura:attribute name="hoverRow" type="Integer" default="-1" />
+    <aura:attribute name="togglehover" type="boolean" default="false"/>
+    <aura:attribute name="mouseHoverData" type="Contact" />
+    <aura:attribute name="mouseHoverDataPracticeDoctor" type="Practice_Management_Group__c" />
+    <aura:attribute name="reId" type="Id" />
+    
+    <div>
+        <div class="home-page">
+            <!-- Service Selected -->
+            <aura:if isTrue="{!or(v.service != null, v.servicePractices.length > 0)}">
+                <aura:if isTrue="{!and(v.service != null, v.displayPractice == false, v.serviceReasons.length > 0)}">
+                    <div class="service-selected">
+                        <div class="service-selected-header">
+                            {!v.service.Name}
+                        </div>
+                        <div class="services-reason-page">
+                            <aura:iteration items="{!v.serviceReasons}" var="service">
+                                <div class="services-content">
+                                    <div class="service-header">
+                                        <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+v.serviceId+'&amp;reason='+service}"> 
+                                            
+                                            <div class="service-header-label">{!service}</div>
+                                            <!--<div class="service-header-img"><img src="{!$Resource.VirtuVisit + '/Service'+service.counter+'.png'}"  /></div>-->
+                                        </a>
+                                    </div>
+                                    <div class="service-info">
+                                        <div class="service-desc">
+                                            <div class="desc-content flex">
+                                                <div class=""><lightning:formattedRichText value="{!service}"/><br /> Test Reason Description</div>
+                                            </div>
+                                        </div>
+                                        <div class="learn-more">
+                                            <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+v.serviceId+'&amp;reason='+service}"> 
+                                                <lightning:icon iconName="utility:chevronright" size="x-small"/>
+                                            </a>
+                                        </div>
+                                        <!--<div class="service-img"><img src="{!$Resource.VirtuVisit + '/PrimaryCare.JPG'}" /></div>-->
+                                    </div>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                </aura:if>
+                <!-- Display Practice Management -->
+                <aura:if isTrue="{!and(v.servicePractices.length > 0, v.displayPractice == true)}">
+                    <div class="services-page">
+                        <div class="service-selected-header">
+                            {!v.service.Name}
+                        </div>
+                        <aura:iteration items="{!v.servicePractices}" var="service">
+                            <div class="services-content">
+                                <div class="service-header">
+                                    <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+service.Service__c+'&amp;practiceId='+service.Practice_Management__c}"> 
+                                        <div class="service-header-label">{!service.Practice_Management__r.Name}</div>
+                                    </a>
+                                </div>
+                                <div class="service-info">
+                                    <div class="service-desc">
+                                        <div class="desc-content flex">
+                                            <div class=""><lightning:formattedRichText value="{!service.Description__c}"/></div>
+                                            
+                                        </div>
+                                        
+                                        <div class="learn-more">
+                                            <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+service.Service__c+'&amp;practiceId='+service.Practice_Management__c}"> 
+                                                <lightning:icon iconName="utility:chevronright" size="x-small"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:iteration>
+                    </div>
+                    <aura:set attribute="else">
+                        <!--No Practice Management Found--> &nbsp;
+                    </aura:set>
+                </aura:if>
+                
+                <!-- Services List -->
+                <aura:set attribute="else">
+                    <div class="services-page">
+                        <aura:iteration items="{!v.services}" var="service">
+                            <div class="services-content">
+                                <!--<div class="service-header">
+                                    <aura:if isTrue="{!service.Display_Practice__c == TRUE}">
+                                        <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+service.Id+'&amp;displayPractice'}"> 
+                                            <div class="service-header-label">{!service.Name}</div>
+                                        </a>
+                                        <aura:set attribute="else">
+                                            <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+service.Id}"> 
+                                                <div class="service-header-label">{!service.Name}</div>
+                                            </a>
+                                        </aura:set>
+                                    </aura:if>
+                                </div>-->
+                                
+                                <aura:if isTrue="{!service.Display_Practice__c == TRUE}">
+                                    <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+service.Id+'&amp;displayPractice'}"> 
+                                        <div class="service-header">
+                                            <div class="service-header-label">{!service.Name}</div>
+                                            <!--<div class="service-header-img"><img src="{!$Resource.VirtuVisit + '/Service'+service.counter+'.png'}"  /></div>-->
+                                        </div>
+                                    </a>
+                                    <aura:set attribute="else">
+                                        <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+service.Id}"> 
+                                            <div class="service-header">
+                                                <div class="service-header-label">{!service.Name}</div>
+                                                <!--<div class="service-header-img"><img src="{!$Resource.VirtuVisit + '/Service'+service.counter+'.png'}"  /></div>-->
+                                            </div>
+                                        </a>
+                                    </aura:set>
+                                </aura:if>
+                                
+                                <div class="service-info">
+                                    <div class="service-desc">
+                                        <!--<div class="desc-header">Our doctors get to know you to help you better manage your health</div>
+                                <div class="desc-content-header">Common Care Provided</div>-->
+                                        <div class="desc-content flex">
+                                            <div class=""><lightning:formattedRichText value="{!service.Description__c}"/></div>
+                                            
+                                        </div>
+                                        
+                                        <div class="learn-more">
+                                            <aura:if isTrue="{!service.Display_Practice__c == TRUE}">
+                                                <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+service.Id+'&amp;displayPractice'}"> 
+                                                    <lightning:icon iconName="utility:chevronright" size="x-small"/>
+                                                </a>
+                                                <aura:set attribute="else">
+                                                    <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;serviceId='+service.Id}"> 
+                                                        <lightning:icon iconName="utility:chevronright" size="x-small"/>
+                                                    </a>
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </div>
+                                    <!--<div class="service-img"><img src="{!$Resource.VirtuVisit + '/PrimaryCare.JPG'}" /></div>-->
+                                </div>
+                            </div>
+                        </aura:iteration>
+                        <!-- Practice Management -->
+                        <!--
+                        <aura:iteration items="{!v.practices}" var="practice">
+                            <div class="services-content">
+                                <div class="service-header">
+                                    <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;practiceId='+practice.Id}"> 
+                                        <div class="service-header-label">{!practice.Name}</div>
+                                    </a>
+                                </div>
+                                <div class="service-info">
+                                    <div class="service-desc">
+                                        <div class="desc-content flex">
+                                            <div class=""><lightning:formattedRichText value="{!practice.Description__c}"/></div>
+                                            
+                                        </div>
+                                        
+                                        <div class="learn-more">
+                                            <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id+'&amp;practiceId='+practice.Id}"> 
+                                                <lightning:icon iconName="utility:chevronright" size="x-small"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:iteration>-->
+                    </div>
+                </aura:set>
+            </aura:if>
+            <!-- All Doctors -->
+            <aura:if isTrue="{!v.doctors.length != 0}">
+                <div class="doctor-list-page">
+                    <aura:iteration items="{!v.doctors}" var="doctor" indexVar="index">
+                        <div class="services-content" data-selected-Index="{!index}">
+                            <div class="doctor-header" id="{!doctor.Id}" onmouseenter="{!c.handleMouseHover}" onmouseleave="{!c.handleMouseOut}" data-index="{!index}" tabindex="-1" >
+                                <a href="{!'/Connect/s/contact-availability?id='+v.contact.Id+'&amp;serviceId='+v.serviceId+'&amp;reason='+v.reason+'&amp;doctorId='+doctor.Contact__c+'&amp;practiceId='+doctor.Practice_Management__c}">
+                                    <!--<img src="{!$Resource.DoctorImage}" />-->
+                                    <img src="{!doctor.Contact__r.Profile_Picture_URL__c}" />
+                                </a>
+                                <aura:if isTrue="{!v.hoverRow==index}">
+                                    <aura:if isTrue="{!v.togglehover==true}">
+                                        <div  class="slds-popover slds-nubbin_bottom thought"
+                                             role="tooltip" id="help" style="position: absolute; right: 0%; bottom: 100%; width: 100%;">
+                                            <table>
+                                                <tr>
+                                                    <td><b>Practice:</b></td>
+                                                    <td>{!v.mouseHoverData.Practice_Management__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Doctor Name:</b></td>
+                                                    <td>{!v.mouseHoverData.Contact__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Phone:</b></td>
+                                                    <td>{!v.mouseHoverData.Contact__r.Phone}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Email:</b></td>
+                                                    <td>{!v.mouseHoverData.Contact__r.Email}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </aura:if>
+                                </aura:if>
+                                <!--<div class="service-header-img"><img src="{!$Resource.VirtuVisit + '/Service'+service.counter+'.png'}"  /></div>-->
+                            </div>
+                            <div class="service-info">
+                                <div class="service-desc">
+                                    <div class="desc-content flex">
+                                        <div class="">
+                                            <lightning:formattedRichText value=""/>
+                                            <div class="doctor-name">{!doctor.Contact__r.Name}</div>
+                                            <div class="doctor-title">{!doctor.Practice_Management__r.Name}</div>
+                                            <div class="doctor-title">{!doctor.Contact__r.Title}</div>
+                                            <div class="doctor-info">
+                                                Account: {!doctor.Contact__r.Account.Name}<br />
+                                                Email: {!doctor.Contact__r.Email}<br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="learn-more">
+                                        <a href="{!'/Connect/s/contact-availability?id='+v.contact.Id+'&amp;serviceId='+v.serviceId+'&amp;reason='+v.reason+'&amp;doctorId='+doctor.Contact__c}"> 
+                                            <lightning:icon iconName="utility:chevronright" size="x-small"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--<div class="service-img"><img src="{!$Resource.VirtuVisit + '/PrimaryCare.JPG'}" /></div>-->
+                            </div>
+                        </div>
+                    </aura:iteration>
+                    
+                </div>
+            </aura:if>
+            
+            <!-- practice doctors -->
+            <aura:if isTrue="{!v.practiceDoctors.length > 0}">
+                <div class="doctor-list-page">
+                    <aura:iteration items="{!v.practiceDoctors}" var="doctor" indexVar="index">
+                        <div class="services-content" data-selected-Index="{!index}">
+                            <div class="doctor-header" id="{!doctor.Contact__c}" onmouseenter="{!c.handleMouseHover}" onmouseleave="{!c.handleMouseOut}" data-index="{!index}" tabindex="-1" >
+                                <a href="{!'/Connect/s/contact-availability?id='+v.contact.Id+'&amp;serviceId='+v.serviceId+'&amp;practiceId='+doctor.Practice_Management__c+'&amp;doctorId='+doctor.Contact__c}">
+                                    <img src="{!doctor.Contact__r.Profile_Picture_URL__c}" />
+                                </a>
+                                <aura:if isTrue="{!v.hoverRow==index}">
+                                    <aura:if isTrue="{!v.togglehover==true}">
+                                        <div  class="slds-popover slds-nubbin_bottom thought"
+                                             role="tooltip" id="help" style="position: absolute; right: 0%; bottom: 100%; width: 100%;">
+                                            <table>
+                                                <tr>
+                                                    <td><b>Doctor Name:</b></td>
+                                                    <td>{!v.mouseHoverDataPracticeDoctor.Contact__r.Name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Phone:</b></td>
+                                                    <td>{!v.mouseHoverDataPracticeDoctor.Contact__r.Phone}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Email:</b></td>
+                                                    <td>{!v.mouseHoverDataPracticeDoctor.Contact__r.Email}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </aura:if>
+                                </aura:if>
+                                <!--<div class="service-header-img"><img src="{!$Resource.VirtuVisit + '/Service'+service.counter+'.png'}"  /></div>-->
+                            </div>
+                            <div class="service-info">
+                                <div class="service-desc">
+                                    <div class="desc-content flex">
+                                        <div class="">
+                                            <lightning:formattedRichText value=""/>
+                                            <div class="doctor-name">{!doctor.Contact__r.Name}</div>
+                                            <div class="doctor-title">{!doctor.Contact__r.Name}</div>
+                                            <div class="doctor-info">
+                                                Account: {!doctor.Contact__r.Account.Name}<br />
+                                                Email: {!doctor.Contact__r.Name}<br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="learn-more">
+                                        <a href="{!'/Connect/s/contact-availability?id='+v.contact.Id+'&amp;serviceId='+v.serviceId+'&amp;practiceId='+doctor.Practice_Management__c+'&amp;doctorId='+doctor.Contact__c}">
+                                            <lightning:icon iconName="utility:chevronright" size="x-small"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--<div class="service-img"><img src="{!$Resource.VirtuVisit + '/PrimaryCare.JPG'}" /></div>-->
+                            </div>
+                        </div>
+                    </aura:iteration>
+                    
+                </div>
+                
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

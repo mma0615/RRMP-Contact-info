@@ -1,0 +1,106 @@
+<!--
+ - Created by angelorivera on 19/7/21.
+ -->
+
+<aura:component description="Navigator_EventPage"
+                           implements="forceCommunity:availableForAllPageTypes"
+                           access="global"
+                           controller="ChangeCloudController">
+
+
+    <ltng:require styles="{!$Resource.community_event_ui + '/cc-ui-min.css'}" />
+    <ltng:require styles="{!$Resource.community_event_ui + '/cc-ui-font-min.css'}" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="backgroundImageURL" type="string"/>
+    <aura:attribute name="campaignLogoURL" type="string"/>
+
+    <aura:attribute name="eventId" type ="String"/>
+
+    <aura:attribute name="title" type="string"/>
+    <aura:attribute name="subtitle" type="string"/>
+
+    <aura:attribute name="parameterURL" type="string"/>
+
+    <aura:attribute name="registrationURL" type ="String"/>
+    <aura:attribute name="surveyId" type ="String"/>
+    <aura:attribute name="isRegOpen" type ="Boolean" default="false"/>
+    <aura:attribute name="isPhone" type ="Boolean" default="false"/>
+    <aura:attribute name="isPhoneVal" type ="String" />
+    <aura:attribute name="Name" type ="String"/>
+    <aura:attribute name="showComponent" type="Boolean" default="true" />
+
+    <aura:attribute name="homePageTitle" type="String"/>
+    <aura:attribute name="sessionPageTitle" type="String"/>
+    <aura:attribute name="materialsPageTitle" type="String"/>
+    <aura:attribute name="issueTrackerPageTitle" type="String"/>
+    <aura:attribute name="parkingPageTitle" type="String"/>
+    <aura:attribute name="surveyPageTitle" type="String"/>
+    <aura:attribute name="contactUsPageTitle" type="String"/>
+    <aura:attribute name="learnMorePageTitle" type="String"/>
+
+    <aura:attribute name="showHome" type ="Boolean" default="false"/>
+    <aura:attribute name="showSession" type ="Boolean" default="false"/>
+    <aura:attribute name="showMaterials" type ="Boolean" default="false"/>
+    <aura:attribute name="showIssue" type ="Boolean" default="false"/>
+    <aura:attribute name="showParking" type ="Boolean" default="false"/>
+    <aura:attribute name="showSurvey" type ="Boolean" default="false"/>
+    <aura:attribute name="showContactUs" type ="Boolean" default="false"/>
+    <aura:attribute name="showLearnMore" type ="Boolean" default="false"/>
+
+    <aura:attribute name="showIssueMore" type ="Boolean" default="false"/>
+    <aura:attribute name="showParkingMore" type ="Boolean" default="false"/>
+    <aura:attribute name="showSurveyMore" type ="Boolean" default="false"/>
+    <aura:attribute name="showContactUsMore" type ="Boolean" default="false"/>
+
+    <aura:attribute name="showHomeMobile" type ="Boolean" default="false"/>
+    <aura:attribute name="showSessionMobile" type ="Boolean" default="false"/>
+    <aura:attribute name="showMaterialsMobile" type ="Boolean" default="false"/>
+    <aura:attribute name="showIssueMobile" type ="Boolean" default="false"/>
+    <aura:attribute name="showParkingMobile" type ="Boolean" default="false"/>
+    <aura:attribute name="showSurveyMobile" type ="Boolean" default="false"/>
+    <aura:attribute name="showContactUsMobile" type ="Boolean" default="false"/>
+    <aura:attribute name="showLearnMoreMobile" type ="Boolean" default="false"/>
+
+
+    <div>
+    <!-- Event Header -->
+    <div class="clear-section"></div>
+    <div class="welcomebanner">Welcome {!v.Name} to your event page!</div>
+    <div>
+        <div class="hero-section-infobox">
+            <div class="hero-info-box-inside">
+                <div class="hero-title">
+                    <div class="font-hero-header-content">
+                        <div class="vertical-center">
+                            <p class="font-hero-header">{!v.title}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="font-hero-body">{!v.subtitle}</p>
+                </div>
+
+                <div class="hero-info-box-button">
+                    <aura:if  isTrue="{!v.showLearnMore}" >
+                        <a href="{!'/Compass/s/details?' + v.parameterURL}" >
+                            <div class="btn-base btn-learnmore">{!v.learnMorePageTitle}</div>
+                        </a>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isRegOpen}">
+                        <a href="{!v.registrationURL}">
+                            <div class="btn-base btn-register">Register</div>
+                        </a>
+                    </aura:if>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="clear-section"></div>
+    <!-- Event Header -->
+        
+    </div>
+</aura:component>

@@ -1,0 +1,99 @@
+<aura:component access="global" controller="CompassEmailController">
+    <!--  this tag sets modal size -->
+    <aura:html tag="style">
+    	.slds-modal__container {
+    		min-height: 70vh !important;
+         	min-width: 90vw !important;
+        }
+        .slds-spinner_container{
+            background: none;
+        }
+    </aura:html>     
+    
+    <!-- load Lodash scripts -->
+    <ltng:require scripts="{!$Resource.lodash}" afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <!-- public attributes -->
+    <aura:attribute name="contactIdList" type="String[]"  />
+    <aura:attribute name="ccRecipients" type="String[]" />
+    <aura:attribute name="bccRecipients" type="String[]" />
+    <aura:attribute name="recordId" type="String"/>
+    
+    <!-- local attributes -->
+    <aura:attribute name="disableListbox" type="Boolean" access="private" default="true"/>
+    <aura:attribute name="isMultipleEntry" type="Boolean" access="private" default="true"/>
+    <aura:attribute name="initialSelection" type="Object[]" access="private"/>
+    <aura:attribute name="ccRecipientsPills" type="Object[]" access="private" />
+    <aura:attribute name="bccRecipientsPills" type="Object[]" access="private"/>
+    <aura:attribute name="isLoading" type="Boolean" access="private" default="true"/>
+    
+    <!-- handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="emailInputCommit" event="c:emailInputCommit" action="{!c.handleRecipientsChange}"/>
+    
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Loading" size="medium" />
+        <aura:set attribute="else">
+            <div class="slds-m-vertical_medium">
+                <!-- this is an open source lightning web component -->
+                <c:lookup helptext="You wouldn't be able to search for contact/s with HasOptedOutOfEmail field set to true."
+                          aura:id="lookup"
+                          disableListbox="{!v.disableListbox}"
+                          selection="{!v.initialSelection}"         
+                          onsearch="{!c.handleContactSearch}"
+                          onselectionchange="{!c.handleContactSelect}"
+                          label="Select Recipient"
+                          placeholder="Search Contact"
+                          isMultiEntry="{!v.isMultipleEntry}"/>
+            </div>
+            <div style="max-height:34vh; overflow-y:auto">
+                <aura:if isTrue="{!v.initialSelection.length}">
+                    <ul>
+                        <aura:iteration items="{!v.initialSelection}" var="contact" indexVar="index">
+                            <li aura:id="{!contact.id}">
+                                <div class="slds-grid list-item" data-contactid="{!contact.id}" onclick="{!c.handleRemoveRecipient}">
+                                    <div class="slds-col_bump-left">
+                                        <lightning:icon 
+                                                        size="small"
+                                                        iconName="standard:contact" 
+                                                        alternativeText=">" 
+                                                        title="contact"/>
+                                    </div>
+                                    <div class="slds-col slds-m-vertical_xxx-small slds-m-horizontal_xx-small">
+                                        <p>{!contact.title} &lt;{!contact.subtitle}&gt;</p>
+                                    </div>
+                                    <div class="slds-col_bump-right slds-m-vertical_xx-small">
+                                        <lightning:buttonIcon 
+                                                              variant="bare"
+                                                              size="medium"
+                                                              iconName="utility:close"   
+                                                              alternativeText="remove" 
+                                                              class="slds-m-left_xx-small" 
+                                                              title="Remove"/>
+                                    </div>
+                                </div>
+                                <aura:if isTrue="{! index == v.initialSelection.length - 1 }">
+                                    <div class="list-last"></div>
+                                </aura:if>
+                            </li>
+                        </aura:iteration>
+                    </ul>
+                    <aura:set attribute="else">
+                        <p class="slds-align_absolute-center font-size-6">No contact/s selected.</p>
+                    </aura:set>
+                </aura:if>
+            </div>
+            
+            <!-- CC Input -->
+            <div class="slds-m-vertical_medium">
+                <c:emailInput label="CC" name="cc" emailList="{!v.ccRecipients}"/>
+            </div>
+            
+            <!-- BCC Input -->
+            <div class="slds-m-vertical_medium">
+                <c:emailInput label="BCC" name="bcc" emailList="{!v.bccRecipients}" ></c:emailInput>
+            </div>
+        </aura:set>
+    </aura:if>
+    
+</aura:component>

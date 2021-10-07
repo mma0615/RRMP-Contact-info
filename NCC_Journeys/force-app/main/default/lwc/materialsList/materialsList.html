@@ -1,0 +1,11 @@
+<template>
+    <div class="container">
+        <div class="slds-grid slds-wrap">
+            <template for:each={materials} for:item="item">
+                <div class="slds-col slds-size_1-of-1" key={item.Id}>
+                    <c-materials-details title={item.Title} description={item.Description} url={item.DownloadURL}></c-materials-details>
+                </div>
+            </template>
+        </div>    
+    </div>
+</template>

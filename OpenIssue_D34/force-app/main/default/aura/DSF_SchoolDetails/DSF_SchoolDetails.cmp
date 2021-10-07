@@ -1,0 +1,90 @@
+<!--
+    created by smilankov 29/10/19
+-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="DSF_SchoolDetailsController">
+
+    <aura:attribute name="collegeHeaderChoiceLabel" type="String" default=""/>
+    <aura:attribute name="collegeBtnLabel" type="String" default=""/>
+    <aura:attribute name="collegeInfoLabel" type="String" default=""/>  
+    <aura:attribute name="academicYear"   type="String" default="2021-2022 academic year?"/>  
+	<aura:attribute name="modalText"    type="String"  default="What college do you plan to attend during the "/>
+    <aura:attribute name="universities" type="Object[]" default=""/>
+    <aura:attribute name="currentUser" type="User"/>   
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="school" type="Object"/>
+    <aura:attribute name="recordError" type="String"/> 
+    <aura:attribute name="collegeImageName" type="String" default=""/> 
+    <aura:attribute name="updateCollege" type="Boolean" default="false"/>
+    <aura:attribute name="refresh" type="Boolean" default="false"/>
+    <aura:attribute name="disableChangeBtn" type="Boolean" default="true" />
+    <aura:attribute name="alignAttribute" type="String" default="slds-align_absolute-center"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.application}" action="{!c.userAndApplicationLoaded}"/>  
+    <aura:handler name="change" value="{!v.currentUser}" action="{!c.userAndApplicationLoaded}"/>  
+ 
+    <c:DSF_UserLoader output="{! v.currentUser }"
+                      userError="{! v.recordError }"
+                      fields="Id,ContactId,Contact.Application_Portal_Page_Access__c"
+    /> 
+
+    <div class="slds-size_1-of-1 divColor slds-wrap slds-align_absolute-center" style="flex: auto;">
+        
+        <div class="slds-size_1-of-1 slds-p-top_large slds-p-bottom_large">
+            
+            <div class="{!'slds-grid slds-x-small-size_1-of-1 button-img-wrap slds-medium-size_1-of-2 slds-large-size_1-of-2 '+ v.alignAttribute}">
+                
+                    <aura:if isTrue="{! !empty(v.collegeImageName) }">    
+                        <img class="slds-m-horizontal_small max-img-width" src="{!$Resource.DSF_CollegeLogos + '/' + v.collegeImageName + '.jpg'}" />
+                    </aura:if>              
+                
+                    <lightning:button
+                                      class="slds-button standardOrangeBtn slds-m-horizontal_small"
+                                      label="{!v.collegeBtnLabel}"
+                                      disabled="{! v.disableChangeBtn }"
+                                      onclick="{!c.openModal}">{!v.collegeBtnLabel}</lightning:button>
+             </div>
+             
+            <div class="slds-grid slds-x-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 paddingDesktop">
+                <p class="{!'pStyle  '+ v.alignAttribute}">{!v.collegeInfoLabel}</p>
+            </div>
+        </div>
+        <!--MODAL -->
+        <div class="slds-modal"  aura:id="modal">
+            <div class="slds-modal__container slds-size_1-of-4" id="modalContainer">
+                <div class="slds-modal__header ">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{!c.closeModal}"
+                                          alternativeText="close"
+                                          variant="bare"
+                                          size="large"
+                                          class="slds-modal__close"/>
+                </div>
+                <!--Modal content-->
+                <div class="slds-modal__content slds-p-right_xx-large slds-p-left_xx-large slds-p-bottom_xx-large slds-p-top_large">
+                    <div class="slds-size_1-of-1 slds-m-bottom_large">
+                        <p class="pModal">{!v.modalText}<br/>{!v.academicYear}</p>
+                    </div> 
+                    <div class="slds-size_1-of-1 slds-m-bottom_large"> 
+                        <aura:if isTrue="{! and(v.universities != null, v.universities.length > 0) }">
+                            <lightning:combobox variant="label-hidden" value="{!v.application.School_Name__c}" placeholder="Select College" options="{! v.universities }"/>
+                        </aura:if>
+                    </div>
+                    <div class="slds-size_1-of-1 slds-m-bottom_large button-div">
+                        <lightning:button class="slds-button standardOrangeBtn" onclick="{! c.updateCollege }">UPDATE</lightning:button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+        <!-- Display Lightning Data Service errors, if any -->
+        <aura:if isTrue="{!not(empty(v.recordError))}">
+            <div class="recordError slds-align--absolute-center">{!v.recordError}</div>
+        </aura:if>
+
+        <aura:if isTrue="{! v.updateCollege }">
+            <lightning:spinner alternativeText="Saving..." />
+        </aura:if>
+        
+    </div>
+</aura:component>

@@ -1,0 +1,72 @@
+.THIS .slds-dl_vertical{
+    padding-top:10px;
+    text-align:left;
+    padding-left:20px;
+}
+.THIS .slds-box{
+    background-color: #f2f2f2;
+}
+.THIS .slds-form-element__label
+{
+    font-size: x-large;
+}
+
+.THIS .slds-button
+{
+        background-color: #fe8e0c;
+    color: white;
+}
+
+.THIS .container
+{
+      width: 100px;
+}
+
+.THIS .colorOne{
+   color:#DCDCDC; 
+}
+
+.THIS .container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    opacity: 0.5;
+}
+.THIS .showFont{
+    font: 400 13.3333px Arial;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 400;
+    color:#fe8e0c;
+    
+}
+
+.THIS .showImagess {
+    display: none;
+}
+
+.THIS .showImageinnerss {
+    display: block;
+}
+
+.THIS .showNote{
+   display: none; 
+}
+
+@media only screen and (max-width: 1000px) {
+    .THIS .showImagess {
+        display:block;
+        
+    }
+    .THIS .showImageinnerss {
+        display:none;
+        
+    }
+    .THIS .showNote{
+   display: block; 
+}
+    
+}

@@ -1,0 +1,362 @@
+<aura:component description="DSF_MyToDoList" controller="DSF_MyToDoList" implements="forceCommunity:availableForAllPageTypes">
+
+    <aura:attribute name="myToDoListHeaderLabel" type="String"/>
+    <aura:attribute name="toDoListCheckboxLabel" type="String"/>
+    <aura:attribute name="toDoListSubheaderLabel" type="String"/>
+    <aura:attribute name="learnMore" type="String"/>
+    <aura:attribute name="pendingReviewLabel" type="String" />
+
+    <!--DSF APPLICATION TOPIC DSF_MyToDoList_DSFApplication_Topic-->
+    <aura:attribute name="submitDSFApplLabel" type="String"/>
+    <aura:attribute name="completeDSFApplLabel" type="String"/>
+    <aura:attribute name="taskSubmittedOnLabel" type="String"/>
+
+    <!--DSF FAFSA TOPIC DSF_MyToDoList_FAFSA_Topic-->
+    <aura:attribute name="completeFAFSALabel" type="String"/>
+    <aura:attribute name="completeFAFSALinkLabel" type="String"/>
+    <aura:attribute name="FAFSAgovLink" type="String"/>
+
+    <!--DSF FAFSA PROOF TOPIC DSF_MyToDoList_FAFSAProof_Topic-->
+    <aura:attribute name="submitFAFSAProofLabel" type="String"/>
+    <aura:attribute name="submitFAFSATooltipLabel" type="String"/>
+    <aura:attribute name="submitFAFSAToLateLabel" type="String"/>
+    <aura:attribute name="FAFSAProofPendingReviewLabel" type="String" />
+    <aura:attribute name="uploadProofOfFAFSA" type="String"/>
+
+    <aura:attribute name="taskCompletedOnLabel" type="String"/>
+    <aura:attribute name="taskUploadedOnLabel" type="String"/>
+
+    <!--COLLEGE CHOICE TOPIC  DSF_MyToDoList_CollegeChoice_Topic-->
+    <aura:attribute name="collegeHeaderChoiceLabel" type="String"/>
+    <aura:attribute name="collegeBtnLabel" type="String"/>
+    <aura:attribute name="collegeInfoLabel" type="String"/>
+    <aura:attribute name="confirmCollegeChoiceLabel" type="String"/>
+    <aura:attribute name="refresh" type="Boolean" default="false"/>
+
+    <!--FINANCIAL AID REQUIREMENTS TOPIC DSF_MyToDoList_FinAidReq_Topic-->
+    <aura:attribute name="financialAidRequirementsLabel" type="String"/>
+    <aura:attribute name="financialAidReqTooltipLabel" type="String"/>
+    <aura:attribute name="collegePortalLinkText" type="String" />
+    <aura:attribute name="institutionalLabel" type="String"/>
+
+    <!--LAWFUL PRESENCE TOPIC DSF_MyToDoList_LawfulPresence_Topic-->
+    <aura:attribute name="submit" type="String"/>
+    <aura:attribute name="proofOfLawfulPresence" type="String"/>
+    <aura:attribute name="proofOfLawfulPresenceLink" type="String"/>
+    <aura:attribute name="uploadProofOfLawfulPresence" type="String"/>
+    <aura:attribute name="uploadProofOfLawfulPresenceToolTip" type="String"/>
+    <aura:attribute name="institutionalLabelTooltip" type="String"/>
+    <aura:attribute name="submitLawfulPresenceToLateLabel" type="String"/>
+
+    <!--HS GPA TOPIC DSF_MyToDoList_HSGPA_Topic-->
+    <aura:attribute name="eligibleConfirmationGPA" type="String"/>
+    <aura:attribute name="learnMoreGPALink" type="String"/>
+
+    <!--GPA EXCEPTION TOPIC DSF_MyToDoList_GPAException_Topic-->
+    <aura:attribute name="completeTheGPAExceptionForm" type="String"/>
+    <aura:attribute name="GPAExceptionFormLinkText" type="String"/>
+    <aura:attribute name="GPAExceptionURL" type="String"/>
+    <aura:attribute name="submitCollegeTranscriptGPAException" type="String"/>
+
+    <!--SSR TOPIC DSF_MyToDoList_SSR_Topic-->
+    <aura:attribute name="completeStudentSuccessRequirements" type="String"/>
+    <aura:attribute name="completeStudentSuccessRequirementsToolTip" type="String"/>
+    <aura:attribute name="defaultSSRLink" type="String"/>
+
+    <!--ENROLLMENT TOPIC DSF_MyToDoList_Enrollment_Topic-->
+    <aura:attribute name="enrollFullTimeWhenClassesStart" type="String"/>
+    <aura:attribute name="learnMoreEnrollment" type="String"/>
+    <aura:attribute name="learnMoreEnrollmentLink" type="String"/>
+    <aura:attribute name="enrollFullTimeWhenClassesStartToolTip" type="String"/>
+
+    <!--MID YEAR TRANSFER TOPIC DSF_MyToDoList_MidYearTransfer_Topic-->
+    <aura:attribute name="transferringToADifferentDSFpartner" type="String"/>
+    <aura:attribute name="midYearTransferLinkText" type="String"/>
+    <aura:attribute name="midYearTransferURL" type="String"/>
+    <aura:attribute name="transferringToADifferentDSFpartnerTooltip" type="String"/>
+    <aura:attribute name="submitTranscriptForMidYearTransfer" type="String"/>
+    <aura:attribute name="midYearTransferFinancialAid" type="String"/>
+    <aura:attribute name="midYearTransferDenied" type="String"/>
+    <aura:attribute name="midYearTransferDeniedTooltip" type="String" />
+
+    <!--PROGRAM EXTENSION TOPIC DSF_MyToDoList_ProgramExtension_Topic-->
+    <aura:attribute name="eligibleForAProgramExtension" type="String"/>
+    <aura:attribute name="programExtensionFormLinkText" type="String"/>
+    <aura:attribute name="programExtensionFormURL" type="String"/>
+    <aura:attribute name="eligibleForAProgramExtensionToolTip" type="String"/>
+    <aura:attribute name="submitTranscriptForProgramExtension" type="String"/>
+    <aura:attribute name="submitTranscriptForProgramExtensionTooltip" type="String"/>
+    <aura:attribute name="completeProgramExtensionForm" type="String"/>
+    <aura:attribute name="requestDeniedProgramExtension" type="String"/>
+    <aura:attribute name="requestDeniedProgramExtensionToolTip" type="String"/>
+
+    <!--CASE SUBJECT LABELS -->
+    <aura:attribute name="fafsaProofCaseSubject" type="String" />
+    <aura:attribute name="lawfulPresenceCaseSubject" type="String" />
+    <aura:attribute name="gpaExceptionCaseSubject" type="String" />
+    <aura:attribute name="midYearTransferCaseSubject" type="String" />
+    <aura:attribute name="programExtensionCaseSubject" type="String" />
+    <!-- MY ADVISORS SECTION -->
+    <aura:attribute name="advisorsHeaderLabel" type="String" />
+
+    <!--OBJECTS-->
+    <aura:attribute name="currUserId" type="String" default="" />
+    <aura:attribute name="currUser" type="User" default="" />
+    <aura:attribute name="applicationList" type="Object" default="" />
+    <aura:attribute name="studentTermList" type="Object" default="" />
+    <aura:attribute name="startEndDateConfList" type="Object" default="" />
+    <aura:attribute name="startEndDateConfMap" type="Map" />
+
+    <aura:attribute name="applicationId" type="String" />
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="studentTerm" type="Object"/>
+    <aura:attribute name="contact" type="Object"/>
+    <aura:attribute name="fafsa" type="Object"/> 
+    <aura:attribute name="applicationToUpdate" type="Object"/>
+    <aura:attribute name="applicationUpdateErrorMessage" type="String"/>
+    <aura:attribute name="currentYear" type="String" default=""/>
+
+    <!--ERROR HANDLING-->
+    <aura:attribute name="applicationRecordDataError" type="String"/>
+    <aura:attribute name="fafsaRecordDataError" type="String"/>
+    <aura:attribute name="contactRecordDataError" type="String"/>
+    <aura:attribute name="studentTermRecordDataError" type="String"/>
+    <aura:attribute name="userRecordError" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.applicationList}" action="{!c.onAppListLoad}" />
+    <aura:handler name="change" value="{!v.studentTermList}" action="{!c.onStudentTermLoad}" />
+    <aura:handler name="change" value="{!v.startEndDateConfList}" action="{!c.onStartEndDateConfLoad}" /> 
+    <aura:handler name="updateAppEvent" event="c:DSF_MyToDoLis_ApplicationUpdateEVT" action="{!c.doApplicationUpdate}"/>
+    <aura:handler name="DSF_MyToDoList_RefreshFafsaEVT" event="c:DSF_MyToDoList_RefreshFafsaEVT" action="{!c.refreshFafsa}"/>
+
+    {!v.applicationRecordDataError}
+    {!v.fafsaRecordDataError}
+    {!v.contactRecordDataError}
+    {!v.userRecordError}
+
+    <c:DSF_UserLoader output="{!v.currUser}"
+                      userError="{!v.userRecordError}"
+                      fields="Id,ContactId"
+                      />
+
+    <aura:if isTrue="{!not(empty(v.currUser))}">
+        <c:DSF_sObjectHelper aura:id="applicationLoader"
+                             methodName="getSObject"
+                             object="Application__c"
+                             fields="Id,Name,Application_Status__c,Application_Submission_Date_Time__c,Federal_FA_Eligible__c,
+                                    College_Type__c,High_School_GPA_Waiver_Form__c,HS_GPA_Waiver_Transcript_Submission_Date__c,
+                                    Lawful_Presence_Doc_Submission_Date__c,Lawful_Presence_Req_Met__c,App_Status_Detail__c,
+                                    Mid_Year_Transfer_Status__c,Mid_Year_Transfer_Proof_Submission_Date__c,One_Year_Extension_Form_Submitted__c,
+                                    Program_Extension_Proof_Submitted_Date__c,HS_GPA_Waiver_Form_Submission_Date__c,Student_Name__c,Lawful_Presence_Proof_Expiration_Date__c,
+                                    School_Name__r.College_Portal_Link__c,School_Name__r.SSR_Link__c,School_Name__c,Mid_Year_Transfer_Form_Submission_Date__c,School_Name__r.Website"
+                             conditions="{!'Application_Submission_Year__c = \''+ v.currentYear +'\' AND Student_Name__c = \'' + v.currUser.ContactId + '\''}"
+                             limit="1"
+                             output="{!v.applicationList}"
+                             />
+  
+        <c:DSF_sObjectHelper methodName="getSObject"
+                             object="DSF_ToDoList_Start_End_Date_Conf__mdt"
+                             fields="MasterLabel, End_Date__c, Start_Date__c"
+                             output="{!v.startEndDateConfList}"
+        />
+        <force:recordData recordId="{!v.currUser.ContactId}"
+                          fields="Highest_Cumulative_HS_GPA__c, Cohort__r.Name"
+                          targetFields="{!v.contact}"
+                          targetError="{!v.contactRecordDataError}"
+        />
+
+        <aura:if isTrue="{!v.application}">
+            <c:DSF_sObjectHelper methodName="getSObject"
+                                 object="Student_Term__c"
+                                 fields="Name,Program_Enrolled__c,Full_Time_Enrollment_Req_Exemption__c,Enrollment_Type__c,College_or_University__c,College_or_University__r.SSR_Link__c,
+                                         Term_Semester__c,Term_Year__c,Final_Award_Status__c,SSR_Requirements_Completed__c,Term_End_Date__c,Term_Start_Date__c"
+                                 conditions="{!'Application__c = \'' + v.application.Id + '\''}"
+                                 limit="1"
+                                 output="{!v.studentTermList}"
+                                 />
+            <force:recordData aura:id="applicationUpdater"
+                              recordId="{!v.application.Id}"
+                              targetFields="{!v.applicationToUpdate}"
+                              targetError="{!v.applicationUpdateErrorMessage}"
+                              mode="EDIT"
+                              fields="Lawful_Presence_Doc_Submission_Date__c,
+                                      High_School_GPA_Waiver_Form__c,
+                                      HS_GPA_Waiver_Transcript_Submission_Date__c,
+                                      Mid_Year_Transfer_Status__c,
+                                      Mid_Year_Transfer_Proof_Submission_Date__c,
+                                      One_Year_Extension_Form_Submitted__c,
+                                      Program_Extension_Proof_Submitted_Date__c"
+            />
+        </aura:if>
+    </aura:if>
+    <div class="slds-grid slds-wrap slds-size_1-of-1 slds-m-top_medium ">
+         <div class=" slds-small-size_1-of-1 slds-large-size_1-of-2 slds-p-right_medium">
+             
+            
+            <div class="slds-grid slds-size_1-of-1 slds-m-bottom_small">
+               
+                
+              <h4 class="slds-size_1-of-2"><b>{!v.myToDoListHeaderLabel}</b></h4>
+                  
+                
+    
+                <div class="slds-size_1-of-2 " >
+                    <lightning:input style="float: right;" class="slds-text-heading_medium" type="checkbox" onchange="{!c.handleCheckboxChange}" label="{!v.toDoListCheckboxLabel}"/>
+                </div>
+    
+            </div>
+            <div class="slds-size_1-of-1 slds-p-around_large divColor">
+                <p class="slds-size_1-of-1 pStyle">{!v.toDoListSubheaderLabel}</p>
+                <h5 class="slds-text-heading_small slds-m-top_large"><b>MAY 1</b></h5>
+                <c:DSF_MyToDoList_DSFApplication_Topic submitDSFApplLabel="{!v.submitDSFApplLabel}"
+                                                       taskSubmittedOnLabel="{!v.taskSubmittedOnLabel}"
+                                                       completeDSFApplLavel="{!v.completeDSFApplLabel}"
+                                                       application="{!v.application}"
+                                                       dsfConfig="{!v.startEndDateConfMap.DSF_MyToDoList_Application_Topic}"/>
+    <!--! and(v.application != null, v.fafsa != null, -->
+                <h5 class="slds-text-heading_small slds-m-top_large"><b>By College's Priority Deadline</b></h5>
+                <aura:if isTrue="{! and(v.application != null,  or(v.application.Application_Status__c == 'Submitted', v.application.Application_Status__c == 'Pending') )}">
+                    <c:DSF_MyToDoList_FAFSA_Topic completeFAFSALabel="{!v.completeFAFSALabel}"
+                                                  completeFAFSALinkLabel="{!v.completeFAFSALinkLabel}"
+                                                  taskCompletedOnLabel="{!v.taskCompletedOnLabel}"
+                                                  FAFSAgovLink="{!v.FAFSAgovLink}"
+                                                  fafsa="{!v.fafsa}"
+                                                  application="{!v.application}"/>
+                </aura:if>
+<!--
+                <aura:if isTrue="{! and(v.fafsa.FAFSA_Requirement_Status__c != 'Requirement Met', v.fafsa != null, v.application != null, v.startEndDateConfMap != null) }">
+                    <c:DSF_MyToDoList_FAFSAProof_Topic submitFAFSAProofLabel="{!v.submitFAFSAProofLabel}"
+                                                       submitFAFSATooltipLabel="{!v.submitFAFSATooltipLabel}"
+                                                       submitFAFSAToLateLabel="{!v.submitFAFSAToLateLabel}"
+                                                       uploadProofOfFAFSA="{!v.uploadProofOfFAFSA}"
+                                                       fafsaProofCaseSubject="{!v.fafsaProofCaseSubject}"
+                                                       taskUploadedOnLabel="{!v.taskUploadedOnLabel}"
+                                                       FAFSAProofPendingReviewLabel="{!v.FAFSAProofPendingReviewLabel}"
+                                                       application="{!v.application}"
+                                                       fafsa="{!v.fafsa}"
+                                                       currentApplicationSeasonYear="{!v.fafsa.Academic_Year__c}"
+                                                       dsfConfig="{!v.startEndDateConfMap.DSF_MyToDoList_FAFSAProof_Topic}"/>
+                </aura:if>-->
+                <h5 class="slds-text-heading_small slds-m-top_large"><b>JULY 15</b></h5>
+                <aura:if isTrue="{! and((v.application.Application_Status__c == 'Preliminary Finalist' || v.application.Application_Status__c == 'Submitted' || v.application.Application_Status__c == 'Finalist'), v.application != null) }">
+                    <c:DSF_MyToDoList_CollegeChoice_Topic confirmCollegeChoiceLabel="{!v.confirmCollegeChoiceLabel}"
+                                                          collegeHeaderChoiceLabel="{!v.collegeHeaderChoiceLabel}"
+                                                          collegeBtnLabel="{!v.collegeBtnLabel}"
+                                                          collegeInfoLabel="{!v.collegeInfoLabel}"
+                                                          application="{!v.application}"
+                                                          refresh="{!v.refresh}"
+                  										  dsfConfig="{!v.startEndDateConfMap.DSF_MyToDoList_CollegeChoice_Topic}"/>
+    
+                    <c:DSF_MyToDoList_FinAidReq_Topic financialAidRequirementsLabel="{!v.financialAidRequirementsLabel}"
+                                                      collegePortalLinkText="{!v.collegePortalLinkText}"
+                                                      financialAidReqTooltipLabel="{!v.financialAidReqTooltipLabel}"
+                                                      institutionalLabel="{!v.institutionalLabel}"
+                                                      institutionalLabelTooltip="{!v.institutionalLabelTooltip}"
+                                                      application="{!v.application}"
+                                                      dsfConfig="{!v.startEndDateConfMap.DSF_MyToDoList_FinAidReq_Topic}"/>
+    
+                    <!--
+                    <c:DSF_MyToDoList_LawfulPresence_Topic submit="{!v.submit}" proofOfLawfulPresence="{!v.proofOfLawfulPresence}"
+                                                           uploadProofOfLawfulPresence="{!v.uploadProofOfLawfulPresence}"
+                                                           proofOfLawfulPresenceLink="{!v.proofOfLawfulPresenceLink}"
+                                                           lawfulPresenceCaseSubject="{!v.lawfulPresenceCaseSubject}"
+                                                           submitLawfulPresenceToLateLabel = "{!v.submitLawfulPresenceToLateLabel}"
+                                                           uploadProofOfLawfulPresenceToolTip="{!v.uploadProofOfLawfulPresenceToolTip}"
+                                                           application="{!v.application}"
+                                                           dsfConfig="{!v.startEndDateConfMap.DSF_MyToDoList_LawfulPresence_Topic}"
+                                                           uploadedOn="{!v.taskUploadedOnLabel}"
+                                                           submittedOn="{!v.taskSubmittedOnLabel}"
+                                                           pendingReview="{!v.pendingReviewLabel}"/>-->
+                </aura:if>
+    
+                <aura:if isTrue="{!v.application.Application_Status__c == 'Pending' || v.application.Application_Status__c == 'Submitted' || v.application.Application_Status__c == 'Preliminary Finalist' || v.application.Application_Status__c == 'Finalist'}">
+                    <c:DSF_MyToDoList_HSGPA_Topic eligibleConfirmationGPA="{!v.eligibleConfirmationGPA}"
+                                                  learnMoreGPA="{!v.learnMore}"
+                                                  learnMoreGPALink="{!v.learnMoreGPALink}"
+                                                  contact="{!v.contact}"
+                                                  application="{!v.application}"/>
+                </aura:if>
+    
+                <aura:if isTrue="{!v.application.Application_Status__c == 'Submitted' || v.application.Application_Status__c == 'Preliminary Finalist' || v.application.Application_Status__c == 'Finalist'}">
+                    <c:DSF_MyToDoList_GPAException_Topic completeTheGPAExceptionForm="{!v.completeTheGPAExceptionForm}"
+                                                         GPAExceptionFormLinkText="{!v.GPAExceptionFormLinkText}"
+                                                         GPAExceptionURL="{!v.GPAExceptionURL}"
+                                                         submitCollegeTranscriptGPAException="{!v.submitCollegeTranscriptGPAException}"
+                                                         gpaExceptionCaseSubject="{!v.gpaExceptionCaseSubject}"
+                                                         uploadedOn="{!v.taskUploadedOnLabel}"
+                                                         taskCompletedOn="{!v.taskCompletedOnLabel}"
+                                                         pendingReviewLabel="{!v.pendingReviewLabel}"
+                                                         contact="{!v.contact}"
+                                                         application="{!v.application}"
+                                                         dsfConfig="{!v.startEndDateConfMap.DSF_MyToDoList_GPAException_Topic}"/>
+                </aura:if>
+                
+                <h5 class="slds-text-heading_small slds-m-top_large"><b>ONGOING</b></h5>
+                <br></br>
+                <p class="slds-size_1-of-1 pStyle">Additional requirements will be added after you submit your application.</p>
+                 <!--<h3 class="slds-text-heading_small">Additional requirements will be added after you submit your application.</h3>-->
+    
+                <aura:if isTrue="{!v.application.Application_Status__c == 'Submitted'}">
+                    <c:DSF_MyToDoList_SSR_Topic completeStudentSuccessRequirements="{!v.completeStudentSuccessRequirements}"
+                                                completeStudentSuccessRequirementsToolTip="{!v.completeStudentSuccessRequirementsToolTip}"
+                                                defaultSSRLink="{!v.defaultSSRLink}"
+                                                learnMore="{!v.learnMore}"
+                                                application="{!v.application}"/>
+                </aura:if>   
+                 <aura:if isTrue="{!v.application.Application_Status__c == 'Finalist'}">
+                    <c:DSF_MyToDoList_Enrollment_Topic enrollFullTimeWhenClassesStart="{!v.enrollFullTimeWhenClassesStart}"
+                                                       learnMoreEnrollment="{!v.learnMore}"
+                                                       learnMoreEnrollmentLink="{!v.learnMoreEnrollmentLink}"
+                                                       enrollFullTimeWhenClassesStartToolTip="{!v.enrollFullTimeWhenClassesStartToolTip}"
+                                                       studentTerm="{!v.studentTerm}"/>
+    
+                    <c:DSF_MyToDoList_MidYearTransfer_Topic uploadedOn="{!v.taskUploadedOnLabel}"
+                                                            taskCompletedOn="{!v.taskCompletedOnLabel}"
+                                                            pendingReview="{!v.pendingReviewLabel}"
+                                                            transferringToADifferentDSFpartner="{!v.transferringToADifferentDSFpartner}"
+                                                            midYearTransferLinkText="{!v.midYearTransferLinkText}"
+                                                            midYearTransferURL="{!v.midYearTransferURL}"
+                                                            midYearTransferCaseSubject="{!v.midYearTransferCaseSubject}"
+                                                            midYearTransferDeniedTooltip="{!v.midYearTransferDeniedTooltip}"
+                                                            transferringToADifferentDSFpartnerTooltip="{!v.transferringToADifferentDSFpartnerTooltip}"
+                                                            submitTranscriptForMidYearTransfer="{!v.submitTranscriptForMidYearTransfer}"
+                                                            midYearTransferFinancialAid="{!v.midYearTransferFinancialAid}"
+                                                            midYearTransferDenied="{!v.midYearTransferDenied}"
+                                                            studentTerm="{!v.studentTerm}"
+                                                            application="{!v.application}"
+                                                            termDate="{!v.startEndDateConfMap.DSF_MyToDoList_MidYearTransfer_Term_Date}"
+                                                            formSubmissionDate="{!v.startEndDateConfMap.DSF_MyToDoList_MidYearTransfer_Form_Date}"/>
+    
+                </aura:if>
+    
+                <aura:if isTrue="{!v.application.Application_Status__c == 'Pending' || v.application.Application_Status__c == 'Submitted' || v.application.Application_Status__c == 'Finalist'}">
+                    <c:DSF_MyToDoList_ProgramExtension_Topic eligibleForAProgramExtension="{!v.eligibleForAProgramExtension}"
+                                                             eligibleForAProgramExtensionToolTip="{!v.eligibleForAProgramExtensionToolTip}"
+                                                             programExtensionFormLinkText="{!v.programExtensionFormLinkText}"
+                                                             programExtensionFormURL="{!v.programExtensionFormURL}"
+                                                             programExtensionCaseSubject="{!v.programExtensionCaseSubject}"
+                                                             submitTranscriptForProgramExtension="{!v.submitTranscriptForProgramExtension}"
+                                                             submitTranscriptForProgramExtensionTooltip="{!v.submitTranscriptForProgramExtensionTooltip}"
+                                                             completeProgramExtensionForm="{!v.completeProgramExtensionForm}"
+                                                             requestDeniedProgramExtension="{!v.requestDeniedProgramExtension}"
+                                                             requestDeniedProgramExtensionToolTip="{!v.requestDeniedProgramExtensionToolTip}"
+                                                             taskCompletedOn="{!v.taskCompletedOnLabel}"
+                                                             uploadedOn="{!v.taskUploadedOnLabel}"
+                                                             pendingReview="{!v.pendingReviewLabel}"
+                                                             application="{!v.application}"
+                                                             contact="{!v.contact}"
+                                                             dsfConfig="{!v.startEndDateConfMap.DSF_MyToDoList_ProgramExtension_Topic}"/>
+                </aura:if>
+            </div>
+        </div>
+        <div class="slds-small-size_1-of-1 slds-large-size_1-of-2">
+            <aura:if isTrue="{!not(empty(v.application))}">
+                <c:DSF_Advisors application="{!v.application}" advisorsHeaderLabel="{!v.advisorsHeaderLabel}" />
+            </aura:if>
+        </div>
+    </div>
+
+    
+
+</aura:component>

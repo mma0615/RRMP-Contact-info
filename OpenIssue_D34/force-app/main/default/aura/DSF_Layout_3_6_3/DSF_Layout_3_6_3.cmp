@@ -1,0 +1,21 @@
+<!--
+ - Created by ahasic on 9/23/19.
+ -->
+
+<aura:component implements="forceCommunity:layout" description="DSF_Layout_3_6_3" access="global">
+    <aura:attribute name="Content" type="Aura.Component[]" required="false"></aura:attribute>
+
+    <div class="slds-m-top_xx-large"></div>
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-x-small-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_3-of-12"></div>
+
+        <div class="slds-col slds-x-small-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_6-of-12">
+            {!v.Content}
+        </div>
+
+        <div class="slds-col slds-x-small-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_3-of-12"></div>
+    </div>
+
+    <div class="slds-m-bottom_xx-large"></div>
+</aura:component>

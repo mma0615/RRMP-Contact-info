@@ -1,0 +1,313 @@
+<aura:component controller="filteredCmpApex" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="dataValue" type="String" />
+    <aura:attribute name="fieldvalue" type="String" />
+    <aura:attribute name="OperatorValue" type="String" />
+    <aura:attribute name="selectedValues" type="String" />
+    <aura:attribute name="getSubfilterType" type="String" default = "TEXT"/>
+    <aura:attribute name="showTabledata" type="List" />
+    <aura:attribute name="filterQuery" type="List" />
+    <aura:attribute name="Query" type="List" />
+    <aura:attribute name="showFilterSet" type="List" />
+    <aura:attribute name="getTimeZoneData" type="String" />
+    <aura:attribute name="getSelectedValued" type="String" />
+    <aura:attribute name="showFilter" type="List" />
+    <aura:attribute name="customSettingFilter" type="List" />
+    <aura:attribute name="showDataTypeSubfilter" type="List" />
+    <aura:attribute name="listOfRecords" type="List" />
+    <aura:attribute name="countRecords" type="Integer" default="0" />
+    <aura:attribute name="countRecordsOnDone" type="Integer" default="0" />
+    <aura:attribute name="showCount" type="Boolean" default=""/>
+    <aura:attribute name="options" type="List" default="[]"/>
+    <aura:attribute name="doneBtn" type="Boolean" default="true"/>
+    <aura:attribute name="filterSet" type="List"/>
+    <aura:attribute name="showButton" type="Boolean"/>
+    <aura:attribute name="showList" type="Boolean" default="true"/>
+    <aura:attribute name="showTextValueOne" type="Boolean"/>
+    <aura:attribute name="showTextValueTwo" type="Boolean" default="true"/>
+    <aura:attribute name="extraDiv" type="Boolean" default="true"/>
+    <aura:attribute name="PaginationList" type="List"/>
+    <aura:attribute name="startPage" type="Integer" />
+    <aura:attribute name="endPage" type="Integer"/>
+    <aura:attribute name="totalRecords" type="Integer"/>
+    <aura:attribute name="pageSize" type="Integer" default="3"/>
+    <aura:attribute name="toggleSpinner" type="Boolean" default="false" />    
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="OperatorOptions" type="List" default="[]"/>
+    <aura:attribute name="timeFilterOption" type="String"/>
+    <aura:attribute name="TimeFilter" type="String"/>
+    <aura:attribute name="startDate" type="String"/>
+    <aura:attribute name="dueDate" type="String"/>
+    <aura:attribute name="showTime" type="Boolean" default="" />
+    <aura:attribute name="CheckOperator" type="String" default="AND"/>
+    <aura:attribute name="ReturnMap" type="Map"/>
+    <aura:attribute name="checkNumberInList" type="Boolean" default="false"/>
+    <!--
+     <aura:attribute name="Checking1" type="boolean" default="false"/>
+    <aura:attribute name="Checking2" type="boolean" default="false"/>
+    -->
+    <!-- attributes to be received from parent component-->
+    <aura:attribute name="label" type="String" />
+    
+    <!-- Attributes specific to component-->
+    <aura:attribute name="results" type="List" />
+    <aura:attribute name="openDropDown" type="Boolean" default="false" />
+    <aura:attribute name="selectedOption" type="String" />
+    <aura:attribute name="inputValue" type="String" />
+    <aura:attribute name="inputSearchFunction" type="Object" />
+    <aura:attribute name="LabelsName" type="Map"/>
+    <aura:attribute name="Check" type="String" default="some"/>
+    <aura:attribute name="NotFound" type="String" default="fond"/>
+    
+    <!--Spinner -->
+    <aura:if isTrue="{!v.toggleSpinner}">
+        <div class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner_small" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    
+    
+    <div class="slds-grid slds-grid_vertical"  aura:id = "hideclass" style="background-color: white;" onclick="{!c.checkOnClick}">
+        <!-- header -->
+        <div class="slds-col Topheader">
+            <h1 class="header">Filtered Data</h1>
+        </div>
+        <!-- end header -->
+        
+        <!-- comboboxes start here -->
+        <div class="slds-grid slds-gutters" style="margin-top:35px">
+            <div class="slds-col slds-size--3-of-6" style="margin-left:35px;width: 38%;">
+                <!--
+                  <lightning:combobox name="general" aura:id="field1" messageWhenValueMissing="Select value" value="{!v.fieldvalue}" label="Select Field" placeholder="Select Field" options="{! v.options }" onchange="{! c.handleChange }"/><span id="errorname1"></span>
+               -->
+                
+                
+                <!-- This is dropdown with searching -->
+                    <div class="slds-form-element slds-has-error">
+                        <label class="slds-form-element__label" for="combobox-id-21" style="{! empty(v.label) ? 'display:hidden;' : 'display:block;'}">Select Field</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-combobox_container">
+                                <div class="{! v.openDropDown ? 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open' : 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click'}" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                        <input type="text" class="slds-input slds-combobox__input slds-has-focus slds-combobox__input-value" aria-describedby="form-error-01" id="combobox-id-21"  aria-autocomplete="list" aria-controls="listbox-id-11" aura:id="combobox-id-11" autoComplete="off" onkeyup="{!c.searchHandler}" onclick="{!c.searchHandlerAllLabels}" role="textbox" placeholder="Search..." value="{!v.inputValue}" />
+                                        <aura:if isTrue="{! empty(v.selectedOption)}">
+                                            <span
+                                                 class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                <lightning:icon iconName="utility:search" size="x-small" />
+                                            </span>
+                                            <aura:set attribute="else">
+                                                <button aura:id = "Crossbutton" class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Clear the text input" onclick="{!c.clearOption}">
+                                                    <lightning:icon iconName="utility:clear" size="x-small" />
+                                                </button>
+                                            </aura:set>
+                                        </aura:if>
+                                         <aura:if isTrue="{! empty(v.Check)}">
+                                            <div class="slds-form-element__help" id="form-error-01">Enter the value</div>
+                                        </aura:if>
+                                    </div>
+                                    <div id="listbox-id-11" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                         role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <aura:iteration items="{!v.results}" var="result">
+                                                <li role="presentation" class="slds-listbox__item" data-id="{!result}" data-value="{!result}" onclick="{!c.optionClickHandler}">
+                                                    <div id="{!result}"
+                                                         class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                         role="option">
+                                                        <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                                        <span class="slds-media__body">
+                                                            <span class="slds-truncate" title="All Opportunities">
+                                                                <span>{!result}</span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </aura:iteration>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- finish searching functionality -->                
+                
+                <lightning:combobox name="general" aura:id="field2" messageWhenValueMissing="Select value" value="{!v.OperatorValue}" label="Select Operator" placeholder="Select Operator" options="{!v.OperatorOptions }" onchange="{! c.handleChangeOperator }" style="margin-top: 10px;"/><span id="errorname2"></span>
+                
+                <!--lightning:select name="select1" messageWhenValueMissing="" aura:id="SelectOperator" label="Choose Operator">
+                    <option value="">..None..</option>
+                    <option value="OR">OR</option>
+                    <option value="AND">AND</option>
+                </lightning:select-->
+                
+                
+                <!-- third combobox -->
+                <aura:if isTrue="{!v.showTextValueTwo}">
+                    <lightning:input type="TEXT"  aura:id="field3" messageWhenValueMissing="Enter value" label="Enter value" placeholder="Type Here..." value="{!v.selectedValues}" style="margin-top: 10px;"/><span id="errorname3"></span>
+                    <aura:set attribute="else">
+                        <aura:if isTrue="{!v.showTextValueOne}">
+                            <lightning:input type="{!v.getSubfilterType}" messageWhenValueMissing="Enter value" aura:id="values" name="input4" label="Enter value" placeholder="Type Here..." value="{!v.selectedValues}" onchange="{! c.getValuesData }" style="margin-top: 10px;"/><span id="errorname3"></span>
+                            <aura:set attribute="else">
+                                <lightning:combobox value="{!v.selectedValues}" messageWhenValueMissing="Select value" aura:id="field4" label="Select value" placeholder="Select value" options="{!v.showDataTypeSubfilter}" onchange="{! c.handleChangepickVal }" style="margin-top: 10px;"/><span id="errorname3"></span> 
+                            </aura:set>
+                        </aura:if>
+                    </aura:set>
+                </aura:if>
+                <!-- end third combobox -->
+                
+                <!--<aura:if isTrue="{!v.showTime}">
+                <lightning:combobox name="general" value="{!v.TimeFilter}" label="Time Filter" placeholder="Time Filter" options="{!v.timeFilterOption }" onchange="{! c.handleTimeFilter }" style="margin-top: 10px;"/>
+                <div class="slds-grid slds-gutters" >
+                    <div class="myTest" style="margin-left:13px;display:none">
+                        <lightning:input type="DATETIME"  aura:id="dateFieldFrom" label="From" placeholder="Start Date" value="{!v.startDate}" onchange="{! c.handleDate }" style="margin-top: 10px"/>
+                    </div>&nbsp;&nbsp;
+                    <div class="myTest1" style="display:none">
+                        <lightning:input type="DATETIME"  aura:id="dateFieldTo" label="To" placeholder="Due Date" value="{!v.dueDate}" onchange="{! c.handleDate }" style="margin-top: 10px;"/>
+                    </div>&nbsp;&nbsp;
+                    <div class="myTest2" style="display:none;margin-top: 54px;">
+                        <lightning:button label="Save" variant="neutral" onclick="{!c.getDate}" aura:id="save"/>                    
+                    </div>
+                </div>
+                </aura:if> -->   
+                
+                <!-- shw buttons -->
+                <div style="margin-top:20px">
+                    
+                    <lightning:button label="Add" variant="destructive" onclick="{!c.Addfilter}"/>
+                    
+                    <aura:if isTrue="{!v.doneBtn}">
+                        <lightning:button label="Done" disabled="true" variant="success"/>
+                        <aura:set attribute="else">
+                            <lightning:button label="Done" variant="success" onclick="{!c.getRecord}" aura:id="done"/>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </div>
+            <!-- end of comboboxes -->
+
+            <!-- show filters -->
+            <div class="slds-col slds-size--3-of-6" style="margin-left: 67px;">
+                <div class="slds-grid slds-wrap">
+                
+                <div class="slds-col slds-size_11-of-12">
+                 <div class="slds-p-top_large" >
+                    <aura:iteration items="{!v.showFilter}" var="Show" indexVar="indx">
+                        <div class="slds-card" >
+                            <div class="slds-card__header slds-grid" >
+                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title">
+                                            <a href="javascript:void(0);"
+                                               class="slds-card__header-link slds-truncate" title="Filter" style="text-decoration:none">
+                                                <span>{!Show}</span>
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div class="slds-no-flex">
+                                        <lightning:button label="X" onclick="{! c.changeFilter}" value="{!Show}"></lightning:button>
+                                    </div>
+                                </header>
+                            </div>
+                        </div>
+                    </aura:iteration>
+                </div>
+                </div>
+                <div class="slds-col slds-size_1-of-12">
+                   <div style="width: max-content;float:left;padding-top: 10px;">
+                    <lightning:select aura:id="select" value="{!v.CheckOperator}" name="Select" onchange="{!c.onChange }">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                    </lightning:select>
+                </div>
+                </div>
+                
+                </div>
+                
+                
+                
+                
+                
+
+               
+               
+            </div>
+            <!-- end filter -->
+        </div> 
+
+        <!-- show datatable records -->
+        <aura:if isTrue="{!v.showCount}">
+            <div style="text-align: center; padding-top:50px;padding-bottom:30px;">
+                <b style="font-size: large;"> Total Filtered Records {!v.countRecords}</b>
+            </div>
+            <div data-id="extraDiv">
+                <div class="slds-col" style="padding-top:120px"></div>
+            </div>
+            <aura:set attribute="else">
+                <aura:if isTrue="{!v.showList}">
+                    <div style="text-align: center; padding-top:50px;padding-bottom:30px;">
+                        <lightning:icon size="x-small" iconName = "utility:block_visitor" alternativeText="Error!"
+                                        variant="error"/>
+                        <b style="font-size: large;"> No records available</b>
+                    </div>
+                    <div data-id="extraDiv">
+                        <div class="slds-col" style="padding-top:120px"></div>
+                    </div>
+                    
+                    
+                    
+                    <aura:set attribute="else">
+                        
+                        <div style="padding-top:50px;padding-left: 3%;">
+                            <b style="font-size: large;"> Total Filtered Records {!v.countRecordsOnDone}</b>
+                        </div>
+                        
+                        <div style="margin:40px;">
+                            <lightning:datatable
+                                                 keyField="id"
+                                                 data="{! v.PaginationList }"
+                                                 columns="{! v.columns }"
+                                                 hideCheckboxColumn="true" />
+                            
+                            <div style = "float:right;margin-top: 20px;">
+                                <lightning:button label="View Gantt" 
+                                                  onclick="{!c.viewGantt}" 
+                                                  variant="neutral"/>
+                            </div>
+                            
+                            <!-- pagination  buttons -->
+                            <aura:if isTrue="{!v.showButton}">
+                                <div style="margin-top: 20px;">
+                                    <lightning:button label="Previous" 
+                                                      disabled="{!v.startPage == 0}"  
+                                                      onclick="{!c.previous}" 
+                                                      variant="brand"
+                                                      iconName='utility:back'/>
+                                    <lightning:button label="Next" 
+                                                      disabled="{!v.endPage + 1 >= v.totalRecords}" 
+                                                      onclick="{!c.next}" 
+                                                      variant="brand"
+                                                      iconName='utility:forward'/>
+                                </div>
+                            </aura:if>
+                            <!-- end of pagination buttons -->
+                        </div>
+                    </aura:set>
+                </aura:if>
+                
+            </aura:set>    
+        </aura:if> 
+        <!-- end of datatable -->
+    
+        <aura:if isTrue="{!empty(v.NotFound)}">
+            <div style="text-align: center;">
+                <lightning:icon size="x-small" iconName = "utility:block_visitor" alternativeText="Error!"
+                                variant="error"/>
+                <b style="font-size: large;"> No Search found</b>
+            </div>
+            
+        </aura:if>
+    </div>
+</aura:component>

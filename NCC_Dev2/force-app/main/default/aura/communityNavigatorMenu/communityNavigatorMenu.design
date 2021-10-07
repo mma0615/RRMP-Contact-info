@@ -1,0 +1,3 @@
+<design:component>
+	<design:attribute name="backgroundcolor" label="Background Color" description="Menu Backgroundcolor" />
+</design:component>

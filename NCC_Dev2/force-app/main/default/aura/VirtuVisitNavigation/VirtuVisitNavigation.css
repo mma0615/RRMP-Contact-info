@@ -1,0 +1,282 @@
+.THIS .home-page{
+    width: 100%;
+    height: 100%;
+    color: #001e41;
+    font-size: 1rem;
+    background: #e5e5e5;
+}
+
+.THIS a:hover, .THIS a:focus{
+    text-decoration: none;
+}
+
+/*Menu*/
+.THIS .menu-header{
+    height: 80px;
+    background: white;
+}
+.THIS .menu-logo{
+    float: left;
+}
+.THIS .menu-logo img{
+    height: 80px;
+}
+.THIS .menu-content{
+    float: right;
+}
+
+.THIS .menu-content svg{
+	fill: #001e41;
+    transition: .5s;
+}
+
+.THIS .menu-content a:hover svg{
+	fill: white;
+}
+
+.THIS .menu-content a{
+    color: #001e41;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 80px;
+    padding: 0 1rem;
+    display: inline-block;
+    transition: .5s;
+}
+.THIS .menu-content a:hover{
+    color: white;
+    background: #001e41;
+}
+
+/*Page Header*/
+.THIS .page-header{
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 25rem;
+    overflow: hidden;
+}
+
+.THIS .page-header-content{
+}
+.THIS .header-message{
+    position: absolute;
+    bottom: 40%;
+    left: 13%;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 2.5rem;
+}
+.THIS .header-message div:first-child{
+    color: black;
+    font-weight: bold;
+}
+.THIS .header-message div:nth-child(2){
+    font-weight: 200;
+    color: #b4b4b4;
+}
+.THIS .page-header-content .buttons{
+    position: absolute;
+    bottom: 15%;
+    left: 15%;
+}
+
+.THIS .page-header-content .buttons a{
+    background: #011e41;
+    padding: 15px 20px;
+    color: white;
+    font-size: 15px;
+    margin: 2px 5px;
+    font-weight: 600;
+    display: inline-block;
+    transition: .5s;
+    border-radius: 3px;
+}
+
+.THIS .page-header-content .buttons a:first-child{
+    background: #0083c1;
+    color: white;
+}
+
+.THIS .page-header-content .buttons a:first-child:hover{
+    background: white;
+    color: #0083c1;
+}
+.THIS .page-header-content .buttons a:hover{
+    color: #011e41;
+    background: white;
+}
+
+
+
+/*Services*/
+
+.THIS .services-page{
+    color: #001e41;
+    background: #e2e7ea;
+    width: 100%;
+    margin: 0 auto;
+    padding: 5px 20px;
+    display: inline-block;
+}
+.THIS .services-content:nth-child(4n+2) .service-header{
+    background: #7bb003;
+    border-bottom: .5rem solid #93d500;
+}
+.THIS .services-content:nth-child(4n+2) .learn-more a{
+    background: #7bb003;
+}
+.THIS .services-content:nth-child(4n+2) .learn-more a:hover{
+    color: #7bb003;
+    background: white;
+    border: 1px solid #7bb003;
+}
+
+.THIS .services-content:nth-child(4n+3) .service-header{
+    background: #ffad5f;
+    border-bottom: .5rem solid #ffc288;
+}
+
+.THIS .services-content:nth-child(4n+3) .learn-more a{
+    background: #ffad5f;
+}
+.THIS .services-content:nth-child(4n+3) .learn-more a:hover{
+    color: #ffad5f;
+    background: white;
+    border: 1px solid #ffad5f;
+}
+
+.THIS .services-content:nth-child(4n+4) .service-header{
+    background: #b10800;
+    border-bottom: .5rem solid #d01007;
+}
+
+.THIS .services-content:nth-child(4n+4) .learn-more a{
+    background: #b10800;
+}
+.THIS .services-content:nth-child(4n+4) .learn-more a:hover{
+    color: #b10800;
+    background: white;
+    border: 1px solid #b10800;
+}
+
+
+.THIS .services-content{
+    width: 50%;
+    padding: 0 1rem 1.5rem 1rem;
+    display: inline-grid;
+}
+.THIS .service-header{
+    background: #003b71;
+    color: white;
+    padding: 5px 15px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    cursor: unset;
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+    display: flex;
+    height: 200px;
+    border-bottom: .5rem solid #0083c1;
+    position: relative;
+}
+.THIS .service-header-label{
+    /*display: flex;
+    width: 50%;*/
+    position: absolute;
+    bottom: 5%;
+    font-size: 2rem;
+    max-width: 50%;
+}
+
+.THIS .service-header-img{
+    /*display: flex;
+    width: 50%;*/
+    position: absolute;
+    right: 5%;
+    bottom: -10%;
+    max-width: 50%;
+    width: 33%;
+}
+
+.THIS .service-info{
+    min-height: 300px;
+    background: white;
+    display: flex;
+    border-radius: 0 0 5px 5px;
+}
+
+.THIS .service-desc{
+    width: 100%;
+    height: 100%;
+    padding: 1rem 3rem 2rem 3rem;
+    max-height: 400px;
+    min-height: 400px;
+    overflow: auto;
+    position: relative;
+}
+
+
+
+.THIS .desc-header{
+    font-size: 1.5rem;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+.THIS .desc-content{
+    font-size: 1.1rem;
+}
+.THIS .desc-content-header{
+    font-size: 1.1rem;
+    padding-bottom: 5px;
+}
+.THIS .flex{
+    display: flex;
+}
+.THIS .column50{
+    width: 50%;
+}
+
+.THIS .learn-more{
+    /*display: flex;*/
+    position: absolute;
+    bottom: 15%;
+    left: 43%;
+}
+.THIS .learn-more a{
+    background: #001e41;
+    padding: 15px 20px;
+    color: white;
+    font-size: 15px;
+    margin: 2px auto;
+    transition: .5s;
+    border-radius: 5px;
+}
+
+.THIS .learn-more a:hover{
+    color: #001e41;
+    background: white;
+    border: 1px solid #001e41;
+}
+.THIS .service-img{
+    width: 35%;
+    height: 100%;
+}
+
+.THIS .service-img img{
+    height: 100%;
+}
+
+
+/*Footer*/
+.THIS .footer {
+    height: 100px;
+    padding: 15px 0 15px 0;
+    text-align: center;
+    background: #001e41;
+}
+.THIS .footer img{
+    height: 70px;
+}

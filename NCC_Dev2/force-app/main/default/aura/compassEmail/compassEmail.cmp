@@ -1,0 +1,99 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader" controller="CompassEmailController">
+    
+    <aura:html tag="style">
+    	.slds-modal__container {
+    		min-height: 70vh !important;
+         	min-width: 90vw !important;
+        }
+        .slds-modal__content{
+    		min-height: 70vh !important;
+        }
+        .slds-spinner_container{
+            background: none;
+        }
+    </aura:html>
+
+    <!-- attributes -->
+    <aura:attribute name="orgWideEmailAddressRecord" type="OrgWideEmailAddress"/>
+    <aura:attribute name="contactIdList" type="String[]"/>
+    <aura:attribute name="subject" type="String" />
+    <aura:attribute name="emailBody" type="String" />
+    <aura:attribute name="ccRecipients" type="String[]" />
+    <aura:attribute name="bccRecipients" type="String[]"/>
+    <aura:attribute name="isLoading" type="Boolean" access="private" default="false"/>
+
+    <!-- handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+
+    <!-- Summary Page Attributes -->
+    <aura:attribute name="emailTemplateId" type="String" />
+    <aura:attribute name="orgWideEmailList" type="OrgWideEmailAddress[]" />
+
+
+    <aura:attribute name="currentPageIndex" type="Integer" default="1"/>
+    <aura:attribute name="lastPageIndex" type="Integer" default="3"/>
+
+    <!-- spinner -->
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Loading" size="medium" />
+    </aura:if>
+
+    <!-- Start of the Modal -->
+    <section role="dialog" aria-labelledby="modal-heading" aria-modal="true" aria-describedby="modal-content-id" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <lightning:buttonIcon class="slds-modal__close"
+                                      iconName="utility:close" 
+                                      variant="bare-inverse" 
+                                      onclick="{! c.handleCloseModal }" 
+                                      alternativeText="Close" 
+                                      title="Close" 
+                                      size="large"/>
+                <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">Compass Email</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id">
+ 			<!-- Start of Modal Content -->
+                <aura:if isTrue="{! v.currentPageIndex == 1}">
+                    <c:compassEmail_MessagePreview subject="{!v.subject}"
+                                                   orgWideEmailAddressRecord="{!v.orgWideEmailAddressRecord}"
+                                                   emailTemplateId="{!v.emailTemplateId}"
+                                                   emailBody="{!v.emailBody}"
+                                                   orgWideEmailList="{!v.orgWideEmailList}"/>
+                </aura:if>
+                <aura:if isTrue="{! v.currentPageIndex == 2}">
+                    <c:compassEmail_RecipientSelection recordId="{!v.recordId}"
+                                                       contactIdList="{!v.contactIdList}"
+                                                       ccRecipients="{!v.ccRecipients}"
+                                                       bccRecipients="{!v.bccRecipients}"/>
+                </aura:if>
+                <aura:if isTrue="{! v.currentPageIndex == 3}">
+                    <c:compassEmail_SummaryPage orgWideEmailAddressRecord="{!v.orgWideEmailAddressRecord}"
+                                                contactIdList="{!v.contactIdList}"
+                                                subject="{!v.subject}"
+                                                emailBody="{!v.emailBody}"
+                                                ccRecipients="{!v.ccRecipients}"
+                                                bccRecipients="{!v.bccRecipients}"/>
+                </aura:if>
+                
+ 			<!-- End of Modal Content -->
+            </div>
+            <footer class="slds-modal__footer slds-clearfix">
+                <div class="slds-float_left">
+                    <lightning:button label="Cancel" title="cancel" onclick="{! c.handleCloseModal }"/>
+                </div>
+                <div class="slds-float_right">
+                    <aura:if isTrue="{! v.currentPageIndex == 2 || v.currentPageIndex == 3 }">
+                        <lightning:button label="Previous" title="previous" onclick="{! c.handlePrevious }"/>
+                    </aura:if>
+                    <aura:if isTrue="{! v.currentPageIndex == 1 || v.currentPageIndex == 2 }">
+                        <lightning:button label="Next" title="next" onclick="{! c.handleNext }" variant="brand"/>
+                    </aura:if>
+                    <aura:if isTrue="{! v.currentPageIndex == 3 }">
+                        <lightning:button label="Send" title="Send" onclick="{! c.handleSend }" variant="brand" iconName="utility:send"/>
+                    </aura:if>
+                </div>
+            </footer>
+        </div>
+    </section>
+    <!-- End of the Modal -->
+</aura:component>

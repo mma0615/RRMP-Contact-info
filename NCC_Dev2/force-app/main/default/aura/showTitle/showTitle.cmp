@@ -1,0 +1,10 @@
+<aura:component controller="Corona" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	 <aura:attribute name="title" type="String"/>
+    			
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+     <h1 style="padding-top:80px;margin: 0px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.84);
+    font-family: medium-content-title-font, Georgia, Cambria,Times New Roman Times, serif;
+    font-size: 40px;padding-left: 32px;">{!v.title}</h1>
+</aura:component>

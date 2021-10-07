@@ -1,0 +1,86 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="NavigatorController">
+    
+    <aura:attribute name="contactId" type="String" />
+    <aura:attribute name="token" type="String" />
+    <aura:attribute name="navigatorRecord" type="Navigator__c" />
+    <aura:attribute name="greeting" type="String" />
+    <!-- <aura:attribute name="scrollPosition" type="Integer" default="0" /> -->
+    <aura:attribute name="isSumerianModalOpen" type="Boolean" default="true" />
+
+    <!-- Design attributes -->
+    <aura:attribute name="enableMissedMilestones" type="Boolean" />
+    <aura:attribute name="enableInProgressMilestones" type="Boolean" />
+    <aura:attribute name="enableCompletedMilestones" type="Boolean" />
+    <aura:attribute name="milestonesSize" type="Integer" />
+    
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler event="c:NavigatorRecord" action="{!c.handleNavigatorRecord}" />
+
+    <div class="home-greeting">
+        <aura:unescapedHtml value="{!v.greeting}"/>
+    </div>
+
+    <div class="widgets-container" style="{!join('','--theme-color1:', v.navigatorRecord.Theme_Color_1__c, ';--theme-color2:', v.navigatorRecord.Theme_Color_2__c, 
+                                            ';--theme-color3:', v.navigatorRecord.Theme_Color_3__c, ';--theme-color4:', v.navigatorRecord.Theme_Color_4__c)}">
+        <div class="box1 widget">
+            <c:NavigatorHome_MyEvents />
+        </div>
+        <div class="box2 widget">
+            <c:NavigatorHome_MyChangeAgent />
+        </div>
+        <div class="box3 widget">
+            <c:NavigatorHome_ParticipantMilestones milestoneStatus="Missed"/>
+        </div>
+        <div class="box4 widget">
+            <c:NavigatorHome_ParticipantMilestones milestoneStatus="On-Going"/>
+        </div>
+        <div class="box5 widget">
+            <c:NavigatorHome_ParticipantMilestones milestoneStatus="Completed"/>
+        </div>
+        <div class="box6 widget">
+            <c:NavigatorHome_About />
+        </div>
+        <div class="box7 widget">
+            <c:NavigatorHome_MiniCalendar/>
+        </div>
+    </div>
+    <!-- <button aura:id="scrollTopButton" 
+            onclick="{!c.scrollToTop}" 
+            title="Go to top" 
+            class="scroll-top-button"/> -->
+
+    
+    <!-- Cambi iFrame -->
+    <aura:renderIf isTrue="{!and(v.isSumerianModalOpen, v.navigatorRecord.AWS_Link__c)}" >
+        <div class="popup-container">
+            <lightning:buttonIcon class="slds-float_right slds-m-vertical_small " 
+                                    iconName="utility:close" 
+                                    variant="brand" 
+                                    size="large" 
+                                    onclick="{! c.closePopup }" 
+                                    alternativeText="Close" 
+                                    title="Close" />
+            <div class="iframe-container">
+                <lightning:spinner class="iframe-spinner" alternativeText="Loading" size="medium" variant="brand"/>
+                <iframe class="white-background" width="1000" height="600" style="border: 1px solid" src="{!v.navigatorRecord.AWS_Link__c}" />
+                <p class="slds-p-horizontal_medium">
+                    If the frame won't load please close and reopen by clicking the floating image on the right side of the screen
+                </p>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        <aura:set attribute="else">
+            <div class="chat-mascot-container">
+                <div class="chat-message-box">
+                    <div class="chat-greeting">
+                        <p>{!v.navigatorRecord.Mascot_Message__c}</p>
+                    </div>
+                    <div class="chat-triangle"></div>
+                </div>
+                <div aura:id='chat-background' class="chat-background"></div>
+            </div>
+            <img class="mascot-image" src="{!v.navigatorRecord.Mascot_Image__c}" title="Open Cambi Sumerian" onclick="{!c.openPopup}"/>
+        </aura:set>
+    </aura:renderIf>
+
+</aura:component>

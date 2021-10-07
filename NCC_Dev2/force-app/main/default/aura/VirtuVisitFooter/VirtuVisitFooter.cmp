@@ -1,0 +1,9 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="VirtuVisitController" >
+    <div class="footer-page">
+        <div class="services-page">
+            <div class="footer">
+                <div class="logo"><img src="{!$Resource.VirtuVisit + '/Footer.JPG'}" /></div>
+            </div>
+        </div>
+    </div>
+</aura:component>

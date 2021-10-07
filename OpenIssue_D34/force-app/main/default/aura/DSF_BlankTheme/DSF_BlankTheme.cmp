@@ -1,0 +1,8 @@
+<!--
+ - Created by ahasic on 9/23/19.
+ -->
+
+ <aura:component description="DSF_BlankTheme:: Custom Theme Layout for Login page" implements="forceCommunity:themeLayout" access="global">
+  
+ 
+</aura:component>

@@ -1,0 +1,46 @@
+<aura:component controller="MassSessionSignUpController">
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }" />
+    
+    <!-- For Rank Type Values -->
+    <aura:attribute name="optionsRank" type="List"/>
+    <aura:attribute name="selectedValueRank" type="String"/>
+    
+    <!-- Session Participant Record -->
+    <aura:attribute name="sessionPart" type="Object" />
+    <aura:attribute name="disableButton" type="Boolean"/>
+    
+    <!-- Event -->
+    <aura:registerEvent name="massSessionEventReg" type="c:MassSessionEvent"/>
+    
+    <tr class="slds-hint-parent">
+        <td data-label="Role" scope="row" class="roleContainer">
+            <div class="roleClass">
+                <span >{!v.sessionPart.Role}</span>
+            </div>    
+            <div class="roleDescClass">
+                <p>{!v.sessionPart.RoleDescription}</p>
+            </div>
+        </td>
+        <td data-label="Rank">
+            <div class="slds-truncate rowPadding" title="Rank">
+                <!-- This is where we get the dyanamic values from the client-side
+                controller and display it here -->
+                <lightning:select name="colorId" aura:id="colorId" value="{!v.selectedValueRank}" onblur="{!c.handleRankChange}" disabled="{!v.disableButton}">
+                    <aura:iteration items="{!v.optionsRank}" var="option">
+                        <option text="{!option.label}" value="{!option.id}" selected="{!option.selected}"/>
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+        </td> 
+        <td data-label="First Name" scope="row">
+            <div class="slds-truncate rowPadding" title="First Name"><lightning:input aura:id="field" name="FirstName" value="{!v.sessionPart.FirstName}" onblur="{!c.handleFirstNameChange}" disabled="{!v.disableButton}"/></div>
+        </td>
+        <td data-label="Last Name" scope="row">
+            <div class="slds-truncate rowPadding" title="Last Name"><lightning:input aura:id="field" name="LastName" value="{!v.sessionPart.LastName}" onblur="{!c.handleLastNameChange}" disabled="{!v.disableButton}"/></div>
+        </td>
+        <td data-label="Email" scope="row">
+            <div class="slds-truncate rowPadding" title="Email"><lightning:input aura:id="field" type="email" name="Email" value="{!v.sessionPart.Email}" onblur="{!c.handleEmailChange}" disabled="{!v.disableButton}"/></div>
+        </td>
+    </tr>
+    
+</aura:component>

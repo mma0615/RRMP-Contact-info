@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description = "back to login form event">
+    <aura:attribute name="comeBack" type="Boolean"/>
+</aura:event>

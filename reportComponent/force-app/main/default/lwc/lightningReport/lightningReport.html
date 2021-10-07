@@ -1,0 +1,23 @@
+<template>
+    
+    <div data-role="page" data-theme="d" id="reportPage">
+        <div role="main" class="ui-content">
+            <!-- Iterate over the list of report rows and display them -->
+            <!-- special case for the header row -->
+            <table data-role="table" data-mode="columntoggle" id="report-table" class="custom-reponsive table-stroke">
+                <!-- 
+                <thead>
+                    <c:report-row-component row="{!reportData.reportFields}" isHeader="true"/>
+                </thead>
+                <tbody>
+                    <aura:iteration var="row" items="{!reportData.fieldDataList}">
+                        <c:reportRowComponent row="{!row}" isHeader="false"/>
+                    </aura:iteration>
+                </tbody>
+                --> 
+            </table>
+ 
+        </div>
+    </div>  
+    
+</template>

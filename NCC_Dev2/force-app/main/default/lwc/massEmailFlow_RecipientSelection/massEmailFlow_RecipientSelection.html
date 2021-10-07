@@ -1,0 +1,51 @@
+<template>
+    <lightning-card title="Mass Email" icon-name="standard:email">
+        <div class="slds-p-around_medium">
+            <c-lookup   
+                disable-listbox
+                selection={initialSelection}         
+                onsearch={handleContactSearch}
+                onselectionchange={handleContactSelect}
+                label="Select Recipient"
+                placeholder="Search Contact"
+                is-multi-entry={isMultipleEntry}></c-lookup>
+        </div>
+        <div class="slds-m-around_medium slds-scrollable--y list">
+            <template if:false={initialSelection.length}>
+                <p class="slds-align_absolute-center font-size-6">No contact/s selected.</p>
+            </template>
+            <template if:true={initialSelection.length}>
+                <ul>
+                    <template iterator:it={initialSelection}>
+                        <li key={it.value.id}>
+                            <div class="slds-grid list-item" data-target-id={it.value.id} onclick={handleRemoveRecipient}>
+                                <div class="slds-col_bump-left">
+                                    <lightning-icon 
+                                        size="small"
+                                        icon-name="standard:contact" 
+                                        alternative-text=">" 
+                                        title="contact"></lightning-icon>
+                                </div>
+                                <div class="slds-col slds-m-vertical_xxx-small slds-m-horizontal_xx-small">
+                                    <p>
+                                        {it.value.title} &lt;{it.value.subtitle}&gt;
+                                    </p>
+                                </div>
+                                <div class="slds-col_bump-right slds-m-vertical_xx-small">
+                                    <lightning-button-icon 
+                                        variant="bare"
+                                        size="medium"
+                                        icon-name="utility:close"   
+                                        alternative-text="remove" 
+                                        class="slds-m-left_xx-small" 
+                                        title="Remove"></lightning-button-icon>
+                                </div>
+                            </div>
+                            <div if:true={it.last} class="list-last"></div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+        </div>
+    </lightning-card>
+</template>

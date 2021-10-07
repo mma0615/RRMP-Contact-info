@@ -1,0 +1,32 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="ChangeCloudController">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="sessionList" type="compass_session_wrapper"/>    
+    
+    <div class="session-section">
+        <div>
+            <div class="float-left">
+                <div class="session-section-title font-section-header">SESSIONS</div>
+            </div>
+            <div class="session-container-outer">
+                <div class="session-container">
+                                     <aura:iteration items="{!v.sessionList}" var="session">
+                            <div class="session-card">
+                                {!session.title}
+                                <div class="session-attend">
+                                    <lightning:button  class="slds-button slds-button_success" label="Attend" value="{!session.participantSessionId}" onclick="{!c.handleAction}"/>
+                                </div>
+                                
+                            </div>
+                        </aura:iteration>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="clear:both;"></div>
+    
+    
+    
+</aura:component>

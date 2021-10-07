@@ -1,0 +1,210 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="SSRTableController">
+    <aura:attribute name="data" type="Object" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="isEditModeOn" type="Boolean" />
+    <aura:attribute name="invalidDate" type="Boolean" />
+    <aura:attribute name="saveNotification" type="Boolean" />
+    <aura:attribute name="isLoading" type="Boolean" />
+    <aura:attribute name="modifiedRecords" type="List" />
+    <aura:attribute name="picklists" type="List" />
+    <aura:attribute name="programTypeList" type="List" />
+    <aura:attribute name="selectedRows" type="List" />
+    <aura:attribute name="selectedRowIds" type="List" />
+    <aura:attribute name="userAccount" type="string" />
+    <aura:attribute name="updateErrors" type="List" />
+    <aura:attribute name="batchCount" type="Integer" default="0" />
+    <aura:attribute name="isFallTerm" type="Boolean" />
+    <aura:attribute name="error" type="String" default="" />
+
+    <ltng:require styles="{! $Resource. datatable2 + '/datatables.min.css'}" scripts="{!join(',', 
+             $Resource.jquery224 , 
+             $Resource.datatable2 + '/datatables.min.js')
+             }" />
+
+    <!-- On initialization of the component, kick off the series of functions to construct our data table, starting with the doInit function in the controller.js file -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- Method for updating the table after the completion of a  save -->
+    <aura:method name="finishSaving" action="{!c.finishSaving}" description="Update table after save">
+        <aura:attribute name="result" type="String" />
+        <aura:attribute name="data" type="Object" />
+        <aura:attribute name="message" type="String" default="" />
+    </aura:method>
+
+    <!-- our loading icon, which is triggered in the code by setting isLoading to TRUE -->
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Loading" />
+    </aura:if>
+
+    <!--The invalidDate parameter is set by the checkDate function in our Helper.js. If that returns FALSE, then we show the error message-->
+    <aura:if isTrue="{!v.invalidDate}">
+        <div align="center">Sorry, this editor is not currently available for users. Please notify DSF if you have any questions or concerns. Thank you</div>
+    </aura:if>
+
+    <!--Otherwise, we render the table-->
+    <aura:if isTrue="{!!v.invalidDate}">
+        <div class="slds-table_edit_container slds-is-relative">
+            <div class="table-row">
+                <div id="top-buttons">
+                    <lightning:buttonMenu label="Export" aura:id="exportButton" onselect="{!c.exportSelect}" alternativeText="Show menu">
+                        <lightning:menuItem value="export" label="Export all Records" />
+                        <lightning:menuItem value="exportSelected" label="Export selected Records" />
+                    </lightning:buttonMenu>
+                </div>
+                <div id="warning-message" align="center">
+                    <span style="background:#36fd2f; color:#333; padding:.5em; display:block;">Don't forget to save your work!</span>
+                </div>
+                <div id="top-search">
+                </div>
+            </div>
+            <div id="table-container">
+                <table class="display dataTable cell-border" auraId="datatableId" aria-multiselectable="true" id="datatableId" role="grid">
+                    <thead>
+                        <tr>
+                            <th class="no-sort hard_left">
+                            </th>
+                            <th class="StudentInfo search-input">
+                                <span>
+                                    Student Name
+                                </span>
+                            </th>
+                           
+                            <th class="editable student search-input">
+                                Student ID
+                            </th>
+                            <th class="student search-input">
+                                DSF Cohort
+                            </th>
+                            <th class="picklist student" title="This field updates in real time based on FA status, enrollment &amp; SAP info. If the FA office has not yet provided data for this term, the award status may be incorrect. Please ask if you would like us to notify you when award status is final for this term.">
+                                Award Status<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th class="ssr picklist editable" title="Only DSF Scholars (those who received an award) for the current term are required to complete the SSR for the current term. Enter “award” in Award Status column header to see all scholars.">
+                                SSR Requirements Completed<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th class="ssr editable search-input">
+                                SSR Comments
+                            </th>
+
+                            <!--Conditionally render these 3 columns if we're in the fall term -->
+                            <aura:if isTrue="{!v.isFallTerm}">
+                                <th class="grad picklist editable" title="Select Yes only if the student is on track to graduate during the current academic year.">
+                                    Projected to Graduate by End of Academic Year?<br />
+                                    <span>(Hover for info)</span>
+                                </th>
+                                <th class="grad picklist editable" title="Please select a term and year only if student is on track to graduate during the current academic year.">
+                                    Projected College Graduation Term &amp; Year<br />
+                                    <span>(Hover for info)</span>
+                                </th>
+                                <th class="grad picklist editable">
+                                    Projected College Graduation Comments
+                                </th>
+                            </aura:if>
+                            <th class="contact search-input">
+                                Mobile
+                            </th>
+                            <th class="contact search-input">
+                                Primary Email
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" class="no-sort hard_left select-all" style="padding:0 3px;">
+                                <div class="pad">
+                                    <input type="checkbox" class="uiInputCheckbox" tabindex="-1" id="select-all" />
+                                </div>
+                            </th>
+                            <th scope="col" class="StudentInfo">
+                            </th>
+                         <!--   <th scope="col">
+                            </th>-->
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <!--Conditionally render these 3 columns if we're in the fall term -->
+                            <aura:if isTrue="{!v.isFallTerm}">
+                                <th scope="col">
+                                </th>
+                                <th scope="col">
+                                </th>
+                                <th scope="col">
+                                </th>
+                            </aura:if>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.data}" var="row" indexVar="rowIndex">
+                            <tr id="{!row.Id}" class="{!'slds-hint-parent id-'+row.Id}">
+                                <td class="hard_left" role="gridcell hard_left" tabindex="-1">
+                                    <input type="checkbox" class="uiInputCheckbox rowSelect" id="{!rowIndex}" tabindex="-1" />
+                                </td>
+                                <td data-search="{!row.FirstName + ' ' + row.LastName}" class="StudentInfo" role="gridcell" tabindex="-1">
+                                    <ui:outputRichText value="{!row.StudentInfo}" />
+                                </td>
+                               <!-- <td tabindex="1" role="gridcell" data-id="{!row.Id}" data-row="{!rowIndex}" data-name="Test_Field__c" data-value="{!row.Test_Field__c}" data-type="text" data-length="255" class="editable tab">
+                                    {!row.Test_Field__c}
+                                </td>-->
+                                <td tabindex="1" role="gridcell" data-id="{!row.Id}" data-row="{!rowIndex}" data-name="Student_ID_at_College__c" data-value="{!row.Student_ID_at_College__c}" data-type="text" data-length="255" class="editable tab">
+                                    {!row.Student_ID_at_College__c}
+                                </td>
+                                <td tabindex="1" role="gridcell" class="tab">
+                                    {!row.Cohort}
+                                </td>
+                                <td tabindex="1" role="gridcell" class="tab">
+                                    {!row.Final_Award_Status__c}
+                                </td>
+                                <td tabindex="1" role="gridcell" class="editable picklist tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.SSR_Requirements_Completed__c}" data-name="SSR_Requirements_Completed__c" data-type="picklist">
+                                    {!row.SSR_Requirements_Completed__c}
+                                </td>
+                                <td tabindex="1" title="{!row.SSR_Comments__c}" role="gridcell" class="editable tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.SSR_Comments__c}" data-name="SSR_Comments__c" data-type="textarea">
+                                    {!row.SSR_Comments__c}
+                                </td>
+                                
+                                <!--Conditionally render these 3 columns if we're in the fall term -->
+                                <aura:if isTrue="{!v.isFallTerm}">
+                                    <td tabindex="1" role="gridcell" class="editable picklist tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Projected_to_Graduate_end_of_acad_yr__c}" data-name="Projected_to_Graduate_end_of_acad_yr__c" data-type="picklist">
+                                        {!row.Projected_to_Graduate_end_of_acad_yr__c}
+                                    </td>
+                                    <td tabindex="1" role="gridcell" class="editable picklist tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Projected_Coll__c}" data-name="Projected_Coll__c" data-type="picklist">
+                                        {!row.Projected_Coll__c}
+                                    </td>
+                                    <td tabindex="1" role="gridcell" title="{!row.Projected_College_Graduation_Comments__c}" class="editable tab longText" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Projected_College_Graduation_Comments__c}" data-name="Projected_College_Graduation_Comments__c" data-type="textarea">
+                                        {!row.Projected_College_Graduation_Comments__c}
+                                    </td>
+                                </aura:if>
+
+                                <td tabindex="1" role="gridcell" class="tab">
+                                    {!row.Mobile}
+                                </td>
+                                <td tabindex="1" role="gridcell" class="tab">
+                                    {!row.Email}
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+                <aura:if isTrue="{!v.isEditModeOn}">
+                    <div class="ctFooter slds-modal__footer">
+                        <div class="slds-text-color_error slds-p-bottom_small" style="{!v.error?'display:block':'display:none'}">{!v.error}</div>
+                        <div class="slds-grid slds-grid_align-center">
+                            <lightning:button label="Save" variant="brand" onclick="{!c.saveTableRecords}" />
+                            <lightning:button label="Save and Notify DSF" variant="brand" onclick="{!c.saveTableRecordsAndNotify}" />
+                            <lightning:button label="Cancel" variant="brand" onclick="{!c.cancelSave}" />
+                        </div>
+                    </div>
+                </aura:if>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

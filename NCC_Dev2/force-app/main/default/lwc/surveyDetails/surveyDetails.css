@@ -1,0 +1,119 @@
+/* DEFAULT STYLING */
+.container{
+    /*height: 100vh;*/
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    margin-top: 32px;
+}
+
+.fixedLogo{
+    max-height: 50px;
+}
+
+.dynamicLogo{
+    max-height: 50px;
+}
+
+.logoContainer img{
+    max-height: inherit;
+    margin-right: 16px;
+}
+
+.logoContainer{
+    max-width: 1140px;
+    display: flex;
+    justify-content: start;
+    margin: 32px auto 0;
+    display: flex;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.survey{
+    max-width: 1140px;
+    margin: 0 auto;
+    flex: 1 0 auto;
+    width: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.slds-text-heading_large{
+    font-size: 40px;
+    margin-bottom:15px;
+    font-weight: 700;
+    margin-top: 32px;
+}
+
+.slds-text-heading_medium{
+    font-size: 25px;
+    margin-bottom:15px;
+    font-weight: 500;
+}
+
+.slds-form-element__control{
+    margin-bottom: 15px;
+}
+
+.slds-form-element{
+    margin-bottom: 15px;
+}
+
+.slds-form-element__label{
+    font-weight: 700;
+}
+
+.slds-form-element__help{
+    color: #c23934;
+    font-size: .75rem;
+    margin-top: .125rem;
+    display: block;
+}
+
+.survey-description {
+    margin-bottom: 20px;
+    font-size: 14px !important;
+}
+
+.required-mark {
+    color: red;
+    font-weight: bold;
+    margin-right: 2px;
+}
+
+.disclaimer{
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.slds-button{
+    margin-top: 15px;
+    margin-bottom: 32px;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
+.footer{
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+abbr.slds-required{
+    display: none !important;
+}
+
+.disclaimer-text {
+    white-space: pre-wrap !important;
+    margin-bottom: 20px;
+}
+
+.body {
+    margin-top: 20px;
+}

@@ -1,0 +1,37 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="CommunityRaidController">
+    
+    <ltng:require styles="{!$Resource.community_event_ui + '/cc-ui-min.css'}" />
+    <ltng:require styles="{!$Resource.community_event_ui + '/cc-ui-font-min.css'}" />
+     
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="projectId" type ="String"/>
+    <aura:attribute name="backgroundImageURL" type="string"/>
+    <aura:attribute name="campaignLogoURL" type="string"/>
+    <aura:attribute name="campaignLogoURL2" type="string"/>
+    <aura:attribute name="isPhone" type ="Boolean" default="false"/>
+    
+    <div>
+        <div class="nav-box">
+            <div class="navbar" id="myTopnav">
+                
+                <aura:if  isTrue="{!v.isPhone==FALSE}" >
+                    <div class="navbar-left navbar-logo">
+                        <span class="img-logo">	
+                            <img src="{!$Resource.communityEventHeaderLogo}" alt="Compass" class="navbar-logo-img"></img>
+                        </span>
+                    </div>
+                    <div class="navbar-left campaign-logo">
+                        <div class="campaignlogo" style="{!'background-image: url(' + v.campaignLogoURL +'); background-size: 15rem 6rem;'}"></div>
+                    </div>
+                        <div class="navbar-left campaign-logo">
+                        <div class="campaignlogo" style="{!'background-image: url(' + v.campaignLogoURL2 +'); background-size: 15rem 6rem;'}"></div>
+                    </div>
+                </aura:if>
+                
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+    
+</aura:component>

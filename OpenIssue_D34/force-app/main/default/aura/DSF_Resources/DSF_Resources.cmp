@@ -1,0 +1,222 @@
+<!--
+    Created by smilankov on 18/10/19.
+-->
+<aura:component description="DSF_Resources" implements="forceCommunity:availableForAllPageTypes">
+    
+        <aura:attribute name="PageHeader"         type="String" default=""/>
+        <aura:attribute name="Icon"               type="String" default=""/>
+
+        <aura:attribute name="ResourcesBox1Title" type="String" default=""/>
+        <aura:attribute name="Box1Item1"          type="String" default=""/>
+        <aura:attribute name="Box1Link1"          type="String" default=""/>
+        <aura:attribute name="Box1Item2"          type="String" default=""/>
+        <aura:attribute name="Box1Link2"          type="String" default=""/>
+        <aura:attribute name="Box1Item3"          type="String" default=""/>
+        <aura:attribute name="Box1Link3"          type="String" default=""/>
+        <aura:attribute name="Box1Item4"          type="String" default=""/>
+        <aura:attribute name="Box1Link4"          type="String" default=""/>
+        <aura:attribute name="Box1Item5"          type="String" default=""/>
+        <aura:attribute name="Box1Link5"          type="String" default=""/>
+        <aura:attribute name="Box1Item6"          type="String" default=""/>
+        <aura:attribute name="Box1Link6"          type="String" default=""/>
+
+        <aura:attribute name="ResourcesBox2Title" type="String" default=""/>
+        <aura:attribute name="Box2Item1"          type="String" default=""/>
+        <aura:attribute name="Box2Link1"          type="String" default=""/>
+        <aura:attribute name="Box2Item2"          type="String" default=""/>
+        <aura:attribute name="Box2Link2"          type="String" default=""/>
+        <aura:attribute name="Box2Item3"          type="String" default=""/>
+        <aura:attribute name="Box2Link3"          type="String" default=""/>
+        <aura:attribute name="Box2Item4"          type="String" default=""/>
+        <aura:attribute name="Box2Link4"          type="String" default=""/>
+        <aura:attribute name="Box2Item5"          type="String" default=""/>
+        <aura:attribute name="Box2Link5"          type="String" default=""/>
+        <aura:attribute name="Box2Item6"          type="String" default=""/>
+        <aura:attribute name="Box2Link6"          type="String" default=""/>
+        <aura:attribute name="Box2Item7"          type="String" default=""/>
+        <aura:attribute name="Box2Link7"          type="String" default=""/>
+        <aura:attribute name="Box2Item8"          type="String" default=""/>
+        <aura:attribute name="Box2Link8"          type="String" default=""/>
+
+        <aura:attribute name="ResourcesBox3Title" type="String" default=""/>
+        <aura:attribute name="Box3Item1"          type="String" default=""/>
+        <aura:attribute name="Box3Link1"          type="String" default=""/>
+
+
+     <div class="slds-size_1-of-1"> 
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <img src="{!$Resource.DSF_Resources + '/resources-icon.png'}" />
+            </div>
+
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <h1>{!v.PageHeader}</h1>
+            </div>
+
+            <div class="slds-grid slds-wrap slds-size_9-of-12 ">
+
+                <!--  DSF Basics/top left column-->
+                <div class="slds-col slds-size_1-of-2 slds-p-right_medium  slds-p-bottom_medium">
+                    <div  class="col-content   slds-size_1-of-1">
+                        <h2>{!v.ResourcesBox1Title}</h2>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box1Item1)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a href="{!v.Box1Link1}">{!v.Box1Item1}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box1Item2)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a href="{!v.Box1Link2}">{!v.Box1Item2}</a>
+                            
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box1Item3)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a href="{!v.Box1Link3}">{!v.Box1Item3}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box1Item4)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a href="{!v.Box1Link4}">{!v.Box1Item4}</a>
+                        </div>
+                        <!--
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box1Item5)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a href="{!v.Box1Link5}">{!v.Box1Item5}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box1Item6)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a href="{!v.Box1Link6}">{!v.Box1Item6}</a>
+                        </div> -->
+                    </div>
+                </div>
+
+                <!--Applying for DSF/top right column-->
+                <div class="slds-col slds-size_1-of-2 slds-p-left_medium slds-p-bottom_medium">
+                    <div class="col-content slds-size_1-of-1">
+                        <h2>{!v.ResourcesBox2Title}</h2>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box2Item1)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a src="{!v.Box2Link1}">{!v.Box2Item1}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box2Item2)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a src="{!v.Box2Link2}">{!v.Box2Item2}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box2Item3)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a src="{!v.Box2Link3}">{!v.Box2Item3}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box2Item4)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a src="{!v.Box2Link4}">{!v.Box2Item4}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box2Item5)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a src="{!v.Box2Link5}">{!v.Box2Item5}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box2Item6)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a src="{!v.Box2Link6}">{!v.Box2Item6}</a>
+                        </div>
+                        <!--
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box2Item7)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a src="{!v.Box2Link7}">{!v.Box2Item7}</a>
+                        </div>
+                        <div class="column-row">
+                            <aura:if isTrue="{! !empty(v.Box2Item8)}">
+                                <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            </aura:if>
+                            <a src="{!v.Box2Link8}">{!v.Box2Item8}</a>
+                        </div>
+                    -->
+                    </div>
+                </div>
+
+                <!--Financial Aid/middle left column-->
+                <div class="slds-col slds-size_1-of-2 slds-p-right_medium slds-p-bottom_medium slds-p-top_medium">
+                    <div class="col-content slds-size_1-of-1">
+                        <h2>Financial Aid</h2>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Applying for Other Scholarships</a>
+                        </div>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Completing Your Financial Aid</a>
+                        </div>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Quick Tips - Eligible for Federal Student Aid</a>
+                            </div>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Quick Tips - Not Elegible for Federal  Student Aid(DACA/ASSET)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Staying on Track/Middle right column-->
+                <div class="slds-col slds-size_1-of-2 slds-p-left_medium slds-p-bottom_medium slds-p-top_medium">
+                    <div class="col-content  slds-size_1-of-1">
+                        <h2>Staying on Track</h2>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Understanding the DSF Full-time Enrollment Requirement</a>
+                        </div>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Submitting Documents and Forms to DSF</a>
+                        </div>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Scholarship Videos</a>
+                            </div>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a href="https://denverscholarship.org/ssr" target="blank_">Student Success Requirements</a>
+                        </div>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Your Path to DSF Succes</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Your DSF Award/bottom left column-->
+                <div class="slds-col slds-size_1-of-2 slds-p-top_medium slds-p-right_medium">
+                    <div class="col-dsf-award  slds-size_1-of-1">
+                        <h2>Your DSF Award</h2>
+                        <div class="column-row">
+                            <img src="{!$Resource.DSF_Resources + '/' + v.Icon}"/>
+                            <a>Scholarship Award Amounts and Timing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     </div> 
+
+</aura:component>

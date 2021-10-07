@@ -1,0 +1,27 @@
+<design:component>
+    <design:attribute name="PageTitle"        label="Page Title"              default=""/>
+	<design:attribute name="HeaderIcon"       label="Icon"                    default=""/>
+    <design:attribute name="SubTitle"		  label="Sub Title" 			  default=""/>
+	<design:attribute name="UploadFile"		  label="Upload File" 			  default=""/>
+    <design:attribute name="FirstNameLabel"   label="First Name Label"        default=""/>
+    <design:attribute name="LastNameLabel"    label="Last Name Label"         default=""/>
+    <design:attribute name="EmailLabel"       label="Email  Label"            default=""/>
+    <design:attribute name="DateOfBirthLabel" label="Date Of Birth Label"     default=""/>
+    <design:attribute name="CollegeIdLabel"   label="DPS ID/College Id Label" default=""/>
+    <design:attribute name="Button"           label="Button Text"             default=""/>
+    <design:attribute name="SubjectLabel"     label="Subject Label"           default=""/>
+    <design:attribute name="MessageLabel"     label="Message Label"           default=""/>
+    <design:attribute name="ModalMessage"     label="Modal Message 1"         default=""/>
+    <design:attribute name="ModalMessage2"	  label="Modal Message 2"		  default=""/>
+    <design:attribute name="ModalMessage3"	  label="Modal Message 3"		  default=""/>
+    <design:attribute name="TooltipMsg"		  label="Tooltip Message"		  default=""/>
+    <design:attribute name="BackToLoginMsg"   label="Back to login Message"   default=""/>
+    <design:attribute name="LoginModalMsg"    label="Login Modal Message"     default=""/>
+    <design:attribute name="LoginHeaderMsg"   label="Login Header Message"    default=""/>
+    <design:attribute name="MissingValueMsg"  label="Missing Value Message"   default=""/>
+    <design:attribute name="DateBadInput"     label="Bad Date Input Message"  default=""/>
+    <design:attribute name="DpsidErrorMsg"    label="DPS ID Error Message"    default=""/>
+	<design:attribute name="SubjectErrorMsg"  label="Subject To Long Error Message"  default=""/>
+    <design:attribute name="SubjectMaxLength" label="Subject Max Length"      default=""/>
+	<design:attribute name="MessageErrorMsg"  label="Message Input Error Message"  default=""/>
+</design:component>

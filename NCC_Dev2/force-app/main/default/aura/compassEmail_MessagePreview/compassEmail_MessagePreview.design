@@ -1,0 +1,8 @@
+<design:component label="Message Preview">
+   <design:attribute name="emailTemplateId" label="Email Template Id" />
+   <design:attribute name="orgWideEmailAddressRecord" label="OrgWideEmailAddress Record" />
+   <design:attribute name="subject" label="Subject" />
+   <design:attribute name="emailBody" label="Email Body" />
+   <!-- <design:attribute name="emailBodyForSummaryPage" label="Email Body For Summary Screen" />
+   <design:attribute name="subjectForSummaryPage" label="Subject For Summary Screen" /> -->
+</design:component>

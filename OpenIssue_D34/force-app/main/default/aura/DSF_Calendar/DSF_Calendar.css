@@ -1,0 +1,26 @@
+.THIS th {
+    padding: 1vh;
+}
+.THIS td {
+    padding: 1vh;
+}
+.THIS .position-relative {
+    position: relative;
+}
+@media only screen and (max-width: 1024px) {
+    .THIS .mobile-heading {
+        text-align: center;
+    }
+    .THIS .table-header {
+        display: none;
+    }
+    .THIS td {
+        padding: 2vh;
+    }
+    .THIS td:first-child {
+        padding-top: 5vh;
+    }
+    .THIS td:last-child {
+        padding-bottom: 5vh;
+    }
+}

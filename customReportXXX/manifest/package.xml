@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>Report_Detail.Account_Name</members>
+		<members>Report_Detail.Amount</members>
+		<members>Report_Detail.ExpectedRevenue</members>
+		<members>Report_Detail.Opportunity_Name</members>
+		<members>Report_Detail.Parent_Name</members>
+		<members>Report_Detail.Probability</members>
+		<members>Report_Detail.Stage</members>
+		<members>Report_Header.Opportunity</members>
+		<name>CustomMetadata</name>
+	</types>
+	<version>50.0</version>
+</Package>

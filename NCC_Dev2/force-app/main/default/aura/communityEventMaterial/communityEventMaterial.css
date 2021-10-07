@@ -1,0 +1,53 @@
+.THIS .material-container-outer{
+    text-align: left;
+    min-height: 40rem;
+}
+
+.THIS .clear-section{
+    clear:both;
+}
+.THIS .no-min-max-height{
+    height: auto !important;
+}
+/*Tablet*/
+@media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) { 
+    .THIS .material-container-outer{
+        min-height: 1224px;
+    }
+}
+
+.THIS .material-section-title {
+    border-left: 4px solid #93D500 !important;
+}
+
+
+/* Phone */
+@media screen and (max-device-width: 640px) { 
+    .THIS .material-section-title {
+        writing-mode: unset;
+        transform: none;
+        text-align: right;
+        margin: .5rem 0 0 0;
+        height: 2rem;
+        border-bottom: 0.15rem solid #8b8c4a;
+        border-left: none;
+        font-size: 1.4rem;
+    }
+    .THIS .material-container-outer{
+        display: inline-block;
+        margin: 0 .5rem;
+    }
+    .THIS .float-left{
+        margin-right: 0;
+        margin-left: .5rem;
+    }
+    .THIS .slds-card[c-materialsDetails_materialsDetails] {
+        margin-top: 18px;
+    }
+    .THIS .slds-text-heading_medium[c-materialsDetails_materialsDetails]{
+        font-weight: bold;
+    }
+}

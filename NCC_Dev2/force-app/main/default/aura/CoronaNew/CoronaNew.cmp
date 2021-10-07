@@ -1,0 +1,241 @@
+<aura:component  controller="Corona" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute type="String" name="Topics" default="Topic"/>
+    <aura:attribute type="String" name="Sources" default="Source"/>
+    <aura:attribute type="String" name="SearchElement"/>
+    <aura:attribute type="Object" name="ListOfArticles"/>
+    <aura:attribute type="Object" name="getTopicCategories"/>
+    <aura:attribute type="Object" name="getSourceCategories"/>
+    <aura:attribute name="showData" type="boolean" default=""/>
+    <aura:attribute name="descp" type="Knowledge__kav" />
+    <aura:attribute type="List" name="ListOfArticlesThroughSearch"/>
+    <aura:attribute type="List" name="IdOfKnowledge"/>
+    <aura:attribute name="filter" type="String" />  
+    <aura:attribute name="data" type="List" /> 
+    <aura:attribute name="toggleSpinner" type="Boolean" default="false" />
+    <aura:attribute name="showDesc" type="boolean" default="true"/>
+    <aura:attribute name="showButton" type="boolean" default="true"/>
+    <aura:attribute name="filteredSearch" type="Object"/>
+    <aura:attribute name="showAllButtons" type="boolean" default="true"/>
+    
+    
+    
+    <!--Pagination attributes-->
+    <aura:attribute name="PaginationList" type="Object"/>
+    <aura:attribute name="PaginationListData" type="Object"/>
+    <aura:attribute name="startPage" type="Integer" />
+    <aura:attribute name="endPage" type="Integer"/>
+    <aura:attribute name="totalRecords" type="Integer"/>
+    <aura:attribute name="pageSize" type="Integer" default="8"/>
+    <!--Pagination attribute ends here-->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="change" value="{!v.filter}" action="{!c.doFilter}" />
+    
+    
+    
+    <aura:if isTrue="{!v.toggleSpinner}">
+        <div class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner_small" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.showDesc}">
+        <div class="slds-scope">
+            <div class="slds-grid slds-wrap dropdown">
+                
+                <!--<aura:iteration items="{!v.getCategories}" var="getData" >-->
+                <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-2">
+                    <div class="slds-m-around--x-small">
+                        <div class="slds-form-element__control" style="padding-top: 19px;">
+                            Topic
+                            
+                            <select class="slds-select"  name="Topic" aura:id="Topic_id" onchange="{!c.onChange2}">
+                                <option value="Topic"> All </option>
+                                <aura:iteration items="{!v.getTopicCategories}" var="getDataValue" >
+                                    <option value="{!getDataValue.value}">{!getDataValue.key}</option>
+                                </aura:iteration>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-2">
+                    <div class="slds-m-around--x-small">
+                        <div class="slds-form-element__control" style="padding-top: 19px;">
+                            Source
+                            
+                            <select class="slds-select"  name="Source" aura:id="Source_id" onchange="{!c.onChange3}">
+                                <option value="Source"> All </option>
+                                <aura:iteration items="{!v.getSourceCategories}" var="getDataValue" >
+                                    <option value="{!getDataValue.value}">{!getDataValue.key}</option>
+                                </aura:iteration>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div >
+        
+        
+        <div class="slds-scope">
+            <div class="slds-grid slds-wrap test" style="margin-top:70px">
+                <div class=" " style="">
+                    <h1 class="slds-form-element__label dropdown" style="font-size: 20px"><b>Search</b></h1>
+                </div><div class="dropdown"> 
+                <lightning:input type="search" value="{!v.filter}" name="searchKey" label="Search" aura:id="searchKey" placeholder="Search" variant="label-hidden"/><span id="errorname"></span>
+                
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top:20px">
+            <aura:if isTrue="{!v.showData}">
+                <div style="text-align: center; padding-top:30px;padding-bottom:30px;">
+                    <b style="font-size: large;"> No Article found</b>
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-scope">
+                        <div class="slds-grid slds-wrap"> 
+                            <aura:iteration items="{!v.PaginationList}" var="article1" >
+                                <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--6-of-8 slds-card showImage" style="margin-top:2%">
+                                    <div style="background-color:FFE69E" class="slds-scope ">
+                                        
+                                        <div class="slds-text-align_center slds-m-around--x-small">
+                                            <img data-value="{!article1.value.Id}" class="showImage" onclick="{!c.navigateToMyComponent }" src="{!'/resource/'+article1.value.StaticResource}" style="opacity: 0.5;padding-left: 4%;width: 64%;"/>
+                                            
+                                                <dl class="slds-dl_vertical showImage" style="padding-left: 4%;">
+                                                <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                    <div >
+                                                        <p class="" title="{!article1.value.Title}"><b style="color:#fe8e0c;"> {!article1.value.Title}</b></p>
+                                                    </div>
+                                                </dt>
+                                                <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                    <b>Source</b>&nbsp;:&nbsp;&nbsp;{!article1.value.Source}
+                                                    
+                                                </dt>
+                                                <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                    <p class="" title="{!article1.value.Topic}"><b>Topic</b> &nbsp;:&nbsp;&nbsp; {!article1.value.Topic}</p>
+                                                </dt>
+                                                <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                    <p class="" title="{!article1.value.Summary}"><b>Summary</b>&nbsp;:&nbsp;&nbsp; {!article1.value.Summary}</p>
+                                                </dt>
+                                                <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                    <c:HomePageVoting recordId="{!article1.value.Id}"></c:HomePageVoting>
+                                                </dt>
+                                                
+                                            </dl>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                
+                                
+                                </div>
+                                <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--6-of-8 showImageinner" style="margin-bottom:6px;">
+                                    <div style="background-color:FFE69E" class="slds-scope  slds-card">
+                                        <div class="slds-m-around--x-small  ">
+                                            <div class="slds-grid">
+                                                
+                                                <div class="slds-col slds-size--2-of-12" style="align-items: center;display: flex;">
+                                                    <a data-value="{!article1.value.Id}" title="" href="" onclick="{!c.navigateToMyComponent }" >
+                                                    <img data-value="{!article1.value.Id}" class="showImageinner" src="{!'/resource/'+article1.value.StaticResource}" style="opacity: 0.5;width: 140px;"/>
+                                                    </a>
+                                                    </div>
+                                                
+                                                
+                                                <div class="slds-col slds-size--9-of-12">
+                                                    <dl class="slds-dl_vertical showImageinner">
+                                                        <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                            <div >
+                                                                <p class="slds-truncate" title="{!article1.value.Title}"><b style="color:#fe8e0c;"> {!article1.value.Title}</b></p>
+                                                            </div>
+                                                        </dt>
+                                                        <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                            <p class="slds-truncate" title="{!article1.value.Source}"><b>Source</b> &nbsp;:&nbsp;&nbsp; {!article1.value.Source}</p>
+                                                        </dt>
+                                                        <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                            <p class="slds-truncate" title="{!article1.value.Topic}"><b>Topic</b>&nbsp;:&nbsp;&nbsp;{!article1.value.Topic}</p>
+                                                        </dt>
+                                                        <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                                            <p class="slds-truncate" title="{!article1.value.Summary}"><b>Summary</b>&nbsp;:&nbsp;&nbsp;{!article1.value.Summary}</p>
+                                                        </dt>
+                                                        
+                                                    </dl>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div> 
+                                        
+                                    </div></div>
+                                
+                                
+                                <div style="width: 15%;margin-top: 30px;" class="showImageinner">
+                                    <c:HomePageVoting recordId="{!article1.value.Id}"></c:HomePageVoting>
+                                    
+                                </div>
+                            </aura:iteration> 
+                        </div>
+                    </div>
+                    <aura:if isTrue="{!v.showAllButtons}">
+                    <aura:if isTrue="{!v.showButton}">
+                    <div class="slds-grid slds-wrap" >
+                        <div class="buttonCss">
+                            
+                            <button class="button"  style="vertical-align:middle;" disabled="{!v.startPage == 0}" onclick="{!c.previous}" iconName='utility:back'><span>Previous </span></button>
+                        </div>
+                        <div class="buttonCss">
+                            <button class="button" style="vertical-align:middle;" disabled="{!v.endPage + 1 >= v.totalRecords}" onclick="{!c.next}"  iconPosition="right" iconName='utility:forward'><span>Next </span></button>
+                        </div>
+                    </div>
+                        <aura:set attribute="else">
+                            <div class="slds-grid slds-wrap" >
+                                <div class="buttonCss">
+                                    
+                                    <button class="button"  style="vertical-align:middle;" disabled="{!v.startPage == 0}" onclick="{!c.previousSearch}" iconName='utility:back'><span>Previous </span></button>
+                                </div>
+                                <div class="buttonCss">
+                                    <button class="button" style="vertical-align:middle;" disabled="{!v.endPage + 1 >= v.totalRecords}" onclick="{!c.nextSearch}"  iconPosition="right" iconName='utility:forward'><span>Next </span></button>
+                                </div>
+                            </div>
+                            
+                        </aura:set>
+                    </aura:if>
+                    </aura:if>
+                    
+                    
+                </aura:set>
+            </aura:if>
+        </div>
+        
+        
+        	
+            
+        
+        
+        
+        <aura:set attribute="else">
+            <div class="uiOutputRichText"> 
+                <h1 style="font-size:50px;text-decoration: underline;font-family: 'Gravitas One', cursive;"><b><center>{!v.descp.Title}</center></b></h1>
+                <lightning:icon class="slds-float_right" iconName="utility:back" alternativeText="Connected" title="back to home" onclick="{!c.handleClick}" />
+                <center>
+                    <ui:outputRichText value="{!v.descp.Description__c}"/></center>
+            </div>
+        </aura:set>  
+        
+    </aura:if>
+    
+    
+    
+    
+</aura:component>

@@ -1,0 +1,17 @@
+<template>
+    <div class="slds-box">
+        <c-mlwc-lookup 
+            lookup-label="Owner Name" 
+            object-api-name="user" 
+            icon-name="standard:user"  
+            onrecordselection={onSelection}>
+        </c-mlwc-lookup>
+        <br/>
+        <template if:true={userId}>
+            <lightning-button label="Update" 
+            variant="brand" 
+            onclick={updateRecord}>
+            </lightning-button>
+        </template> 
+    </div>  
+</template>

@@ -1,0 +1,155 @@
+<aura:component controller="KnowledgeApex" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <!--<ltng:require scripts="{!$ContentAsset.}"/>-->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="articles" type="Object" />
+    <aura:attribute name="mostrecent" type="Object" />
+    <aura:attribute name="allArticles" type="Object" />
+    <aura:attribute name="idss" type="id" />
+    <aura:attribute name="showData" type="boolean" default=""/>
+    <aura:attribute name="selectedTrend" type="boolean" default="false" />
+    <aura:attribute name="descp" type="Knowledge__kav" />
+    <aura:attribute name="showDesc" type="boolean" default="true"/>
+    <aura:if isTrue="{!v.showDesc}">
+        
+      
+       
+        <!--<div class="centered" style="position: relative;margin-top: -8%;padding-left: 47%;padding-bottom: 6%;"><h1 style="color:white"></h1></div>-->
+		<div class="slds-grid showImagess">
+            <div class="slds-col showImagess">
+                <lightning:button class="slds-float_right" aura:id="fileId" onclick="{!c.createContent}" label="Upload Content" />
+               </div> 
+            </div>
+        
+         <div class="slds-grid slds-gutters showImagess">
+             
+        <div class="slds-col slds-size_1-of-4 showImagess" style="margin-top: 3px;">
+            <h1 style="font-size:147%">Featured</h1><h1   style="color:#fe8e0c;font-size:147%"> FACTS</h1>
+             </div><div class="slds-col slds-size_3-of-4 showImagess" style="margin-top: 7px;color:#fe8e0c;margin-left: 14px;width: 71%;">
+            <select class="slds-select "  name="select1" aura:id="sortingCategory" onchange="{!c.trendChange}">
+                <option value="Views">Most Views</option>
+                <option value="Recent">Most Recent</option>
+                <option value="Rated">Most Rated</option>
+            </select>
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <div class="slds-grid slds-gutters showImageinnerss" style="padding-top:40px;">
+        <div class="slds-col slds-size_1-of-6 showImageinnerss" style="margin-top: 3px;">
+            <h1 class="slds-form-element__label">Featured</h1><h1 class="slds-form-element__label "  style="color:#fe8e0c"> FACTS</h1>
+             </div><div class="slds-col slds-size_4-of-6 showFont showImageinnerss" style="margin-top: 7px;color:#fe8e0c;">
+            <select class="slds-select "  name="select1" aura:id="sortingCategory" onchange="{!c.trendChange}">
+                <option value="Views">Most Views</option>
+                <option value="Recent">Most Recent</option>
+                <option value="Rated">Most Rated</option>
+            </select>
+            </div>
+            <div class="slds-col slds-size_1-of-6 showImageinnerss" style="margin-top: 7px;">
+                <lightning:button class="slds-float_right" aura:id="fileId" onclick="{!c.createContent}" label="Upload Content" />
+                
+            </div>
+        </div>
+        
+      
+        
+        <div class="slds-scope" style="padding-top: 10px;">
+            <aura:if isTrue="{!v.showData}">
+                <div style="text-align: center; padding-top:30px;padding-bottom:30px;">
+                    <b style="font-size: large;"> No Article found</b>
+                </div>
+                <aura:set attribute="else">
+            <div class="slds-grid slds-wrap"> 
+              <aura:if isTrue="{!v.selectedTrend}">
+                  <aura:iteration items="{!v.mostrecent}" var="records" >  
+                    <div style="padding-right: 5px;padding-bottom: 5px;" class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-4">
+                         <div style="background-color:FFE69E;" class="slds-scope slds-box">
+                        <div class="slds-text-align_center slds-m-around--x-small">
+                            
+                            <lightning:tile>
+                                
+                                <a data-value="{!records.value.Id}" title="" href="" onclick="{!c.navigateToMyComponent }" >
+                                    <!--<img src="{!$Resource.Articlegraphic}" style="opacity: 0.5;"/>-->
+                                    <img src="{!'/resource/'+records.value.StaticResource}" style="opacity: 0.5;width:85%;"/>
+                                </a>                        
+                                
+                                <!--</div>--> 
+                                <dl class="slds-dl_vertical">
+                                    <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                        <div data-value="{!records.value.Id}" onclick="{!c.navigateToMyComponent }" >
+                                            <h1><p class="slds-truncate" title="{!records.value.Title}" style="font-size:11px;color:#fe8e0c;"><b>{!records.value.Title}</b></p></h1>
+                                        </div>
+                                    </dt>
+                                    <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                        <p class="slds-truncate" style="padding-top:3px;font-size:11px;"><b>Source</b> :&nbsp;{!records.value.Source}</p>
+                                    </dt>
+                                    <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                        <p class="slds-truncate" title="{!records.value.Summary}" style="padding-top:3px;"><b>Description</b> : &nbsp;{!records.value.Summary}</p>
+                                    </dt>
+                                    
+                                </dl>
+                            </lightning:tile>
+                             </div></div></div>
+                </aura:iteration>
+                  <aura:set attribute="else">
+                     <aura:iteration items="{!v.mostrecent}" var="records" >  
+                    <div style="padding-right: 5px;padding-bottom: 5px;" class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-4">
+                         <div style="background-color:FFE69E;" class="slds-scope slds-box">
+                        <div class="slds-text-align_center slds-m-around--x-small">
+                            
+                            <lightning:tile>
+                                
+                                <a data-value="{!records.value.Id}" title="" href="" onclick="{!c.navigateToMyComponent }" >
+                                    <!--<img src="{!$Resource.Articlegraphic}" style="opacity: 0.5;"/>-->
+                                    <img src="{!'/resource/'+records.value.StaticResource}" style="opacity: 0.5;width:85%;"/>
+                                </a>                        
+                                
+                                <!--</div>--> 
+                                <dl class="slds-dl_vertical">
+                                    <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                        <div data-value="{!records.value.Id}" onclick="{!c.navigateToMyComponent }" >
+                                            <h1><p class="slds-truncate" title="{!records.value.Title}" style="font-size:11px;color:#fe8e0c;"><b>{!records.value.Title}</b></p></h1>
+                                        </div>
+                                    </dt>
+                                    <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                        <p class="slds-truncate" style="padding-top:3px;font-size:11px;"><b>Source</b> :&nbsp;{!records.value.Source}</p>
+                                    </dt>
+                                    <dt class="slds-dl_vertical__detail slds-tile__meta">
+                                        <p class="slds-truncate" title="{!records.value.Summary}" style="padding-top:3px;"><b>Description</b> : &nbsp;{!records.value.Summary}</p>
+                                    </dt>
+                                    
+                                </dl>
+                            </lightning:tile>
+                             </div></div></div>
+                </aura:iteration>
+                  </aura:set>
+                  
+                </aura:if>
+                
+                
+            </div>
+                </aura:set>
+            </aura:if></div><br/><br/>
+        <div class="slds-page-header colorOne">
+        </div><br/><br/>
+        
+        <div class="slds-grid slds-gutter">
+            <h1 class="slds-form-element__label" style="padding-left: 5px;padding-bottom: 15px;color:#fe8e0c;">Coronavirus</h1><h1 class="slds-form-element__label" style="padding-bottom: 15px;"> FACTS</h1>
+        </div>
+        
+        <c:CoronaNew/>
+        
+        <aura:set attribute="else">
+            <div class="uiOutputRichText"> 
+                <h1 style="font-size:50px;text-decoration: underline;"><b><center>{!v.descp.Title}</center></b></h1>
+                <lightning:icon class="slds-float_right" iconName="utility:back" alternativeText="Connected" title="back to home" onclick="{!c.handleClick}" />
+                <center>
+                    <ui:outputRichText value="{!v.descp.Description__c}"/></center>
+            </div>
+        </aura:set>
+    </aura:if>
+    
+</aura:component>

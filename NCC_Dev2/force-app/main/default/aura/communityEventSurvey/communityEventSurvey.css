@@ -1,0 +1,41 @@
+.THIS .clear-section {
+    clear:both;
+}
+
+.THIS .survey-section{
+    /*min-height : calc(100vh - 250px);*/
+}
+
+.THIS .no-min-max-height{
+    height: auto !important;
+}
+/* Phone */
+@media screen and (max-device-width: 640px) { 
+    .THIS .float-left {
+        /*margin-left: 0rem;*/
+    }
+    .THIS .survey-section-title {
+        writing-mode: unset;
+        transform: none;
+        text-align: right;
+        margin: .5rem 0 0 0;
+        height: 2rem;
+        border-bottom: 0.15rem solid #8b8c4a;
+        border-left: none;
+        font-size: 1.4rem;
+    }
+    .THIS .survey-container-outer{
+        display: inline-block;
+    }
+    .THIS .slds-text-heading_large[c-surveyDetails_surveyDetails]{
+        font-size: 1.4rem;
+        text-align: center;
+        margin-top: 1rem;
+    }
+    .THIS .slds-input {
+        border: 1px solid #eae7e7;
+    }
+    .THIS .survey[c-surveyDetails_surveyDetails]{
+        padding: 0 .5rem 0 .5rem;
+    }
+}

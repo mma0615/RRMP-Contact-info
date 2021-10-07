@@ -1,0 +1,4 @@
+<design:component>
+	 <design:attribute name="HeaderIcon"  label="Icon" default=""/>
+     <design:attribute name="HeaderText"  label="Text" default=""/>
+</design:component>

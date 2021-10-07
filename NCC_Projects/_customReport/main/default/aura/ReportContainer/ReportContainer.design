@@ -1,0 +1,8 @@
+<design:component >
+	<design:attribute name="reportIdAttribute" label="Report ID" description="Use the ID of the report that you want to display. Make sure the user has access to it"/>
+	<design:attribute name="showDetails" label="Show Details" description="Set to true or false for showing details"/>
+	<design:attribute name="showSubTotals" label="Show SubTotals" description="Set to true or false for showing subtotals"/>
+	<design:attribute name="filter01" label="filter01" description="Filter 01: {name}"/>
+	<design:attribute name="filter02" label="filter02" description="Filter 02: {amount}"/>
+	<design:attribute name="filter03" label="filter03" description="Filter 03: {city}"/>
+</design:component>

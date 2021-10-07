@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="DSF_MyToDoLis_ApplicationUpdateEVT">
+    <aura:attribute name="fieldToUpdate" type="Map" />
+</aura:event>

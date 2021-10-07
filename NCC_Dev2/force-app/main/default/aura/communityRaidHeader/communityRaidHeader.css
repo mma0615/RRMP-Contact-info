@@ -1,0 +1,176 @@
+.THIS .navbar-logo-img{
+    height: 6rem !important;
+}
+
+.THIS .img-logo{
+    padding: 0rem 0rem !important;
+}
+.THIS .backtomain, .THIS .main{
+    display: none;
+}
+.THIS {
+    font-family: sans-serif; 
+}
+.THIS .font-hero-header {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.THIS .font-hero-body {
+    font-size: 1.25rem;
+}
+
+.THIS .btn-base {
+    width : 22rem;
+}
+
+.THIS .font-hero-header{
+    margin-bottom : 1rem
+}
+
+.THIS .backtomain, .THIS .main{
+    display: none;
+}
+
+.THIS .logo{
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15rem 6rem;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.THIS .navbar a{
+    padding: 2.5rem 1.5rem;
+}
+
+.THIS .campaignlogo{
+    background-size: 15rem 6rem;
+}
+
+
+
+/*Tablet*/
+@media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) { 
+    .THIS .hero-info-box-inside{
+        margin: 1rem;
+    }
+    .THIS .btn-base {
+        width: 99%;
+    }
+    .THIS .navbar a {
+        padding: 1rem .5rem;
+        height: 3rem;
+        font-size: 13px;
+        
+    }
+    .THIS .hero-info-box-button {
+        margin-top: 1rem;
+    }
+    .THIS .navbar-left {
+        height: 3rem;
+    }
+    .THIS .img-logo{
+        padding: 1rem !important;
+    }
+    .THIS .navbar-logo-img {
+        height: 1.25rem;
+    }
+    .THIS .campaign-logo {
+        width: 9rem;
+    }
+    .THIS .campaignlogo{
+        background-size: 9rem 3rem !important;
+    }
+}
+
+
+/* Phone */
+@media screen and (max-device-width: 640px) { 
+    .THIS .nav-box{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 0;
+        background: #e0e0e0;
+        z-index: 1000;
+    }
+    .THIS .navbar-logo{
+        top: 0;
+        position: fixed;
+        left: 0;
+    }
+    .THIS .img-logo{
+        width: 100% !important;
+    }
+    .THIS .campaign-logo{
+        top: 0;
+        position: fixed;
+        left: 25%;
+    }
+    
+    .THIS .navbar a.icon {
+        background: #e0e0e0;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: white;
+    }
+    .THIS .hamburger{
+        display:  none;
+    }
+    .THIS .navbar{
+        height: 50px;
+    }
+    .THIS .navbar a{
+        font-size: 12px;
+        padding: 1rem .5rem;
+        width: 25%;
+    }
+    
+    .THIS .hamburger-menu-display{
+        display: block;
+        width: 100% !important;
+        position: fixed;
+        background: #e0e0e0;
+        height: 50px;
+    }
+    
+    .THIS .first-menu{
+        bottom: 0px;
+    }
+    .THIS .second-menu{
+        bottom: 50px;
+    }
+    .THIS .third-menu{
+        bottom: 100px;
+    }
+    .THIS .display-none{
+        display: none !important;
+    }
+    .THIS .menu-bar-remove{
+        bottom: 150px;
+        display: block;
+        width: 25%;
+        position: fixed;
+        background: #e0e0e0;
+        height: 50px;
+        right: 0;
+    }
+    .THIS .main{
+        display: block;
+        padding: .75rem .5rem !important;
+    }
+    
+    .THIS .backtomain{
+        padding: .75rem .5rem !important;
+    }
+    
+}

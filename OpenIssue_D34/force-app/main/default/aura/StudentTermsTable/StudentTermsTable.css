@@ -1,0 +1,455 @@
+.THIS .wrapper2 {
+    overflow-x: scroll;
+    overflow-y: visible;
+    width: calc(100% - 250px);
+    margin-left: 244px;
+}
+
+.THIS select,
+.THIS option,
+.THIS table,
+.THIS td {
+    font-family: Arial;
+    font-size: 14px;
+
+}
+
+.THIS th {
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.THIS div.dt-button-collection {
+    width: 300px;
+}
+
+.THIS table.dataTable thead tr:first-child th {
+    padding: 1px 18px 1px 4px;
+}
+
+.THIS table.dataTable thead tr:nth-child(2) th {
+    padding: 0px 5px;
+}
+
+.THIS thead tr:first-child th {
+    height: 90px;
+}
+
+.THIS thead tr th,
+.THIS tr td {
+    max-width: 250px;
+    min-width: 150px;
+}
+
+.THIS thead tr th.hard_left,
+.THIS tr td.hard_left {
+    min-width: 0;
+    padding: 0;
+}
+
+.THIS table.dataTable thead tr:first-child th.hard_left {
+    height: 90px;
+}
+
+.THIS select {
+    max-width: 100%;
+}
+
+.THIS table.dataTable thead tr:first-child th.StudentInfo {
+    width: 203px;
+    padding: 1px 10px 1px 4px;
+}
+
+.THIS .pad {
+    padding: 10px 0;
+    text-align: center;
+}
+
+.THIS table.dataTable tr:nth-child(2) thead th {
+    padding: 2px 4px;
+}
+
+.THIS table.dataTable {
+    font-size: 14px;
+}
+
+.THIS table.dataTable tbody td {
+    padding: 0 4px;
+}
+
+.THIS thead tr:nth-child(2) th {
+    height: 42px;
+
+}
+
+.THIS .uiInput--checkbox input,
+.THIS input.uiInput--checkbox {
+    margin-top: 1em;
+}
+
+.THIS thead tr:nth-child(2) th.hard_left {
+    padding: 10px 4px;
+    text-align: center;
+}
+
+.THIS table.dataTable thead tr:nth-child(2) th.StudentInfo {
+    padding: 0;
+}
+
+.THIS .hard_left {
+    position: absolute;
+    *position: relative;
+    /*ie7*/
+    left: 0;
+    width: 15px;
+}
+
+.THIS thead tr:nth-child(2) .hard_left {
+    width: 20px;
+}
+
+.THIS .StudentInfo {
+    position: absolute;
+    *position: relative;
+    /*ie7*/
+    left: 25px;
+    width: 210px;
+    border-right: #000 1px solid;
+}
+
+.THIS .table-row {
+    display: table;
+    width: 100%;
+}
+
+.THIS #top-buttons,
+.THIS #top-search,
+.THIS #warning-message  {
+    display: table-cell;
+
+    padding-top: 5px;
+}
+.THIS #top-buttons {
+
+    width: 60%;
+}
+.THIS #warning-message{
+    width:20%;
+}
+.THIS #top-search {
+    width: 20%;
+}
+
+.THIS #top-search {
+    text-align: right;
+}
+
+.THIS .StudentInfo div {
+    padding-left: 6px;
+}
+
+.THIS th.StudentInfo span {
+    padding: 10px 18px;
+    display: block;
+}
+
+.THIS #datatableId {
+
+    width: auto !important;
+}
+
+
+.THIS table tbody tr:nth-child(odd),
+.THIS table tbody tr:nth-child(odd) td.StudentInfo {
+    background-color: #f9f9f9;
+}
+
+.THIS td {
+    height: 3em;
+}
+
+.THIS thead th {
+    background-color: #7fb0cc;
+    min-height: 1.3rem;
+}
+
+.THIS thead th.editable {
+    background-color: #203366;
+    color: #fff;
+    min-height: 1.3rem;
+}
+
+.THIS th {
+    white-space: normal;
+}
+
+.THIS table.dataTable thead .no-sort {
+    background-image: none;
+}
+
+.THIS tr#forFilters th {
+    background: #fff;
+}
+
+.THIS th input {
+    color: initial;
+}
+
+.THIS tbody .ctInput {
+    width: 100%;
+    height: 1.5rem;
+    min-height: 1.5rem;
+    line-height: 1.5rem;
+}
+
+.THIS tbody textArea.ctInput {
+    width: 97%;
+    min-height: 1.5rem;
+    line-height: 1.5rem;
+    max-width: 97%;
+}
+
+.THIS td.comments__c {
+    min-width: 200px;
+}
+
+.THIS .ctInput .slds-input {
+    height: 1.5rem;
+    min-height: 1.5rem;
+    line-height: 1.5rem;
+}
+
+.THIS .ctInput .slds-select {
+    min-height: 1rem !important;
+    height: 1.5rem;
+    padding-left: .3rem !important;
+    padding-right: 1.2rem !important;
+}
+
+.THIS .ctInput .slds-select_container::before {
+    border-bottom: 0 !important;
+}
+
+.THIS .ctInput .slds-form-element__label {
+    display: none;
+}
+
+.THIS .ctFooter.slds-modal__footer {
+    padding: .5rem;
+    text-align: center;
+}
+
+.THIS .slds-datepicker table {
+    table-layout: fixed;
+    width: 300px;
+}
+
+.THIS .slds-datepicker .slds-day {
+    width: auto !important;
+    min-width: auto !important;
+    height: auto !important;
+    line-height: inherit !important;
+}
+
+.THIS .slds-shrink-none {
+    margin-top: 5px;
+}
+
+.THIS button.dt-button,
+.THIS div.dt-button-collection button {
+    border: #e76e24 1px solid;
+    background-color: #fff;
+    border: #e76e24 1px solid;
+    background-image: none;
+    filter: none;
+    color: initial;
+}
+
+.THIS button.dt-button:active:not(.disabled),
+.THIS button.dt-button.active:not(.disabled),
+.THIS div.dt-button-collection button.dt-button:active:not(.disabled),
+.THIS div.dt-button-collection button.dt-button.active:not(.disabled),
+.THIS div.dt-button-collection div.dt-button:active:not(.disabled),
+.THIS div.dt-button-collection div.dt-button.active:not(.disabled),
+.THIS div.dt-button-collection a.dt-button:active:not(.disabled),
+.THIS div.dt-button-collection a.dt-button.active:not(.disabled) {
+    background-color: #e76e24;
+    background-image: none;
+    color: #fff;
+    box-shadow: none;
+    filter: none;
+}
+
+.THIS button.dt-button:hover:not(.disabled),
+.THIS div.dt-button:hover:not(.disabled),
+.THIS a.dt-button:hover:not(.disabled) {
+    background-color: #fff;
+    box-shadow: inset 1px 1px 3px #333333;
+
+}
+
+.THIS button.dt-button:hover,
+.THIS div.dt-button-collection button.dt-button:hover,
+.THIS button.dt-button.active:not(.disabled):hover:not(.disabled),
+.THIS button.dt-button:active:not(.disabled):hover:not(.disabled),
+.THIS button.dt-button.active:not(.disabled):hover:not(.disabled),
+.THIS div.dt-button:active:not(.disabled):hover:not(.disabled),
+.THIS div.dt-button.active:not(.disabled):hover:not(.disabled),
+.THIS a.dt-button:active:not(.disabled):hover:not(.disabled),
+.THIS a.dt-button.active:not(.disabled):hover:not(.disabled) {
+    box-shadow: inset 1px 1px 3px #333333;
+    filter: none;
+    background-image: none;
+    background-color: #e76e24;
+
+}
+
+.THIS input,
+.THIS select,
+.THIS option {
+    font-family: Arial;
+    color: #333;
+}
+
+.THIS #table-container {
+    margin-top: .5em;
+}
+
+.THIS td.editable:hover {
+    cursor: pointer;
+}
+
+.THIS td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.THIS td select {
+    max-width: 100%;
+}
+
+.THIS table tbody tr:hover,
+.THIS table tbody tr:hover td.StudentInfo {
+    background-color: #f6f6f6;
+}
+
+
+.THIS table.dataTable.stripe tbody tr.selected td.StudentInfo,
+.THIS table.dataTable.display tbody tr.selected td.StudentInfo {
+    background-color: #acbad4;
+}
+
+.THIS table.dataTable.hover tbody tr:hover td.StudentInfo,
+.THIS table.dataTable.display tbody tr:hover td.StudentInfo {
+    background-color: #f6f6f6;
+}
+
+.THIS table.dataTable.hover tbody tr:hover.selected td.StudentInfo,
+.THIS table.dataTable.display tbody tr:hover.selected td.StudentInfo {
+    background-color: #aab7d1;
+}
+
+.THIS th.StudentInfo input {
+    width: 95%;
+}
+
+.THIS .eligibility .uiOutputRichText {
+    max-height: 3em;
+    overflow: hidden;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    display: block;
+    font-size: 13px;
+}
+
+.THIS .eligibility div.contain:hover .uiOutputRichText {
+    position: absolute;
+    max-height: 10000px;
+    background: #fff;
+    border: #000 1px solid;
+    top: -12em;
+    left: 0;
+    z-index: 10000;
+    height: auto;
+    padding: .2em;
+    width: 170px;
+}
+
+.THIS th.StudentInfo {
+    padding: 0;
+    left: 26px;
+    height: 140px;
+    width: 217px;
+}
+
+.THIS th.StudentInfo input {
+    margin: 10px 0 0 10px;
+    display: inline-block;
+    max-width: 90%;
+}
+
+.THIS th.StudentInfo span {
+    padding-top: 40px;
+}
+
+.THIS .rowSelect {
+    margin-top: 1em;
+}
+
+.THIS tbody td.changed {
+    background-color: khaki;
+}
+
+.THIS tbody td.updated {
+    background-color: #d2e9c0;
+}
+
+.THIS tbody td.error {
+    background-color: #e09999;
+    color: black;
+}
+
+.THIS td.textarea {
+    min-width: 200px;
+}
+
+.THIS table.dataTable {
+    margin: 0;
+}
+
+
+.THIS table tbody tr td.editable {
+    background: #d2e9f7;
+}
+
+.THIS table tbody tr:nth-child(odd) td.editable {
+    background: #e6f4fd;
+}
+
+.THIS table tbody tr td.editable {
+    background: #e6f4fd;
+}
+
+.THIS table tbody tr:nth-child(odd) td.editable {
+    background: #d2e9f7;
+}
+
+.THIS tr.selected td.editable, .THIS tr.odd.selected td.editable {
+    background-color: #acbad4;
+}
+.THIS tbody td.editable.changed,
+.THIS table tbody tr:nth-child(odd) td.editable.changed {
+    background-color: khaki;
+}
+
+.THIS tbody td.editable.updated,
+.THIS table tbody tr:nth-child(odd) td.editable.updated {
+    background-color: #d2e9c0;
+}
+
+.THIS tbody td.editable.error,
+.THIS table tbody tr:nth-child(odd) td.editable.error {
+    background-color: #e09999;
+    color: black;
+}

@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="VirtuVisitController">
+	
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- For Logged In User Checking -->
+    <aura:attribute name="loggedIn" type="Boolean" default="false"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="contact" type="Contact"/>
+    <!-- For Logged In User Checking End -->
+    
+    <div>
+    	<div class="home-page">
+            <div class="encounter-page">
+                Encounter Page
+            </div>
+        
+        </div>
+    </div>
+</aura:component>

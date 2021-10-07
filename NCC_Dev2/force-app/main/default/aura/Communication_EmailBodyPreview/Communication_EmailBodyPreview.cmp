@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="CommunicationRecordPage_Controller">
+    <aura:attribute name="communication" type="Communication__c" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:card>
+        <aura:set attribute="title">
+            <lightning:icon iconName="custom:custom23"/>
+            Email Body
+        </aura:set>
+        <div class="slds-m-horizontal_medium">
+            <lightning:formattedRichText value="{!v.communication.Body__c}"/>
+        </div>
+    </lightning:card>
+
+</aura:component>

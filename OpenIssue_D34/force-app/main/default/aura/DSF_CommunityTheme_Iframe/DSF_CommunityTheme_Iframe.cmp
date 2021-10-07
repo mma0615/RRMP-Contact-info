@@ -1,0 +1,45 @@
+<aura:component description="DSF_CommunityTheme_Iframe:: Custom Theme Layout for DSF 2"
+                implements="forceCommunity:themeLayout"
+                access="global">
+
+    <aura:attribute name="navBar" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="languageSelector" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="userOptions" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="footer" type="Aura.Component[]" required="false"/>
+  
+    <div class="wrapper">
+
+    <!-- HEADER -->
+    <div class="slds-align_absolute-center navBar forceCommunityGlobalNavigation">
+        <div class="slds-size_2-of-12"></div>
+ 
+        <div class="slds-size_8-of-10">            
+            {!v.navBar}
+        </div>
+        
+        <div class="slds-medium-size_1-of-8 slds-large-size_1-of-12">
+            {!v.userOptions}
+        </div>
+
+        <div class="slds-medium-size_1-of-8 slds-large-size_1-of-12" style="color: initial;">
+            {!v.languageSelector}
+        </div>
+ 
+ 
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+        <div>
+            {!v.body}
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="slds-grid slds-wrap forceCommunityGlobalNavigation footer">
+        <div class="slds-size_1-of-1">
+            {!v.footer}
+        </div>
+    </div>
+    </div>
+</aura:component>

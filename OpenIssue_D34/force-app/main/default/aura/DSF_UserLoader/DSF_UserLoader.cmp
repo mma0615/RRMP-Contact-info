@@ -1,0 +1,24 @@
+<!--
+ - Created by ahasic on 9/24/19.
+ -->
+
+<aura:component description="DSF_UserLoader" implements="flexipage:availableForRecordHome,force:hasRecordId">
+
+    <aura:attribute name="userId" type="String" />
+    <aura:attribute name="userError" type="String" default="" description="Error returned by LDS"/>
+    <aura:attribute name="fields" type="String" default="" description="Fields that will be retrieved via LDS"/>
+    <aura:attribute name="queryFields" type="String[]" description="Array of fields to be retrived by LDS created from fields attribute. "/>
+    <aura:attribute name="output" type="User" description="User that will be loaded"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:if isTrue="{! !empty(v.userId) }">
+        <force:recordData aura:id="userLoader"
+                          recordId="{!v.userId}"
+                          targetFields="{!v.output}"
+                          targetError="{!v.userError}"
+                          fields="{! v.queryFields }"
+        />
+    </aura:if>
+
+</aura:component>

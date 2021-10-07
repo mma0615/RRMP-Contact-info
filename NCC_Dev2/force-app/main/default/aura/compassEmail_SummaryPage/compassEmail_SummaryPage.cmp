@@ -1,0 +1,61 @@
+<aura:component implements="lightning:availableForFlowScreens" access="global" controller="CompassEmailController">
+    <!--  this tag sets modal size and style -->
+    <aura:html tag="style">
+    	.slds-modal__container {
+    		min-height: 70vh !important;
+         	min-width: 90vw !important;
+        }
+        .slds-spinner_container{
+            background: none;
+        }
+    </aura:html>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    
+    <!-- public Atrributes -->
+    <aura:attribute name="orgWideEmailAddressRecord" type="OrgWideEmailAddress" />
+    <aura:attribute name="contactIdList" type="String[]"  />
+    <aura:attribute name="subject" type="String" />
+    <aura:attribute name="emailBody" type="String" />
+    <aura:attribute name="ccRecipients" type="String[]" />
+    <aura:attribute name="bccRecipients" type="String[]" />
+    <aura:attribute name="recordId" type="String"/>
+
+    <!-- Local Atrributes -->
+    <aura:attribute name="ccPillItems" type="List" access="private"/>
+    <aura:attribute name="bccPillItems" type="List" access="private"/>
+    <aura:attribute name="isLoading" type="Boolean" access="private" default="true"/>
+
+    <div class="slds-form-element slds-p-around_xx-small slds-scrollable--y">
+        <aura:if isTrue="{!v.isLoading}">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+            <aura:set attribute="else">
+                <lightning:input name="sender" 
+                                type="email" 
+                                readonly="true" 
+                                value="{!v.orgWideEmailAddressRecord.Address}" 
+                                label="From" />
+        
+                <label class="slds-form-element__label" for="cc-container">Cc</label>
+                <div class="slds-form-element__control">
+                    <lightning:pillContainer id="cc-container" items="{!v.ccPillItems}" onitemremove="{!c.handleRemoveCcItem}"/>
+                </div>
+        
+                <label class="slds-form-element__label" for="bcc-container">Bcc</label>
+                <div class="slds-form-element__control">
+                    <lightning:pillContainer id="bcc-container" items="{!v.bccPillItems}" onitemremove="{!c.handleRemoveBccItem}"/>
+                </div>
+        
+                <lightning:input name="subject" 
+                                readonly="true" 
+                                value="{!v.subject}" 
+                                label="Subject" />
+        
+                <div class="slds-box">
+                    <p><lightning:formattedRichText value="{!v.emailBody}" /></p>
+                </div>
+            </aura:set>
+
+        </aura:if>
+    </div>
+</aura:component>

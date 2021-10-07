@@ -1,0 +1,99 @@
+<aura:component description="DSF_MyToDoList_ProgramExtension_Topic">
+
+    <aura:attribute name="eligibleForAProgramExtension" type="String"/>
+    <aura:attribute name="programExtensionFormLinkText" type="String"/>
+    <aura:attribute name="programExtensionFormURL" type="String"/>
+    <aura:attribute name="programExtensionCaseSubject" type="String"/>
+    <aura:attribute name="eligibleForAProgramExtensionToolTip" type="String"/>
+    <aura:attribute name="submitTranscriptForProgramExtension" type="String"/>
+    <aura:attribute name="submitTranscriptForProgramExtensionTooltip" type="String"/>
+    <aura:attribute name="completeProgramExtensionForm" type="String"/>
+    <aura:attribute name="requestDeniedProgramExtension" type="String"/>
+    <aura:attribute name="requestDeniedProgramExtensionToolTip" type="String"/>
+    <aura:attribute name="taskCompletedOn" type="String"/>
+    <aura:attribute name="uploadedOn" type="String"/>
+    <aura:attribute name="pendingReview" type="String"/>
+    <aura:attribute name="contact" type="Object"/>
+    <aura:attribute name="dsfConfig" type="Object"/>
+    <aura:attribute name="cohortYearLessThanFourYearsInPast" type="Boolean"/>
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="isBetweenDates" type="Boolean" default="true"/>
+    <aura:attribute name="today" type="String"/>
+
+    <aura:handler name="change" value="{!v.dsfConfig}" action="{!c.checkDates}" />
+    <aura:handler name="change" value="{!v.contact}" action="{!c.onContactLoad}" />
+
+    <lightning:overlayLibrary aura:id="programExtensionFileUploader"/>
+
+    <lightning:navigation aura:id="navService" />
+
+    <aura:registerEvent name="updateAppEvent" type="c:DSF_MyToDoLis_ApplicationUpdateEVT"/>
+
+    <aura:if isTrue="{!v.isBetweenDates}">
+        <aura:if isTrue="{!and(v.cohortYearLessThanFourYearsInPast, !v.application.One_Year_Extension_Form_Submitted__c)}">
+            <div class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormQuestionMarkCircle/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <div>
+                        <span>{!v.eligibleForAProgramExtension}&nbsp;<a onclick="{!c.navigateToProgramExtensionLink}">{!v.programExtensionFormLinkText}</a>&nbsp;</span>
+                        <c:DSF_Tooltip text="{!v.eligibleForAProgramExtensionToolTip}"/>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!and(v.application.One_Year_Extension_Form_Submitted__c == 'Yes - Incomplete', !v.application.Program_Extension_Proof_Submitted_Date__c)}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <div>
+                        <span>{!v.submitTranscriptForProgramExtension}</span>
+                        <a style="text-decoration: none; margin-left: 8px;" onclick="{!c.showFileUploader}">
+                            <img src="{!$Resource.DSF_Resources + '/upload-icon.png'}"/>&nbsp;
+                        </a>
+                        <c:DSF_Tooltip text="{!v.submitTranscriptForProgramExtensionTooltip}"/>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.application.One_Year_Extension_Form_Submitted__c == 'Yes - Pending'}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <span>
+                        {!v.submitTranscriptForProgramExtension}&nbsp;
+                        <c:DSF_Tooltip text="{!v.submitTranscriptForProgramExtensionTooltip}"/>
+                    </span>
+                    <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                        {!v.uploadedOn}&nbsp;<lightning:formattedDateTime value="{!v.application.Program_Extension_Proof_Submitted_Date__c}" />&nbsp;{!v.pendingReview}
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.application.One_Year_Extension_Form_Submitted__c == 'Yes - Approved'}">
+            <div data-isPending="false" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="true"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <span>{!v.completeProgramExtensionForm}</span>
+                    <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                        {!v.taskCompletedOn}&nbsp;<lightning:formattedDateTime value="{!v.application.Program_Extension_Proof_Submitted_Date__c}" />
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.application.One_Year_Extension_Form_Submitted__c == 'Yes - Denied'}">
+            <div class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <span class="circle" style="display: block;"></span>
+                <div class="slds-p-left_medium toDoList-item">
+                    <span>
+                    {!v.requestDeniedProgramExtension}&nbsp;<lightning:formattedDateTime value="{!v.application.Program_Extension_Proof_Submitted_Date__c}" />&nbsp;
+                    <c:DSF_Tooltip text="{!v.requestDeniedProgramExtensionToolTip}"/>
+                    </span>  
+                </div>
+            </div>
+        </aura:if>
+    </aura:if>
+</aura:component>

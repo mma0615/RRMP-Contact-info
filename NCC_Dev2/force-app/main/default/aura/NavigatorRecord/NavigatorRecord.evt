@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="navigatorRecord" type="Navigator__c"/>
+    <aura:attribute name="contact" type="Contact"/>
+    <aura:attribute name="navigatorTabs" type="List"/>
+</aura:event>

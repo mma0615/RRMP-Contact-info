@@ -1,0 +1,102 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,flexipage:availableForRecordHome" access="global" controller="MassSessionSignUpController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- attributes -->
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="SignUpInstructions" type="String"/>
+    <aura:attribute name="hasData" type="Boolean" default="false"/>
+    <aura:attribute name="isLoading" type="Boolean" default="true" />
+    <aura:attribute name="sessionId" type ="String"/>
+    <aura:attribute name="eventId" type ="String"/>
+    <aura:attribute name="title" type="string"/>
+    
+    <aura:attribute name="showSave" type="Boolean" default="false" />
+    <aura:attribute name="showEdit" type="Boolean" default="false" />
+    <aura:attribute name="showCancel" type="Boolean" default="false" />
+    <aura:attribute name="isDisabled" type="Boolean" default="false" />
+    
+    <aura:handler name="massSessionEventReg" event="c:MassSessionEvent" action="{!c.handleComponentEvent}"/>
+    
+    <aura:if isTrue="{! v.isLoading }">
+        <div class="slds-spinner_container">
+            <lightning:spinner variant="brand" alternativeText="Loading..." />
+        </div>
+    </aura:if>
+    
+    <div class="containerDiv">        
+        <div class = "returnClassContainer">
+            <div class = "titleClass">
+            	<span>{!v.title}</span>
+            </div>        	
+        </div>
+        <div class = "returnClassContainer">
+            <div class = "returnClass">
+                <lightning:button variant="brand" label="Return to Calendar" title="Brand action" onclick="{! c.returnToCalendar }" />
+            </div>
+        </div>
+        
+        <aura:if isTrue="{!v.hasData}">
+            <div style="clear: both"></div>
+            <div class="signUpIns">
+                <div class="signUpInsLabel">
+                    <span >Sign-Up Instructions</span>
+                </div>    
+                <div class="signUpInsText">
+                    <p>{!v.SignUpInstructions}</p>
+                </div>
+            </div>    
+            
+            <div class="tableClass">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="slds-truncate columnFont" title="Role">Role</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate columnFont" title="Rank">Rank</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate columnFont" title="First Name">First Name</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate columnFont" title="Last Name">Last Name</div>
+                            </th>
+                            <th>
+                                <div class="slds-truncate columnFont" title="Email">Email</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{! v.data }" var="sessionParticipant">
+                            <c:MassSessionSignUpRow sessionPart = "{!sessionParticipant}" disableButton = "{!v.isDisabled}"/>
+                        </aura:iteration>
+                    </tbody>
+                </table>               
+                <aura:if isTrue="{!v.showSave}">
+                    <div class = "saveClass">
+                        <lightning:button variant="brand" label="Save Sign-Ups" title="Brand action" onclick="{! c.handleSaveSignUp }" />
+                    </div>                
+                </aura:if>
+                <aura:if isTrue="{!v.showEdit}">
+                    <div class = "saveClass">
+                        <lightning:button variant="brand" label="Edit Sign-Ups" title="Brand action" onclick="{! c.handleEditSignUp }" />
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!v.showCancel}">
+                    <div class = "saveClass2">
+                        <lightning:button variant="destructive" label="Cancel" title="Brand action" onclick="{! c.handleCancelSignUp }" />
+                    </div>
+                </aura:if>
+                <div style="clear: both"></div>
+            </div>
+            <aura:set attribute="else">
+                <div style="clear: both"></div>
+                <div class="noRolesClass">
+                    <p>Currently, there are no roles associated with this session.</p>
+                </div>
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

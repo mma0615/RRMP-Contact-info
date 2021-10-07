@@ -1,0 +1,57 @@
+<!--
+ - Created by ahasic on 10/15/19.
+ -->
+
+<aura:component description="DSF_Login_Intro" implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute type="String" name="btnText" default=""/>
+    <aura:attribute type="String" name="textBoxValue" default=""/>
+    <aura:attribute type="String" name="welcomeLabel" default=""/>
+    <aura:attribute type="String" name="infoLabel" default=""/>
+    <aura:attribute type="String" name="questionLabel" default=""/>
+    <aura:attribute type="String" name="CollegeInfo1" default=""/>
+    <aura:attribute type="String" name="CollegeInfo2" default=""/>
+    <aura:attribute type="String" name="CollegeInfo3" default=""/>
+    <aura:attribute type="String" name="CollegeInfo4" default=""/>
+    <aura:attribute type="String" name="CollegeInfo5" default=""/>
+    <aura:attribute name="Videotext"     type="String" default=" "/>
+    <aura:attribute name="Videolink"     type="String" default=" "/>
+    <aura:attribute name="Videolinktext" type="String" default=""/>
+
+    <aura:registerEvent name="DSF_ShowContactUsEVT" type="c:DSF_ShowContactUsEVT"/>
+
+    <div class="slds-size_3-of-4 slds-x-small-size_10-of-12 slds-align_left font-face centered">
+        <img id="imgLogo" class="slds-size_1-of-2" src="{!$Resource.DSF_Resources + '/DSF-logo-white.png'}" />
+
+        <div class="slds-size_1-of-1 slds-m-top_large font-face">
+            <h3>Denver Scholarship Foundation Student Portal</h3>
+            <p class="pStyle">{!v.welcomeLabel}</p>
+        </div>
+
+        <div class="slds-size_1-of-1 font-face">
+            <p class="pStyle">{!v.infoLabel}</p>
+        </div>
+
+        <div class="slds-size_1-of-1 font-face">
+            <p id="blueTextBox" class="pStyle">{!v.textBoxValue}</p>
+        </div>
+        <div class="slds-size_1-of-1 font-face">
+            <p class="pStyle" id="greyTextBox">{!v.Videotext}<a href="{!v.Videolink}" target="_blank"><b>{!v.Videolinktext}</b></a></p>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-size_1-of-1 font-face">
+            <div class="slds-size_1-of-2 slds-p-right_small font-face mobile-small-padding">
+                <p class="pStyle"> {!v.CollegeInfo1}<br/>
+                    {!v.CollegeInfo2}<br/>
+                    {!v.CollegeInfo3}<br/>
+                    {!v.CollegeInfo4}<br/>
+                    <a href="http://www.denverscholarship.org" target="_blank" style="color:white;">{!v.CollegeInfo5}</a></p>
+            </div>
+            <div class="slds-size_1-of-1 slds-large-size_1-of-3 slds-wrap slds-align_absolute-center font-face mobile-small">
+                <h3 class="slds-size_1-of-1 slds-p-bottom_x-small" style="text-align: center;">{!v.questionLabel}</h3>
+                <div class="slds-size_1-of-1 slds-align_absolute-center">
+                    <lightning:button class="slds-button standardOrangeBtn font-face" label="{!v.btnText}" onclick="{!c.getInTouchPublic}"></lightning:button>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

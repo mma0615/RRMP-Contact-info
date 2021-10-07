@@ -1,0 +1,157 @@
+.THIS .slds-form-element__label {
+    display: none;
+}
+
+.THIS .slds-select_container{
+    max-width: 30rem;
+    margin: 8px 0;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 0px;
+    max-height: 49px;
+    overflow: hidden;
+    
+}
+
+.THIS .slds-select{
+    max-width: 30rem;
+    min-height: 49px;
+    margin: 0px 0;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 0px;
+    max-height: 49px;
+    overflow: hidden;
+    
+}
+
+.THIS.parkinglot-table{
+    padding-left: 15px;
+    background-color: #ffffff;
+}
+
+.THIS .table th {
+    text-align: center;
+}
+
+.THIS lightning-primitive-header-actions {
+    display: none;
+}
+.THIS lightning-primitive-icon {
+    display: none;
+}
+.THIS .contactus-section-title{
+    height: 12.1rem;
+}     
+.THIS .slds-th__action{
+    justify-content: center !important; 
+}
+
+
+
+/*Tablet*/
+@media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) { 
+    
+    .THIS .parkinglot-table{
+        height: 700px;
+    }
+}
+/* Phone */
+@media screen and (max-device-width: 640px) { 
+    
+    .THIS .contactus-section-title {
+        writing-mode: unset;
+        transform: none;
+        text-align: right;
+        margin: .5rem 0 0 0;
+        height: 2rem;
+        border-bottom: 0.15rem solid white;
+        border-left: none;
+        font-size: 1.4rem;
+    }
+    .THIS .contactus-section{
+        display: inline-block;
+    }
+    .THIS .contactus-container-outer {
+        padding: 1rem 1rem 5rem 0px;
+    }
+    .THIS .input-text{
+        width: 96%;
+    }
+    .THIS .btn-base {
+        width: 100%;
+        border: 0.2rem solid white;
+    }
+    .THIS .font-body{
+        text-align: justify;
+    }
+    .THIS .font-header, .THIS .font-body {
+        font-size: 1rem;
+    }
+    .THIS .contactus-detail {
+        text-align: center;
+    }
+    
+    .THIS .parkinglot-table{
+        padding-left: 0px;
+        font-size: 12px;
+    }
+    .THIS .slds-th__action {
+        /*padding: 0 !important;*/
+        font-size: 12px;
+    }
+    
+    .THIS .mobile-p-table .mobile-parkinglot-table:first-child{
+        margin: 5px 0 2.5px 0;
+    }
+    .THIS .mobile-parkinglot-table{
+        font-size: 1rem;
+        display: flex;
+        background: #3a3838;
+        margin: 2.5px 0;
+        border: 2px solid #cccccc;
+    }
+    .THIS .parkinglot-header{
+        display: inline-block;
+        width: 25%;
+        text-align: center;
+        margin: auto;
+        color: #eae8e8;
+        padding: 3px;
+    }
+    .THIS .parkinglot-info{
+        display: inline-block;
+        width: 75%;
+        background: white;
+        padding: 3px;
+    }
+    .THIS .info-title{
+        /*font-weight: bold;*/
+        display: inline-block;
+        padding-right: 3px;
+    }
+    .THIS .info-detail{
+        display: inline-block;
+    }
+    .THIS .info-title b{
+        padding-right: 3px;
+    }
+    
+    .THIS .wordwrap{
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        
+        -ms-word-break: break-all;
+        word-break: break-all;
+        word-break: break-word;
+        
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+    
+}

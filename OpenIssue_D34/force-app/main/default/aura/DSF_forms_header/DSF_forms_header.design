@@ -1,0 +1,5 @@
+<design:component label="DSF_forms_header">
+    <design:attribute name="icon" label="Path to icon"/>
+    <design:attribute name="text" label="Guideline text"/>
+    <design:attribute name="title" label="Title"/>
+</design:component>

@@ -1,0 +1,28 @@
+.THIS .roleClass{
+    font-size:      14px;
+    font-weight:    bold;
+}
+
+.THIS .roleDescClass{
+    font-size:      12px;
+    width: 250px;
+}
+
+.THIS .rowPadding{
+    margin-right: 5px;
+}
+
+
+.THIS .roleContainer{
+	width: 200px;
+}
+
+.THIS .slds-select{
+    height: 40px;
+    border-radius: 5px;
+}
+
+.THIS .slds-input{
+    height: 40px;
+    border-radius: 5px;
+}

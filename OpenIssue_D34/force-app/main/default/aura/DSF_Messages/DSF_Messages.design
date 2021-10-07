@@ -1,0 +1,41 @@
+<design:component >
+    <!--Design attributes for MyMessages component-->
+    <design:attribute name="PageTitle"  label="Page Title"  default=""/>
+	<design:attribute name="HeaderIcon" label="Icon"        default=""/>
+    <design:attribute name="Tab1"       label="Tab 1"       default=""/>
+    <design:attribute name="Tab2"       label="Tab 2"       default=""/>
+    <design:attribute name="Tab3"       label="Tab 3"       default=""/>
+    <!--Design attributes for CasesTable component-->
+    <design:attribute name="CasesTableTitle"   label="Support Table Title"        default=""/>
+    <design:attribute name="CasesTableHeader1" label="Support Table Row 1 Header" default=""/>
+    <design:attribute name="CasesTableHeader2" label="Support Table Row 2 Header" default=""/>
+    <design:attribute name="CasesTableHeader3" label="Support Table Row 3 Header" default=""/>
+    <design:attribute name="NoCasesMessage"    label="No Cases Message"           default=""/>
+    <design:attribute name="ButtonLabel"       label="Support Table Button Label" default=""/>
+    <design:attribute name="StatusColorRed"     label="Case Status for Red Color" default=""/>
+    <design:attribute name="StatusColorOrange"  label="Case Status for Orange Color" default=""/>
+    <design:attribute name="StatusColorGreen"   label="Case Status for Green Color" default=""/> 
+    <!--Design attributes for StatusUpdatesTable component-->
+    <design:attribute name="TasksTableTitle"   label="Status Updates Table Title"        default=""/>
+    <design:attribute name="TasksTableHeader1" label="Status Updates Table Row 1 Header" default=""/>
+    <design:attribute name="TasksTableHeader2" label="Status Updates Table Row 2 Header" default=""/>
+    <design:attribute name="NoTasksMessage"    label="No Tasks Message"         default=""/>
+    <!--Design attributes for CasesAndComments component-->
+    <design:attribute name="BackMessage"       label="Back to My Messages Label" default=""/>
+    <design:attribute name="CaseDetailsLabel"  label="Case Details Label"        default=""/>
+    <design:attribute name="CaseCommentsLabel" label="Case Comments Label"       default=""/>
+    <design:attribute name="Downloads"         label="Downloads Label"           default=""/>
+    <design:attribute name="AddCommentLabel"   label="Add Comment Section Label" default=""/>
+    <design:attribute name="ModalHeader"       label="Modal Header"              default=""/>
+    <design:attribute name="NoCommentsMessage" label="No Comments Message"       default=""/>
+    <design:attribute name="NoFilesMessage"    label="No Files Message"          default=""/>
+    <design:attribute name="CasesAndCommentsButtonLabel"    label="Case Comments Button Label"  default=""/>
+    <!--Design attributes for EmailsTable-->
+    <design:attribute name="EmailsTableTitle"   label="Emails Table Title"        default=""/>
+    <design:attribute name="EmailsTableDescription"   label="Emails Table Description" default=""/>
+    <design:attribute name="EmailsTableHeader1" label="Emails Table Row 1 Header" default=""/>
+    <design:attribute name="EmailsTableHeader2" label="Emails Table Row 2 Header" default=""/>
+    <design:attribute name="NoEmailsMessage"    label="No Emails Message"         default=""/>
+	<!--Design attributes for EmailDetails component-->
+    <design:attribute name="EmailBackMessage"  label="Back to My Messages 2"	 default=""/>
+</design:component>

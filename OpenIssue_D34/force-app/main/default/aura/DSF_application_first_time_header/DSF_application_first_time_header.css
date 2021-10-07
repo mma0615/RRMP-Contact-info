@@ -1,0 +1,25 @@
+.THIS.look
+{
+    width: 100%;
+    padding: 25px;
+}
+
+.THIS .header-look
+{
+    color: #203366;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0.5em 1.3em;
+}
+
+.THIS .text-look
+{
+    color: #574F49;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: center;
+    padding: 1px;
+}

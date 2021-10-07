@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Switching between screens on MyMessages page">
+    <aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="screen"  type="Integer" default="0"/>
+</aura:event>

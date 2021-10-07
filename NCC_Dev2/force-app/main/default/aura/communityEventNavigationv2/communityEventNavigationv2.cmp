@@ -1,0 +1,185 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="ChangeCloudController">
+    
+    <ltng:require styles="{!$Resource.community_event_ui + '/cc-ui-min.css'}" />
+    <ltng:require styles="{!$Resource.community_event_ui + '/cc-ui-font-min.css'}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="eventId" type ="String"/>
+    <aura:attribute name="parameterURL" type="string"/>
+    
+    <aura:attribute name="backgroundImageURL" type="string"/>
+    <aura:attribute name="campaignLogoURL" type="string"/>
+    <aura:attribute name="isPhone" type ="Boolean" default="false"/>
+    
+    <aura:attribute name="homePageTitle" type="String"/>
+    <aura:attribute name="sessionPageTitle" type="String"/>
+    <aura:attribute name="materialsPageTitle" type="String"/>
+    <aura:attribute name="issueTrackerPageTitle" type="String"/>
+    <aura:attribute name="parkingPageTitle" type="String"/>
+    <aura:attribute name="surveyPageTitle" type="String"/>
+    <aura:attribute name="contactUsPageTitle" type="String"/>
+    
+    <aura:attribute name="showHome" type ="Boolean" default="false"/>
+    <aura:attribute name="showSession" type ="Boolean" default="false"/>
+    <aura:attribute name="showMaterials" type ="Boolean" default="false"/>
+    <aura:attribute name="showIssue" type ="Boolean" default="false"/>
+    <aura:attribute name="showParking" type ="Boolean" default="false"/>
+    <aura:attribute name="showSurvey" type ="Boolean" default="false"/>
+    <aura:attribute name="showContactUs" type ="Boolean" default="false"/>
+    
+        <aura:attribute name="tablist" type ="List"/>
+    
+    <div>
+        
+        <aura:if  isTrue="{!v.isPhone==FALSE}" >
+            <div class="nav-box">
+                <div class="navbar" id="myTopnav">
+                    
+                    <aura:if  isTrue="{!v.isPhone==FALSE}" >
+                        <div class="navbar-left navbar-logo">
+                            <span class="img-logo">	
+                                <img src="{!$Resource.communityEventHeaderLogo}" alt="Change Cloud" class="navbar-logo-img"></img>
+                            </span>
+                        </div>
+                        <div class="navbar-left campaign-logo">
+                            <div class="campaignlogo" style="{!'background-image: url(' + v.campaignLogoURL +');'}"></div>
+                        </div>
+                    </aura:if>
+                    
+                    <aura:if  isTrue="{!v.showContactUs}" >
+                    <a href="{!'/Compass/s/contact-us?' + v.parameterURL}" aura:id="contact-us-menu" class="hamburger hamburger-menu">{!v.contactUsPageTitle}</a>		
+                    </aura:if>
+                    
+                    <aura:if  isTrue="{!v.showSurvey}" >
+                        <a href="{!'/Compass/s/survey?' + v.parameterURL}" aura:id="survey-menu" class="hamburger hamburger-menu">{!v.surveyPageTitle}</a>
+                    </aura:if>
+                    
+                    <aura:if  isTrue="{!v.showParking}" >
+                        <a href="{!'/Compass/s/parking-lot?' + v.parameterURL}" aura:id="parking-lot-menu" class="hamburger hamburger-menu" >{!v.parkingPageTitle}</a>
+                    </aura:if>
+                    <aura:if  isTrue="{!v.showIssue}" >
+                        <a href="{!'/Compass/s/issue-tracker?' + v.parameterURL}" aura:id="project-issue-menu" class="hamburger hamburger-menu" >{!v.issueTrackerPageTitle}</a>
+                    </aura:if>
+                    
+                        <a href="javascript:void(0);" onclick="{!c.removeHamburger}" class="hamburger backtomain" aura:id="menu-bar-remove">
+                        <lightning:icon iconName="utility:picklist_type"  size="small" />
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    
+                    <a href="javascript:void(0);" onclick="{!c.showHamburger}" aura:id="menu-bar" class="main">
+                        <lightning:icon iconName="utility:picklist_type" size="small"/>
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    
+                    <aura:if  isTrue="{!v.showMaterials}" >
+                    <a href="{!'/Compass/s/materials?' + v.parameterURL}">{!v.materialsPageTitle}</a>
+                    </aura:if>
+                    <aura:if  isTrue="{!v.showSession}" >
+                        <a href="{!'/Compass/s/sessions?' + v.parameterURL}">{!v.sessionPageTitle}</a>	
+                    </aura:if>
+                    <aura:if  isTrue="{!v.showHome}" >
+                        <a href="{!'/Compass/s/events?' + v.parameterURL}">{!v.homePageTitle}</a>
+                    </aura:if>
+                    <div class="clear-section"></div>
+                </div>
+            </div>
+        </aura:if>
+        
+        <aura:if  isTrue="{!v.isPhone==TRUE}" >
+            <div class="hero-section"  id="hero-section-id">
+                <div class="nav-box">
+                    <div class="navbar" id="myTopnav">
+                        <aura:if  isTrue="{!v.showIssue}" >
+                        <div class="hamburger-nav-bar">      
+                            <a href="{!'/Compass/s/issue-tracker?' + v.parameterURL}" aura:id="project-issue-menu" class="hamburger hamburger-menu">
+                                <img src="{!$Resource.CompassEvents+ '/IssueTracker.svg'}"/>
+                                {!v.issueTrackerPageTitle}
+                            </a>
+                        </div>
+                        </aura:if>
+                        <aura:if  isTrue="{!v.showContactUs}" >
+                        <div class="hamburger-nav-bar">      
+                            <a href="{!'/Compass/s/contact-us?' + v.parameterURL}" aura:id="contact-us-menu" class="hamburger hamburger-menu">
+                                <img src="{!$Resource.CompassEvents+ '/ContactUs.svg'}"/>
+                                {!v.contactUsPageTitle}
+                            </a>
+                        </div>
+                        </aura:if>
+                        <aura:if  isTrue="{!v.showSurvey}" >
+                        <div class="hamburger-nav-bar">   
+                            <a href="{!'/Compass/s/survey?' + v.parameterURL}" aura:id="survey-menu" class="hamburger hamburger-menu">
+                                <img src="{!$Resource.CompassEvents+ '/Survey.svg'}"/>
+                                {!v.surveyPageTitle}
+                            </a>
+                        </div>
+                        </aura:if>
+                        <aura:if  isTrue="{!v.showParking}" >
+                        <div class="hamburger-nav-bar">   
+                            <a href="{!'/Compass/s/parking-lot?' + v.parameterURL}" aura:id="parking-lot-menu" class="hamburger hamburger-menu" >
+                                <img src="{!$Resource.CompassEvents+ '/ParkingLot.svg'}"/>
+                                {!v.parkingPageTitle}
+                            </a>
+                        </div>
+                        </aura:if>
+                        <div>
+                            <a href="javascript:void(0);" onclick="{!c.showHamburger}" aura:id="menu-bar" class="main">
+                                <img src="{!$Resource.CompassEvents+ '/More.svg'}"/>
+                                <br />MORE
+                            </a>
+                        </div>
+                        <aura:iteration items="!v.tablist" var="item">
+                            <aura:if  isTrue="{!v.item==MATERIALS}">
+                                <div>                            
+                                    <a href="{!'/Compass/s/materials?' + v.parameterURL}">
+                                        <img src="{!$Resource.CompassEvents+ '/Materials.svg'}"/>
+                                        <br />{!v.materialsPageTitle}
+                                    </a>
+                                </div>
+                            </aura:if>
+                            
+                            <aura:if  isTrue="{!v.item==SESSIONS}" >
+                                <div>
+                                    <a href="{!'/Compass/s/sessions?' + v.parameterURL}">
+                                        <img src="{!$Resource.CompassEvents+ '/Sessions.svg'}"/>
+                                        <br />{!v.sessionPageTitle}
+                                    </a>	
+                                </div>
+                            </aura:if>
+                            <aura:if  isTrue="{!v.item==HOME}" >
+                                <div>
+                                    <a href="{!'/Compass/s/events?' + v.parameterURL}">
+                                        <img src="{!$Resource.CompassEvents+ '/Home.svg'}"/>
+                                        <br />{!v.homePageTitle}
+                                    </a>
+                                </div>   
+                            </aura:if>
+                        </aura:iteration>
+                        <div class="clear-section"></div>
+                    </div>
+                </div>
+                <div class="clear-section"></div>
+                <div>
+                    <div class="hero-section-infobox">
+                        <div class="hero-info-box-inside">
+                            <div class="hero-title">
+                                <div class="navbar-content">
+                                    <div class="navbar-left navbar-logo">
+                                        <a class="img-logo">	
+                                            <img src="{!$Resource.communityEventHeaderLogo}" alt="Compass" class="navbar-logo-img"></img>
+                                        </a>
+                                    </div>
+                                    <div class="navbar-left campaign-logo">
+                                        <div class="campaignlogo" style="{!'background-image: url(' + v.campaignLogoURL +');'}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear-section"></div>
+            </div>
+        </aura:if>
+    </div>
+    
+</aura:component>

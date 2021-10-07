@@ -1,0 +1,187 @@
+.THIS a{
+    color: white;
+}
+.THIS .center{
+    text-align: center;
+}
+
+/*Menu*/
+.THIS .menu-header{
+    height: 80px;
+    background: white;
+}
+.THIS .menu-logo{
+    float: left;
+}
+.THIS .menu-logo img{
+    height: 80px;
+}
+
+/*Footer*/
+.THIS .footer {
+    height: 100px;
+    padding: 15px 0 15px 0;
+    text-align: center;
+    background: #001e41;
+}
+.THIS .footer img{
+    height: 70px;
+}
+
+
+.THIS .registration-page{
+    width: 100%;    
+    background: #e2e7ea;
+}
+
+.THIS .registration-page .info{
+    width: 50%;
+}
+.THIS input, .THIS .slds-input:focus, .THIS .slds-input:active{
+    color: black;
+}
+.THIS .login-page{
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: auto;
+    height: 750px;
+}
+.THIS .info-img{
+    text-align: center;
+    padding: 1rem 2rem;
+    height: 200px;
+}
+.THIS .info-message{
+    width: 350px;
+    color: white;
+    margin: auto;
+}
+.THIS .message-header{
+    font-weight: 300;
+    font-size: 2.5rem;    
+    border-bottom: 1.5px solid white;
+    width: max-content;
+    margin: auto;
+}
+.THIS .message{
+    width: 350px;
+    margin: auto;
+    padding: 10px 0 10px 0;
+    font-size: 1rem;
+}
+
+/*Login*/
+.THIS .registration-page .login-details{
+    width: 25%;
+    background: #011e41;
+    color: white;
+    padding: 2rem;
+    border-radius: 5px;
+    position: relative;
+    float: right;
+    top: 25%;
+    right: 15%;
+}
+.THIS .registration-page .login-header{
+    color: #93d500;
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+.THIS .registration-page .login-info{
+    font-size: 1rem;
+    color: #b9c1cb;
+}
+
+.THIS .registration-page .login-textbox{
+    width: 75%;
+    font-size: 1rem;
+}
+.THIS .registration-page .login-textbox2{
+	height: 59px;
+    font-size: 1rem;
+}
+.THIS .registration-page .login-textbox2 .input-element{
+    width: 75%;
+    float: left;
+}
+.THIS .registration-page .login-textbox2 input[type=password]{
+    border-radius: 5px 0 0 5px;
+}
+
+.THIS .registration-page .login-textbox2 a{
+    width: 25%;
+    background: #e9ecef;
+    color: black;
+    float: left;
+    height: 40px;
+    position: relative;
+    bottom: -24px;
+    border-radius: 0 5px 5px 0;
+    line-height: 40px;
+    text-align: center;
+}
+
+.THIS .login-actions{
+    color: white;
+    padding-top: 2rem;
+    font-size: 1rem;
+}
+
+.THIS .login-actions a{
+    color: #00669d;
+}
+
+
+.THIS .registration-page .login-details .login-img{
+    background: #1b97e9;    
+    text-align: center;
+}
+.THIS .signup{
+    padding: 5%;
+}
+.THIS .signup a{
+    color: #696969;
+}
+.THIS .signup span{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.THIS .flex{
+    display: flex;
+}
+
+.THIS .flex a{
+    color: #696969;
+    line-height: 40px;
+}
+.THIS input{
+    height: 2.5rem;
+}
+.THIS .column1, .THIS .column2{
+    width: 50%;
+}
+.THIS .column2{
+	margin-left: 5%;
+}
+.THIS .slds-required{
+    display: none;
+}
+.THIS .signup .buttons a{
+    width: 100%;
+    text-align: center;
+    padding: 15px 20px;
+    color: white;
+    font-size: 15px;
+    margin: 2px;
+    font-weight: 600;
+    display: inline-block;
+    transition: .5s;
+    background: green;
+    border-radius: 5px;
+}
+
+.THIS .error-message{
+    margin-top: 10px;
+    color: red;
+}

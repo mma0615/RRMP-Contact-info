@@ -1,0 +1,12 @@
+.container{
+    background: white;
+}
+
+.slds-grid{
+    padding-bottom: 32px;
+}
+
+.slds-text-body_regular{
+    text-align: center;
+    padding: 1rem 0px 1rem 0px;
+}

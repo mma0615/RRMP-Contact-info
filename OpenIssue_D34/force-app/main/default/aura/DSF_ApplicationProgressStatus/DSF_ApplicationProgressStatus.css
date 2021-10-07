@@ -1,0 +1,21 @@
+/**
+ * Created by ahasic on 10/15/19.
+ */
+
+.THIS .imgStyle {
+    border-radius: 50%;
+    height: 10vh;
+    background-color: #203366;
+}
+
+.THIS .pStyle {
+    color: #574F49;
+    font-size: 15px;
+    text-align: center;
+}
+
+.THIS h4 {
+    color: #574F49;
+    font-size: 20px;
+    text-align: center;
+}

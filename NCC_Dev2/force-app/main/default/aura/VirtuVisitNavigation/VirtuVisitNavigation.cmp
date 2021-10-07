@@ -1,0 +1,62 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="VirtuVisitController" >
+	
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="headerBackground" type="string"/>
+    
+    <aura:attribute name="loggedIn" type="Boolean" default="false"/>
+    
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="contact" type="Contact"/>
+    
+    
+    <aura:attribute name="navigationmenu" type="Connect_Navigation__c[]" />
+    
+    <div>
+    	<div class="home-page">
+        	<div class="menu-header">
+                <div class="menu-logo">
+                    <a href="{!'/Connect/s/patient-home?id='+v.contact.Id}">
+                        <img src="{!$Resource.VirtuVisit + '/VirtuVisitLogo.png'}"  />
+                    </a>
+                </div>
+                <div class="menu-content">
+                    <!-- MENU for Logged In User -->
+                    <aura:if isTrue="{!v.loggedIn}">
+                        <a href=""><lightning:icon iconName="utility:search" size="x-small"/></a>
+                        <a href="{!'/Connect/s/my-appointments?id='+v.contact.Id}">My Appointments</a>
+                        <a href="">My Provider</a>
+                        <a href="">{!v.contact.FirstName}'s Profile</a>
+                        <a href="">My Reminders</a>
+                        <a href="">FAQs</a>
+                        <!--<a href="{!'/Connect/s/contact-availability?id='+v.contact.Id}">Availability</a>
+                        <a href="{!'/Connect/s/intake-form?id='+v.contact.Id}">Intake Builder</a>-->
+                        <!--<a href="{!'/Connect/s/intake-builder?id='+v.contact.Id}">Intake Builder</a>-->
+                        <a href="{!'/Connect/s/patient-login'}">Logout</a>
+                        <aura:set attribute="else">
+                        <a href="{!'/Connect/s/registration'}">Registration</a>
+                        <a href="{!'/Connect/s/patient-login'}">Login</a>
+                        </aura:set>
+                    </aura:if>
+                    <aura:iteration items="{!v.navigationmenu}" var="menu">
+                        <!--<a href="{!menu.Menu_URL__c}">{!menu.Name}</a>-->
+                    </aura:iteration>
+                    
+                </div>
+            </div>
+            <div class="page-header"  style="{!'background-image: url(' + $Resource.VirtuVisit + '/Banner.JPG' +');'}">
+				<div class="page-header-content">
+                    <div class="header-message">
+                        <!--<div>Healthcare where you need it</div>
+                        <div>Schedule your appointment today</div>-->
+                    </div>
+                    <div class="buttons">
+                        <aura:if isTrue="{!v.loggedIn}">
+                            <a href="{!'/Connect/s/schedule-appointment?id='+v.contact.Id}">Schedule Appointment</a>
+                            <a href="{!'/Connect/s/my-appointments?id='+v.contact.Id}">My Appointments</a>
+                        </aura:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

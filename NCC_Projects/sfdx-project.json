@@ -1,0 +1,43 @@
+{
+  "packageDirectories": [
+    {
+      "path": "_linktree",
+      "default": true
+    },
+    {
+      "path": "_importUtil",
+      "default": false
+    },
+    {
+      "path": "_misc",
+      "default": false
+    },
+    {
+      "path": "_expenseActual",
+      "default": false
+    },
+    {
+      "path": "_userLookup",
+      "default": false
+    },
+    {
+      "path": "_reportCategory",
+      "default": false
+    },
+    {
+      "path": "_customReport",
+      "default": false
+    },
+    {
+      "path": "_dynamicRelatedList",
+      "default": false
+    },
+    {
+      "path": "_invoiceLine",
+      "default": false
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "50.0"
+}

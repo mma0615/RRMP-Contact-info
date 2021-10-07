@@ -1,0 +1,62 @@
+/*
+    Created by smilankov 22/10/19.
+*/
+.THIS .slds-button {
+    background-color: #E76E24;
+    font-size: 15px;
+    border-radius: 0px;
+    color: white;
+    padding: 15px 70px;
+}
+.THIS .button-col {
+    text-align: center;
+}
+.THIS .img {
+    position: relative; 
+    height: 100vh; 
+    background:url("{!$Resource.DSF_Resources + '/26787065868_b4cb3ec630_o.jpg'}") no-repeat;
+    background-size: cover;
+}
+.THIS .img-div {
+    height: 100%;
+}
+.THIS .paddingFooter {
+    margin-bottom : 10vh;
+}
+/*Tablet*/
+@media only screen and (min-width: 480px) and (max-width: 800px) {
+    .THIS .img-div {
+        margin-top: 20vh;
+        margin-bottom: 1vh
+
+    }
+    .THIS.div-50vh {
+        margin-top: 5vh;
+    }
+    .THIS .paddingFooter {
+        margin-bottom : 10vh;
+    }
+}
+/*Mobile*/
+@media only screen and (max-width: 480px){
+    /* .THIS .wrap {
+        flex-wrap: wrap;
+        margin-bottom: 0;
+    }*/
+    .THIS .img-div {
+        margin-top: 25vh;
+        margin-bottom: 1vh
+    }
+    .THIS.div-50vh {
+        margin-top: 10vh;
+    }
+    .THIS .paddingFooter {
+      margin-bottom : 20vh;
+    }
+    
+}
+
+.THIS.div-50vh {
+    height: 60vh;
+    margin-top: 10vh;
+}

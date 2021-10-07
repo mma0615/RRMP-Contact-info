@@ -1,0 +1,46 @@
+<aura:component description="DSF_Advisors" implements="forceCommunity:availableForAllPageTypes">
+    
+    <!--Aura attributes configurable through design attributes-->
+    <aura:attribute name="advisorsHeaderLabel" type="String" />
+
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="contactList" type="Object"/>
+    <!--ERROR HANDLING-->
+    <aura:attribute name="userRecordError" type="String"/>
+
+    <aura:if isTrue="{!not(empty(v.application))}">
+        <c:DSF_sObjectHelper aura:id="contactLoader"
+                             methodName="getSObject"
+                             object="Contact"
+                             fields="Name,Advisor_Photo__c,Phone,Email,Title,Account.Name"
+                             conditions="{!' AccountId = \''+ v.application.School_Name__c +'\' AND RecordType.DeveloperName = \'General\' AND Show_on_Portal_Dashboard__c = true AND Status__c = \'Current\''}"
+                             output="{!v.contactList}"
+        />
+    </aura:if>
+    <aura:if isTrue="{!not(empty(v.contactList))}">
+        <div class="slds-p-left_medium">
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.advisorsHeaderLabel}</h4>
+            <div class="slds-size_1-of-1 slds-p-around_large divColor">
+            <aura:iteration items="{!v.contactList}" var="contact" >
+                <div class="slds-size_1-of-1 slds-p-bottom_large">
+                    <lightning:formattedRichText value="{!contact.Advisor_Photo__c}" disable ="true" class="slds-p-top_large"/>
+                    <h5 class="slds-text-heading_small slds-m-top_large "><b>{!contact.Name}</b></h5>
+                    
+                    <p class="slds-m-top_small pStyle">{!if(empty(contact.Title),'Campus Advisor',contact.Title)}</p>
+                    <p class="pStyle">{!contact.Account.Name}</p>
+    
+                    <div>
+                        <img src="{!$Resource.DSF_Resources + '/phone-icon.png'}" style="display: inline-block"/>
+                        <p class="pStyle" style="display: inline-block; padding-left: 10px;">{!contact.Phone}</p>
+                    </div>
+    
+                    <div>
+                        <img src="{!$Resource.DSF_Resources + '/email-icon.png'}" style="display: inline-block"/>
+                        <p class="pStyle" style="display: inline-block; padding-left: 10px;">{!contact.Email}</p>
+                    </div>
+                </div>
+            </aura:iteration>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

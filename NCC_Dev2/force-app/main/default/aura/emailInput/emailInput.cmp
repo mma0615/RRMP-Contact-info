@@ -1,0 +1,49 @@
+<aura:component >
+    <!-- this components is using Lodash functions so Lodash needs to be added as a static resource -->
+    <!-- load Lodash scripts -->
+    <ltng:require scripts="{!$Resource.lodash}" afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <!-- public attributes -->
+    <aura:attribute name="name" type="String" access="public"/>
+    <aura:attribute name="label" type="String" access="public"/>
+    <aura:attribute name="limit" type="Integer" default='25' access="public"/>
+    <aura:attribute name="emailList" type="String[]" access="public" default=""/>
+
+    <!-- private attributes -->
+    <aura:attribute name="value" type="String" access="private"/>
+    <aura:attribute name="isValid" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="rerender" type="Boolean" default="true" access="private"/>
+    <aura:attribute name="validationMessage" type="String" default="" access="private"/>
+    
+    <!-- event/s -->
+    <aura:registerEvent name="emailInputCommit" type="c:emailInputCommit"/>
+    
+    <aura:if isTrue="{!v.rerender}">
+        <div onkeypress="{!c.handleKeyPress}">
+            <lightning:input aura:id="input"
+                             type="email" 
+                             class="slds-m-vertical_xxx-small"
+                             name="input" 
+                             value="{!v.value}" 
+                             label="{!v.label}" 
+                             onchange="{!c.handleInputChange}"/>
+            <aura:if isTrue="{!v.validationMessage}">
+                <p class="validation-message">{!v.validationMessage}</p>
+            </aura:if>
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isValid}">
+    	<div class="slds-p-around_xxx-small popup" onclick="{!c.handleClick}">
+        	{!v.value}
+        </div>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.emailList.length}">
+        <div>
+            <aura:iteration items="{!v.emailList}" var="email" indexVar="index">
+            	<lightning:pill label="{!email}" name="{!email}" onremove="{!c.handleRemove}"/>
+            </aura:iteration>
+        </div>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,52 @@
+<!--
+ - Created by angelorivera on 3/7/21.
+ -->
+
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="NavigatorEventController">
+
+    <aura:attribute name="contactId" type="String" />
+    <aura:attribute name="listEvents" type="List" />
+    <aura:attribute name="EventURL" type="String" />
+    <aura:attribute name="ListEventRecords" type="List" />
+    <aura:attribute name="contactHasEvent" type="Boolean" default="false" />
+    <aura:attribute name="showSpinner" type="Boolean" default="true" />
+    <aura:attribute name="filter" type="String" default="" />
+    <aura:attribute name="eventHeader" type="String" default="My Events" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <div class="backgroundInverse">
+            <lightning:spinner alternativeText="Loading" variant="brand"  size="large" />
+        </div>
+        <aura:set attribute="else">
+            <div class="container">
+<!--            <div class="content">-->
+                <aura:if isTrue="{!v.contactHasEvent == true}">
+
+                    <header class="title">
+                        {!v.eventHeader}
+                    </header>
+                    <div class="slds-float_left">
+                        <div class="{! if( greaterthan(v.listEvents.length, 0), 'body', 'no-items')}">
+                            <ul>
+                                <aura:iteration items="{!v.ListEventRecords}" var="item" indexVar="key">
+                                    <li>
+                                        <a href="{!item.value}">{!item.key}</a>
+                                    </li>
+                                </aura:iteration>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <footer class="footer">
+                    </footer>
+
+                    <aura:set attribute="else">
+                        <p>No items to display.</p>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </aura:set>
+    </aura:if>
+</aura:component>

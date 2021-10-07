@@ -1,0 +1,81 @@
+.THIS .task-priority {
+    margin-right: 5px;
+}
+
+.THIS .text-inline {
+    display: inline-block;
+}
+
+.THIS .main-kanban-board {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 36vh);
+    overflow: hidden;
+    background-color: white;
+}
+
+.THIS .kanban {
+    display: flex;
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.THIS .kanban-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0 10px 10px;
+    background-color: white;
+    min-width: 
+}
+
+.THIS .kanban-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.THIS .kanban-column-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    margin: 0;
+    padding: 10px 10px 0;
+    list-style: none;
+    max-height: calc(100vh - 43vh);
+    position: relative;
+}
+
+.THIS .kanban-column-border {
+    border-left: solid 1px rgb(230 230 229);
+    border-right: solid 1px rgb(230 230 229);
+    height: calc(100vh - 44vh);
+}
+
+.THIS .kanban-column-border-first {
+    border-left: solid 2px rgb(230 230 229);
+}
+
+.THIS .kanban-column-border-last {
+    border-right: solid 2px rgb(230 230 229);
+}
+
+.THIS .kanban-card {
+    padding: 20px 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 10px;
+    cursor: grab;
+    width: 98%;
+    border: solid 1px rgb(193, 193, 193);
+}
+  
+.THIS .kanban-card:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.THIS .card-title {
+    font-weight: bold;
+}

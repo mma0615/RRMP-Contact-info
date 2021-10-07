@@ -1,0 +1,19 @@
+<aura:component description="DSF_Tooltip">
+	<aura:attribute name="text" type="String" required="true"/>
+
+    <div class="slds-form-element__icon" style="padding-top: inherit;">
+        <a onclick="{!c.showHideHelpText}" onmouseout="{!c.showHideHelpText}" onmouseover="{!c.showHideHelpText}" tabindex="-1" >
+            <img src="{!$Resource.DSF_Resources + '/Info-icon-blue.png'}" />
+            <span class="slds-assistive-text">Help</span>
+        </a>
+
+        <div aura:id="divHelp" class="slds-popover slds-popover_tooltip slds-nubbin_left-top ms-help-popup-in-header slds-hide"
+            role="tooltip" aria-live="polite">
+
+            <div class="slds-popover__body ms-help-popup-body textStyle"> 
+                <ui:outputText value="{!v.text}"/>
+            </div>
+
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,24 @@
+<!--BY ANDREJA-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="formCol" type="String" default=""/>
+    <aura:attribute name="deadlineCol" type="String" default=""/>
+    <aura:attribute name="descCol" type="String" default=""/>
+
+    <div class="slds-align_absolute-center slds-grid slds-wrap">
+        <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-border_bottom table-look">
+            <thead>
+                <tr class="slds-line-height_reset slds-grid slds-wrap slds-p-vertical_small">
+                    <th class="slds-col col-1 slds-p-left_none" scope="col">
+                        <div class="slds-truncate" title="Form">{!v.formCol}</div>
+                    </th>
+                    <th class="slds-col col-2 slds-p-left_none" scope="col">
+                        <div class="slds-truncate" title="Deadline">{!v.deadlineCol}</div>
+                    </th>
+                    <th class="slds-col col-3 slds-p-left_none" scope="col">
+                        <div class="slds-truncate" title="Who should complete it?">{!v.descCol}</div>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</aura:component>

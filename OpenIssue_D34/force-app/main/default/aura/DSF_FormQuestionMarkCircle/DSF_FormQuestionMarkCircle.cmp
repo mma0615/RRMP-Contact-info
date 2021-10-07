@@ -1,0 +1,3 @@
+<aura:component description="DSF_FormQuestionMarkCircle">
+    <img src="{!$Resource.DSF_Resources + '/ChecklistCircle-Question.png'}" style="vertical-align: top;"/>
+</aura:component>

@@ -1,0 +1,65 @@
+.THIS .slds-tabs_default__item:after {
+    background-color: #E76E24 !important;
+    width: 60%;
+    margin-left: 20%;
+ }
+ .THIS .slds-tabs_default__link[tabindex="0"]:focus {
+    text-decoration: none;
+   }
+ .THIS p {
+     text-align: center;
+ }
+ .THIS.overflow-hidden {
+    overflow-x: hidden;
+ }
+ .THIS .slds-tabs_default__nav {
+    border-style: none;
+    margin-top: 22vh;
+    width: 80%;
+    margin-left: 10%; 
+ }
+ .THIS .slds-tabs_default__item {
+    color: black;
+    margin-left: 10%; 
+    margin-left: 10%; 
+    width: 90%;
+    text-align: center;
+ }
+ .THIS #login {
+    margin-left: 4vw;
+ }
+ .THIS .slds-tabs_default__overflow-button { 
+    width: 1px;
+ }
+ 
+ .THIS.pad
+ {
+    padding: 2rem;
+    padding-top: 50vh;
+    padding-bottom: 50vh;
+ }
+ .THIS .slds-tabs_default__nav {
+    margin-top: 0;
+ }
+ 
+ @media only screen and  (max-width: 450px) {
+    .THIS .slds-tabs_default__nav {
+       margin-left: 0;
+    }
+    .THIS ul {
+       margin: auto !important;
+    }
+    .THIS #login {
+       margin-left: 2vw;
+    }
+    .THIS .slds-tabs_default__item {
+       width: 70%;
+       margin-left: 0;
+    }
+    .THIS .slds-tabs_default__overflow-button {
+       display: none;
+    }
+    .THIS .position_fix {
+       margin-left: 1.5rem;
+    }
+ }

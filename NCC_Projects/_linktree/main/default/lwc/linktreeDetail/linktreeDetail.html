@@ -1,0 +1,19 @@
+<template>
+
+    <div class="slds-form-element">
+        <div class="slds-grid slds-gutters slds-wrap">
+            <ul class="slds-m-around_medium">
+                <template for:each={campaignEvents} for:item="event">
+                    <li key={event.Id}>
+                        <lightning-formatted-url 
+                            value={event.Event_Page_URL__c} 
+                                label={event.Name} 
+                                target="_blank" >
+                        </lightning-formatted-url>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+    
+</template>

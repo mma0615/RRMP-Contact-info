@@ -1,0 +1,4 @@
+<design:component >
+	
+    <design:attribute name="iframeUrl" label="iFrame URL"  default=""/> 
+</design:component>

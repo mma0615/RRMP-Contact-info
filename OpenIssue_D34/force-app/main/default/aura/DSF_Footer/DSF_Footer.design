@@ -1,0 +1,8 @@
+<!--
+ - Created by ahasic on 10/3/19.
+ -->
+
+<design:component>
+    <design:attribute name="btnText"  label="Button Text"/>
+    <design:attribute name="questLabel"  label="Question Text"/>
+</design:component>

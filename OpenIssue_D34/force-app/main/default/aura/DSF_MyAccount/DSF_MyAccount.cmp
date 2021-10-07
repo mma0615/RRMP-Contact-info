@@ -1,0 +1,202 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="LightningLoginFormController">
+
+    <aura:attribute name="currUser" type="User" default=""/> 
+    <aura:attribute name="currContact" type="Object" default=""/>
+    <aura:attribute name="recordError" type="String" default=""/>
+    <aura:attribute name="isLoaded" type="Boolean" default="false"/>
+    <aura:attribute name="newPwd" type="String" default=""/>
+    <aura:attribute name="confirmPwd" type="String" default=""/>
+    <aura:attribute name="headingImg" type="String" default=""/>
+    <aura:attribute name="heading" type="String" default=""/>
+    <aura:attribute name="contactInfo" type="String" default=""/>
+    <aura:attribute name="firstBox" type="String" default=""/>
+    <aura:attribute name="firstName" type="String" default=""/>
+    <aura:attribute name="middleName" type="String" default=""/>
+    <aura:attribute name="lastName" type="String" default=""/>
+    <aura:attribute name="suffix" type="String" default=""/>
+    <aura:attribute name="mobilePhone" type="String" default=""/>
+    <aura:attribute name="alternatePhone" type="String" default=""/>
+    <aura:attribute name="checkboxQuestion" type="String" default=""/>
+    <aura:attribute name="checkboxYes" type="String" default=""/>
+    <aura:attribute name="checkboxNo" type="String" default=""/>
+    <aura:attribute name="secondBox" type="String" default=""/>
+    <aura:attribute name="registeredEmail" type="String" default=""/>
+    <aura:attribute name="alternateEmail" type="String" default=""/>
+    <aura:attribute name="emailAlert" type="String" default=""/>
+    <aura:attribute name="settings" type="String" default=""/>
+    <aura:attribute name="pwdAlert" type="String" default=""/>
+    <aura:attribute name="pwdErrorMsg" type="String" default="A password must contain at least eight characters, including numbers and letters."/>
+    <aura:attribute name="isSaveReqSent" type="Boolean" default="false"/>
+    <aura:attribute name="successMsg" type="String" default=""/>
+    <aura:attribute name="errorMsg" type="String" default=""/>
+    <aura:attribute name="saveBtn" type="String" default=""/> 
+    <aura:attribute name="yesNoList" type="List" default=""/> 
+    <aura:attribute name="showSuccessMsg" type="Boolean" default="false"/>
+    <aura:attribute name="showErrorMsg" type="Boolean" default="false"/>  
+    <aura:attribute name="duplicateUsername" type="Boolean" default="false"/>  
+    <aura:attribute name="changedEmail" type="String" default=""/>
+    <aura:attribute name="currentUserEmail" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+     <aura:handler event="force:refreshView" action="{!c.handleSaveRecord}"/>
+    
+    <c:DSF_UserLoader 
+                      output="{! v.currUser }"
+                      userError="{! v.recordError }"
+                      fields="Id,ContactId"
+                      />
+
+    <aura:if isTrue="{! and(v.currUser != null, v.currUser.ContactId != null) }">
+        <force:recordData aura:id="contactSaver"
+                          recordId="{!v.currUser.ContactId}"
+                          targetFields="{!v.currContact}"
+                          targetError="{!v.recordError}"
+                          recordUpdated="{!c.handleContactLoaded}"
+                          mode="EDIT"
+                          fields="Preferred_Name__c,
+                                  MiddleName,
+                                  LastName,
+                                  Suffix,
+                                  MobilePhone,
+                                  Phone,
+                                  Email,
+                                  npe01__AlternateEmail__c,
+                                  OK_to_Text__c"
+                          />
+    </aura:if>
+    
+    <lightning:messages />
+
+
+        <div class="slds-align_absolute-center slds-grid slds-wrap slds-m-bottom_x-large">
+            <div class="slds-align_absolute-center slds-p-bottom_medium slds-col slds-size_1-of-1">
+                <img src="{!$Resource.DSF_Resources + '/' + v.headingImg}"/>
+            </div>
+            <div class="slds-align_absolute-center slds-text-heading_large slds-col slds-size_1-of-1 text-blue header-text"><b>{!v.heading}</b></div>
+            <hr class="divider slds-size_1-of-1" />
+        </div>
+        <div class="slds-grid_vertical slds-wrap">
+            <div class="slds-col slds-text-heading_large slds-p-around_medium slds-m-bottom_medium mobile-heading">{!v.contactInfo}</div>
+            <div class="slds-grid slds-col slds-m-around_medium slds-box box-div">
+                <img src="{!$Resource.DSF_Resources + '/alert-icon.png'}" alt="Alert Icon" />
+                <p class="slds-text-heading_small slds-p-left_medium brown-font padding-fix_box-text">{!v.firstBox}</p>
+            </div>
+
+            <div class="slds-grid slds-wrap slds-gutters slds-col slds-p-around_medium">
+                <div class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7">
+                    <lightning:input aura:id="fieldId" required="true" name="PreferredName" pattern="[a-zA-Z ]*" label="{!v.firstName}" value="{!v.currContact.Preferred_Name__c}"/>
+                </div>
+                <div class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7">
+                    <lightning:input name="MiddleName" label="{!v.middleName}" value="{!v.currContact.MiddleName}" disabled="true"/>
+                </div>
+                <div class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7">
+                    <lightning:input name="LastName" label="{!v.lastName}" value="{!v.currContact.LastName}" disabled="true"/>
+                </div>
+                <div class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_1-of-7 slds-medium-size_7-of-7">
+                    <lightning:input name="Suffix" label="{!v.suffix}" value="{!v.currContact.Suffix}" disabled="true"/>
+                </div>
+                <div class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7">
+                    <lightning:input aura:id="fieldId" required="true" name="MobilePhone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" label="{!v.mobilePhone}" value="{!v.currContact.MobilePhone}"/>
+                   
+                </div>
+                <div class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7">
+                    <lightning:input aura:id="fieldId" name="AlternatePhone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" label="{!v.alternatePhone}" value="{!v.currContact.Phone}"/>
+                </div>
+            </div>
+            <div class="slds-col slds-p-around_medium slds-text-heading_small brown-font">
+                <p>{!v.checkboxQuestion}</p>
+            </div>
+            <div class="slds-grid slds-col slds-p-left_medium slds-p-bottom_medium slds-m-bottom_medium">
+                <lightning:radioGroup
+                                      class="mobile-radio-btns"
+                                      name="headCoaches"
+                                      value="{!v.currContact.OK_to_Text__c}"
+                                      options="{!v.yesNoList}"
+                                      type="radio"
+                                      variant="label-hidden"
+                                      onchange="{!c.setUserSelection}"
+                                      label=" "/>
+            </div>
+            <div class="slds-grid slds-col slds-m-around_medium slds-box box-div">
+                <img src="{!$Resource.DSF_Resources + '/alert-icon.png'}" alt="Alert Icon"/>
+               
+                        <p class="slds-text-heading_small slds-p-left_medium brown-font padding-fix_box-text">{!v.secondBox}</p>
+                    
+            </div>
+            <div class="slds-grid slds-wrap slds-gutters slds-col slds-p-around_medium">
+                <div class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7">
+                    <lightning:input
+                                     name="RegisteredEmailAddress"
+                                     type="email"
+                                     aura:id="fieldId"
+                                     required="true"
+                                     label="{!v.registeredEmail}"
+                                     value="{!v.currContact.Email}"
+                                     onfocus="{!c.toggleEmailAlert}"
+                                     onblur="{!c.handleEmailChange}" 
+                                     />
+                </div>
+                <div class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7">
+                    <lightning:input
+                                     name="AlternateEmail"
+                                     type="email"
+                                     label="{!v.alternateEmail}"
+                                     value="{!v.currContact.npe01__AlternateEmail__c}" 
+                                     />
+                </div>
+            </div>
+            <div id="alertDiv" class="slds-grid slds-col slds-m-around_medium slds-box box-div display-none_alert">
+                <lightning:icon size="small" iconName="utility:warning" alternativeText="Warning!" variant="warning"/>
+                <p class="slds-text-heading_small slds-p-left_medium brown-font padding-fix_box-text">{!v.emailAlert}&nbsp;{!$Label.c.DSF_Verify_Email}</p>
+            </div>
+        </div>
+        <div class="slds-grid_vertical slds-wrap">
+            <div class="slds-col slds-text-heading_large slds-p-top_large slds-p-around_medium mobile-heading">{!v.settings}</div>
+            <div class="slds-grid slds-col slds-m-around_medium slds-box box-div">
+                <lightning:icon size="small" iconName="utility:warning" alternativeText="Warning!" variant="warning"/>
+                <p class="slds-text-heading_small slds-p-left_medium brown-font padding-fix_box-text">{!v.pwdAlert}</p>
+            </div>
+            <div class="slds-grid slds-wrap slds-gutters slds-col slds-p-around_medium">
+                <lightning:input aura:id="newPwdId" class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7" type="Password" label="New Password" value="{!v.newPwd}" pattern="^(?=.*\d)(?=.*[a-z]).{8,}$" messageWhenPatternMismatch="{!v.pwdErrorMsg}" />
+                <lightning:input aura:id="newPwdId" class="slds-col slds-m-vertical_x-small slds-x-small-size_7-of-7 slds-large-size_2-of-7 slds-medium-size_7-of-7" type="Password" label="Confirm Password" value="{!v.confirmPwd}" pattern="^(?=.*\d)(?=.*[a-z]).{8,}$" messageWhenPatternMismatch="{!v.pwdErrorMsg}"/>
+            </div>
+        </div>
+
+        <aura:if isTrue="{!not(empty(v.recordError))}">
+            <div class="recordError slds-align--absolute-center slds-p-vertical_large">{!v.recordError}</div>
+        </aura:if>
+
+        <aura:if isTrue="{! v.showSuccessMsg }">
+            <div class="slds-align_absolute-center slds-grid slds-m-top_xx-large slds-m-bottom_medium">
+                <div class="slds-size_2-of-7 slds-box slds-align_absolute-center savedSuccessfully">
+                    {!v.successMsg}
+                </div>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{! v.showErrorMsg }">
+            <div class="slds-align_absolute-center slds-grid slds-m-top_xx-large slds-m-bottom_medium">
+                <div class="slds-size_3-of-7 slds-box slds-align_absolute-center errorMsg">
+                    {!v.errorMsg}
+                </div>
+            </div>
+        </aura:if>
+
+        <div id="saveDiv" class="slds-align_absolute-center slds-grid slds-wrap slds-m-top_xx-large">
+            <aura:if isTrue="{!v.isSaveReqSent}">
+                <div class="slds-size_2-of-7 position-relative">
+                    <lightning:spinner alternativeText="Loading" size="small" variant="brand"/>
+                </div>
+                <aura:set attribute="else">
+                    <lightning:button
+                                      class="standardOrangeBtn"
+                                      label="{!v.saveBtn}"
+                                      onclick="{!c.handleSaveRecord}"
+                                      >
+                        {!v.saveBtn}
+                    </lightning:button>
+                </aura:set>
+            </aura:if>
+        </div>
+    
+
+</aura:component>

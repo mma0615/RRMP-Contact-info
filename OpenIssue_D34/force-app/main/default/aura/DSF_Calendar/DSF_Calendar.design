@@ -1,0 +1,10 @@
+<design:component >
+
+    <design:attribute name="heading" label="Table Heading" default=""/>
+    <design:attribute name="columnFirst" label="First Column Label" default=""/>
+    <design:attribute name="columnSecond" label="Second Column Label" default=""/>
+    <design:attribute name="columnThird" label="Third Column Label" default=""/>
+    <design:attribute name="columnFourth" label="Fourth Column Label" default=""/>
+    <design:attribute name="noEventsMsg" label="No Events Message" default=""/>
+
+</design:component>

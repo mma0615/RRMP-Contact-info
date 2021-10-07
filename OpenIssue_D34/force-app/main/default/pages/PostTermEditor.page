@@ -1,0 +1,81 @@
+<apex:page sidebar="false" showHeader="false" docType="HTML-5.0" controller="PostTermEditorController" standardStylesheets="false">
+<html ng-app="ScholarshipApp">
+<head>
+  <meta charset="utf-8"></meta>
+  <title>Credit Completion Editor</title>
+  <meta name="viewport" content="width=device-width"></meta>
+
+  <link rel="stylesheet" href="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/bootstrap/dist/css/bootstrap.min.css')}"></link>
+  <link rel="stylesheet" href="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/font-awesome/css/font-awesome.min.css')}"></link>
+  <link rel="stylesheet" href="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-busy/dist/angular-busy.min.css')}"></link>
+  <link rel="stylesheet" href="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-ui-grid/ui-grid.min.css')}"></link>
+  <link rel="stylesheet" href="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css')}"></link>
+  <link rel="stylesheet" href="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/postterm_editor/css/app.css')}"></link>
+
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular/angular.min.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-sanitize/angular-sanitize.min.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-busy/dist/angular-busy.min.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/csv-js/csv.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-ui-grid/ui-grid.min.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-ui-mask/dist/mask.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js')}"></script>
+
+  <script>
+    window.SCHOLARSHIP_APP = {
+      vfRemoting: {
+        termsService: {
+          getStudentTerms: '{!$RemoteAction.PostTermEditorController.getStudentTerms}',
+          updateStudentTerm: '{!$RemoteAction.PostTermEditorController.updateStudentTerm}',
+          getSelectOptions: '{!$RemoteAction.PostTermEditorController.getSelectOptions}',
+          notifyUpdatesDone: '{!$RemoteAction.PostTermEditorController.notifyUpdatesDone}'
+        }
+      }
+    };
+  </script>
+</head>
+<body ng-controller="AppCtrl" >
+  <div class="container-fluid">
+    <div cg-busy="busyPromise"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row" style="margin-bottom:10px;">
+          <div class="col-md-4">
+            <input ng-model="searchText" ng-change="refreshData()" placeholder="Search..." class="form-control" />
+          </div>
+          <div class="col-md-4">
+            <div class="btn-group">
+              <div class="btn-group" dropdown="true" dropdown-append-to-body="true">
+                <button class="btn btn-default dropdown-toggle" dropdown-toggle="true" type="button">
+                  {{exportRows | capitalize}} Rows <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li ng-click="exportRows = 'all'"><a href="#">All Rows</a></li>
+                  <li ng-click="exportRows = 'visible'"><a href="#">Visible Rows Only</a></li>
+                  <li ng-click="exportRows = 'selected'"><a href="#">Selected Rows Only</a></li>
+                </ul>
+              </div>
+              <button id="split-button" type="button" class="btn btn-default" ng-click="export()">Export CSV</button>
+            </div>
+          </div>
+          <div class="col-md-2">
+             <button id="updates-done-button" type="button" class="btn btn-warning" ng-click="updateNotify()">
+                Submit Updates
+             </button>
+          </div>  
+        </div>
+        <div class="row">
+          <div ui-grid="gridOptions" ui-grid-edit="true" ui-grid-selection="true" ui-grid-exporter="true" ui-grid-row-edit="true" class="myGrid" ui-grid-cellNav="true" ui-grid-pagination="true" ui-grid-pinning="true"></div>
+        </div>
+      </div>
+      <div class="custom-csv-link-location">
+        <span class="ui-grid-exporter-csv-link">&nbsp;</span>
+      </div>
+    </div>
+  </div>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/postterm_editor/js/app.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/postterm_editor/js/controller.js')}"></script>
+  <script src="{!URLFOR($Resource.ScholarshipManagement, 'Scholarship_Management/postterm_editor/js/templates.js')}"></script>
+</body>
+</html>
+</apex:page>

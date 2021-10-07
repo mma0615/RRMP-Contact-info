@@ -1,0 +1,81 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="VirtuVisitController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="loggedIn" type="Boolean" default="false"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="connects" type="TeleMeet__c[]"/>
+    <aura:attribute name="timeZoneSidKey" type="String"/>
+    
+     <div>
+    	<div class="home-page">
+            <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout slds-table-header-fixed">
+                <thead>
+                    <tr class="slds-text-heading_label slds-text-title_caps"  style="height:30px">   
+                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Requested Date</div></th>
+                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Start Date Time</div></th>
+                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">End Date Time</div></th>
+                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Timezone</div></th>
+                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Doctor</div></th>
+                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Status</div></th>
+                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Meeting URL</div></th>
+                        <th scope="col"><div class="slds-cell-wrap slds-align_absolute-center">Virtual Lobby</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:if isTrue="{!v.connects.length == 0}">
+                        <tr>
+                            <td colspan="7" style="text-align:center">No scheduled appointment.</td>
+                        </tr>
+                    </aura:if>
+                    <aura:iteration items="{!v.connects}" var="connect">
+                        <tr>
+                            <td>
+                                <div class="center">
+                                    <lightning:formattedDateTime value="{!connect.CreatedDate}" year="numeric" month="short" day="2-digit" hour="numeric" minute="2-digit" hour12="true"
+                                                                 timeZone="{!v.timeZoneSidKey}"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="center">
+                                    <lightning:formattedDateTime value="{!connect.Start_Date_Time__c}" year="numeric" month="short" day="2-digit" hour="numeric" minute="2-digit" hour12="true"
+                                                                 timeZone="{!v.timeZoneSidKey}"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="center">
+                                    <lightning:formattedDateTime value="{!connect.End_Date_Time__c}" year="numeric" month="short" day="2-digit" hour="numeric" minute="2-digit" hour12="true"
+                                                                 timeZone="{!v.timeZoneSidKey}"/>
+                                </div>
+                            </td>
+                             <td>
+                                <div class="center">
+                                    {!connect.Time_Zone__c}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="center">
+                                    {!connect.Resource_Contact__r.Name}
+                                </div>
+                            </td>
+                             <td>
+                                <div class="center">
+                                    {!connect.Status__c}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="slds-cell-wrap center">
+                                    <lightning:formattedRichText value="{!connect.Meeting_URL2__c}" target="_blank" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="slds-cell-wrap center">
+                                    <lightning:formattedRichText value="{!connect.VirtuVisit_Link__c}" target="_blank" />
+                                </div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+         </div>
+    </div>
+</aura:component>

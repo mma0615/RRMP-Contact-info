@@ -1,0 +1,690 @@
+<apex:component controller="NCC_InvoiceControllerExtension" access="global">
+    <apex:attribute name="invoiceId" assignTo="{!invId}" type="String" description="Id of the Invoice"/>
+    <div class="footer">
+        <apex:outputPanel rendered="{!IF(invoice.Krow__Footer__c != null,true,false)}">
+            <hr></hr>
+        </apex:outputPanel>
+        <apex:outputField value="{!invoice.Krow__Footer__c}" rendered="{!NOT(ISNULL(invoice.Krow__Footer__c))}"></apex:outputField>
+    </div>
+    <div class="container">
+        <table class="invoiceHeaderAndLogoTable">
+            <tr>
+                <td>
+                    <apex:image url="/servlet/servlet.FileDownload?file={!invoice.Krow__Organization__r.Krow__Logo_Id__c}" styleClass="companyLogoImage" rendered="{!invoice.Krow__Organization__r.Krow__Logo_Url__c!=null}"/>
+                </td>
+                <td style="text-align:right;color:#ccc">
+                    <h1>{!$Label.Krow__Invoice_Invoice}</h1>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="vertical-align: top;">
+                    <!-- Table to contain Company and customer address  -->
+                    <table >
+                        <tr>
+                            <td>
+                                <strong>{!invoice.Krow__Organization__r.Name}</strong>
+                                <br></br>
+                                <apex:outputField value="{!invoice.Krow__Organization__r.Krow__Address__c}" style="vertical-align:top;"></apex:outputField>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td style="padding-top:8px;">
+                                <br></br>
+                                <span >
+                                    <b>{!$Label.Krow__Invoice_Invoice_To}</b>
+                                </span>
+                                <br></br>
+                                <apex:outputPanel layout="none" rendered="{!AND(invoice.Krow__Project__c != null,invoice.Krow__Account__c != null)}">
+                                    <apex:outputField value="{!invoice.Krow__Account__c}"  style="vertical-align:top;"></apex:outputField>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!AND(invoice.Krow__Project__c == null,invoice.Krow__Invoice_Account__c != null)}">
+<!--                                            <apex:outputField value="{!invoice.Invoice_Account__c}"  style="vertical-align:top;"></apex:outputField> -->
+                                <apex:outputText value="{!invoice.Krow__Invoice_Account__r.Name}"  style="vertical-align:top;" ></apex:outputText>
+                                </apex:outputPanel>
+                                <br></br>
+                                <apex:outputField value="{!invoice.Krow__Address__c}" style="margin-top:5px;"></apex:outputField>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Table End -->
+                </td>
+                <td>
+                    <!-- Table to show invoice specific details  -->
+                    <table border="1" class="invoiceDetailTable">
+                        <apex:repeat value="{!invoiceFieldSet}" var="fieldSet">
+                            <tr>
+                                <td class="mainpageInvoiceDetail">
+                                    <apex:variable var="isDisplayed" value="false"/>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Account__c')}">
+                                        {!$Label.krow__invoice_field_account}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'AcctSeed_Billing_Id__c')}">
+                                        {!$Label.krow__invoice_field_accountingseed_billing_id}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'AcctSeed_Message__c')}">
+                                        {!$Label.krow__invoice_field_accountingseed_message}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Account_Number__c')}">
+                                        {!$Label.krow__invoice_field_account_number}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Account_Owner__c')}">
+                                        {!$Label.krow__invoice_field_account_owner}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Additional_Amount_Total__c')}">
+                                        {!$Label.krow__invoice_field_additional_amount}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Balance__c')}">
+                                        {!$Label.krow__invoice_field_balance}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Currency__c')}">
+                                        {!$Label.krow__invoice_field_currency}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Address__c')}">
+                                        {!$Label.krow__invoice_field_customer_address}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Date_Format__c')}">
+                                        {!$Label.krow__invoice_field_date_format}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Display_Timesheet_Notes__c')}">
+                                        {!$Label.krow__invoice_field_display_timesheet_notes}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Due_Date__c')}">
+                                        {!$Label.krow__invoice_field_due_date}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'End_Date__c')}">
+                                        {!$Label.krow__invoice_field_end_date}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Expense_Amount__c')}">
+                                        {!$Label.krow__invoice_field_expense_amount}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Expense_Notes__c')}">
+                                        {!$Label.krow__invoice_field_expense_notes}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Fixed_Fee_Amount__c')}">
+                                        {!$Label.krow__invoice_field_fixed_fee_amount}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Footer__c')}">
+                                        {!$Label.krow__invoice_field_footer}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Include_Expense_Receipts__c')}">
+                                        {!$Label.krow__invoice_field_include_expense_receipts}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Include_Notes__c')}">
+                                        {!$Label.krow__invoice_field_include_notes}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Include_Rate__c')}">
+                                        {!$Label.krow__invoice_field_include_rate}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Intacct_Invoice_Id__c')}">
+                                        {!$Label.krow__invoice_field_intacct_invoice_id}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!OR(CONTAINS(fieldSet.FieldPath, 'Invoice_Account__c'), CONTAINS(fieldSet.FieldPath, 'Invoice_Account__r.name'))}">
+                                        {!$Label.krow__invoice_field_invoice_account}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Approved_Expenses_Only__c')}">
+                                        {!$Label.krow__invoice_field_invoice_approved_expenses_only}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Approved_Time_Only__c')}">
+                                        {!$Label.krow__invoice_field_invoice_approved_time_only}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Date__c')}">
+                                        {!$Label.krow__invoice_field_invoice_date}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Fixed_Item_Total_Amount__c')}">
+                                        {!$Label.krow__invoice_field_invoice_fixed_item_total_amount}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Line_Item_Total_Amount__c')}">
+                                        {!$Label.krow__invoice_field_invoice_line_item_total_amount}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Number__c')}">
+                                        {!$Label.krow__invoice_field_invoice_number}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Serial_Number__c')}">
+                                        {!$Label.krow__invoice_field_invoice_serial_number}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Subtotal__c')}">
+                                        {!$Label.krow__invoice_field_invoice_subtotal}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Total__c')}">
+                                        {!$Label.krow__invoice_field_invoice_total}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Journal_Type__c')}">
+                                        {!$Label.krow__invoice_field_journal_type}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Invoice_Amount__c')}">
+                                        {!$Label.krow__invoice_field_labor_amount}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Labour_Hours__c')}">
+                                        {!$Label.krow__invoice_field_labor_hours}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Notes__c')}">
+                                        {!$Label.krow__invoice_field_notes}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!OR(CONTAINS(fieldSet.FieldPath, 'Organization__c'), CONTAINS(fieldSet.FieldPath, 'Organization__r.name'))}">
+                                        {!$Label.krow__invoice_field_organization}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Paid__c')}">
+                                        {!$Label.krow__invoice_field_paid}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Payment_Schedule__c')}">
+                                        {!$Label.krow__invoice_field_payment_schedule}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'PO_Number__c')}">
+                                        {!$Label.krow__invoice_field_po_number}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!OR(CONTAINS(fieldSet.FieldPath, 'Project__c'), CONTAINS(fieldSet.FieldPath, 'Project__r.name'))}">
+                                        {!$Label.krow__invoice_field_project}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!OR(CONTAINS(fieldSet.FieldPath, 'Project_Owner__c'), CONTAINS(fieldSet.FieldPath, 'Project_Owner__r.name'))}">
+                                        {!$Label.krow__invoice_field_project_owner}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'QB_Invoice_Id__c')}">
+                                        {!$Label.krow__invoice_field_qb_invoice_id}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Sage_Message__c')}">
+                                        {!$Label.krow__invoice_field_sage_message}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Sage_Sales_Invoice_Id__c')}">
+                                        {!$Label.krow__invoice_field_sage_sales_invoice_id}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Service_Notes__c')}">
+                                        {!$Label.krow__invoice_field_service_notes}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Start_Date__c')}">
+                                        {!$Label.krow__invoice_field_start_date}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Status__c')}">
+                                        {!$Label.krow__invoice_field_status}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Summarize__c')}">
+                                        {!$Label.krow__invoice_field_summarize}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Sync_Result__c')}">
+                                        {!$Label.krow__invoice_field_sync_result}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Tax__c')}">
+                                        {!$Label.krow__invoice_field_tax_percent}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Tax_2__c')}">
+                                        {!$Label.krow__invoice_field_tax_2_percent}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Tax_Type__c')}">
+                                        {!$Label.krow__invoice_field_tax_type}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Total_Tax_2_Amount__c')}">
+                                        {!$Label.krow__invoice_field_total_tax_2_amount}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Total_Tax_Amount__c')}">
+                                        {!$Label.krow__invoice_field_total_tax_amount}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!CONTAINS(fieldSet.FieldPath, 'Xero_Invoice_Id__c')}">
+                                        {!$Label.krow__invoice_field_xero_invoice_id}
+                                        <apex:variable var="isDisplayed" value="true"/>
+                                    </apex:outputPanel>
+                                    
+                                    <apex:outputPanel layout="none" rendered="{!(isDisplayed == 'false')}">
+                                        <apex:outputText value="{!fieldSet.label}" />
+                                    </apex:outputPanel>
+                                    
+                                </td>
+                                
+                                
+                               
+                                <!--Conditionally showing value of invoice number  -->
+                                
+                                <td style="color:black;">
+                                    <apex:outputPanel rendered="{!IF(fieldSet.Type != 'date', true, false)}">
+                                        {!invoice[fieldSet.FieldPath]}
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!IF(fieldSet.Type == 'date', true, false)}">
+                                        <apex:outputText value="{0,date,{!dateFormat}}">
+                                            <apex:param value="{!invoice[fieldSet.FieldPath]}"/>
+                                        </apex:outputText>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                           
+                        </apex:repeat>
+                        <tr>
+                            <td class="mainpageInvoiceDetail">{!$Label.krow__invoice_total_due}</td>
+                            <td>
+                                <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                                    <apex:param value="{!invoice.Krow__Invoice_Total__c}"/>
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--Table End  -->
+                </td>
+            </tr>
+        </table>
+        
+        
+        <!-- Panel To Be Rendered If Project Role and Rate Formatting Is Selected Starts-->
+        <table styleClass="resourceDetailTable tableBorderStyle" border="1" id="lineItemByProjectRole" cellspacing="0" cellpadding="0">
+            <thead >
+                <tr>
+                    <th class="resourcedetailHeaders" style="width:40%;">Description</th>
+                    <th class="resourcedetailHeaders" style="width:20%;">Project Role</th>
+                    <th class="resourcedetailHeaders" style="width:10%;">Quantity (Hours - Unit of Measure</th>
+                    <th class="resourcedetailHeaders" style="width:15%;">Unit Price</th>
+                    <th class="resourcedetailHeaders" style="width:15%;">Total Amount</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!summaryList}" var="value">
+                    <tr>                     
+                        <td class="resourceDetailTableValueLeft trBorderStyle">
+                            <apex:outputText rendered="{!value.itemSubNumber != null}">{!value.Name}</apex:outputText>
+                            <apex:outputText rendered="{!value.itemSubNumber == null}">&emsp;{!value.Name}</apex:outputText> 
+                        </td>
+                        <td class="resourceDetailTableValueLeft trBorderStyle">
+                            <apex:outputText rendered="{!value.itemSubNumber != null}">{!value.Description}</apex:outputText> 
+                        </td>
+                        <td class="resourceDetailTableValueRight trBorderStyle">
+                            <apex:outputText value="{0,number,#0.00}">
+                                <apex:param value="{!value.totalHours}" />
+                            </apex:outputText>
+                        </td>                        
+                        <td class="resourceDetailTableValueRight trBorderStyle">
+                            <apex:outputText rendered="{!value.itemSubNumber == null}" value="{!currencySymbol}{0,number,{!currencyFormat}}">
+                                <apex:param value="{!value.billRate}" />
+                            </apex:outputText>
+                        </td>
+                        <td class="resourceDetailTableValueRight trBorderStyle">
+                            <apex:outputText rendered="{!value.itemSubNumber == null}" value="{!currencySymbol}{0,number,{!currencyFormat}}">
+                                <apex:param value="{!value.totalAmount}" />
+                            </apex:outputText>
+                        </td>                                                                      
+                    </tr>
+                </apex:repeat>                          
+            </tbody>
+        </table>
+            
+
+        <!-- Panel To Be Used When Summarizes By Person -->
+        <!--
+        <apex:outputPanel rendered="{!invoice.Krow__Summarize__c == 'Summarize by Person' && invLineItemList.size > 0}">
+            <apex:dataTable value="{!resourceList}" var="value" styleClass="resourceDetailTable" border="1">
+                <apex:column headerValue="{!$Label.krow__invoice_resource}" 
+                    headerClass="resourcedetailHeaders1" 
+                    styleClass="resourceDetailTableValue" style="width:40%">
+                    <apex:outputText >{!value.Name}                                
+                        
+                    </apex:outputText>
+                </apex:column>&nbsp;&nbsp;
+                
+                <apex:column headerValue="{!$Label.krow__invoice_hours}" headerClass="resourcedetailHeaders2" styleClass="resourceDetailTableValue" style="width:20%">
+                    <apex:outputText value="{0,number,#0.00}">
+                        <apex:param value="{!value.TotalHours}" />
+                    </apex:outputText>
+                </apex:column>
+                <apex:column rendered="{!invoice.Krow__Include_Rate__c}" headerValue="{!$Label.krow__invoice_rate}" headerClass="resourcedetailHeaders2" styleClass="resourceDetailTableValue" style="width:20%">
+                    <apex:outputText value="{0,number,#0.00}">
+                        <apex:param value="{!value.BillRate}" />
+                    </apex:outputText>
+                </apex:column>
+                <apex:column rendered="{!IF(invoice.Krow__Show_All_Hours__c,If(invoice.Krow__Summarize__c != null && invoice.Krow__Summarize__c != '',false,true),true)}" headerValue="{!$Label.krow__invoice_amount}"   headerClass="resourcedetailHeaders2" styleClass="resourceDetailTableValue" style="width:20%">
+                    <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                        <apex:param value="{!value.TotalAmount}" />
+                    </apex:outputText>
+                </apex:column>
+            </apex:dataTable>
+        </apex:outputPanel>
+        -->
+        <br></br>
+        <!-- Panel To Be Used When Summarizes By Person End-->
+        
+        <!-- Panel To Be Used When Summarizes By Project -->
+        <apex:outputPanel rendered="{!invoice.Krow__Summarize__c == 'Summarize by Project' && invLineItemList.size > 0}">
+            <apex:dataTable value="{!projectList}" var="value" styleClass="projectDetailTable" border="1">
+                <apex:column headerValue="{!$Label.krow__invoice_project}" headerClass="projectdetailHeaders" value="{!value.Name}" styleClass="projectDetailTableValue"></apex:column>
+                <apex:column headerValue="{!$Label.krow__invoice_hours}" headerClass="projectdetailHeaders" styleClass="projectDetailTableValue">
+                    <apex:outputText value="{0,number,#0.00}">
+                        <apex:param value="{!value.totalHours}" />
+                    </apex:outputText>
+                </apex:column>
+                <apex:column rendered="{!IF(invoice.Krow__Show_All_Hours__c,If(invoice.Krow__Summarize__c != null && invoice.Krow__Summarize__c != '',false,true),true)}"  headerValue="{!$Label.krow__invoice_amount}" headerClass="projectdetailHeaders" styleClass="projectDetailTableValue">
+                    <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                        <apex:param value="{!value.TotalAmount}" />
+                    </apex:outputText>
+                </apex:column>
+            </apex:dataTable>
+        </apex:outputPanel>
+        <br></br>
+        <!-- Panel To Be Used When Summarizes By Project End -->
+        
+        <!-- Tabel To Show Fixed Fee Items And Additional Items -->
+        <table class="resourceAndTaskDetailsTable tableBorderStyle" border="1" >
+            <!--
+            <thead>
+                <tr>
+                    <th class="resourcedetailHeaders" style="width:20%;">Description</th>
+                    <th class="resourcedetailHeaders" style="width:10%;" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">Quantity</th>
+                    <th class="resourcedetailHeaders" style="width:15%;" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">{!$Label.krow__invoice_amount}</th>
+                    <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax_Type__c != 'GST/QST'}">
+                        <th class="resourcedetailHeaders" style="width:10%;">{!IF((invoice.Krow__Tax_Type__c == 'VAT'), $Label.krow__invoice_vat, $Label.krow__invoice_tax)}</th>
+                        <th class="resourcedetailHeaders" style="width:15%;" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">Total</th>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!invoice.Krow__Include_Notes__c}" layout="none">
+                        <th class="resourcedetailHeaders" style="width:20%;">{!$Label.krow__invoice_notes}</th>
+                    </apex:outputPanel>
+                </tr>
+            </thead>
+            -->
+            <tbody>
+                <!--
+                <tr data-row-no="1" style="{!IF(invoice.Krow__Invoice_Amount__c == 0, 'display :none;', '')}">
+                    <td class="resourceDetailTableValue">{!$Label.krow__invoice_services_hours}</td>
+                    <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">{!invoice.Krow__Labour_Hours__c}</td>
+                    <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">
+                        <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                            <apex:param value="{!invoice.Krow__Invoice_Amount__c}"/>
+                        </apex:outputText>
+                    </td>
+                    
+                    <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax_Type__c != 'GST/QST'}">
+                        <td class="resourceDetailTableValue">
+                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}">
+                                <apex:param value="{!invoice.Krow__Total_Tax_Amount__c + invoice.Krow__Total_Tax_2_Amount__c}"/>
+                            </apex:outputText>
+                        </td>
+                    
+                        <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">
+                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                                <apex:param value="{!invoice.Krow__Invoice_Total__c}"/>
+                            </apex:outputText>
+                        </td>
+                    </apex:outputPanel>
+                      
+                    <apex:outputPanel rendered="{!invoice.Krow__Include_Notes__c}" layout="none">
+                        <td class="resourceDetailTableValue" style="text-align:left;">{!invoice.Krow__Service_Notes__c}</td>
+                    </apex:outputPanel>
+                </tr>
+                -->
+                <!-- XXXXXXXX
+                <apex:repeat value="{!invoiceFixedFeeItemsWrapperList}" var="fixedFeeItem">
+                    <tr data-row-no="2">
+                        <td class="resourceDetailTableValue">{!fixedFeeItem.description}</td>
+                        <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">1</td>
+                        <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">
+                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" rendered="{!AND(fixedFeeItem.amount != null,NOT(isMultiCurrencyOrg))}">
+                                <apex:param value="{!fixedFeeItem.amount}"/>
+                            </apex:outputText>
+                            <apex:outputText value="{!currencySymbol}0.00" rendered="{!fixedFeeItem.amount == null}"/>
+                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" rendered="{!isMultiCurrencyOrg}">
+                                <apex:param value="{!fixedFeeItem.amount}"/>
+                            </apex:outputText>
+                        </td>
+                        <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax_Type__c != 'GST/QST'}">
+                            <td class="resourceDetailTableValue">
+                                <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}">
+                                    <apex:param value="{!fixedFeeItem.taxAmount}"/>
+                                </apex:outputText>
+                            </td>
+                        
+                            <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">
+                                <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}">
+                                    <apex:param value="{!fixedFeeItem.totalAmount}"/>
+                                </apex:outputText>
+                            </td>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!invoice.Krow__Include_Notes__c}" layout="none">
+                            <td class="resourceDetailTableValue" style="text-align:left;">{!fixedFeeItem.notes}</td>
+                        </apex:outputPanel>
+                    </tr>
+                </apex:repeat>
+                -->
+                <!-- To Display Additional Item  -->
+                <!-- XXXXXXXX
+                <apex:repeat value="{!invoiceAdditionalItems}" var="additionalItem">
+                    <tr data-row-no="3">
+                        <td class="resourceDetailTableValue">{!additionalItem.Krow__Description__c}</td>
+                        <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">1</td>
+                        <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">
+                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" rendered="{!additionalItem.Krow__Amount__c != null}">
+                                <apex:param value="{!additionalItem.Krow__Amount__c}"/>
+                            </apex:outputText>
+                            <apex:outputText value="{!currencySymbol}0.00" rendered="{!additionalItem.Krow__Amount__c == null}"/>
+                        </td>
+                        <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax_Type__c != 'GST/QST'}">
+                            <td class="resourceDetailTableValue">
+                                <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" rendered="{!additionalItem.Krow__Amount__c != null}">
+                                    <apex:param value="{!(additionalItem.Krow__Total_Amount__c)-(additionalItem.Krow__Amount__c)}"/>
+                                </apex:outputText>
+                            </td>
+                        
+                            <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">
+                                <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" rendered="{!additionalItem.Krow__Amount__c != null}">
+                                    <apex:param value="{!additionalItem.Krow__Total_Amount__c}"/>
+                                </apex:outputText>
+                            </td>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!invoice.Krow__Include_Notes__c}" layout="none">
+                            <td class="resourceDetailTableValue" style="text-align:left;">{!additionalItem.Krow__Notes__c}</td>
+                        </apex:outputPanel>
+                    </tr>
+                </apex:repeat>
+                -->
+                <tr data-row-no="4" style="{!IF(invoice.Krow__Expense_Amount__c == 0, 'display :none;', '')}">
+                    <td class="resourceDetailTableValue">{!$Label.krow__invoice_expenses}</td>
+                    <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">1</td>
+                    <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">
+                        <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}">
+                            <apex:param value="{!invoice.Krow__Expense_Amount__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <!-- XXXXXXXX
+                    <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax_Type__c != 'GST/QST'}">
+                        <td class="resourceDetailTableValue">
+                            <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax__c != null}">
+                                <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}">
+                                    <apex:param value="{!taxDetailsWrapper.invoiceExpenseTaxAmount}"/>
+                                </apex:outputText>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax__c == null}">
+                                <apex:outputText value="--NA--"></apex:outputText>
+                            </apex:outputPanel>
+                        </td>
+                    
+                        <td class="resourceDetailTableValue" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}">
+                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}">
+                                <apex:param value="{!taxDetailsWrapper.invoiceExpenseTotalAmount}"/>
+                            </apex:outputText>
+                        </td>
+                    </apex:outputPanel>
+                    -->
+                    <apex:outputPanel rendered="{!invoice.Krow__Include_Notes__c}" layout="none">
+                        <td class="resourceDetailTableValue" style="text-align:left;">{!invoice.Krow__Expense_Notes__c}</td>
+                    </apex:outputPanel>
+                </tr>
+                <tr no-Data-row="1" class="trBorderStyle">
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax_Type__c != 'GST/QST'}">
+                        <td class="resourceDetailTableValue borderStyle_none"></td>
+                    </apex:outputPanel>
+                    <td class="resourceDetailTableValue borderStyle_none" colspan="{!IF((invoice.Krow__Tax_Type__c != 'GST/QST'), 1, 2)}"></td>
+                    <apex:outputPanel rendered="{!invoice.Krow__Include_Notes__c}" layout="none">
+                        <td class="resourceDetailTableValue borderStyle_none"></td>
+                    </apex:outputPanel>
+                </tr>
+                <tr data-row-no="5">
+                    <td class="borderStyle_none" style="border:none;"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <td class="resourceDetailTableValue">Subtotal</td>
+                    <td class="resourceDetailTableValueRight" colspan="{!IF(invoice.Krow__Include_Notes__c == true, 2, 1)}">
+                        <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                            <apex:param value="{!invoice.Krow__Invoice_Subtotal__c}"/>
+                        </apex:outputText>
+                    </td>
+                </tr>
+                <tr data-row-no="6" style="{!IF(OR(invoice.Krow__Discount__c == null,invoice.Krow__Discount__c== 0), 'display :none;', '')}">
+                    <td class="borderStyle_none" style="border:none;"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <apex:outputPanel layout="none" rendered="{!AND(invoice.Krow__Discount__c != null,invoice.Krow__Discount__c > 0)}">
+                        <td class="resourceDetailTableValue">{!$Label.krow__invoice_discount}</td>
+                        <td class="resourceDetailTableValueRight" colspan="{!IF(invoice.Krow__Include_Notes__c == true, 2, 1)}">
+                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                                <apex:param value="{!invoice.Krow__Discount_Amount__c}"/>
+                            </apex:outputText>
+                        </td>
+                    </apex:outputPanel>
+                </tr>
+                
+                <tr data-row-no="7">
+                    <td class="borderStyle_none" style="border:none;"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax_Type__c != 'GST/QST'}">
+                        <td class="resourceDetailTableValue">{!IF((invoice.Krow__Tax_Type__c == 'VAT'), $Label.krow__invoice_vat, $Label.krow__invoice_tax)}</td>
+                        <td class="resourceDetailTableValueRight" colspan="{!IF(invoice.Krow__Include_Notes__c == true, 2, 1)}">
+                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                                <apex:param value="{!invoice.Krow__Total_Tax_Amount__c}"/>
+                            </apex:outputText>
+                        </td>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!invoice.Krow__Tax_Type__c == 'GST/QST'}">
+                        <td class="">
+                            <table class="gst_table"  style="width:101%;">
+                                <tbody>
+                                    <tr> 
+                                        <td style="width:100%;" class="tax_td_nb_top tax_td_nb_right tax_td_nb_left">
+                                            Invoice GST
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:100%;" class="tax_td_nb_top tax_td_nb_bottom tax_td_nb_right tax_td_nb_left">
+                                            Invoice QST
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="" colspan="{!IF(invoice.krow__Include_Notes__c == true, 2, 1)}">
+                            <table class="gst_table"  style="width:101%;">
+                                <tbody>
+                                    <tr> 
+                                        <td style="width:100%;" class="tax_td_nb_top tax_td_nb_right tax_td_nb_left">
+                                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                                                <apex:param value="{!invoice.Krow__Total_Tax_Amount__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:100%;" class="tax_td_nb_top tax_td_nb_bottom tax_td_nb_right tax_td_nb_left">
+                                            <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                                                <apex:param value="{!invoice.Krow__Total_Tax_2_Amount__c}"/>
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </apex:outputPanel>
+                </tr>
+                <apex:outputPanel layout="none" rendered="{!AND(invoice.Krow__Tax_Type__c != 'GST/QST',invoice.Krow__Tax_Type__c != 'VAT', invoice.Krow__Total_Tax_2_Amount__c != 0)}">
+                    <tr data-row-no="8">
+                        <td class="borderStyle_none" style="border:none;"></td>
+                        <td class="resourceDetailTableValue borderStyle_none"></td>
+                        <td class="resourceDetailTableValue borderStyle_none"></td>
+                        <apex:outputPanel layout="none" >
+                            <td class="resourceDetailTableValue">{!invoice.Krow__Tax_Type__c}</td>
+                            <td class="resourceDetailTableValueRight" colspan="{!IF(invoice.Krow__Include_Notes__c == true, 2, 1)}">
+                                <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                                    <apex:param value="{!invoice.Krow__Total_Tax_2_Amount__c}"/>
+                                </apex:outputText>
+                            </td>
+                        </apex:outputPanel>
+                    </tr>
+                </apex:outputPanel>
+                <tr data-row-no="9">
+                    <td class="borderStyle_none" style="border:none;"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <td class="resourceDetailTableValue borderStyle_none"></td>
+                    <td class="resourceDetailTableValue">Total Due</td>
+                    <td class="resourceDetailTableValueRight" colspan="{!IF(invoice.Krow__Include_Notes__c == true, 2, 1)}">
+                        <apex:outputText value="{!currencySymbol}{0,number,{!currencyFormat}}" >
+                            <apex:param value="{!invoice.Krow__Invoice_Total__c}"/>
+                        </apex:outputText>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- @todo 25-jan raj, confirm -->
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <!-- MAin Container Div Closed  -->
+</apex:component>

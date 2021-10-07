@@ -1,0 +1,7 @@
+<apex:page standardController="Krow__Project__c" 
+    extensions="calculateExpenses" 
+    action="{!projectAssignmentCalcExpenseActual}">
+    <apex:form>
+        <apex:inputHidden value="{!projectAssignment.Id}"/>
+    </apex:form>
+</apex:page>

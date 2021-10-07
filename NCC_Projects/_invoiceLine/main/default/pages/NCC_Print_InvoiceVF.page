@@ -1,0 +1,316 @@
+<!-->
+ * NCC_InvoiceControllerExtension
+ * @author Minh Ma 
+ * @date 02/28/2021
+ * @description This prints invoice to PDF for Invoice Formatting = 'Project Role  & Rate'
+ *
+ * Update History:
+ * 02/28/2021 - Initial Version
+-->
+ <apex:page standardController="Krow__Invoice__c" docType="html-5.0"  renderAs="pdf" extensions="NCC_InvoiceControllerExtension" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false" language="{!language}">
+    <html>
+        <head>
+            <!-- **** <link rel="stylesheet" href="{!URLFOR($Resource.KrowResource, 'css/bootstrap.min.css')}" media="all" />  -->
+            <style>
+                body{
+                    font-family: 'Arial Unicode MS';     
+                    font-size:{!defaultFontSize}px;
+                }
+                hr{ 
+                    color:gray; 
+                }
+                h4{
+                    color:gray;
+                    margin-top:30px;
+                    margin-left:3px; 
+                }
+                .container{
+                    margin-left:2px;
+                    margin-right:2px;
+                }
+                .invoiceHeaderAndLogoTable{
+                    width:100%;
+                }
+                .invoiceHeaderAndLogoTable tr:first-child td:first-child {
+                    width:50%;
+                }
+                /* To Apply Css On  invoiceHeaderAndLogoTable First Row Second Child  */
+                .invoiceHeaderAndLogoTable tr:nth-child(1)  td:nth-child(2) {
+                    padding-left:90px;
+                    color:#ccc;
+                }
+                
+                .companyLogoImage{
+                    width:90;
+                    height:90;
+                    margin-top:0px;
+                    padding-left:0px;
+                }
+                .invoiceAddressAndDetailTable{
+                    margin-top:0px;
+                
+                } 
+                
+                .invoiceAddressAndDetailTable tr:first-child td:first-child{
+                    width:50%;
+                    text-align:top;
+                }
+                .invoiceDetailTable{
+                    table-layout:fixed;
+                    border:1;
+                    text-align:right;
+                    width:100%; 
+                    padding:2px;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc
+                }
+                .summarizeByTotalTable{
+                    width:100%;
+                    table-layout: fixed;
+                    margin-top:10px;
+                    margin-bottom:1px;
+                    border-collapse:collapse;
+                    border:none;
+                    text-align:center;
+                }
+                .summarizedByPersonTable{
+                    width:100%;
+                    table-layout: fixed;
+                    padding:10px;
+                    margin-top:5px;
+                }
+                .totalByResourceTable{
+                    width:100%;
+                    background-color:#D8D8D8;
+                }
+                .invoiceTotalsTable{
+                    width:100%;
+                    table-layout: fixed;
+                    padding:10px;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc;
+                    margin-top:15px;
+                }
+                .pageBreakBefore{
+                    page-break-before: always;
+                }
+                .taskAndResourceNameHead{
+                    margin-left:0px;
+                    color:gray;
+                
+                }
+                .resourceAndTaskDetailsTable{
+                    width:100%;
+                    color:gray;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc;
+                    text-align:center;
+                }
+                .resourceAndTaskDetailsTable td{
+                    border: 0.5px solid #ccc;
+                }
+                .resorceAndTaskDetailWiseTotalTable{
+                    width:100%;
+                    color:gray; 
+                    table-layout: fixed;
+                    padding:10px;
+                
+                }
+                .facetStyle{
+                    text-align:right;
+                
+                }
+                .tableHead{
+                    font-size:{!defaultFontSize}pt;
+                    background-color:#D8D8D8;
+                    text-align:center;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                }
+                .tableValue{
+                    text-align:center;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                }
+                .mainpageInvoiceDetail{
+                    background-color:#D8D8D8;
+                
+                }
+                .resourceHeader{
+                    text-align:right;
+                
+                }
+                br{
+                    line-height:100%;
+                }
+                .detailHeaders{
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    border-bottom:none;
+                    border-right:none;
+                
+                }
+                .detailStyles{
+                    
+                    padding:5px;
+                    border:.5px solid #D8D8D8;
+                }
+                .totalHeader{
+                    text-align:center;
+                    font-face:bold;
+                    border-bottom:none;
+                    border-top:none; 
+                }
+                .resourceDetailTable{
+                    width:100%;
+                    color:gray;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc;
+                    text-align:center;
+                    padding:5px;
+                    padding:5px;
+                    margin-top:10px;
+                
+                }
+                .projectDetailTable{
+                    width:100%;
+                    color:gray;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc;
+                    text-align:center;
+                    padding:5px;
+                    padding:5px;
+                    margin-top:10px;
+                }
+                .resourcedetailHeaders{
+                    color:black;
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    /*border-right:gray;*/
+                    border-right: 1px solid #c0c0c0 !important;
+                    width:50%;
+                }
+                .resourcedetailHeaders1{
+                    color:black;
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    width:40%;
+                }
+                .projectdetailHeaders{
+                    color:black;
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    width:20%;
+                }
+                .resourcedetailHeaders2{
+                    color:black;
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    width:20%;
+                }
+                .resourceDetailTableValue{
+                    color:black;
+                    text-align:center;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                }
+                .resourceDetailTableValueLeft{
+                    color:black;
+                    text-align:left;
+                    padding-top:5px;
+                    padding-left:5px;
+                    padding-bottom:5px;
+                }
+                .resourceDetailTableValueRight{
+                    color:black;
+                    text-align:right;
+                    padding-top:5px;
+                    padding-right:5px;
+                    padding-bottom:5px;
+                }
+                .projectDetailTableValue{
+                    color:black;
+                    text-align:center;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                }
+                #lineItemByTask{
+                    -fs-table-paginate: paginate; 
+                }
+                .borderStyle_none{
+                    border-style: none !important;
+                }
+                .trBorderStyle{
+                    border: 0.5px solid #ccc;
+                }
+                .tableBorderStyle{
+                    border: 0.5px solid #ccc;
+                }
+                /* Here style is given to show outputField value in matching of table content */
+                a{
+                    text-decoration : none;
+                    color:gray;
+                }
+                @page {
+    
+                    margin-bottom: 4.00cm;
+                    @bottom-center{
+                     content: element(footer);
+                    }
+                }
+    
+                body {
+                    position: relative;
+                }
+    
+                div.footer {
+                    font-size:{!defaultFontSize}px;
+                    display: block;
+                    padding:5px;
+                    position: running(footer);
+                    margin-bottom: 2px;
+                    
+                }
+                .projectHeaders{
+                    width:100%;
+                    background-color:#f7f6f4;
+                    padding-left: 2px !important;
+                    text-align : center;
+                    border:0.5px solid #e8e0e0;
+                    margin-top : 4px;
+                    /* padding-top: 0.5px !important;
+                    padding-bottom: 0.5px !important; */
+                }
+                .projectNameHeadText{
+                    padding-left: 2px !important;
+                }
+                .gst_table {
+                    width: calc(100% + 1.5px);
+                    border: 0px solid #fff;
+                    border-collapse: collapse;
+                    color: #000 !important;
+                }
+                .tax_td_nb_top{
+                    border-top: 0px solid #ccc !important;
+                }
+                .tax_td_nb_bottom{
+                    border-bottom: 0px solid #ccc !important;
+                }
+                .tax_td_nb_left{
+                    border-left: 0px solid #ccc !important;
+                }
+                .tax_td_nb_right{
+                    border-right: 0px solid #ccc !important;
+                }
+            </style>
+        </head>
+        <body>
+            <c:NCC_InvoiceComponent invoiceId="{!invoiceId}" />
+        </body>
+    </html>
+</apex:page>

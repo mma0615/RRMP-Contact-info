@@ -1,0 +1,9 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="Icon" type="String" default=""/>
+    <aura:attribute name="Position" type="String" default="left"/>
+
+    <div style="{! 'text-align:' + v.Position + ';'}">
+        <img src="{!$Resource.DSF_Resources + '/' + v.Icon}" />
+    </div>
+
+</aura:component>

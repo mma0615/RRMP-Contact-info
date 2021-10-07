@@ -1,0 +1,44 @@
+<template>
+		<div class="container">
+				<div class="container-inner">
+
+						<template if:true={showGrouped}>
+								<template for:each={materials} for:item="item">
+										<div class="group-container-grouped" key={item.Id}>
+												<c-materials-details title={item.Title} description={item.Description} url={item.DownloadURL} is-video={item.isVideo}></c-materials-details>
+										</div>
+								</template>	
+						</template>
+						<template if:false={showGrouped}>
+								<template for:each={materialsGrouped} for:item="group">
+										<div class="group-container" key={group.LinkedEntityId}>
+												<a class="group-header">{group.MaterialHeader}</a>
+												<p class="group-description">{group.MaterialDescription}</p>
+												<div class="slds-hide" name={group.Name}>
+														<template if:true={group.materialList}>
+																<!--<p class="group-material-header">Materials</p>-->
+																<template for:each={group.materialList} for:item="item">
+																		<div key={item.Id}>
+																				<c-materials-details title={item.Title} description={item.Description} url={item.DownloadURL} is-video={item.isVideo}></c-materials-details>
+																		</div>
+																</template>
+														</template>
+												</div>
+
+												<div class="toggle-button-center">
+														<template if:true={group.materialList}>
+																<lightning-button-icon icon-name="utility:chevrondown"
+																											 alternative-text="Add"
+																											 title={group.Name} variant="success"
+																											 onclick={toggleMaterial} size="small">
+																</lightning-button-icon>
+														</template>
+												</div>
+
+										</div>
+								</template>
+						</template>
+
+				</div>
+		</div>
+</template>

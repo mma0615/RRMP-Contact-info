@@ -1,0 +1,15 @@
+.THIS .dottedBorder {
+    border-style: dotted;
+    
+}
+.THIS .tableHover { 
+   background-color: white !important;
+}
+
+.THIS .eventColorOrange{
+    background-color: yellow;
+}
+.THIS.calendarDiv{
+    background-color: white;
+
+}

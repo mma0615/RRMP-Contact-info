@@ -1,0 +1,29 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="NavigatorController">
+    <aura:attribute name="initials" type="String" default=""/>
+    <aura:attribute name="profilePicURL" type="String" />
+    <aura:attribute name="navigatorRecord" type="Navigator__c" />
+    <aura:attribute name="contact" type="Contact" />
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+    <aura:registerEvent name="NavigatorRecord" type="c:NavigatorRecord"/>
+    
+    <div class="header-container" style="--theme-color1:white">
+        <div class="top-bar">
+            <img class="app-logo" src="{!v.navigatorRecord.App_Logo__c}" />
+            <div class="customer">
+                <span class="customer-name">{!v.contact.Name}</span><br/>
+                <lightning:avatar variant="circle" 
+                                    src="{!v.contact.Profile_Picture_URL__c}" 
+                                    fallbackIconName="standard:person_account" 
+                                    initials="{!v.initials}" 
+                                    alternativeText="{!v.contact.Name}" 
+                                    size="large"/>
+            </div>
+        </div>
+        <div class="lower-bar">
+            <div class="brand-logo-container"><img src="{!v.navigatorRecord.Branding_Logo__c}" /></div>
+            <div class="header-photo"><img src="{!v.navigatorRecord.Header_Image__c}"/></div>
+        </div>
+    </div>
+
+</aura:component>

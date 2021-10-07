@@ -1,0 +1,16 @@
+<aura:component description="DSF_ApplicationButton">
+    <aura:attribute name="buttonURL" type="String" default=""/>
+    <aura:attribute name="class" type="String" default="" />
+    <aura:attribute name="buttonLabel" type="String" default="" />
+    <aura:attribute name="showButton" type="Boolean" default="true" />
+
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:if isTrue="{!not(empty(v.buttonLabel))}">
+        <lightning:button class="{!v.class}" variant="base"
+                          label="{!v.buttonLabel}"
+                          onclick="{!c.startApplication}"
+        />
+    </aura:if>
+
+</aura:component>

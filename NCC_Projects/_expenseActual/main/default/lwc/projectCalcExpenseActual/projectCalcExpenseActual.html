@@ -1,0 +1,28 @@
+<template>
+    <div class="spinner">
+        <template if:true={isLoading}>
+             <lightning-spinner alternative-text="ReCalculating Project Expenses..." variant="brand" size="large">
+             </lightning-spinner>
+        </template>
+    </div>
+    {error}
+    <template if:true={syncReport}>
+        <br/>
+        <div style="text-align: center;">
+            <p>
+                <font color="RED">
+                    Please press the 'Sync Report Category' button below.<br/>
+                    NOTE: Until flow trigger 'Survey_Answer_Record_Process_Main' issue is fixed.<br/>
+                    You might need to sync report Category multiple times until button no longer displayed.<br/>
+                </font>
+            </p>
+            <br/>
+            <lightning-button variant="brand"
+                label="Sync Report Category"
+                title="Sync Report Category"
+                onclick={syncRecords}
+                class="slds-m-left_x-small">
+            </lightning-button>
+        </div>
+    </template>
+</template>

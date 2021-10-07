@@ -1,0 +1,64 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="User" type="Object" default=""/>
+    <aura:attribute name="rawEmails" type="List" default="[]"/>
+    <aura:attribute name="Emails"   type="List"  default="[]"/>
+    <aura:attribute name="recordId"   type="String" default=""/>
+    <aura:attribute name="isLoaded"  type="Boolean" default="false"/>
+
+	<!--Design attributes - values received from MyMessages component-->
+	<aura:attribute name="NoEmailsMessage" type="String" default=""/>
+    <aura:attribute name="EmailsTableTitle" type="String" default=""/>
+    <aura:attribute name="EmailsTableDescription" type="String" default=""/>
+    <aura:attribute name="EmailsTableHeader1" type="String"  default=""/>
+    <aura:attribute name="EmailsTableHeader2" type="String"  default=""/>
+
+    <aura:registerEvent name="DSF_MessagesEVT" type="c:DSF_MessagesEVT" />
+    <aura:handler name="change" value="{!v.rawEmails}" action="{!c.handleLoadedEmails}"/>
+
+    <aura:if isTrue="{! and(v.User != null, v.User.ContactId != null)}">
+        <c:DSF_sObjectHelper methodName="getSObject"
+                             object="et4ae5__IndividualEmailResult__c"
+                             fields="Id,
+                                     et4ae5__SubjectLine__c,
+                                     et4ae5__DateSent__c"
+                             conditions="{!'et4ae5__IndividualEmailResult__c.et4ae5__Contact__c = \'' + v.User.ContactId + '\''}"
+                             orderByFields="et4ae5__DateSent__c DESC"
+                             output="{! v.rawEmails  }"
+                             />
+    </aura:if>
+
+    
+    
+    <div class="slds-size_1-of-1">
+        <h3 class="slds-m-bottom_large">{!v.EmailsTableTitle}</h3>
+        <th class="subject">{!v.EmailsTableDescription}</th>
+        <table>
+            <tr class="slds-border_bottom table-header">
+                <th class="subject">
+                    {!v.EmailsTableHeader1}
+                </th>
+                <th class="date-sent">
+                    {!v.EmailsTableHeader2}
+                </th>
+            </tr>
+            <aura:if isTrue="{!v.isLoaded}">
+                <aura:iteration items="{!v.Emails}" var="item" start="0" end="9">
+                    <tr class="slds-border_bottom">
+                        <th class="subject weight-normal">
+                            <!-- <a onclick="{!c.selectedEmail}" data-record-id="{!item.Id}" </a>>-->{!item.et4ae5__SubjectLine__c}
+                        </th>
+                        <th class="date-sent weight-normal">
+                            {!item.et4ae5__DateSent__c}
+                        </th>
+                    </tr>
+                </aura:iteration>
+                <aura:set attribute="else">
+                    <lightning:spinner alternativeText="Loading" size="medium" />
+                </aura:set>
+            </aura:if>
+        </table>
+		<aura:if isTrue="{! and(empty(v.rawEmails), v.isLoaded == true) }">
+            <p class="slds-align_absolute-center"> {!v.NoEmailsMessage}</p>
+        </aura:if>
+    </div>
+</aura:component>

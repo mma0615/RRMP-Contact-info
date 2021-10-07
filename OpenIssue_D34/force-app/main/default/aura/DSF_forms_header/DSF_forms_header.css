@@ -1,0 +1,47 @@
+.THIS .title-look
+{
+	height: 40px;
+	width: 1140px;
+	color: #203366;
+	font-family: Muli;
+	font-size: 32px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	line-height: 40px;
+	text-align: center;
+}
+
+.THIS .text-look
+{
+	height: 3.89%;
+	width: 80.50%;
+	color: #574F49;
+	font-family: Muli;
+	font-size: 15px;
+	line-height: 22px;
+    margin-bottom: 20px;
+}
+
+.THIS .forms-divider 
+{
+    display: none;
+    border: none;
+    height: 1px;
+    width: 80%;
+    margin: 50px 0 35px;
+    background: #E76E24;
+}
+
+@media only screen and (max-width: 1024px) 
+{
+    .THIS .text-look
+    {
+        width: 95%;
+        margin-bottom: 0;
+    }
+    
+    .THIS .forms-divider 
+    {
+        display: block;
+    }
+}

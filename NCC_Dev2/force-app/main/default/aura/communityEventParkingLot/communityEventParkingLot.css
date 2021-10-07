@@ -1,0 +1,363 @@
+.THIS .slds-form-element__label {
+    display: none;
+}
+
+
+.THIS .slds-select_container{
+    /*max-width: 30rem;*/
+    width: 95%;
+    margin: 8px 0;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 0px;
+    max-height: 49px;
+    overflow: hidden;
+}
+
+.THIS .slds-input, .THIS .slds-select, .THIS .slds-textarea{
+    border: 1px solid #c6c6c6;
+    border-radius: 10px;
+    width: 95%;
+    max-width: unset;
+}
+.THIS .slds-select{
+    /*max-width: 30rem;*/
+    min-height: 49px;
+    margin: 0px 0;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 10px;
+    max-height: 49px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: unset;
+}
+.THIS .slds-input{
+    margin: 8px 0 0 0;
+}
+
+.THIS .slds-textarea{	
+    max-height: unset;
+    height: 237px;
+}
+
+.THIS .parkinglot-table{
+    padding-bottom: 2rem;
+    background-color: #ffffff;
+    width: auto;
+    font-size: 16px;
+    position: relative;
+}
+
+.THIS .parkinglot-table .slds-table {
+    padding-top: 1rem;
+}
+.THIS .slds-th__action {
+    height: 3rem;
+}
+.THIS .table th {
+    text-align: center;
+}
+
+.THIS lightning-primitive-header-actions {
+    display: none;
+}
+.THIS lightning-primitive-icon {
+    display: none;
+}
+.THIS .contactus-top-section{
+    /*min-height : calc(100vh - 250px);*/
+    min-height: unset;
+}
+.THIS .no-min-max-height{
+    height: auto !important;
+}
+.THIS .contactus-section {
+    background-color: white;
+}
+.THIS .contactus-section-title{
+    text-transform: uppercase;
+    border-left: none!important;
+    letter-spacing: 2px;
+    padding-left: 5px;
+}
+.THIS .contactus-section-title:after {
+    content: "";
+    display: block;
+    width: .2rem;
+    height: 75%;
+    padding: 0;
+    margin: 0;
+    background-color: #ffb369;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 2px;
+}
+.THIS .contactus-detail{
+    max-width: 80%;
+    margin: 0;
+}
+.THIS .font-header, .THIS .font-body{
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.THIS .contactus-form{
+    font-size: 16px;
+}
+.THIS .header-label{
+    margin-top: 1rem;
+}
+
+.THIS .btn-submit {
+    border: 0.08rem solid white;
+    width: auto;
+    padding: 5px 25px;
+    color: white;
+    background: #ffae5e;
+    box-shadow: 1px 1px #d3d3d3;
+    border-radius: 5px;
+}
+.THIS .submit-btn{
+    margin-top: 1rem;
+}
+
+
+.THIS .contactus-container-outer {
+    padding: 3rem 1rem 2rem 0px;
+    margin-left: 2%;
+    width: 80%;
+}
+.THIS thead .slds-has-focus, .THIS thead .slds-has-focus .slds-cell-fixed, .THIS thead .slds-has-focus .slds-th__action{
+    background-color: #0083c2 !important;
+    box-shadow: none !important;
+}
+.THIS .slds-has-focus, .THIS .slds-has-focus .slds-cell-fixed, .THIS .slds-has-focus .slds-th__action{
+    box-shadow: none !important;
+}
+.THIS lightning-primitive-icon{
+    display: block !important;
+}
+/*Parking Lot Table*/
+.THIS .slds-th__action {
+    background: #0083c2;
+    color: white;
+}
+.THIS .slds-resizable__divider {
+	display: none !important;
+}
+.THIS .slds-table tbody tr:nth-child(odd){
+    background: #ffffff;
+}
+.THIS .slds-table tbody tr:nth-child(even){
+    background: #f5f5f5;
+}
+.THIS .sort-button{
+    position: absolute;
+    top: 0;
+    right: 12%;
+    z-index: 111;
+    padding-top: .5rem;
+}
+/*Parking Sort*/
+.THIS .parking-sort{
+    position: absolute;
+    z-index: 111;
+    right: 12%;
+    top: 50px;
+    height: auto;
+    background: white;
+    padding: 5px 10px;
+    border: 1px solid #d4d4d4;
+    border-radius: 5px;
+    box-shadow: 1px 1px #d4d4d4
+}
+.THIS .sort-button .slds-button_brand{
+	background: #093c71;    
+}
+.THIS .mycheckbox{
+  display: inline-block;
+  float: left;
+  margin-top: 5px;
+}
+.THIS .filter-table td{
+    padding: 5px 10px;
+}
+.THIS .filter-table .uiLabel{
+	padding-left: 10px;
+}
+.THIS .date-filter{
+    display: inline-flex;
+}
+.THIS .filter-table .slds-input{
+    padding: 3px 5px;
+}
+/*Tablet*/
+@media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) { 
+    
+    .THIS .sort-button{
+        right: 2%;
+    }
+    
+    .THIS .parking-sort{
+        right: 2%;
+    }
+}
+
+/*Tablet*/
+@media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)
+    and (orientation : landscape) { 
+    
+    .THIS .sort-button{
+        right: 2%;
+    }
+    .THIS .parking-sort{
+        right: 2%;
+    }
+}
+/* Phone */
+@media screen and (max-device-width: 640px) { 
+    
+    .THIS .contactus-detail {
+        max-width: 100%;
+        margin-right: 1rem;
+    }
+    .THIS .contactus-section-title {
+        writing-mode: unset;
+        transform: none;
+        text-align: right;
+        margin: .5rem 0 0 0;
+        height: 2rem;
+        border-bottom: 0.2rem solid white;
+        border-left: none;
+        font-size: 1.4rem;
+        position: relative;
+        padding-bottom: 5px;
+    }
+    .THIS .contactus-section-title:after {
+        content: "";
+        display: block;
+        width: 75%;
+        height: .2rem;
+        padding: 0;
+        margin: 0;
+        background-color: #93d50a;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+    .THIS .contactus-section{
+        display: inline-block;
+    }
+    .THIS .contactus-container-outer {
+        padding: 0 1rem 3rem 1rem;
+        width: 100%;
+        margin: 0;
+    }
+    .THIS .input-text{
+        width: 100%;
+    }
+    .THIS .submit-btn{
+        width: 100%;
+    }
+    .THIS .btn-base {
+        width: 100%;
+        border: 0.2rem solid white;
+    }
+    .THIS .font-body{
+        text-align: left;
+    }
+    .THIS .font-header{
+        padding-top: 5px;
+    }
+    .THIS .font-header, .THIS .font-body {
+        font-size: 1rem;
+    }
+    .THIS .contactus-detail {
+        text-align: center;
+    }
+    
+    .THIS .parkinglot-table{
+        padding-left: 0px;
+        font-size: 12px;
+    }
+    .THIS .slds-th__action {
+        /*padding: 0 !important;*/
+        font-size: 12px;
+    }
+    
+    .THIS .mobile-p-table .mobile-parkinglot-table:first-child{
+        margin: 5px 0 2.5px 0;
+    }
+    .THIS .mobile-parkinglot-table{
+        font-size: 14px;
+        display: block;
+        background: white;
+        margin: 0;
+        padding: 15px;
+    }
+    .THIS .mobile-parkinglot-header{
+        background: #0083c2;
+        padding: 10px 15px;
+        color: white;
+        font-size: 14px;
+        position: relative;
+    }
+    .THIS .parkinglot-header{
+        display: inline-block;
+        width: 25%;
+        text-align: center;
+        margin: auto;
+        color: #eae8e8;
+        padding: 3px;
+    }
+    .THIS .parkinglot-info{
+        display: inline-block;
+        width: 75%;
+        background: white;
+        padding: 3px;
+    }
+    .THIS .info-title{
+        /*font-weight: bold;*/
+        display: inline-block;
+        padding-right: 3px;
+    }
+    .THIS .info-detail{
+        display: inline-block;
+    }
+    .THIS .info-title b{
+        padding-right: 3px;
+    }
+    .THIS .parkinglot-header2{
+        width: 100%;
+        position: relative;
+        padding: 1rem 0;
+    }
+    .THIS .parkinglot-header2-left{
+        display: inline-flex;
+    }
+    .THIS .parkinglot-header2-right{
+        display: inline-flex;
+        right: 0;
+        position: absolute;
+    }
+    .THIS .mobile-p-table .mobile-parkinglot-table:nth-child(odd){
+        background: #f5f5f5;
+    }
+    
+    .THIS .sort-button{
+        right: 2%;
+        padding-top: 4px;
+    }
+    
+    .THIS .slds-input, .THIS .slds-select, .THIS .slds-textarea, .THIS  .slds-select_container {
+        width: 100%;
+    }
+    
+}

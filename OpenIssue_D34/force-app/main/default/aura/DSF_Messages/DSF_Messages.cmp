@@ -1,0 +1,133 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="screen"   type="Integer" default="0"/>
+    <aura:attribute name="recordId" type="String"  default=""/>
+    <aura:attribute name="User"     type="Object"  default=""/>
+    <aura:attribute name="isNotDefaultSelected"    type="Boolean" default="false"/>
+    
+    <!--Design attributes-->
+    <aura:attribute name="PageTitle" type="String" default=""/>
+	<aura:attribute name="HeaderIcon" type="String" default=""/>
+    <aura:attribute name="Tab1"  type="String" default=""/>
+    <aura:attribute name="Tab2"  type="String" default=""/>
+    <aura:attribute name="Tab3"  type="String" default=""/>
+    
+    <!--Design attributes for CasesTable component-->
+    <aura:attribute name="CasesTableTitle"   type="String" default=""/>
+    <aura:attribute name="CasesTableHeader1" type="String" default=""/>
+    <aura:attribute name="CasesTableHeader2" type="String" default=""/>
+    <aura:attribute name="CasesTableHeader3" type="String" default=""/>
+    <aura:attribute name="NoCasesMessage"    type="String" default=""/>
+    <aura:attribute name="ButtonLabel"       type="String" default=""/>
+    <aura:attribute name="StatusColorRed"    type="String" default=""/>
+    <aura:attribute name="StatusColorOrange"    type="String" default=""/>
+    <aura:attribute name="StatusColorGreen"    type="String" default=""/>
+    
+    <!--Design attributes for StatusUpdatesTable component-->
+    <aura:attribute name="TasksTableTitle"   type="String" default=""/>
+    <aura:attribute name="TasksTableHeader1" type="String" default=""/>
+    <aura:attribute name="TasksTableHeader2" type="String" default=""/>
+    <aura:attribute name="NoTasksMessage"    type="String" default=""/>
+
+    <!--Design attributes for EmailsTable component-->
+    <aura:attribute name="EmailsTableTitle"   type="String" default=""/>
+    <aura:attribute name="EmailsTableDescription" type="String" default=""/>
+    <aura:attribute name="EmailsTableHeader1" type="String" default=""/>
+    <aura:attribute name="EmailsTableHeader2" type="String" default=""/>
+    <aura:attribute name="NoEmailsMessage"    type="String"  default=""/>
+
+    <!--Design attributes for EmailsDetails-->
+    <aura:attribute name="EmailBackMessage" type="String" default=""/>
+    
+    <!--Desing attributes for CasesAndComments component-->
+    <aura:attribute name="BackMessage"     type="String" default=""/>
+    <aura:attribute name="Downloads"       type="String" default=""/>
+    <aura:attribute name="CaseDetailsLabel"  type="String" default=""/>
+    <aura:attribute name="CaseCommentsLabel" type="String" default=""/>
+    <aura:attribute name="NoCommentsMessage" type="String" default=""/>
+    <aura:attribute name="AddCommentLabel" type="String" default=""/>
+    <aura:attribute name="ModalHeader"     type="String" default=""/>
+    <aura:attribute name="NoFilesMessage"  type="String" default=""/>
+    <aura:attribute name="CasesAndCommentsButtonLabel"    type="String" default=""/>
+    
+    <aura:handler name="DSF_MessagesEVT" event="c:DSF_MessagesEVT" action="{!c.handleEvent}"/>
+    
+    <c:DSF_UserLoader
+                      output="{! v.User }"
+                      userError="{! v.errorMessage }" 
+                      fields="Id, ContactId"
+                      /> 
+    
+    <aura:if isTrue="{!v.screen == 0}">
+        <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+            <img src="{!$Resource.DSF_Resources + '/' + v.HeaderIcon}" />
+        </div>
+        
+        <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+            <h1>{!v.PageTitle}</h1>
+        </div>
+        <div class="slds-align_absolute-center">
+            <lightning:tabset class="slds-size_1-of-1" >
+                <lightning:tab class="tabHeader slds-size_1-of-1" label="{!v.Tab1}" title="Support" aura:id="support" onactive="{!c.focusTable}"> 
+                    
+                </lightning:tab>       
+                <lightning:tab class="tabHeader slds-size_1-of-1" label="{!v.Tab2}" title="Status Updates" aura:id="status" onactive="{!c.focusTable}">
+                    
+                </lightning:tab>
+                <lightning:tab class="tabHeader slds-size_1-of-1" label="{!v.Tab3}" title="DSF Emails" aura:id="email" onactive="{!c.focusTable}">
+                    
+                </lightning:tab> 
+            </lightning:tabset> 
+        </div>
+        <aura:if isTrue="{! !empty(v.User)}">
+            <div id="support">
+                <c:DSF_SupportMessages CasesTableTitle="{!v.CasesTableTitle}"
+                                       CasesTableHeader1="{!v.CasesTableHeader1}"
+                                       CasesTableHeader2="{!v.CasesTableHeader2}"
+                                       CasesTableHeader3="{!v.CasesTableHeader3}"
+                                       NoCasesMessage="{!v.NoCasesMessage}"
+                                       ButtonLabel="{!v.ButtonLabel}"
+                                       StatusColorRed="{!v.StatusColorRed}"
+                                       StatusColorOrange="{!v.StatusColorOrange}"
+                                       StatusColorGreen="{!v.StatusColorGreen}"
+                                       User="{!v.User}"
+                                       />
+            </div>
+            <div id="status" class="middle-table-margin">
+                <c:DSF_StatusUpdatesTable  TasksTableTitle="{!v.TasksTableTitle}"
+                                          TasksTableHeader1="{!v.TasksTableHeader1}"
+                                          TasksTableHeader2="{!v.TasksTableHeader2}"
+                                          NoTasksMessage="{!v.NoTasksMessage}"
+                                          User="{!v.User}"
+                                          />
+            </div>
+            <div id="email" class="middle-table-margin">
+                <c:DSF_EmailsTable EmailsTableTitle="{!v.EmailsTableTitle}"
+                                   EmailsTableDescription="{!v.EmailsTableDescription}"
+								   EmailsTableHeader1="{!v.EmailsTableHeader1}"
+								   EmailsTableHeader2="{!v.EmailsTableHeader2}"
+								   NoEmailsMessage="{!v.NoEmailsMessage}"
+								   User="{!v.User}"/>
+            </div>
+        </aura:if>
+    </aura:if>
+    <aura:if isTrue="{!v.screen == 1}">
+        <c:DSF_CaseComments recordId="{!v.recordId}"
+                            BackMessage="{!v.BackMessage}"
+                            Downloads="{!v.Downloads}"
+                            CaseDetailsLabel="{!v.CaseDetailsLabel}"
+                            CaseCommentsLabel="{!v.CaseCommentsLabel}"
+                            NoCommentsMessage="{!v.NoCommentsMessage}"
+                            AddCommentLabel="{!v.AddCommentLabel}"
+                            ModalHeader="{!v.ModalHeader}"
+                            NoFilesMessage="{!v.NoFilesMessage}"
+                            ButtonLabel="{!v.CasesAndCommentsButtonLabel}"
+                            ColorRed="{!v.StatusColorRed}"
+                            ColorOrange="{!v.StatusColorOrange}"
+                            ColorGreen="{!v.StatusColorGreen}"
+                            />
+    </aura:if>
+    <!--<aura:if isTrue="{!v.screen == 2}">
+        <c:DSF_EmailDetails recordId="{!v.recordId}"
+							BackMessage="{!v.EmailBackMessage}"/>
+    </aura:if>-->
+</aura:component>

@@ -1,0 +1,178 @@
+.navbar-logo-img{
+    height: 7.5rem;
+    width: 6.5rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-logo-container{
+    height: 7.5rem;
+    width: 6.5rem;
+    padding: 0rem 0rem !important;
+}
+
+.clear-section {
+    clear:both;
+}
+
+.navbar-left {
+    height: 8rem;
+}
+
+.nav-box {
+    border-color: #0083C1;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    opacity: 1;
+}
+
+.survey-logo-img {
+    max-height: 3.5rem !important;
+    padding-right: 5%;
+}
+
+.survey-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+}
+
+/*Tablet - Portrait*/
+@media only screen 
+    and (min-device-width : 640px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) {
+
+    .navbar-logo-img{
+        height: 5rem;
+        width: 5.3rem;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .img-logo-container{
+        height: 5rem;
+        width: 5.3rem;
+    }
+    
+    .navbar-logo {
+        height: 4.8rem;
+        width: 9.2rem;
+    }
+
+    .nav-box {
+        border-width: 10px;
+    }
+
+    .survey-logo-img{
+        max-height: 2.5rem !important;
+        padding-right: 21%;
+    }
+}
+
+/*Tablet - Landscape*/
+@media only screen 
+    and (min-device-width : 640px) 
+    and (max-device-width : 1024px)
+    and (orientation : landscape) {
+
+    .navbar-logo {
+        width: 9.2rem;
+        height: 4.8rem;
+    }
+
+    .img-logo-container{
+        width: 5.3rem;
+        height: 5rem;
+    }
+
+    .navbar-logo-img{
+        height: 5rem;
+        width: 5.3rem;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .nav-box {
+        border-width: 10px;
+    }
+
+    .survey-logo-img{
+        max-height: 2.5rem !important;
+        padding-right: 15%;
+    }
+}
+
+/* Phone - Portrait */
+@media screen and (max-device-width: 640px) 
+    and (orientation : portrait){ 
+
+    .navbar-logo {
+        height: 3.7rem;
+        width: 5.3rem;
+    }
+
+    .img-logo-container{
+        height: 3.7rem;
+        width: 5.3rem;
+    }
+
+    .navbar-logo-img{
+        height: 3.7rem;
+        width: 4rem;
+        margin-left: 10px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .nav-box {
+        border-width: 5px;
+    }
+
+    .survey-logo-img{
+        max-height: 1.5rem !important;
+    }
+}
+
+/* Phone - Landscape */
+@media screen and (max-device-width: 640px) 
+    and (orientation : landscape){ 
+
+    .navbar-logo {
+        height: 3.7rem;
+        width: 5.3rem;
+    }
+
+    .img-logo-container{
+        height: 3.7rem;
+        width: 5.3rem;
+    }
+
+    .navbar-logo-img{
+        height: 3.7rem;
+        width: 4rem;
+        margin-left: 10px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .nav-box {
+        border-width: 5px;
+    }
+
+    .survey-logo-img{
+        max-height: 1.5rem !important;
+        padding-right: 25%;
+    }
+}

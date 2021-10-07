@@ -1,0 +1,52 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    
+    <aura:attribute name="BackMessage" type="String" default=""/>
+    <aura:attribute name="text" type="String" default=""/>
+    
+    <aura:attribute name="recordId"   type="String" default=""/>
+    <aura:attribute name="Emails"   type="List" default="[]"/>
+    <aura:attribute name="handledEmail" type="Object" default=""/>
+    <aura:attribute name="isLoaded"  type="Boolean" default="false"/>
+    
+    <aura:registerEvent name="DSF_MessagesEVT" type="c:DSF_MessagesEVT" />
+    <aura:handler name="change" value="{!v.Emails}"  action="{!c.handleEmail}"/>
+    
+    <aura:if isTrue="{!v.recordId != null}" >
+        <c:DSF_sObjectHelper methodName="getSObject"
+                             object="et4ae5__IndividualEmailResult__c"
+                             fields="Id,
+                                     Name,
+                                     et4ae5__DateSent__c"
+                             conditions="{!'et4ae5__IndividualEmailResult__c.Id = \'' + v.recordId + '\''}"
+                             output="{! v.Emails  }"
+                             />
+    </aura:if>
+    
+    <div class="slds-grid slds-wrap parent slds-size_1-of-1">
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:button
+                              class="slds-button button"
+                              label="back to my messages"
+                              onclick="{!c.returnToMyMessages}"
+                              >
+                &lt; {!v.BackMessage}
+            </lightning:button>
+        </div>
+        <aura:if isTrue="{!v.isLoaded}">
+            <div class="slds-col slds-size_5-of-6 slds-align_absolute-center slds-grid slds-wrap message">
+                <div class="slds-col slds-size_1-of-1 header">
+                    {!v.handledEmail.Name}
+                </div>
+                <div class="slds-col slds-size_1-of-1 date slds-p-vertical_medium slds-border_bottom">
+                    {!v.handledEmail.et4ae5__DateSent__c}
+                </div>
+                <div class="slds-col slds-size_1-of-1 text slds-m-top_large">
+                    {!v.text}
+                </div>
+            </div>
+            <aura:set attribute="else">
+                <lightning:spinner alternativeText="Loading" size="medium" />
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

@@ -1,0 +1,275 @@
+<!--
+  Created by ahasic on 10/15/19.
+ -->
+
+<aura:component description="DSF_StudentDashboard" implements="forceCommunity:availableForAllPageTypes">
+    
+    <!-- TEST ATTRIBUTES - TO BE REMOVED -->
+    <aura:attribute name="universities" type="List" default="[]"
+    />      
+
+    <!-- MY STATUS SECTION -->    
+    <aura:attribute name="statusHeaderLabel" type="String" />
+    <aura:attribute name="statusBolded" type="String" />
+    <aura:attribute name="statusNormal" type="String" />
+    <aura:attribute name="applicationButtonStart" type="String" default="" />
+    <aura:attribute name="applicationButtonContinue" type="String" default="" />
+    <aura:attribute name="applicationButtonURL" type="String" default="" />
+
+    <!-- MY COLLEGE CHOICE SECTION -->   
+    <aura:attribute name="collegeHeaderChoiceLabel" type="String" />
+    <aura:attribute name="collegeBtnLabel" type="String" />
+    <aura:attribute name="collegeInfoLabel" type="String" />
+
+    <!-- MY MY TO DO LIST SECTION -->   
+    <aura:attribute name="myToDoListHeaderLabel" type="String" />
+    <aura:attribute name="toDoListCheckboxLabel" type="String" />
+    <aura:attribute name="toDoListSubheaderLabel" type="String" />
+    <aura:attribute name="submitDSFApplLabel" type="String" /> 
+    <aura:attribute name="completeFAFSALabel" type="String" />
+    <aura:attribute name="completeFAFSALinkLabel" type="String" />
+    <aura:attribute name="submitFAFSAProofLabel" type="String" />
+    <aura:attribute name="submitFAFSATooltipLabel" type="String" />
+    <aura:attribute name="taskSubmittedOnLabel" type="String" />
+    <aura:attribute name="taskCompletedOnLabel" type="String" />
+    <aura:attribute name="taskUploadedOnLabel" type="String" />
+    <aura:attribute name="confirmCollegeChoiceLabel" type="String" />
+    <aura:attribute name="financialAidRequirementsLabel" type="String" />
+    <aura:attribute name="financialAidReqTooltipLabel" type="String" />
+    <aura:attribute name="institutionalLabel" type="String" />
+    <aura:attribute name="applicationId"     type="String" default=""/> 
+
+    <!-- Refresh attribute -->
+    <aura:attribute name="refresh" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- MY ADVISORS SECTION -->   
+    <aura:attribute name="advisorsHeaderLabel" type="String" /> 
+
+    <div class="slds-grid slds-wrap slds-size_1-of-1 slds-m-bottom_medium">
+        
+        <!-- MY STATUS SECTION -->
+        <div class="slds-size_1-of-2 slds-p-right_medium">
+            
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.statusHeaderLabel}</h4>
+            
+            <div class="slds-grid slds-size_1-of-1 slds-p-top_large slds-p-bottom_large divColor">
+                <div class="slds-size_1-of-4 slds-align_absolute-center">
+                    <div class="circle"></div>
+                </div>
+                
+                <div class="slds-size_3-of-4 slds-p-right_x-large slds-align_absolute-center">
+                    <p><b>{!v.statusBolded}</b>{!v.statusNormal}</p>
+                </div>
+            </div>
+            <!--
+            <div class="slds-size_1-of-1 divColor">
+                <c:DSF_ApplicationButton buttonStart="{!v.applicationButtonStart}"
+                                         buttonContinue="{!v.applicationButtonContinue}"
+                                         buttonURL="{!v.applicationButtonURL}"
+                                         class="button-look slds-align_absolute-center"
+                />
+            </div>
+            -->
+        </div>
+        
+        <!-- MY COLLEGE CHOICE SECTION -->
+        <div class="slds-size_1-of-2 slds-p-left_medium">
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.collegeHeaderChoiceLabel}</h4>
+            
+            
+            <c:DSF_SchoolDetails
+                                 collegeHeaderChoiceLabel="{!v.collegeHeaderChoiceLabel}"
+                                 collegeBtnLabel="{!v.collegeBtnLabel}"
+                                 collegeInfoLabel="{!v.collegeInfoLabel}"
+                                 applicationId = "{!v.applicationId}"
+                                 refresh = "{!v.refresh}"
+                                 />
+        </div>
+        
+        
+    </div>
+    
+    <!-- MY TO DO LIST SECTION  -->
+    <div class="slds-grid slds-wrap slds-size_1-of-1 slds-m-top_medium">
+        
+        <div class="slds-size_1-of-2 slds-p-right_medium">
+            <div class="slds-grid slds-size_1-of-1 slds-m-bottom_small">
+                
+                <h4 class="slds-size_1-of-2">{!v.myToDoListHeaderLabel}</h4>
+
+                <div class="slds-size_1-of-2">
+                    <lightning:input style="float: right;" class="slds-text-heading_medium" type="checkbox" label="{!v.toDoListCheckboxLabel}" />
+                </div>
+
+            </div>  
+            
+            <div class="slds-size_1-of-1 slds-p-around_large divColor">
+                
+                <p class="slds-size_1-of-1 pStyle">{!v.toDoListSubheaderLabel}</p> 
+                
+                <h5 class="slds-text-heading_small slds-m-top_large">APRIL 1</h5>   
+                
+                <div class="slds-text-heading_small slds-m-top_large">
+                    <img src="{!$Resource.DSF_Resources + '/ChecklistCircle-Checked.png'}" style="vertical-align: top;" />
+                    <div class="slds-p-left_medium" style="display: inline-block;">
+                        <span>{!v.submitDSFApplLabel}</span>
+                        <div class="slds-text-body_small slds-m-top_x-small infoBox">{!v.taskSubmittedOnLabel} March 23, 2020</div>
+                    </div>                     
+                </div>    
+                
+                <div class="slds-text-heading_small slds-m-top_large">
+                    <img src="{!$Resource.DSF_Resources + '/CheckllistCircle-Unchecked.png'}" />
+                    <div class="slds-p-left_medium" style="display: inline-block">{!v.completeFAFSALabel}<a href="">&nbsp;{!v.completeFAFSALinkLabel}</a></div> 
+                </div>   
+                
+                <div class="slds-text-heading_small slds-m-top_large">
+                    <img src="{!$Resource.DSF_Resources + '/ChecklistCircle-Checked.png'}" style="vertical-align: top;" />
+                    <div class="slds-p-left_medium" style="display: inline-block;">
+                        <span>{!v.completeFAFSALabel}&nbsp;<a href="">{!v.completeFAFSALinkLabel}</a></span>
+                        <div class="slds-text-body_small slds-m-top_x-small infoBox">{!v.taskCompletedOnLabel} March 23, 2020</div>
+                    </div>                     
+                </div>    
+                
+                <h5 class="slds-text-heading_small slds-m-top_large">MAY 20</h5>   
+                
+                <div class="slds-text-heading_small slds-m-top_large">
+                    <img src="{!$Resource.DSF_Resources + '/CheckllistCircle-Unchecked.png'}" style="vertical-align: top;"/>
+                    <div class="slds-p-left_medium" style="display: inline-block;">
+                        <div>
+                            <span>{!v.submitFAFSAProofLabel}&nbsp;</span> 
+                            <c:DSF_Tooltip text="{!v.submitFAFSATooltipLabel}" />                            
+                        </div>                        
+                        
+                        <div class="slds-m-top_x-small">
+                            <a href="" tabindex="-1" style="text-decoration: none;">
+                                <img src="{!$Resource.DSF_Resources + '/upload-icon.png'}" />
+                                <span>&nbsp;<b>Upload proof of FAFSA</b></span> 
+                            </a>           
+                        </div>     
+                    </div>        
+                </div>   
+                
+                <div class="slds-text-heading_small slds-m-top_large">
+                    <img src="{!$Resource.DSF_Resources + '/ChecklistCircle-Checked.png'}" style="vertical-align: top;"/>
+                    <div class="slds-p-left_medium" style="display: inline-block;">
+                        
+                        <span>{!v.submitFAFSAProofLabel}</span>  
+
+                        <div class="slds-m-top_x-small">
+                            <a href="" tabindex="-1" style="text-decoration: none;">
+                                <img src="{!$Resource.DSF_Resources + '/file-icon.png'}" />
+                                <span>&nbsp;<b>My_FAFSA_2020</b></span> 
+                            </a>           
+                        </div>     
+                        
+                        <div class="slds-text-body_small slds-m-top_x-small infoBox">{!v.taskUploadedOnLabel} April 19, 2020</div>
+                    </div>        
+                </div>   
+                
+                <h5 class="slds-text-heading_small slds-m-top_large">JULY 15</h5>   
+                
+                <div class="slds-text-heading_small slds-m-top_large">
+                    <img src="{!$Resource.DSF_Resources + '/CheckllistCircle-Unchecked.png'}" />
+                    <div class="slds-p-left_medium" style="display: inline-block">{!v.confirmCollegeChoiceLabel}</div> 
+
+                    <c:DSF_SchoolDetails
+                        collegeHeaderChoiceLabel="{!v.collegeHeaderChoiceLabel}"
+                        collegeBtnLabel="{!v.collegeBtnLabel}"
+                        collegeInfoLabel="{!v.collegeInfoLabel}"
+                        applicationId = "{!v.applicationId}"
+                        refresh="{!v.refresh}"
+                    />
+
+                </div>   
+
+                <div class="slds-text-heading_small slds-m-top_large">
+                    <img src="{!$Resource.DSF_Resources + '/ChecklistCircle-Question.png'}" style="vertical-align: top;"/>
+                    <div class="slds-p-left_medium" style="display: inline-block;">
+                        <div>
+                            <span>{!v.financialAidRequirementsLabel}&nbsp;</span> 
+                            <c:DSF_Tooltip text="{!v.financialAidReqTooltipLabel}" />                            
+                        </div>         
+                    </div>        
+                </div>     
+
+                <div class="slds-text-heading_small slds-m-top_large">
+                    <img src="{!$Resource.DSF_Resources + '/ChecklistCircle-Question.png'}" style="vertical-align: top;"/>
+                    <div class="slds-p-left_medium" style="display: inline-block;">
+                        <span>{!v.institutionalLabel}</span>                               
+                    </div>        
+                </div>   
+
+            </div>
+            
+        </div>
+        
+        <!-- MY ADVISORS SECTION  -->
+        <div class="slds-size_1-of-2 slds-p-left_medium">
+            <h4 class="slds-size_1-of-1 slds-m-bottom_small">{!v.advisorsHeaderLabel}</h4>
+            
+            <div class="slds-size_1-of-1 slds-p-around_large divColor">
+
+                <div class="slds-size_1-of-1 slds-p-top_large slds-p-bottom_large">
+                    <img src="{!$Resource.DSF_Resources + '/advisor-photo.jpg'}" />
+                
+                    <h5 class="slds-text-heading_small slds-m-top_large"><b>Molly Gallegos</b></h5>   
+                        
+                    <p class="slds-m-top_small pStyle">Campus Advisor</p>
+                    <p class="pStyle">Community College of Denver</p>
+        
+                    <div>
+                        <img src="{!$Resource.DSF_Resources + '/phone-icon.png'}" style="display: inline-block"/>
+                        <p class="pStyle" style="display: inline-block; padding-left: 10px;">303.352.3149</p>
+                    </div>
+                     
+                    <div>
+                        <img src="{!$Resource.DSF_Resources + '/email-icon.png'}" style="display: inline-block"/>
+                        <p class="pStyle" style="display: inline-block; padding-left: 10px;">mgallegos@denverscholarship.org</p> 
+                    </div>                    
+                </div>
+        
+                <div class="slds-size_1-of-1 slds-p-top_large slds-p-bottom_large">
+                    
+                    <h5 class="slds-text-heading_small"><b>Molly Gallegos</b></h5>   
+                            
+                    <p class="slds-m-top_small pStyle">Campus Advisor</p>
+                    <p class="pStyle">Community College of Denver</p>
+            
+                    <div>
+                        <img src="{!$Resource.DSF_Resources + '/phone-icon.png'}" style="display: inline-block"/>
+                        <p class="pStyle" style="display: inline-block; padding-left: 10px;">303.352.3149</p>
+                    </div>
+                         
+                    <div>
+                        <img src="{!$Resource.DSF_Resources + '/email-icon.png'}" style="display: inline-block"/>
+                        <p class="pStyle" style="display: inline-block; padding-left: 10px;">mgallegos@denverscholarship.org</p> 
+                    </div>                    
+                </div>
+
+                <div class="slds-size_1-of-1 slds-p-top_large slds-p-bottom_large">
+                    <img src="{!$Resource.DSF_Resources + '/advisor-photo.jpg'}" />
+                    
+                    <h5 class="slds-text-heading_small slds-m-top_large"><b>Molly Gallegos</b></h5>   
+                            
+                    <p class="slds-m-top_small pStyle">Campus Advisor</p>
+                    <p class="pStyle">Community College of Denver</p>
+            
+                    <div>
+                        <img src="{!$Resource.DSF_Resources + '/phone-icon.png'}" style="display: inline-block"/>
+                        <p class="pStyle" style="display: inline-block; padding-left: 10px;">303.352.3149</p>
+                    </div>
+                         
+                    <div>
+                        <img src="{!$Resource.DSF_Resources + '/email-icon.png'}" style="display: inline-block"/>
+                        <p class="pStyle" style="display: inline-block; padding-left: 10px;">mgallegos@denverscholarship.org</p> 
+                    </div>                    
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+       
+</aura:component>

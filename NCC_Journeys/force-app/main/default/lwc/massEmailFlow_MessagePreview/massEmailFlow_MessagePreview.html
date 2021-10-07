@@ -1,0 +1,55 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <template if:false={isLoading}>
+        <div class="slds-m-vertical_small">
+            <lightning-card title="Mass Email" icon-name="standard:email">
+                <div class="slds-var-p-around_small">
+                    <lightning-combobox
+                        name="sender"
+                        label="From"
+                        value={sender}
+                        placeholder="Select an Email"
+                        options={senderOptions}
+                        onchange={handleSenderChange} ></lightning-combobox>
+                    <lightning-combobox
+                        class="email-template-combo-box"
+                        name="template"
+                        label="Email Template"
+                        value={emailTemplateId}
+                        placeholder="Select a Template"
+                        options={emailTemplateOptions}
+                        onchange={handleTemplateChange} ></lightning-combobox>
+                    <!-- <c-lookup   
+                        selection={initialSelection}     
+                        onsearch={handleTemplateSearch}
+                        onselectionchange={handleTemplateSelect}
+                        label="Email Template"
+                        placeholder="Search Template"></c-lookup> -->
+                    <lightning-input label="Subject" onchange={handleSubjectChange} value={subject}></lightning-input>
+                    <lightning-input-rich-text
+                        class="slds-m-top_small"
+                        value={emailBody}
+                        onchange={handleEmailBodyChange}></lightning-input-rich-text>
+                </div>
+            </lightning-card>
+        </div>
+        <div class="slds-m-vertical_small">
+            <lightning-card title="Email Preview" icon-name="custom:custom62">
+                <div class="slds-var-p-around_small">
+                    <template if:true={emailBody}>
+                        <lightning-formatted-rich-text
+                            value={emailBody}
+                        ></lightning-formatted-rich-text>
+                    </template>
+                    <template if:false={emailBody}>
+                        <p class="slds-align_absolute-center empty-body">
+                            Type your message or select a template for preview.
+                        </p>
+                    </template>
+                </div>
+            </lightning-card>
+        </div>
+    </template>
+</template>

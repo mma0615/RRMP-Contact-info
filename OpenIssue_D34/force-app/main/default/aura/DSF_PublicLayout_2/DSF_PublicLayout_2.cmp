@@ -1,0 +1,36 @@
+<aura:component description="DSF_PublicLayout_2:: Login and Registration Layout"
+ implements="forceCommunity:themeLayout"
+ access="global">
+
+<aura:attribute name="leftContent" type="Aura.Component[]" required="false"/>
+<aura:attribute name="rightContent" type="Aura.Component[]" required="false"/>
+<aura:attribute name="dsfResourcesURL" type="String" default="{!$Resource.DSF_Resources}"/>
+<aura:attribute name="backgroundImageURL" type="String" default="{! v.dsfResourcesURL + '/26787065868_b4cb3ec630_o.jpg' }"/> 
+
+<div class="slds-grid slds-wrap body">
+<div class="slds-grid slds-size_1-of-1 slds-wrap slds-grid--vertical-align-center">
+
+<div class="slds-x-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+ <div class="slds-size_1-of-1" style="{!'position: relative; height: 100vh; background:' + ' url(' + v.backgroundImageURL +'); background-repeat: no-repeat;background-size: cover;'}"> 
+     <div class="slds-size_1-of-1 backgroundLayer slds-align_absolute-center leftContent"> 
+        
+        <div class="slds-size_3-of-4 slds-x-small-size_10-of-12 slds-align_left font-face centered">
+            <img id="imgLogo" class="slds-size_1-of-2" src="{!$Resource.DSF_Resources + '/DSF-logo-white.png'}" />
+
+        <div class="slds-size_1-of-1 slds-m-top_large font-face">
+            <h3>DSF Partner Portal</h3>
+        {!v.leftContent}
+        </div>
+</div>
+     </div>
+ </div> 
+</div>
+
+<div class="slds-x-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2"> 
+ {!v.rightContent} 
+</div>
+
+</div>
+</div>
+
+</aura:component>

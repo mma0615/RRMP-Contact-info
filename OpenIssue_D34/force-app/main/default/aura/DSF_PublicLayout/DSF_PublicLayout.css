@@ -1,0 +1,26 @@
+.THIS p {
+    font-family: Muli;
+   }
+   
+   @font-face {
+     font-family: Muli;
+     src: url("{!$Resource.DSF_Resources + '/Muli-Regular'}");
+   }
+
+
+.THIS body {
+    font-family: Muli !important;
+ }
+
+ .THIS .backgroundLayer {
+     background-color: rgba(141, 193, 183, 0.9); 
+     height: 100%;
+     width: 100%;
+     position: absolute;
+ }
+.THIS .loginIntro{
+     display: flex;
+     justify-content: center;
+     align-content: center;
+     margin: auto;
+}

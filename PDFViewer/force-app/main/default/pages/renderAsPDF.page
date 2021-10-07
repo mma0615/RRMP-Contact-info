@@ -1,0 +1,25 @@
+<!--*********************
+*   renderAsPDF
+*   @author:        Minh H Ma
+*   @date:          12/17/2020
+*   descrtiption:   This VF page displays RichText field     and renders the page as PDF
+*
+*   Update History:
+*   12/17/2020  Intial Version
+********************* -->
+<apex:page controller="PDFViewController" renderAs="pdf"  
+		   applyHtmlTag="false" showHeader="false" cache="true" readOnly="true" >
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+            <style>
+                @page {
+                    size: a4 portrait;    
+                    padding-left: 2px;    
+                    padding-right: 2px;
+                }            
+            </style>
+        </head>
+        <apex:outputText value = "{!displayText}" escape = "false"/>
+    </html>
+</apex:page>

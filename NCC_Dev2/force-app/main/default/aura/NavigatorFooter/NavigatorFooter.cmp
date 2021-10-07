@@ -1,0 +1,8 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="NavigatorController">
+    <aura:attribute name="navigatorRecord" type="Navigator__c" />
+    <aura:handler event="c:NavigatorRecord" action="{!c.handleNavigatorRecord}" />
+
+    <footer class="footer-bar" style="--theme-color1:white">
+        <img src="{!v.navigatorRecord.Footer_Image__c}" />
+    </footer>
+</aura:component>

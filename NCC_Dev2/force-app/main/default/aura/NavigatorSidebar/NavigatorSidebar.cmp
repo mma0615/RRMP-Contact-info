@@ -1,0 +1,33 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global"  controller="NavigatorController">
+    <!-- load Lodash scripts -->
+    <ltng:require scripts="{!$Resource.lodash}" afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+
+    <aura:attribute name="FileDirectory" type="String"  default="" />
+    <!-- Attributes -->
+    <aura:attribute name="navigationData" type="List" description="The list of sections and their items." />
+    <aura:attribute name="contactId" type="String" />
+    <aura:attribute name="token" type="String" />
+    <aura:attribute name="currentUrl" type="String"  default="" />
+
+    <!-- Handlers -->
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+    <aura:handler name="navigationItemClick" event="c:navigationItemClick" action="{!c.handleNavigationItemClick}"/>
+    <aura:handler event="c:NavigatorRecord" action="{!c.handleNavigatorRecord}" />
+
+    <div class="navigation-items" style="--theme-color1:rgb(220, 220, 220);--theme-color2:white;--theme-color3:white;--theme-color3-intense:white;">
+        <aura:iteration items="{! v.navigationData }" var="tab">
+            <div class="slds-m-bottom_xx-small">
+                <c:navigationItem aura:id="{!tab.name}"
+                                    label="{!tab.label}" 
+                                    name="{!tab.name}" 
+                                    link="{!tab.href}" 
+                                    sldsIcon="{!tab.SLDS_Icon_Name__c}"
+                                    iconUrl="{!tab.Image_URL__c}"
+                                    expandedItems="{!tab.Expanded_Items__c}"
+                                    isSelected="{!tab.isSelected}"
+                                    currentURL="{!v.currentUrl}">
+                </c:navigationItem>
+            </div>
+        </aura:iteration>
+    </div>
+</aura:component>

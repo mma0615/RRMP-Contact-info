@@ -1,0 +1,12 @@
+<design:component>
+    <design:attribute name="PageHeader"   label="Page Header"      default=""/>
+    <design:attribute name="PageMessage"  label="Page Message 1"     default=""/>
+    <design:attribute name="PageMessage2" label="Page Message 2"     default=""/>
+    <design:attribute name="PageMessage3" label="Text before link" default=""/>
+    <design:attribute name="LinkMessage"  label="Link Text"        default=""/>
+    <design:attribute name="PageMessage4" label="Text after link"  default=""/>
+    <design:attribute name="Button1"      label="Button 1"         default=""/>
+    <design:attribute name="Button2"      label="Button 2"         default=""/>
+    <design:attribute name="Icon"         label="Icon"             default=""/>
+	
+</design:component>

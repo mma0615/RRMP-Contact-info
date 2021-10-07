@@ -1,0 +1,166 @@
+<apex:page standardController="Krow__Invoice__c" action="{!init}" extensions="Krow.EmailInvoiceFwdControllerExt" tabStyle="Krow__Invoice__c">
+  <apex:form id="invoiceTemplate">
+  <html xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+    <head>
+        <title>Krow:Batch Invoice</title>
+            <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Krow__Krow_SLDS_UI, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <link rel="stylesheet" href="{!URLFOR($Resource.KrowResource, 'css/bootstrap.min.css')}" media="all" />
+            <style>
+            body{
+            	padding: 0px !important;
+            }
+            </style>
+    </head>
+    	<apex:actionFunction name="removeInvoiceAttachmentJs" action="{!removeInvoiceAttachment}" rerender="invoiceAttachmentPanel">
+    		<apex:param name="removedAttachmentFileId" assignTo="{!removedAttachmentId}" value="" /> 
+    	</apex:actionFunction>
+       <!-- @ Lightning Page Layouts Theme4d Theme3 Theme4d -->
+       
+         <apex:outputPanel rendered="{!$User.UIThemeDisplayed == 'Theme3'}"> 
+              <apex:PageBlock id="classicBlock">
+                    <apex:commandButton action="{!goToBack}" value="Back to invoice" id="theButton"/>
+                </apex:PageBlock>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!$User.UIThemeDisplayed == 'Theme4d'}">
+            <apex:actionFunction name="emailTemplateOnChangeJs" action="{!emailTemplateOnChange}" rerender="emailContact"></apex:actionFunction>
+            <apex:actionFunction name="emailContactOnChangeJs" action="{!emailContactOnChange}" rerender="emailTemplateOption"></apex:actionFunction>
+            
+            <div class="slds slds-p-around--xx-large slds-container--large slds-container--center"  id="lightningBlock">
+                 <apex:pageMessages id="showmsg"></apex:pageMessages>
+                 <apex:outputPanel id="Searchpanel">
+                         <div class="slds-page-header" role="banner">
+                              <div class="slds-grid">
+                                    <div class="slds-col slds-has-flexi-truncate">
+                                          <div class="slds-media">
+                                                <div class="slds-media__body">
+                                                     <div class="slds-media__figure" style="float:left;">
+                                                   <apex:image id="timesheetIcon" value="{!URLFOR($Resource.Krow__Krow_SLDS_UI, '/images/invoice.png')}" width="48" height="48" />
+                                                    </div>
+                                                    
+                                                        <div style="float:left;">
+                                                              <p class="slds-text-heading--label">Sales Invoice</p>
+                                                              <div class="slds-grid">
+                                                                <h1 class="slds-text-heading--medium slds-m-right--small slds-truncate slds-align-middle" title="Record Title">Email Document</h1>
+                                                                <div class="slds-col slds-shrink-none">                         
+                                                                </div>
+                                                              </div>
+                                                        </div> 
+                                          </div>
+                                     </div>
+                               </div>
+                         </div>
+                  </div><br/><!--Page Header Div Ends Here  -->         
+                                      <!-- <apex:PageBlock id="lightningBlock">
+                                                                <apex:pageblockSection title=""> -->
+                                                                
+                                    <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size--1-of-5" style="padding-left: 20px;">
+                                                   <label class="slds-form-element__label">  Email Template: </label> 
+                                           </div>
+                                           <div class="slds-col slds-size--1-of-5">
+                                           		 <apex:outputPanel layout="none" id="emailTemplateOption">
+	                                                 <apex:selectList id="emailTemplates" value="{!settingTemplateId}"  multiselect="false" size="1" styleClass="slds-select" style="font-weight: 300; font-size: 15px;">
+                                                     	<apex:selectOptions value="{!TemplateList}"/>
+                                                	</apex:selectList>
+                                                </apex:outputPanel>
+                                           </div>
+                                           <div class="slds-col slds-size--1-of-5"> </div>
+                                           <div class="slds-col slds-size--1-of-5"> </div>
+                                           <div class="slds-col slds-size--1-of-5"> </div>
+                                    </div><br/>
+                                    
+                                    <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size--1-of-5" style="padding-left: 20px;">
+                                               <label class="slds-form-element__label"> To: </label> 
+                                            </div> 
+                                           <div class="slds-col slds-size--1-of-5">
+                                           		<apex:outputPanel layout="none" id="emailContact">
+                                                 <!--  <apex:inputText id="toEmailAddress" value="{!toEmailAddress}" html-placeholder="Enter email address" size="30" style="background-color: white; color: #16325c; border: 1px solid #d8dde6; border-radius: 4px; font-weight: 300; font-size: 17px;"/> -->
+                                            		<apex:inputField value="{!contactEmailFromInvoice.Krow__Contact__c}"  style="background-color: white; width:50%; color: #16325c; border: 1px solid #d8dde6; border-radius: 4px; font-weight: 300; font-size: 17px;"/>
+                                           		</apex:outputPanel>
+                                           </div>
+                                       <div class="slds-col slds-size--1-of-5"> </div>
+                                       <div class="slds-col slds-size--1-of-5"> </div>
+                                       <div class="slds-col slds-size--1-of-5"> </div>
+                                    </div><br/>
+                                    <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size--1-of-5" style="padding-left: 20px;">
+                                               <label class="slds-form-element__label"> Additional To: </label> 
+                                            </div>
+                                            <div class="slds-col slds-size--1-of-5">
+                                                 <apex:inputText id="additionalToEmailAddress" value="{!additionalToEmailAddress}" html-placeholder="Enter comma separated multiple email address" size="60" style="background-color: white; color: #16325c; border: 1px solid #d8dde6; border-radius: 4px; font-weight: 300; font-size: 17px;"/>
+                                           </div>
+                                     <div class="slds-col slds-size--1-of-5"> </div>
+                                      <div class="slds-col slds-size--1-of-5"> </div>
+                                      <div class="slds-col slds-size--1-of-5"> </div>
+                                    </div><br/>
+                                    
+                                    <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size--1-of-5" style="padding-left: 20px;">
+                                               <label class="slds-form-element__label"> From: </label> 
+                                            </div> 
+                                           <div class="slds-col slds-size--1-of-5">
+                                                 <apex:selectList id="emailFrom" value="{!selectedFromEmailId}" multiselect="false" size="1" styleClass="slds-select" style="font-weight: 300; font-size: 15px;">
+                                                     <apex:selectOptions value="{!orgWideEmails}"/>
+                                                </apex:selectList>
+                                           
+                                           </div>
+                                       <div class="slds-col slds-size--1-of-5"> </div>
+                                       <div class="slds-col slds-size--1-of-5"> </div>
+                                       <div class="slds-col slds-size--1-of-5"> </div>
+                                    </div><br/>
+                                    
+                                    <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size--1-of-5" style="padding-left: 20px;">
+                                               <label class="slds-form-element__label"> Cc: </label> 
+                                            </div>
+                                           <div class="slds-col slds-size--1-of-5">
+                                                 <apex:inputText id="ccEmailAddress" value="{!ccEmailAddress}" html-placeholder="Enter comma separated multiple email address" size="60" style="background-color: white; color: #16325c; border: 1px solid #d8dde6; border-radius: 4px; font-weight: 300; font-size: 17px;"/>
+                                           </div>
+                                     <div class="slds-col slds-size--1-of-5"> </div>
+                                      <div class="slds-col slds-size--1-of-5"> </div>
+                                      <div class="slds-col slds-size--1-of-5"> </div>
+                                    </div><br/>
+                        
+                                   <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size--1-of-5" style="padding-left: 20px;">
+                                                   <label class="slds-form-element__label">  Attachment: </label> 
+                                           </div>
+                                           <div class="slds-col slds-size--4-of-5">
+                                             <a href="/servlet/servlet.FileDownload?file={!getAttachmentId}"> {!getAttachmentDetails} </a>
+                                             	<apex:OutputPanel id="invoiceAttachmentPanel">
+	                                           		 <apex:repeat value="{!selectedAttactmentmap}" var="fieldKey">
+	                                           		 <br/>
+	                                           		 	<apex:repeat value="{!selectedAttactmentmap[fieldKey]}" var="typeKey">
+	                                           		 		<apex:OutputPanel rendered="{! typeKey == 'Attachment' }" >	
+			                                           		 	<a href="/servlet/servlet.FileDownload?file={!fieldKey}"> {!selectedAttactmentmap[fieldKey][typeKey]}</a>
+			                                           		 	<span style="cursor: pointer;" class="slds-button__icon" aria-hidden="true" title="Remove" onclick="removeInvoiceAttachmentJs('{!fieldKey}');">
+																	<img width="18px" src="{!URLFOR($Resource.Krow_Slds_New_UI, '/assets/icons/utility/close_60.png')}" />
+																</span>			                                           		 	
+	                                           		 		</apex:OutputPanel>
+	                                           		 		<apex:OutputPanel rendered="{! typeKey == 'File' }" >	
+			                                           		 	<a href="/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId={!fieldKey}"> {!selectedAttactmentmap[fieldKey][typeKey]}</a>
+			                                           		 	<span style="cursor: pointer;" class="slds-button__icon" aria-hidden="true" title="Remove" onclick="removeInvoiceAttachmentJs('{!fieldKey}');">
+																	<img width="18px" src="{!URLFOR($Resource.Krow_Slds_New_UI, '/assets/icons/utility/close_60.png')}" />
+																</span>
+	                                           		 		</apex:OutputPanel>
+	                                           		 	</apex:repeat>
+										           </apex:repeat>
+									           </apex:OutputPanel>
+                                           </div>
+                                    </div><br/>
+                                     
+                                     <div class="slds-grid slds-wrap">
+                                        <div class="slds-col slds-size--1-of-2" style="padding-left: 20px;">
+                                            <apex:commandButton action="{!sendEmailOnLightning}" styleClass="slds-button slds-button--neutral" value="Send"  id="theSendButton" />
+                                          <apex:commandButton action="{!goToBack}" styleClass="slds-button slds-button--neutral" value="Cancel" id="theCancelButton"/>
+                                        </div>
+                                    </div>
+               </apex:outputPanel>
+              </div>
+          </apex:outputPanel>
+ </html>
+ </apex:form>
+</apex:page>

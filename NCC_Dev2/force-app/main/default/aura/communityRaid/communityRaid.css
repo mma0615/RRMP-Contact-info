@@ -1,0 +1,85 @@
+.THIS .slds-th__action{ 
+    justify-content: center !important;
+}
+
+.THIS .slds-form-element__label {
+    display: none;
+}
+
+.THIS .slds-select_container{
+    max-width: 30rem;
+    margin: 8px 0;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 0px;
+    max-height: 49px;
+    overflow: hidden;
+    
+}
+.THIS .contactus-section-title{
+    height: 11rem;
+}
+
+.THIS .slds-select{
+    max-width: 30rem;
+    min-height: 49px;
+    margin: 0px 0;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 0px;
+    max-height: 49px;
+    overflow: hidden;
+    
+}
+
+.THIS.parkinglot-table{
+    padding-left: 15px;
+    background-color: #ffffff;
+}
+
+.THIS .table th {
+    text-align: center;
+}
+
+.THIS lightning-primitive-header-actions {
+    display: none;
+}
+.THIS lightning-primitive-icon {
+    display: none;
+}
+
+.THIS .font-body {
+    margin-right: 25px;
+    margin-left: -60px;
+}
+.THIS .font-header {
+    margin-right: 25px;
+    margin-left: -60px;
+}
+
+/* Phone */
+@media screen and (max-device-width: 640px) { 
+    
+    .THIS .contactus-section-title {
+        writing-mode: unset;
+        transform: none;
+        text-align: right;
+        margin: 1rem 0rem;
+        height: 2rem;
+        border-bottom: 0.08rem solid #8b8c4a;
+        border-left: none;
+    }
+    .THIS .contactus-section{
+        display: inline-block;
+    }
+    .THIS .contactus-container-outer {
+        padding: 1rem 1rem 5rem 0px;
+    }
+    .THIS .input-text{
+        width: 96%;
+    }
+    .THIS .btn-base {
+        width: 100%;
+    }
+    
+}

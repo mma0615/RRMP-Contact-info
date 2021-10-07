@@ -1,0 +1,318 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="StudentTermsTableController">
+    <aura:attribute name="data" type="Object" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="isEditModeOn" type="Boolean" />
+    <aura:attribute name="invalidDate" type="Boolean" />
+    <aura:attribute name="saveNotification" type="Boolean" />
+    <aura:attribute name="isLoading" type="Boolean" />
+    <aura:attribute name="modifiedRecords" type="List" />
+    <aura:attribute name="picklists" type="List" />
+    <aura:attribute name="programTypeList" type="List" />
+    <aura:attribute name="selectedRows" type="List" />
+    <aura:attribute name="selectedRowIds" type="List" />
+    <aura:attribute name="userAccount" type="string" />
+    <aura:attribute name="updateErrors" type="List" />
+    <aura:attribute name="batchCount" type="Integer" default="0" />
+    <aura:attribute name="error" type="String" default="" />
+
+    <ltng:require styles="{! $Resource. datatable2 + '/datatables.min.css'}" scripts="{!join(',', 
+             $Resource.jquery224 , 
+             $Resource.datatable2 + '/datatables.min.js')
+             }" />
+
+    <!-- On initialization of the component, kick off the series of functions to construct our data table, starting with the doInit function in the controller.js file -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- Method for updating the table after the completion of a  save -->
+    <aura:method name="finishSaving" action="{!c.finishSaving}" description="Update table after save">
+        <aura:attribute name="result" type="String" />
+        <aura:attribute name="data" type="Object" />
+        <aura:attribute name="isModalOpen" type="Boolean" default="false" />
+        <aura:attribute name="message" type="String" default="" />
+    </aura:method>
+
+    <!-- our loading icon, which is triggered in the code by setting isLoading to TRUE -->
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Loading" />
+    </aura:if>
+
+    <!--The invalidDate parameter is set by the checkDate function in our Helper.js. If that returns FALSE, then we show the error message-->
+    <aura:if isTrue="{!v.invalidDate}">
+        <div align="center">Sorry, this editor is not currently available for users. Please notify DSF if you have any questions or concerns. Thank you</div>
+    </aura:if>
+
+    <!--Otherwise, we render the table-->
+    <aura:if isTrue="{!!v.invalidDate}">
+        <div class="slds-table_edit_container slds-is-relative">
+            <div class="table-row">
+                <div id="top-buttons">
+                    <lightning:buttonMenu label="Export" aura:id="exportButton" onselect="{!c.exportSelect}" alternativeText="Show menu">
+                        <lightning:menuItem value="export" label="Export all Records" />
+                        <lightning:menuItem value="exportSelected" label="Export selected Records" />
+                    </lightning:buttonMenu>
+                </div>
+                <div id="warning-message" align="center">
+                    <span style="background:#36fd2f; color:#333; padding:.5em; display:block;">Don't forget to save your work!</span>
+                </div>
+                <div id="top-search">
+                </div>
+            </div>
+            <div id="table-container">
+                <table class="display dataTable cell-border" tabindex="0" auraId="datatableId" aria-multiselectable="true" id="datatableId" role="grid">
+                    <thead>
+                        <tr>
+                            <th class="no-sort hard_left">
+                            </th>
+                            <th class="StudentInfo search-input">
+                                <span>
+                                    Student Name
+                                </span>
+                            </th>
+                          <!-- <th class="editable dsf search-input">
+                                Test Field
+                            </th>-->
+                            <th class="editable dsf search-input">
+                                Student ID
+                            </th>
+                            <th class="dsf search-input">
+                                Term
+                            </th>
+                            <th class="dsf search-input">
+                                Cohort
+                            </th>
+                            <th class="picklist dsf">
+                                New/Renewal
+                            </th>
+                            <!-- If the user is associated with Emily Griffith Technical College then show Enrollment Status -->
+                            <aura:if isTrue="{!v.userAccount == '001j000000W7QYuAAN'}">
+                                <th class="enrollment picklist editable">
+                                    Enrollment Status
+                                </th>
+                            </aura:if>
+                            <th class="editable enrollment picklist">
+                                Program Enrolled
+                            </th>
+                            <!-- If the user is not associated with Emily Griffith Technical College then show Enrollment Type -->
+                            <aura:if isTrue="{!v.userAccount != '001j000000W7QYuAAN'}">
+                                <th class="enrollment picklist editable">
+                                    Enrollment Type
+                                </th>
+                            </aura:if>
+                            <th class="enrollment picklist">
+                                Part-Time Form Approved?
+                            </th>
+                            <th class="financial picklist" title="“No” in this field indicates that the finalist is not eligible for federal aid.  Follow your institutional aid policy for these students to complete the remaining FA fields.">
+                                Federal FA Eligible<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th class="financial picklist" title="Deadline for DSF Finalists to submit all requested form(s) to the financial aid office to have a complete financial aid file.">
+                                DSF Deadline for FA Requirements<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th class="financial picklist editable" title="If required documents were turned in by July 15, the student should be marked as meeting the deadline, regardless of when the FA office processed the documents. N/A should be marked only if the student is not eligible for institutional FA &amp; federal aid.">
+                                Did Student Complete FA Reqs by DSF Deadline?<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th class="picklist editable financial" title="This field should reflect the student’s current FA status.  If the current status is not complete, please update the student’s status once it is Complete/Eligible for Disbursement.  If your institution does NOT provide institutional financial aid for DACA/ASSET students, indicate their FA status here as 'DACA/ASSET'.">
+                                Current Financial Aid Status<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th class="editable search-input financial">
+                                Final EFC Upon FA File Completion
+                            </th>
+                            <th class="picklist editable financial" title="This information is required for DSF to award COSI MSS funds to ASSET-qualified students. Contact DSF with questions.">
+                                Did Student Complete College's Process to be Considered for In-State Tuition under ASSET (if applicable)<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th class="picklist financial editable" title="This information is required for DSF to award COSI MSS funds to ASSET-qualified students. Contact DSF with questions.">
+                                Did Student Qualify for Resident Tuition under ASSET (if applicable)<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th class="editable picklist academic">
+                                SAP Status
+                            </th>
+                            <th class="editable academic search-input">
+                                College Cumulatitve GPA
+                            </th>
+                            <th class="editable picklist academic">
+                                Has Student Completed 4 Year Degree?
+                            </th>
+                            <th class="editable search-input">
+                                Comments
+                            </th>
+                            <th class="currency search-input">
+                                DSF Award Amount
+                            </th>
+                            <th class="picklist" title="Finalists who qualified for a DSF payment this term will show as “Eligible – Award Calculated” or if finalist is ineligible, this field will list the ineligibility reason.'">
+                                DSF Award Status<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                            <th title="'Fail' in this field indicates any reason(s) the student is ineligible for a DSF award this term.  Hover over the results for each student to see the full list of eligibility checks that were performed.">
+                                Eligibility<br />
+                                <span>(Hover for info)</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col" class="no-sort hard_left select-all" style="padding:0 3px;">
+                                <div class="pad">
+                                    <input type="checkbox" class="uiInputCheckbox" tabindex="-1" id="select-all" />
+                                </div>
+                            </th>
+                            <th scope="col" class="StudentInfo">
+                            </th>
+                          <!--  <th scope="col">
+                            </th>-->
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <!-- If the user is associated with Emily Griffith Technical College render cell for Enrollment Status -->
+                            <aura:if isTrue="{!v.userAccount == '001j000000W7QYuAAN'}">
+                                <th scope="col">
+                                </th>
+                            </aura:if>
+                            <th scope="col">
+                            </th>
+                            <!-- If the user is not associated with Emily Griffith Technical College render cell for Enrollment Type -->
+                            <aura:if isTrue="{!v.userAccount != '001j000000W7QYuAAN'}">
+                                <th scope="col">
+                                </th>
+                            </aura:if>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th scope="col">
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.data}" var="row" indexVar="rowIndex">
+                            <tr id="{!row.Id}" class="{!'slds-hint-parent id-'+row.Id}">
+                                <td class="hard_left" role="gridcell hard_left" tabindex="-1">
+                                    <input type="checkbox" class="uiInputCheckbox rowSelect" id="{!rowIndex}" tabindex="-1" />
+                                </td>
+                                <td data-search="{!row.FirstName + ' ' + row.LastName}" class="StudentInfo" role="gridcell" tabindex="-1">
+                                    <ui:outputRichText value="{!row.StudentInfo}" />
+                                </td>
+                              <!--  <td tabindex="1" role="gridcell" data-id="{!row.Id}" data-row="{!rowIndex}" data-name="Test_Field__c" data-value="{!row.Test_Field__c}" data-type="text" data-length="255" class="editable tab">
+                                    {!row.Test_Field__c}
+                                </td>-->
+                                <td tabindex="1" role="gridcell" data-id="{!row.Id}" data-row="{!rowIndex}" data-name="Student_ID_at_College__c" data-value="{!row.Student_ID_at_College__c}" data-type="text" data-length="255" class="editable tab">
+                                    {!row.Student_ID_at_College__c}
+                                </td>
+                                <td role="gridcell" class="tab" tabindex="1">
+                                    {!row.Term_Year__c}
+                                </td>
+                                <td tabindex="1" role="gridcell" class="tab">
+                                    {!row.Cohort}
+                                </td>
+                                <td tabindex="1" role="gridcell" class="tab">
+                                    {!row.ApplicationType}
+                                </td>
+                                <!-- If the user is associated with Emily Griffith Technical College then show Enrollment Status -->
+                                <aura:if isTrue="{!v.userAccount == '001j000000W7QYuAAN'}">
+                                    <td role="gridcell" tabindex="1" title="{!row.Enrollment_Status__c}" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Enrollment_Status__c}" data-name="Enrollment_Status__c" data-type="picklist" class="editable tab">
+                                        {!row.Enrollment_Status__c}
+                                    </td>
+                                </aura:if>
+                                <td role="gridcell" tabindex="1" class="editable picklist program-enrolled tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Program_Enrolled__c}" data-name="Program_Enrolled__c" data-type="picklist">
+                                    {!row.Program_Enrolled__c}
+                                </td>
+                                <!-- If the user is not associated with Emily Griffith Technical College then show Enrollment Type -->
+                                <aura:if isTrue="{!v.userAccount != '001j000000W7QYuAAN'}">
+                                    <td role="gridcell" tabindex="1" title="{!row.Enrollment_Type__c}" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Enrollment_Type__c}" data-name="Enrollment_Type__c" data-type="picklist" class="editable tab">
+                                        {!row.Enrollment_Type__c}
+                                    </td>
+                                </aura:if>
+                                <td tabindex="1" role="gridcell" class="slds-truncate tab">
+                                    {!row.Full_Time_Enrollment_Req_Exemption__c}
+                                </td>
+                                <td role="gridcell" class="tab" tabindex="1">
+                                    {!row.FederalFAEligible}
+                                </td>
+                                <td role="gridcell" class="tab" tabindex="1">
+                                    {!row.Financial_Aid_Deadline__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.FA_File_Completion_Deadline__c}" data-name="FA_File_Completion_Deadline__c" data-type="picklist">
+                                    {!row.FA_File_Completion_Deadline__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Financial_Aid_Status__c}" data-name="Financial_Aid_Status__c" data-type="picklist">
+                                    {!row.Financial_Aid_Status__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Final_EFC_Upon_FA_File_Completion__c}" data-name="Final_EFC_Upon_FA_File_Completion__c" data-min="0" data-max="100000" steps="1" data-type="number">
+                                    {!row.Final_EFC_Upon_FA_File_Completion__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable tab" title="{!row.Applied_for_ASSET__c}" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Applied_for_ASSET__c}" data-name="Applied_for_ASSET__c" data-type="picklist">
+                                    {!row.Applied_for_ASSET__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Asset_Application_Approved__c}" data-name="Asset_Application_Approved__c" data-type="picklist">
+                                    {!row.Asset_Application_Approved__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.SAP_Status__c}" data-name="SAP_Status__c" data-type="picklist">
+                                    {!row.SAP_Status__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-min="0" data-max="4" data-step="any" data-value="{!row.Cumulative_GPA_Entering_Term__c}" data-name="Cumulative_GPA_Entering_Term__c" data-type="number">
+                                    {!row.Cumulative_GPA_Entering_Term__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-name="Has_Student_Completed_4_Year_Degree__c" data-value="{!row.Has_Student_Completed_4_Year_Degree__c}" data-type="picklist">
+                                    {!row.Has_Student_Completed_4_Year_Degree__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="editable textarea tab" data-id="{!row.Id}" data-row="{!rowIndex}" data-value="{!row.Comments__c}" title="{!row.Comments__c}" data-name="Comments__c" data-type="textarea">
+                                    {!row.Comments__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="tab">
+                                    {!row.Final_Scholarship_Payment_Amount__c}
+                                </td>
+                                <td role="gridcell" title="{!row.Final_Award_Status__c}" tabindex="1" class="tab">
+                                    {!row.Final_Award_Status__c}
+                                </td>
+                                <td role="gridcell" tabindex="1" class="eligibility tab" title="{!row.x_eligibility__c}">
+                                    <ui:outputRichText value="{!row.x_eligibility__c}" />
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+                <aura:if isTrue="{!v.isEditModeOn}">
+                    <div class="ctFooter slds-modal__footer">
+                        <div class="slds-text-color_error slds-p-bottom_small" style="{!v.error?'display:block':'display:none'}">{!v.error}</div>
+                        <div class="slds-grid slds-grid_align-center">                            
+                            <lightning:button label="Save" variant="brand" onclick="{!c.saveTableRecords}" />
+                            <lightning:button label="Save and Notify DSF" variant="brand" onclick="{!c.saveTableRecordsAndNotify}" />
+                            <lightning:button label="Cancel" variant="brand" onclick="{!c.cancelSave}" />
+                        </div>
+                    </div>
+                </aura:if>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

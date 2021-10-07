@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Event for communication between DSF_Login and DSF_LoginTabs components">
+    <aura:attribute name="showTabs" type="Boolean"/>
+</aura:event>

@@ -1,0 +1,28 @@
+<apex:page showHeader="false" title="{!$Label.site.site_under_construction}">
+  
+    <apex:define name="icon">
+      <apex:image url="{!URLFOR($Resource.DSF_Resources, 'DSF_Logo.png')}"/>
+    </apex:define>
+    <br/>
+    <br/>
+    <apex:define name="error">
+    
+      <apex:outputText escape="false" styleClass="title" value="The DSF Student Portal, is on a new site. Please login at " style="font-size: 40px;">
+     
+        <apex:param value="{!$Site.BaseUrl}" />
+      </apex:outputText>
+       <apex:outputLink value="portal.denverscholarship.org" style="font-size: 40px;" onclick="window.open('https://portal.denverscholarship.org');">portal.denverscholarship.org</apex:outputLink>
+      <br/>
+      <br/>
+      <apex:outputText value="To get in touch or for questions, please use the email form at "  style="font-size: 40px;"/>
+      <apex:outputLink value="portal.denverscholarship.org/s/login/?language=en_US&amp;pageState=Contact" style="font-size: 40px;" onclick="window.open('https://portal.denverscholarship.org/s/login/?language=en_US&pageState=Contact');">portal.denverscholarship.org/s/login/?language=en_US&amp;pageState=Contact</apex:outputLink>
+      <apex:outputText value=" or call 303-640-6564." style="font-size: 40px;"/>
+      
+
+
+      
+      
+    
+   </apex:define>
+  
+</apex:page>

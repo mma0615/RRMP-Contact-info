@@ -1,0 +1,121 @@
+.THIS .columnFont{
+    font-size:      16px;
+    color: MidnightBlue;
+}
+
+.THIS .signUpIns {
+    height: 30%;
+    width: 70%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    border: 2px solid none;
+}
+
+.THIS .signUpInsLabel{
+    font-size:      16px;
+    font-weight:    bold;
+    padding: 7px 7px 7px 7px;
+    background-color: lightgray;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.THIS .signUpInsText{
+    min-height: 10vh;
+    font-size:      14px;
+    padding: 7px 7px 7px 7px;
+    background-color: white;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.THIS .tableClass{
+    min-height: 50vh;
+    width: 70%;
+   	margin-left: auto;
+    margin-right: auto;
+    background-color: none;
+    overflow-x: auto;
+}
+
+.THIS .saveClass{
+    float:right;
+    margin-right: 5px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.THIS .saveClass2{
+    float:right;
+    margin-right: 5px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.THIS .returnClassContainer{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.THIS .returnClassContainer{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.THIS .returnClass{
+    float : right;
+    margin-bottom: 30px;
+}
+
+.THIS .titleClass{
+    float : left;
+    font-size:      16px;
+    font-weight:    bold;
+    margin-bottom: 30px;
+}
+
+.THIS .clearfix::after {
+  clear: both;
+  display: block;
+}
+
+.THIS .noRolesClass{
+    min-height: 50vh;
+    font-size:      18px;
+    font-weight:    bold;
+    background-color: none;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 50px;
+   	margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50vh;       /* The same as your div height */
+}
+
+/*Tablet*/
+@media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) { 
+    .THIS .containerDiv {
+        width: 100%;
+        padding: 2rem .5rem;
+        min-height: 1224px;
+    }
+}
+
+/*Phone*/ 
+@media screen and (max-device-width: 640px) { 
+    .THIS .containerDiv {
+        width: 100%;
+        padding: 2rem .5rem;
+    }
+}

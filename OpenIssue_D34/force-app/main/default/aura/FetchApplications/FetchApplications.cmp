@@ -1,0 +1,10 @@
+<aura:component controller="ApplicationSubmissionService"
+                implements="force:lightningQuickAction" access="global">
+<div class="slds-page-header" role="banner">
+   <h1 class="slds-page-heading--label">Are you sure you want to fetch applications from Applyd?</h1>
+</div>
+     
+ <lightning:button label="Yes" onclick="{!c.echo}" class="slds-m-top--medium"/>
+ <lightning:button label="No" onclick="{!c.cancelCall}" class="slds-m-top--medium"/>
+ 
+</aura:component>

@@ -1,0 +1,25 @@
+<design:component >
+    <design:attribute name="headingImg" label="Heading Image" default=""/>
+    <design:attribute name="heading" label="Heading" default=""/>
+    <design:attribute name="contactInfo" label="Contact Info" default=""/>
+    <design:attribute name="firstBox" label="First Box Text" default=""/>
+    <design:attribute name="firstName" label="Preferred First Name" default=""/>
+    <design:attribute name="middleName" label="Middle Name" default=""/>
+    <design:attribute name="lastName" label="Last Name" default=""/>
+    <design:attribute name="suffix" label="Suffix" default=""/>
+    <design:attribute name="mobilePhone" label="Mobile Phone Number" default=""/>
+    <design:attribute name="alternatePhone" label="Alternate Phone Number" default=""/>
+    <design:attribute name="checkboxQuestion" label="Checkbox Question" default=""/>
+    <design:attribute name="checkboxYes" label="Checkbox Affirmative" default=""/>
+    <design:attribute name="checkboxNo" label="Checkbox Negative" default=""/>
+    <design:attribute name="secondBox" label="Second Box Text" default=""/>
+    <design:attribute name="registeredEmail" label="Registered Email Address" default=""/>
+    <design:attribute name="alternateEmail" label="Alternate Email Address" default=""/>
+    <design:attribute name="emailAlert" label="Email Alert Message" default=""/>
+    <design:attribute name="settings" label="Settings" default=""/>
+    <design:attribute name="pwdAlert" label="Password Alert Message" default=""/>
+    <design:attribute name="pwdErrorMsg" label="Password Pattern Error Message" default="A password must contain at least eight characters, including numbers and letters."/>
+    <design:attribute name="successMsg" label="Succesfully Saved Message" default=""/>
+    <design:attribute name="errorMsg" label="Error While Saving Message" default=""/>
+    <design:attribute name="saveBtn" label="Save Button" default=""/>
+</design:component>

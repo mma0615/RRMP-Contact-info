@@ -1,0 +1,22 @@
+<aura:component controller="VotingApex" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="likess" type="Integer" default="0"/>
+    <aura:attribute name="dislike" type="Integer" default="0"/>
+    <aura:attribute name="articleids" type="String"/>
+    <aura:attribute name="disableVoteUp" type="Boolean" default="false"/>
+    <aura:attribute name="disableVotedown" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+       <div style="paddiing:bottom:3%"> 
+           
+   
+    <div class="slds-grid" style="float:right;">
+        <div>
+            <lightning:buttonIcon iconName="utility:like" alternativeText="like" title="like" disabled="{!v.disableVoteUp}" onclick="{!c.handlelike}"/>
+            <div>&nbsp;&nbsp;&nbsp;{!v.likess}</div>
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div>
+			<lightning:buttonIcon iconName="utility:dislike"  alternativeText="dislike" title="dislike" disabled="{!v.disableVotedown}" onclick="{!c.handledislike}"/>
+            <div>&nbsp;&nbsp;&nbsp;{!v.dislike}</div>
+        </div>
+    </div>
+           </div>
+</aura:component>

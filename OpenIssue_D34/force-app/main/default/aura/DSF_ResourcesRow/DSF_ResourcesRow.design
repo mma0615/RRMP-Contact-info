@@ -1,0 +1,5 @@
+<design:component >
+    <design:attribute name="RowIcon"  label="Icon" default=""/>
+    <design:attribute name="RowLink"  label="Link" default=""/>
+    <design:attribute name="RowItem"  label="Item" default=""/>
+</design:component>

@@ -1,0 +1,399 @@
+<aura:component controller="countdowntimercontroller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="second" type="string"/>
+    <aura:attribute name="minute" type="string"/>
+    <aura:attribute name="hour" type="string"/>
+    <aura:attribute name="day" type="string"/>
+    <aura:attribute name="msg" type="String"/>
+    <aura:attribute name="welcomeMessage" type="String"/>
+    <aura:attribute name="connectId" type="String"/>
+    <aura:attribute name="defaultProfilePic" type="String"/>
+    
+    
+    <aura:attribute name="telemeet" type="TeleMeet__c"/>
+    <aura:attribute name="connectAgenda" type="Connect_Agenda__c[]"/>
+    <aura:attribute name="connectParticipant" type="TeleMeet_Participant__c[]"/>
+    <aura:attribute name="telehealthConsulGrp" type="Telehealth_Consultation_Group__c[]"/>
+    
+    <aura:attribute name="timeZoneSidKey" type="String"/>
+    <aura:attribute name="dateTimeNow" type="DateTime"/>
+    <aura:attribute name="isCountdown" type="Boolean" default="false"/>
+    <aura:attribute name="isStarted" type="Boolean" default="false"/>
+    <aura:attribute name="telStatus" type="String"/>
+    <aura:attribute name="amazonchime" type="String"/>
+    
+    
+    <aura:attribute name="showConfirmDialog" type="boolean" default="false"/>
+    
+    <aura:attribute name="connectAgendaId" type="string" />
+    <aura:attribute name="description" type="string" />
+    <aura:attribute name="castarttime" type="datetime"/>
+    <aura:attribute name="caendtime" type="datetime"/>
+    
+    
+    <aura:attribute name="myMedications" type="string"/>
+    
+    
+    <aura:attribute name="SFTimeZoneMap" type="Map"/>
+    <aura:attribute name="SFTimeZone" type="List"/>
+    
+    
+    <aura:attribute name="connectFiles" type="ContentDocumentLink[]"/>
+    
+    <!--ltng:require scripts="{!$Resource.amazonconnect}"
+    	afterScriptsLoaded="{!c.doInit}" /-->
+    
+    
+    <div>
+        <aura:if  isTrue="{!and(not($Browser.isPhone), not($Browser.isTablet))}" >
+            <div class="slds virtuvisit">
+                <div class="header">
+                    <div class="logo">
+                        <img src="{!$Resource.communityLogos + '/communityEventHeaderLogo.png'}" />
+                    </div>
+                    <div class="user">
+                        <div class="user-name">{!v.telemeet.Resource_Contact__r.Name}</div>
+                        <div class="user-profile">     
+                            <div class="slds-media__figure">
+                                <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                    <aura:if isTrue="{!v.telemeet.Contact__r.Profile_Picture_URL__c != null}">
+                                        <img alt="" src="{!v.telemeet.Contact__r.Profile_Picture_URL__c}" />
+                                        <aura:set attribute="else">
+                                            <img alt="" src="{!v.defaultProfilePic}" />
+                                        </aura:set>
+                                    </aura:if> 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="content-1">
+                        <div class="left">
+                            <img src="{!$Resource.communityLogos + '/communityEventLogo.jpg'}" />
+                        </div>
+                        <div class="center">
+                            {!v.telemeet.Encounter__r.Service__r.Name} with {!v.telemeet.Contact__r.Name}
+                        </div>
+                        <div class="right">
+                            <img src="{!$Resource.communityLogos + '/virtuvisitLogo.png'}"  />
+                        </div>
+                    </div>
+                    <div class="content-2">
+                        <div class="left">
+                            <div class="timer">
+                                <aura:if isTrue="{!v.isCountdown}">
+                                    <div class="timerHolder" aura:id="timerHolder">
+                                        <span class="">{!v.telStatus}</span>
+                                        <div class="slds-grid timer" style="margin-left:5px;">
+                                            <div class="slds-col slds-size--3-of-12">
+                                                <div id="day_holder">
+                                                    <div id="daysBox" >{!v.day}</div>
+                                                    <center><b>DAYS</b></center>
+                                                    <div class="colon-separator">:</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="slds-col slds-size--3-of-12">
+                                                <div id="hours_holder">
+                                                    <div  id="hoursBox"> {!v.hour}</div>
+                                                    <center><b>HOURS</b></center>
+                                                    <div class="colon-separator">:</div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size--3-of-12">
+                                                <div id="minutes_holder">
+                                                    <div id="minsBox" > {!v.minute} </div>
+                                                    <center><b>MIN</b></center>
+                                                    <div class="colon-separator">:</div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size--3-of-12">
+                                                <div id="seconds_holder">
+                                                    <div id="secsBox" > {!v.second} </div>
+                                                    <center><b>SEC</b></center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aura:if> 
+                                <!--<aura:if isTrue="{!v.isStarted}">
+                                <div class="timerHolder telemeet-started" >
+                                    <br/>
+                                    <span>{!v.telStatus}</span>
+                                    <div class="slds-grid timer" style="margin-left:5px;">
+                                        <div class="slds-col slds-size-3-of-12">
+                                            <div id="minutes_holder">
+                                                <div id="minsBox" > {!v.minute} </div>
+                                                <center><b>MIN</b></center>
+                                            </div>
+                                        </div>
+                                        <div class="slds-col slds-size-3-of-12">
+                                            <div id="seconds_holder">
+                                                <div id="secsBox" > {!v.second} </div>
+                                                <center><b>SEC</b></center>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </aura:if> -->
+                            </div>
+                            <div class="consultation">Consultation Date
+                                <b>
+                                    <lightning:formattedDateTime value="{!v.telemeet.Start_Date_Time__c}" year="numeric" month="short" day="2-digit" hour="numeric" minute="2-digit" hour12="true"
+                                                                 weekday="short" timeZone="{!v.timeZoneSidKey}"/>
+                                    &nbsp; {!v.telemeet.Time_Zone__c}
+                                </b>
+                            </div>
+                            <div class="welcome-message">{!v.welcomeMessage}</div>
+                            <div class="consultation-header">Here is what to expect for this meeting</div>
+                            <!--<div class="consultation-content">
+                                <div class="consultation-team" aura:id="consultation-team">
+                                    <div class="consultation-team-content" >
+                                        <div class="consultation-profile">      
+                                            <img alt="" src="{!$Resource.communityLogos + '/communityConsultationTeamHeader.png'}" />
+                                        </div>
+                                        <div class="consultation-member">
+                                            <div class="consultation-position-header">Consultation Team</div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <aura:iteration items="{!v.connectParticipant}" var="conPart">
+                                        <div class="consultation-team-content" >
+                                            <div class="consultation-profile">                                  
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                                        <aura:if isTrue="{!conPart.Contact__r.Profile_Picture_URL__c != null}">
+                                                            <img alt="" src="{!conPart.Contact__r.Profile_Picture_URL__c}" />
+                                                            <aura:set attribute="else">
+                                                                <img alt="" src="{!v.defaultProfilePic}" />
+                                                            </aura:set>
+                                                        </aura:if> 
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="consultation-member">
+                                                <div class="consultation-position">{!conPart.Role__c}</div>
+                                                <div class="consultation-name">{!conPart.Contact__r.Name}</div>
+                                            </div>
+                                        </div>
+                                    </aura:iteration>
+                                    <aura:iteration items="{!v.telehealthConsulGrp}" var="conPart">
+                                        <div class="consultation-team-content" >
+                                            <div class="consultation-profile">                                  
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                                        <aura:if isTrue="{!conPart.Contact__r.Profile_Picture_URL__c != null}">
+                                                            <img alt="" src="{!conPart.Contact__r.Profile_Picture_URL__c}" />
+                                                            <aura:set attribute="else">
+                                                                <img alt="" src="{!v.defaultProfilePic}" />
+                                                            </aura:set>
+                                                        </aura:if> 
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="consultation-member">
+                                                <div class="consultation-position">{!conPart.Role__c}</div>
+                                                <div class="consultation-name">{!conPart.Contact__r.Name}</div>
+                                            </div>
+                                        </div>
+                                    </aura:iteration>
+                                </div>
+                                <div class="consultation-schedule" aura:id="consultation-schedule">
+                                    <div class="consultation-schedule-header">
+                                        <img src="{!$Resource.communityLogos + '/communitycalendar.png'}" />
+                                        Consultation Schedule
+                                    </div>
+                                    <div class="consultation-schedule-content">
+                                        <aura:if isTrue="{!v.connectAgenda.length > 0}">
+                                            <div class="agenda-content">
+                                                <aura:iteration items="{!v.connectAgenda}" var="conAge">
+                                                    <div class="agenda">
+                                                        <div class="agenda-time">{!conAge.StartTime} - {!conAge.EndTime}
+                                                            <div class="agenda-status">
+                                                                <div>
+                                                                    <aura:if isTrue="{!conAge.Completed__c}">
+                                                                        <lightning:icon class="completed" iconName="action:approval" alternativeText="Approved" title="Approved" size="small" />
+                                                                        <aura:set attribute="else">
+                                                                            <div class="slds-media__figure">
+                                                                                <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                                                                    <div class="agenda-count">{!conAge.Count}</div>
+                                                                                </span>
+                                                                            </div>
+                                                                        </aura:set>
+                                                                    </aura:if> 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="agenda-info">
+                                                            <div class="agenda-details">{!conAge.Description__c}</div>
+                                                            <div class="agenda-assignee">{!conAge.Contact__r.Name}</div>
+                                                        </div>
+                                                    </div>
+                                                </aura:iteration>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                </div>
+                            </div>-->
+                            
+                            
+                            <div class="consultation-content">
+                                <div class="consultation-team consultation-content-half">
+                                    <div class="consultation-team-content" >
+                                        <div class="consultation-profile">      
+                                            <img alt="" src="{!$Resource.communityLogos + '/communityConsultationTeamHeader.png'}" />
+                                        </div>
+                                        <div class="consultation-member">
+                                            <div class="consultation-position-header">Summary Information</div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <aura:iteration items="{!v.connectParticipant}" var="conPart">
+                                        <div class="consultation-team-content" >
+                                            <div class="consultation-profile">                                  
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                                        <aura:if isTrue="{!conPart.Contact__r.Profile_Picture_URL__c != null}">
+                                                            <img alt="" src="{!conPart.Contact__r.Profile_Picture_URL__c}" />
+                                                            <aura:set attribute="else">
+                                                                <img alt="" src="{!v.defaultProfilePic}" />
+                                                            </aura:set>
+                                                        </aura:if> 
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="consultation-member">
+                                                <div class="consultation-position">{!conPart.Role__c}</div>
+                                                <div class="consultation-name">{!conPart.Contact__r.Name}</div>
+                                            </div>
+                                        </div>
+                                    </aura:iteration>
+                                    <aura:iteration items="{!v.telehealthConsulGrp}" var="conPart">
+                                        <div class="consultation-team-content" >
+                                            <div class="consultation-profile">                                  
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                                        <aura:if isTrue="{!conPart.Contact__r.Profile_Picture_URL__c != null}">
+                                                            <img alt="" src="{!conPart.Contact__r.Profile_Picture_URL__c}" />
+                                                            <aura:set attribute="else">
+                                                                <img alt="" src="{!v.defaultProfilePic}" />
+                                                            </aura:set>
+                                                        </aura:if> 
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="consultation-member">
+                                                <div class="consultation-position">{!conPart.Role__c}</div>
+                                                <div class="consultation-name">{!conPart.Contact__r.Name}</div>
+                                            </div>
+                                        </div>
+                                    </aura:iteration>
+                                </div>
+                                    
+                                <div class="consultation-schedule consultation-content-half">
+                                    <div class="consultation-schedule-header">
+                                        <img src="{!$Resource.communityLogos + '/medication.png'}" />
+                                        Patient Medications
+                                    </div>
+                                    <div class="consultation-schedule-content white">
+                                        <!--<lightning:textarea name="healthSummary"/>-->
+                                        <div class="content-result">
+                                            <lightning:formattedRichText value="{!v.telemeet.My_Medications__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="consultation-content">
+                                <div class="consultation-schedule consultation-content-half">
+                                    <div class="consultation-schedule-header">
+                                        <img src="{!$Resource.communityLogos + '/patientproblem.png'}" />
+                                        Patient Problems
+                                    </div>
+                                    <div class="consultation-schedule-content removeLabel white">
+                                        <!--<lightning:textarea name="myMedications" value="{!v.myMedications}"/>
+                                        <lightning:button variant="brand" label="Save"  onclick="{! c.saveMyMedications }" />-->
+                                        
+                                        <div class="content-result">
+                                            <lightning:formattedRichText value="{!v.telemeet.Patient_Problems__c}"/>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="consultation-schedule consultation-content-half">
+                                    <div class="consultation-schedule-header">
+                                        <!--<img src="{!$Resource.communityLogos + '/communitycalendar.png'}" />-->
+                                        HPI Notes
+                                    </div>
+                                    <div class="consultation-schedule-content white">
+                                        <!--<lightning:textarea name="healthSummary"/>-->
+                                        <div class="content-result">
+                                            <lightning:formattedRichText value="{!v.telemeet.HPI_Notes__c}"/>
+                                            
+                                            <!--<lightning:textarea name="myMedications" value="{!v.myMedications}"/>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <!-- files -->
+                            
+                            <div class="consultation-content">
+                                <div class="consultation-schedule consultation-content-full">
+                                    <div class="consultation-schedule-header">
+                                        <img src="{!$Resource.communityLogos + '/sharefile.png'}" />
+                                        Patient Files
+                                    </div>
+                                    <div class="consultation-schedule-content file-list">
+                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>File Name</th>
+                                                    <th>Type</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <aura:iteration items="{!v.connectFiles}" var="file">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="slds-truncate">{!file.ContentDocument.Title}</div></td>
+                                                        <td><div class="slds-truncate">{!file.ContentDocument.FileType}</div></td>
+                                                    </tr>
+                                                </aura:iteration>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="right" aura:id="right">
+                            <div class="toggle-amazon">
+                                <lightning:icon iconName="utility:new_window" onclick="{!c.expandAmazon}" aura:id="maximize" class="maximize" size="small"/>
+                                <lightning:icon iconName="utility:contract_alt" onclick="{!c.expandAmazon}" aura:id="minimize" class="minimize" size="small"/>
+                            </div>
+                            <div class="amazon-chime-content">
+                                <iframe width="100%" height="700px" style="border: none;" src="{!v.amazonchime}" allow="microphone; camera"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="logo"><img src="{!$Resource.communityLogos + '/communityEventFooterLogo.png'}"  /></div>
+                </div>
+            </div>
+            <aura:set attribute="else">
+                <div style="text-align:center;color:white">
+                    This is not yet supported in Mobile or Tablet.
+                </div>
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

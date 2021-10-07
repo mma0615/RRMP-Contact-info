@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Upload Image">
+        <div class="slds-m-around_medium">
+            <lightning-combobox
+                name="fieldSelect"
+                label="Select Field"
+                value={selectedField}
+                placeholder="Select Field"
+                options={options}
+                onchange={handleChange} ></lightning-combobox>
+            <template if:true={selectedField}>
+                <lightning-file-upload
+                        label="Upload Image"
+                        name="fileUploader"
+                        accept={acceptedFormats}
+                        record-id={recordId}
+                        onuploadfinished={handleUploadFinished}>
+                </lightning-file-upload>
+            </template>
+        </div>
+    </lightning-card>
+</template>

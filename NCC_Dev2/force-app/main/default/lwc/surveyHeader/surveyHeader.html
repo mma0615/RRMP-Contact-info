@@ -1,0 +1,17 @@
+<template>
+    <div class="nav-box">
+        <div class="navbar">
+            <div class="navbar-logo">
+                <span class="img-logo-container">	
+                    <img src={communityHeaderLogo} alt="Change Cloud" class="navbar-logo-img"></img>
+                </span>
+            </div>
+
+            <template if:true={surveyLogo}>
+                <div class="survey-logo-container">
+                    <img src={surveyLogo} alt="Survey Logo" class="survey-logo-img"></img>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

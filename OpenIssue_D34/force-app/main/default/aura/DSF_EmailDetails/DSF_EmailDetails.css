@@ -1,0 +1,53 @@
+.THIS.parent
+{
+    margin: auto;
+}
+.THIS .button
+{
+    border: none;
+    color: #7FB0CC;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 22px;
+}
+.THIS .message
+{
+    position: relative;
+    min-height: 7vw;
+    display: flex;
+    flex-direction: column;
+}
+.THIS .header
+{
+    padding-top: 1em;
+    color: #203366;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 36px;
+    max-width: 80vw;
+}
+.THIS .date
+{
+    padding-top: .5em;
+    color: #574F49;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    max-width: 80vw;
+}
+.THIS .text
+{
+    text-align: justify;
+    color: #574F49;
+    font-size: 15px;
+    line-height: 22px;
+    max-width: 80vw;
+}
+.THIS .rectangle
+{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    height: 1px;
+    max-width: 80vw;
+    background-color: #CDD5DB;
+}

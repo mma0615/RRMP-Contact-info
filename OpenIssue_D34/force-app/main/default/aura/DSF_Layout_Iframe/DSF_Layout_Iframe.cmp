@@ -1,0 +1,12 @@
+<aura:component implements="forceCommunity:layout" description="DSF_Layout_Iframe" access="global">
+    <aura:attribute name="Content" type="Aura.Component[]" required="false"></aura:attribute>
+
+
+    <div class="slds-grid slds-wrap"> 
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12">
+            {!v.Content}
+        </div>
+         
+    </div>
+
+</aura:component>

@@ -1,0 +1,90 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="ChangeCloudController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute type="String" name="eventId" default="" />
+    <aura:attribute type="String" name="firstname" default="" />
+    <aura:attribute type="String" name="lastname" default="" />
+    <aura:attribute type="String" name="email" default="" />
+    <aura:attribute type="String" name="phone" default="" />
+    <aura:attribute type="String" name="subject" default="" />
+    <aura:attribute type="String" name="comments" default="" />
+    <aura:attribute type="String" name="commentTag" default="" />
+    <aura:attribute type="String" name="commentMessage" default="" />
+    <aura:attribute type="Boolean" name="showSpinner" default="false" />
+    <aura:attribute name="contactUsPageTitle" type="String"/>
+    <div>
+        <div class="contactus-section" id="contactus-section-top">
+            <aura:if isTrue="{!v.showSpinner}">
+                <div class="spinnerHolder">
+                    <lightning:spinner alternativeText="Loading" size="small" />
+                </div>
+                
+                <aura:set attribute="else">
+                    <div class="float-left first">
+                        <div class="contactus-section-title font-section-header no-min-max-height">{!v.contactUsPageTitle}</div>
+                    </div>
+                    <div class="slds-grid slds-wrap contactus-container-outer">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                            <div class="contactus-detail">
+                                <div class="font-header">
+                                    {!v.commentTag}
+                                </div>
+                                <div class="font-body">
+                                    {!v.commentMessage}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                            <form action="/action_page.php" class="contactus-form">
+                                <!-- First Name -->
+                                <div>
+                                    <label for="firstname">First Name *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:input type="text" id="firstname" name="firstname" value="{!v.firstname}" placeholder="John" required="true" aura:id="contactUsForm" variant="label-hidden"/>
+                                </div>
+                                <!-- Last Name -->
+                                <div>
+                                    <label for="lastname">Last Name *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:input type="text" id="lastname" name="lastname" value="{!v.lastname}" placeholder="Doe" required="true" aura:id="contactUsForm" variant="label-hidden"/>
+                                </div>
+                                <!-- Email -->
+                                <div>
+                                    <label for="lname">Email *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:input type="email" id="email" name="email" value="{!v.email}" placeholder="john.doe@gmail.com" required="true" aura:id="contactUsForm" variant="label-hidden"/>
+                                </div>
+                                <!-- Phone -->
+                                <div>
+                                    <label for="phone">Phone *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:input type="tel" id="phone" name="phone" value="{!v.phone}" placeholder="3433433434" pattern="^\d+$" required="true" aura:id="contactUsForm" variant="label-hidden" maxlength="10" minlength = "10"/>
+                                </div>
+                                <!-- Subject -->
+                                <div>
+                                    <label for="subject">Subject *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:input type="text" id="subject" name="subject" value="{!v.subject}" placeholder="Your query subject" required="true" aura:id="contactUsForm" variant="label-hidden"/>
+                                </div>
+                                <!-- Comment -->
+                                <div>
+                                    <label for="comment" class="contactus-form-label">Comment *</label>
+                                </div>
+                                <div class="input-text">
+                                    <lightning:textarea name="comments" value="{!v.comments}" placeholder="Your comment" required="true" aura:id="contactUsForm" variant="label-hidden"/>
+                                </div>
+                                <div class="input-text">
+                                    <div class="btn-base btn-submit" onclick="{!c.handleSubmit}">Submit</div>
+                                </div>
+                            </form> 
+                        </div>
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div>  
+    </div>
+</aura:component>

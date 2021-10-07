@@ -1,0 +1,74 @@
+<!--
+ - Created by ahasic on 10/28/2019.
+ --> 
+ <aura:component controller="DSF_sObjectHelperController" description="DSF_sObjectHelper">
+
+    <aura:method name="saveObjects" action="{!c.saveSObjects}" description="Save list of SObjects"> 
+          <aura:attribute name="listOfObjects" type="Object[]" /> 
+    </aura:method> 
+
+    <aura:method name="updateObjects" action="{!c.updateSObjects}" description="Update list of SObjects"> 
+          <aura:attribute name="listOfObjects" type="Object[]" /> 
+    </aura:method> 
+
+    <aura:method name="reloadList" action="{!c.doInit}" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.conditions}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.fields}" action="{!c.doInit}"/>
+    
+    <aura:attribute name="methodName"
+                    type="String" 
+                    description="Method that will be executed. See 'DSF_sObjectHelperController.js' for available options."/>
+
+    <aura:attribute name="object"
+                    type="String"
+                    description="Name of the sObject that will be queried"/>
+ 
+    <aura:attribute name="fields"
+                    type="String"
+                    description="Field(s) that will be used in query on the prior sObject. NOTE: Use SINGLE
+                    field for 'getSelectOptions' (picklist) method, and use one or more comma separated fields for 'getSObject' method"/>
+
+    <aura:attribute name="orderByFields" type="String"
+                    description="Field(s) to be used in ORDER BY clause of the SOQL query in 'getSObject' method"/>
+
+    <aura:attribute name="groupByFields" type="String"
+                    description="Field(s) to be used in GROUP BY clause of the SOQL query in 'getSObject' method"/>
+
+    <aura:attribute name="conditions"
+                    type="String"
+                    description="Field(s) to be used in WHERE clause of the SOQL query in 'getSObject' method"/>
+
+    <aura:attribute name="limit"
+                    type="Integer"
+                    description="Number to be used in the LIMIT clause of the SOQL query in 'getSObject' method"/>
+
+    <aura:attribute name="output" type="Object"
+                    description="Parent component's attribute that will be populated with the query response"/>
+
+    <aura:attribute name="sObjectList" type="Object[]"
+                    description="List of sObject for saving"/>
+
+    <aura:attribute name="actionResponse" type="Object"
+                    description="Response message returned by executed actions"/>
+
+    <aura:attribute name="valueIdField"
+                    type="String"
+                    description="This field is used to retreive specific field in response for OutputType=LabelValue."/>
+
+    <aura:attribute name="outputType"
+                    type="String"
+                    description="Default Type is array of Strings, otherwise if LabelValue type is specified it will return value in LabelValue format, Single to return non array of objects"/>
+
+    <aura:attribute name="addDefaultOption"
+                    type="boolean"
+                    description="If set to true, the getSelectOptions method will add an empty option to the picklist values"
+                    default="false"/>
+
+    <aura:attribute name="defaultOption"
+                    type="String"
+                    default=""
+                    description="Value of the default option. Usually 'all' or ''. Set to empty ('') by default."/> 
+
+</aura:component>

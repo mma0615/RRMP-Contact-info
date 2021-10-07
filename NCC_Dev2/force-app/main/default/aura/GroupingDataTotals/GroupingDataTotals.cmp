@@ -1,0 +1,33 @@
+<aura:component>
+    <aura:attribute name="groupingKey" type="String" description="key so we know which data to access from factMap"/>
+    <aura:attribute name="factMap" type="Object" description="all data keyed to groupings so we can pull the correct data"/>
+    <aura:attribute name="columnLabels" type="String[]" description="Labels of columns, order is assumed"/>
+    <aura:attribute name="showSubTotals" type="Boolean" description="Show Subtotal true/false"/>
+    <aura:attribute name="dataTotals" type="Object[]" description="rows of data from report"/>
+    <aura:handler name="change" action="c.doInit" value="{!v.factMap}"/>
+    <aura:handler name="change" action="c.doInit" value="{!v.columnLabels}"/>
+    <aura:handler name="init" value="{!this}" action="c.doInit"/>
+
+    <!-- gives us access to edit modal -->
+    <aura:dependency resource="markup://force:editRecord" type="EVENT" />
+    <aura:iteration items="{!v.dataTotals}" var="aCell" indexVar="idx">
+    
+    <aura:if isTrue="{!v.dataTotals.length > idx}">
+        <aura:if isTrue="{!v.showSubTotals}">
+            <tr>
+                <td>{!aCell.label}</td>    
+                <td style="text-align: right;">
+                    {!aCell.value}
+                </td>
+            </tr>
+            <aura:set attribute="else">
+                &nbsp;
+            </aura:set>
+        </aura:if>
+    </aura:if>
+
+              
+    </aura:iteration>
+    
+
+</aura:component>

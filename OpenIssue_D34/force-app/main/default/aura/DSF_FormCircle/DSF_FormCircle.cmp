@@ -1,0 +1,10 @@
+<aura:component description="DSF_FormCircle">
+    <aura:attribute name="checked" type="Boolean" default="false"/>
+
+    <aura:if isTrue="{!!v.checked}">
+        <img src="{!$Resource.DSF_Resources + '/CheckllistCircle-Unchecked.png'}" style="vertical-align: top;"/>
+    </aura:if>
+    <aura:if isTrue="{!v.checked}">
+        <img src="{!$Resource.DSF_Resources + '/ChecklistCircle-Checked.png'}" style="vertical-align: top;" />
+    </aura:if>
+</aura:component>

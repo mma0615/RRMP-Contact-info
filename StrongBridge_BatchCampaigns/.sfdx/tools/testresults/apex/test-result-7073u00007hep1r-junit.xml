@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2020-08-17T09:09:26-07:00" hostname="https://strongbridge.my.salesforce.com" tests="8" failures="0"  errors="0"  time="30.72">
+        <properties>
+            <property name="outcome" value="Passed"/>
+            <property name="testsRan" value="8"/>
+            <property name="passing" value="8"/>
+            <property name="failing" value="0"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="100%"/>
+            <property name="failRate" value="0%"/>
+            <property name="testStartTime" value="Aug 17, 2020 9:09 AM"/>
+            <property name="testExecutionTime" value="30.72 s"/>
+            <property name="testTotalTime" value="30.72 s"/>
+            <property name="commandTime" value="26.57 s"/>
+            <property name="hostname" value="https://strongbridge.my.salesforce.com"/>
+            <property name="orgId" value="00D6A000001i5XzUAI"/>
+            <property name="username" value="jrivard@strongbridgebio.com"/>
+            <property name="testRunId" value="7073u00007hep1r"/>
+            <property name="userId" value="0053u0000035EThAAM"/>
+            <property name="testRunCoverage" value="99%"/>
+            <property name="orgWideCoverage" value="99%"/>
+        </properties>
+        <testcase name="test" classname="batchCampaignsScheduleTest" time="0.12">
+        </testcase>
+        <testcase name="testAccountOwner" classname="batchCampaignsTest" time="4.65">
+        </testcase>
+        <testcase name="testCampaignOwner" classname="batchCampaignsTest" time="1.37">
+        </testcase>
+        <testcase name="testContactOwner" classname="batchCampaignsTest" time="1.41">
+        </testcase>
+        <testcase name="testRecordType" classname="batchCampaignsTest" time="1.59">
+        </testcase>
+        <testcase name="testTrigger" classname="DB_Custom_Report_4_c" time="0.74">
+        </testcase>
+        <testcase name="testMethod1" classname="TestAccountUpdateStatusDetail" time="19.35">
+        </testcase>
+        <testcase name="testMethod2" classname="TestAccountUpdateStatusDetail" time="1.49">
+        </testcase>
+    </testsuite>
+</testsuites>

@@ -1,0 +1,101 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    
+    <aura:attribute name="recordError" type="String" default=""/>
+    <aura:attribute name="currUser" type="User" default=""/>
+    <aura:attribute name="currUserId" type="String" default=""/>
+    <aura:attribute name="contact" type="Contact" default=""/>
+    <aura:attribute name="eventsList" type="List" default="[]"/>
+    <aura:attribute name="isContactLoaded" type="Boolean" default="false"/>
+
+    <!--Attributes editable through design attributes-->
+    <aura:attribute name="heading" type="String" default=""/>
+    <aura:attribute name="columnFirst" type="String" default=""/>
+    <aura:attribute name="columnSecond" type="String" default=""/>
+    <aura:attribute name="columnThird" type="String" default=""/>
+    <aura:attribute name="columnFourth" type="String" default=""/>
+    <aura:attribute name="noEventsMsg" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.currUser}" action="{!c.handleUserLoaded}"/>
+
+    <c:DSF_UserLoader
+        userId="{! v.currUserId }"
+        output="{! v.currUser }"
+        userError="{! v.recordError }"
+        fields="Id,ContactId"
+    />
+
+    <aura:if isTrue="{! and(not(empty(v.currUser)), not(empty(v.currUser.ContactId))) }">
+        <force:recordData aura:id="contactLoader"
+            recordId="{!v.currUser.ContactId}"
+            targetFields="{!v.contact}"
+            targetError="{!v.recordError}"
+            recordUpdated="{!c.handleContactUpdated}"
+            fields="Event_Name_1__c,
+                    Event_Name_2__c,
+                    Event_Name_3__c,
+                    Event_Details_1__c,
+                    Event_Details_2__c,
+                    Event_Details_3__c,
+                    Date_and_Time_01__c,
+                    Date_and_Time_02__c,
+                    Date_and_Time_03__c,
+                    Location_1__c,
+                    Location_2__c,
+                    Location_3__c"
+        />
+    </aura:if>
+    
+    <div class="slds-grid slds-wrap slds-align_absolute-center slds-m-bottom_x-large slds-p-horizontal_x-small">
+        <div class="slds-size_1-of-1">
+            <h4 class="slds-m-bottom_large mobile-heading slds-align_absolute-center">{!v.heading}</h4>
+            <div class="position-relative">
+                <table>
+                    <tr class="slds-border_bottom table-header slds-grid">
+                        <th class="slds-small-size_1-of-1 slds-large-size_3-of-12">
+                            {!v.columnFirst}
+                        </th>
+                        <th class="slds-small-size_1-of-1 slds-large-size_3-of-12">
+                            {!v.columnSecond}
+                        </th>
+                        <th class="slds-small-size_1-of-1 slds-large-size_3-of-12">
+                            {!v.columnThird}
+                        </th>
+                        <th class="slds-small-size_1-of-1 slds-large-size_3-of-12">
+                            {!v.columnFourth}
+                        </th>
+                    </tr>
+                    <aura:if isTrue="{! v.isContactLoaded }">
+                        <aura:if isTrue="{! and(not(empty(v.eventsList)), v.contact != null) }">
+                            <aura:iteration items="{!v.eventsList}" var="item">
+                                <tr class="slds-border_bottom slds-grid slds-wrap">
+                                    <td class="slds-small-size_1-of-1 slds-large-size_3-of-12">
+                                        {!item.EventName}
+                                    </td>
+                                    <td class="slds-small-size_1-of-1 slds-large-size_3-of-12">
+                                        <a href="{!item.EventDetails}">{!item.EventDetails}</a>
+                                      
+                                        
+                                    </td>
+                                    <td class="slds-small-size_1-of-1 slds-large-size_3-of-12">
+                                        {!item.DateTime}
+                                    </td>
+                                    <td class="slds-small-size_1-of-1 slds-large-size_3-of-12">
+                                        {!item.Location}
+                                    </td>
+                                </tr>
+                            </aura:iteration>
+                        </aura:if>
+                        <aura:set attribute="else">
+                            <lightning:spinner alternativeText="Loading" size="small" />
+                        </aura:set>
+                    </aura:if>
+                </table>
+            </div>
+            <aura:if isTrue="{! and(or(empty(v.eventsList), v.contact == null), v.isContactLoaded) }">
+                <h5 class="slds-p-top_small slds-align_absolute-center">{!v.noEventsMsg}</h5>
+            </aura:if>
+        </div>
+    </div>
+    
+</aura:component>

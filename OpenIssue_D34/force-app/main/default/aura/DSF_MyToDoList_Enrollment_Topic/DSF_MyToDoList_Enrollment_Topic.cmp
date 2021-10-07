@@ -1,0 +1,28 @@
+<aura:component description="DSF_MyToDoList_Enrollment_Topic">
+
+    <aura:attribute name="enrollFullTimeWhenClassesStart" type="String"/>
+    <aura:attribute name="learnMoreEnrollment" type="String"/>
+    <aura:attribute name="learnMoreEnrollmentLink" type="String"/>
+    <aura:attribute name="enrollFullTimeWhenClassesStartToolTip" type="String"/>
+    <aura:attribute name="studentTerm" type="Object"/>
+    <aura:attribute name="isCorrectDateToDisplay" type="Boolean" default="true"/>
+    <aura:attribute name="studentTermContainsFullTime" type="Boolean" default="false" />
+
+    <aura:handler name="change" value="{!v.studentTerm}" action="{!c.onStudentTermLoad}" />
+
+    <aura:if isTrue="{!v.studentTerm}">
+        <aura:if isTrue="{!and(v.isCorrectDateToDisplay, or(and(v.studentTerm.Program_Enrolled__c != 'Certificate',!v.studentTerm.Enrollment_Type__c),and(not(empty(v.studentTerm.Enrollment_Type__c)),and(!v.studentTermContainsFullTime, v.studentTerm.Full_Time_Enrollment_Req_Exemption__c != 'Yes'))))}">
+            <div class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormQuestionMarkCircle/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <div>
+                        <span>{!v.enrollFullTimeWhenClassesStart}&nbsp;</span>
+                        <c:DSF_Tooltip text="{!v.enrollFullTimeWhenClassesStartToolTip}"/>
+                    </div>
+                    <c:DSF_MyToDoList_LearnMoreLink url="{!v.learnMoreEnrollmentLink}" label="{!v.learnMoreEnrollment}"/>
+                </div>
+            </div>
+        </aura:if>
+    </aura:if>
+
+</aura:component>

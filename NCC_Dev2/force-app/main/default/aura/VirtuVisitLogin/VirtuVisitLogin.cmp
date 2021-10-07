@@ -1,0 +1,73 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="VirtuVisitController">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    <aura:attribute name="username" type="string"/>
+    <aura:attribute name="password" type="string"/>
+    <aura:attribute name="errorMessage" type="string"/>
+    <div>
+        <div class="registration-page">
+            <div class="menu-header">
+                <div class="menu-logo">
+                    <img src="{!$Resource.VirtuVisit + '/VirtuVisitLogo.png'}"  />
+                </div>
+            </div>
+            <div class="login-page"  style="{!'background-image: url(' + $Resource.VirtuVisit + '/PatientHeaderBGFull.jpeg' +');'}">
+                <!--<div class="info">
+                    <div class="info-img"></div>
+                    <div class="info-message">
+                        <div class="message-header center">See a Provider Now!</div>
+                        <div class="message">Amwell makes it easy for you to talk to doctors, immediately, from your home. Simply log on or call 1-844-SEE-DOCS (1-844-733-3627) to connect with board-certified
+                            doctors in your area.</div>
+                        <div class="button">
+                            <a href="">Learn More ></a>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="login-details">
+                    <!--<div class="login-img">
+                        <img src="https://business.amwell.com/wp-content/themes/americanwell/assets/images/amwell-logo.png"  />
+                    </div>-->
+                    <div class="login">
+                    	<div class="login-header">Log in.</div>
+                        <div class="login-info">Log in with your data that you entered during registration.</div>
+                        <div class="login-textbox">
+                            <lightning:input name="username" value="{!v.username}" label="" placeholder="Username" class="columnfull"/>
+                        </div>
+                        <div class="login-textbox2">
+                            <lightning:input type="password" name="password" value="{!v.password}" placeholder="Password" class="input-element"/>
+                            <a onclick="{!c.login}">Login</a>
+                        </div>
+                        <div class="error-message">
+                            {!v.errorMessage}
+                        </div>
+                        <div class="login-actions">
+                            <div>New User?&nbsp;&nbsp;<a href="{!'/Connect/s/registration'}">Create an Account</a></div>
+                            <div><a href="">Forgot username/password?</a></div>
+                        </div>
+                    </div>
+                    <!--<div class="signup">
+                        <span>Sign Up</span>
+                        <div class="flex">
+                            <lightning:input name="firstname" label="" placeholder="First Name*" class="column1" required="true"/>
+                            <lightning:input name="lastname" label="" placeholder="Last Name*" class="column2" required="true"/>
+                        </div>
+                        <lightning:input type="email" name="email" label="" placeholder="Email*" class="columnfull" required="true"/>
+                        <lightning:input type="email" name="confirmemail" label="" placeholder="Confirm Email*" class="columnfull" required="true"/>
+                        <lightning:input type="password" name="password" placeholder="Enter Password"/>
+                        <div class="flex">
+                            <lightning:input type="checkbox" label="I agree to the following: " name="agree" required="true"/><a href="">Term of Use*</a>
+                        </div>
+                        <div class="buttons">
+                            <a href="">Signup</a>
+                        </div>
+                        <br/>
+                        <div class="center">
+                            <a href="">I already have an account. Login</a>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</aura:component>

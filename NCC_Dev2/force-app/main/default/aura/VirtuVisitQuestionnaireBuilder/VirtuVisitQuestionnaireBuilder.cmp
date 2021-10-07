@@ -1,0 +1,68 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global"  controller="VirtuVisitController">
+	
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:attribute name="loggedIn" type="Boolean" default="false"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="contact" type="Contact"/>
+    
+    
+    <aura:attribute name="newQuestionnaire" type="Boolean" default="false"/>
+    
+    <aura:attribute name="questionnaire_Name" type="String"/>
+    <aura:attribute name="questionnaire_Description" type="String"/>
+    
+    <aura:attribute name="question" type="String"/>
+    <aura:attribute name="options" type="String"/>
+    <aura:attribute name="questionTypeValues" type="List"/>
+    <aura:attribute name="questionType" type="String"/>
+    
+    <aura:attribute name="message" type="String"/>
+    
+    <div>
+    	<div class="home-page">
+        	<div class="questionnaire-page">
+            	<div class="header">Questionnaire Builder</div>
+                <div class="content">
+                    <aura:if isTrue="{!v.newQuestionnaire}">
+                        <aura:set attribute="else">
+                            <div class="actions center">
+                                <div class="message">{!v.message}</div>
+                                <lightning:button variant="brand" label="New" title="New" onclick="{! c.newQuestionnaire }" />
+                            </div>
+                        </aura:set>
+                        <div class="new-questionnaire">
+                            <table aura:id="quest">
+                            	<tr>
+                                	<td><lightning:input name="Question Tab Header Name" label="Question Tab Header Name:" value="{!v.questionnaire_Name}"/></td>
+                                </tr>
+                            	<tr>
+                                	<td><lightning:input name="Description" label="Question Tab Description:" value="{!v.questionnaire_Description}" /></td>
+                                </tr>
+                                <tr></tr>
+                            	<tr>
+                                	<td><lightning:input name="Question" label="Question:" value="{!v.question}"  aura:id="Question"/></td>
+                                	<td>
+                                        <lightning:select value="{!v.questionType}" label="Question Type"  aura:id="QuestionType">  
+                                            <aura:iteration items="{!v.questionTypeValues}" var="s">
+                                                <option value="{!s}">{!s}</option>
+                                            </aura:iteration>
+                                        </lightning:select> 
+                                    </td>
+                                	<td><lightning:textarea name="Options" label="Options:" value="{!v.options}"  aura:id="Options"/></td>
+                                </tr>
+                            </table>
+                            <div class="right" style=";margin: 0 auto;padding:.5rem;">
+                                <lightning:button variant="brand-outline" label="+" onclick="{! c.addNewQuestion }" />
+                            </div>
+                            <div class="right">
+                                <lightning:button variant="brand" label="Save" title="Save" onclick="{! c.saveQuestionnaire }" />
+                                <lightning:button variant="destructive" label="Cancel" title="Cancel" onclick="{! c.cancelQuestionnaire }"/>
+                            </div>
+                        </div>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

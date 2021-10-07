@@ -1,0 +1,426 @@
+<messaging:emailTemplate subject="{!Relatedto.Name}" recipientType="Contact" relatedToType="Krow__Invoice__c">
+<!-- Email Body -->
+<messaging:htmlEmailBody >
+    <table >
+    <tr>
+        <th> Name </th>
+        <th> CloseDate </th>
+        <th> Stage Name </th>
+    </tr>
+     
+</table>
+</messaging:htmlEmailBody>
+
+<!-- PDF Attachment -->
+<messaging:attachment renderAs="pdf" filename="{!Relatedto.name}">
+<html>
+<head>
+            <!-- **** <link rel="stylesheet" href="{!URLFOR($Resource.KrowResource, 'css/bootstrap.min.css')}" media="all" />  -->
+            <style>
+                body{
+                    font-family: 'Arial Unicode MS';     
+                    font-size:12px;
+                
+                hr{ 
+                    color:gray; 
+                }
+                h4{
+                    color:gray;
+                    margin-top:30px;
+                    margin-left:3px; 
+                }
+                .container{
+                    margin-left:2px;
+                    margin-right:2px;
+                }
+                .invoiceHeaderAndLogoTable{
+                    width:100%;
+                }
+                .invoiceHeaderAndLogoTable tr:first-child td:first-child {
+                    width:50%;
+                }
+                /* To Apply Css On  invoiceHeaderAndLogoTable First Row Second Child  */
+                .invoiceHeaderAndLogoTable tr:nth-child(1)  td:nth-child(2) {
+                    padding-left:90px;
+                    color:#ccc;
+                }
+                
+                .companyLogoImage{
+                    width:90;
+                    height:90;
+                    margin-top:0px;
+                    padding-left:0px;
+                }
+                .invoiceAddressAndDetailTable{
+                    margin-top:0px;
+                
+                } 
+                
+                .invoiceAddressAndDetailTable tr:first-child td:first-child{
+                    width:50%;
+                    text-align:top;
+                }
+                .invoiceDetailTable{
+                    table-layout:fixed;
+                    border:1;
+                    text-align:right;
+                    width:100%; 
+                    padding:2px;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc
+                }
+                .summarizeByTotalTable{
+                    width:100%;
+                    table-layout: fixed;
+                    margin-top:10px;
+                    margin-bottom:1px;
+                    border-collapse:collapse;
+                    border:none;
+                    text-align:center;
+                }
+                .summarizedByPersonTable{
+                    width:100%;
+                    table-layout: fixed;
+                    padding:10px;
+                    margin-top:5px;
+                }
+                .totalByResourceTable{
+                    width:100%;
+                    background-color:#D8D8D8;
+                }
+                .invoiceTotalsTable{
+                    width:100%;
+                    table-layout: fixed;
+                    padding:10px;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc;
+                    margin-top:15px;
+                }
+                .pageBreakBefore{
+                    page-break-before: always;
+                }
+                .taskAndResourceNameHead{
+                    margin-left:0px;
+                    color:gray;
+                
+                }
+                .resourceAndTaskDetailsTable{
+                    width:100%;
+                    color:gray;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc;
+                    text-align:center;
+                }
+                .resourceAndTaskDetailsTable td{
+                    border: 0.5px solid #ccc;
+                }
+                .resorceAndTaskDetailWiseTotalTable{
+                    width:100%;
+                    color:gray; 
+                    table-layout: fixed;
+                    padding:10px;
+                
+                }
+                .facetStyle{
+                    text-align:right;
+                
+                }
+                .tableHead{
+                    font-size:12pt;
+                    background-color:#D8D8D8;
+                    text-align:center;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                }
+                .tableValue{
+                    text-align:center;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                }
+                .mainpageInvoiceDetail{
+                    background-color:#D8D8D8;
+                
+                }
+                .resourceHeader{
+                    text-align:right;
+                
+                }
+                br{
+                    line-height:100%;
+                }
+                .detailHeaders{
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    border-bottom:none;
+                    border-right:none;
+                
+                }
+                .detailStyles{
+                    
+                    padding:5px;
+                    border:.5px solid #D8D8D8;
+                }
+                .totalHeader{
+                    text-align:center;
+                    font-face:bold;
+                    border-bottom:none;
+                    border-top:none; 
+                }
+                .resourceDetailTable{
+                    width:100%;
+                    color:gray;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc;
+                    text-align:center;
+                    padding:5px;
+                    padding:5px;
+                    margin-top:10px;
+                
+                }
+                .projectDetailTable{
+                    width:100%;
+                    color:gray;
+                    border-collapse:collapse;
+                    border-left:#ccc;
+                    border-top:#ccc;
+                    text-align:center;
+                    padding:5px;
+                    padding:5px;
+                    margin-top:10px;
+                }
+                .resourcedetailHeaders{
+                    color:black;
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    /*border-right:gray;*/
+                    border-right: 1px solid #c0c0c0 !important;
+                    width:50%;
+                }
+                .resourcedetailHeaders1{
+                    color:black;
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    width:40%;
+                }
+                .projectdetailHeaders{
+                    color:black;
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    width:20%;
+                }
+                .resourcedetailHeaders2{
+                    color:black;
+                    padding:5px;
+                    background-color:#D8D8D8;
+                    width:20%;
+                }
+                .resourceDetailTableValue{
+                    color:black;
+                    text-align:center;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                }
+                .projectDetailTableValue{
+                    color:black;
+                    text-align:center;
+                    padding-top:5px;
+                    padding-bottom:5px;
+                }
+                #lineItemByTask{
+                    -fs-table-paginate: paginate; 
+                }
+                .borderStyle_none{
+                    border-style: none !important;
+                }
+                .trBorderStyle{
+                    border: 0.5px solid #ccc;
+                }
+                .tableBorderStyle{
+                    border: 0.5px solid #ccc;
+                }
+                /* Here style is given to show outputField value in matching of table content */
+                a{
+                    text-decoration : none;
+                    color:gray;
+                }
+                @page {
+    
+                    margin-bottom: 4.00cm;
+                    @bottom-center{
+                     content: element(footer);
+                    }
+                }
+    
+                body {
+                    position: relative;
+                }
+    
+                div.footer {
+                    font-size:12px;
+                    display: block;
+                    padding:5px;
+                    position: running(footer);
+                    margin-bottom: 2px;
+                    
+                }
+                .projectHeaders{
+                    width:100%;
+                    background-color:#f7f6f4;
+                    padding-left: 2px !important;
+                    text-align : center;
+                    border:0.5px solid #e8e0e0;
+                    margin-top : 4px;
+                    /* padding-top: 0.5px !important;
+                    padding-bottom: 0.5px !important; */
+                }
+                .projectNameHeadText{
+                    padding-left: 2px !important;
+                }
+                .gst_table {
+                    width: calc(100% + 1.5px);
+                    border: 0px solid #fff;
+                    border-collapse: collapse;
+                    color: #000 !important;
+                }
+                .tax_td_nb_top{
+                    border-top: 0px solid #ccc !important;
+                }
+                .tax_td_nb_bottom{
+                    border-bottom: 0px solid #ccc !important;
+                }
+                .tax_td_nb_left{
+                    border-left: 0px solid #ccc !important;
+                }
+                .tax_td_nb_right{
+                    border-right: 0px solid #ccc !important;
+                }
+            </style>
+        </head>
+       
+        <body>
+            <c:NCC_InvoiceComponent invoiceId="{!relatedTo.Id}"/>
+    ================================================
+<div class="header">
+    <table style="border-collapse:collapse;" width="100%">
+        <tr>
+            <td style="vertical-align:bottom">
+                <!-- <c:Logo pdf="true" entity="{!RelatedTo.fw1__Entity__c}"/>  -->
+                <img src="https://ulapp--c.na114.content.force.com/servlet/servlet.ImageServer?id=0153k00000AXRaA&oid=00D3k000000tkIY&lastMod=1608816649000" style="width: 150px;"></img>
+            </td>
+            <td>
+                <div class="smallText">
+                    <!-- company name -->
+                    <apex:outputText value="{!$Organization.Name}"></apex:outputText>
+                    <apex:outputText value="{!Relatedto.Name}"></apex:outputText>
+                    <br/>
+                    <!-- address -->
+                    <apex:outputPanel >
+                        <apex:outputField value="{!RelatedTo.name}"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        {!$Organization.Street} <br/>
+                        {!$Organization.City},
+                        {!$Organization.State} 
+                        {!$Organization.PostalCode} <br/>
+                        {!$Organization.Country}
+                    </apex:outputPanel>
+                            
+                    <!-- contact info -->
+                    <apex:outputPanel >
+                        <br/>
+                        <apex:outputfield value="{!RelatedTo.Name}"/>
+                    </apex:outputPanel>
+                </div>
+            </td>
+            <td>
+                <apex:outputText style="color:white" value="*****"/>
+            </td>
+            <td align="right" class="titleText">
+                <apex:outputText value="Invoice"/>
+            </td>
+        </tr>
+    </table>
+    <hr class="lineStyle"/>
+</div>
+
+<div class="footer smallText">
+    <apex:outputPanel >
+        <hr class="lineStyle"/>
+        <apex:outputfield value="{!RelatedTo.Name}"/>
+    </apex:outputPanel>
+</div>
+
+<div style="overflow: hidden; height: 0px; width: 0px;">.</div>
+
+<div class="body">
+<table style="border-collapse:collapse;" width="100%">
+    <tr>
+        <td>
+            <apex:outputText styleClass="boldText" value="Bill To :"/> <apex:outputText style="color:white" value="*********************************"/>
+            <br/>
+            <apex:outputText styleClass="normalText" value="{!Relatedto.name}"/> <br/>
+            <apex:outputText styleClass="normalText" value="Attention: {!Relatedto.name}"/> <br/>
+            <apex:outputText styleClass="normalText" value="{!Relatedto.name}"/> <br/>
+        </td>
+        <td align="right">
+        
+            <apex:panelGrid columns="2" width="100%" style="border: 1px solid #808080;">
+                <apex:outputText styleClass="normalText" value="Invoice # :"/>
+                <apex:outputText styleClass="normalText" value="{!IF(Relatedto.name!= null,Relatedto.name,Relatedto.Name)}"/>
+                <apex:outputText styleClass="normalText" value="Invoice Date :"/>
+                <apex:outputpanel >
+                    <apex:outputText styleClass="normalText" value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!Relatedto.Krow__Invoice_Date__c}" /> 
+                    </apex:outputText>
+                </apex:outputpanel>
+               
+                <apex:outputText styleClass="normalText" value="Due Date :"/>
+                <apex:outputPanel >
+                    <apex:outputText styleClass="normalText" value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!Relatedto.Krow__Invoice_Date__c}" /> 
+                    </apex:outputText>
+                </apex:outputPanel>
+                <apex:outputText styleClass="normalText"/>
+                <apex:outputpanel styleClass="normalText" >
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!Relatedto.Krow__Invoice_Date__c}" /> 
+                    </apex:outputText>
+                    - &nbsp;
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                        <apex:param value="{!Relatedto.Krow__Invoice_Date__c}" /> 
+                    </apex:outputText>
+                </apex:outputpanel>
+                
+                <!-- PO # -->
+                <apex:outputText styleClass="normalText" rendered="{!Relatedto.Krow__PO_Number__c!= null}" value="PO # :"/>
+                <apex:outputText styleClass="normalText" rendered="{!Relatedto.Krow__PO_Number__c!= null}" value="{!Relatedto.Krow__PO_Number__c}"/>
+                
+            </apex:panelGrid>
+            <br/>
+        </td>
+    </tr>
+</table>
+<br/>
+<br/>
+
+<table style="border-collapse:collapse;" width="100%">
+    <tr style="background-color: #808080; color:white;">
+        <th class="tableHeader">Line Item</th>
+        <th class="tableHeaderRight">Hours</th>
+        <th class="tableHeaderRight">Rate</th>
+        <th class="tableHeaderRight">Amount</th>
+    </tr>
+    
+</table>
+</div>
+
+    </body>
+
+</html>
+</messaging:attachment>
+
+</messaging:emailTemplate>

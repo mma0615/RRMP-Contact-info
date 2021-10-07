@@ -1,0 +1,58 @@
+.THIS .contact-availability-page{
+    /*background: #ffffff;*/
+    margin: auto;
+    height: auto;
+    min-height: 500px;
+    padding: 10px 0 15px 0;
+}
+.THIS .contact-search{
+    margin: 10px auto;
+    width: 600px;
+    background: white;
+    padding: 10px 10px;
+    border-radius: 3px;
+}
+
+.THIS .contact-availability-list{
+    margin: auto;
+    width: 1500px;
+}
+.THIS .contact-availability-list table{
+    border-radius: 3px;
+}
+.THIS .no-records{
+    width: 600px;
+    margin: auto;
+    height: auto;
+    background: white;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.THIS .contact-availability-list .slds-cell-wrap{
+    text-align: center;
+}
+
+.THIS .no-records{
+    text-align:center;
+}
+.THIS .contact-view{
+    border: 1px solid #c9c7c5;
+    border-radius: 5px;
+    padding: 15px 0px;
+    margin-bottom: 10px;
+}
+.THIS .telemeet-page{
+    background: white;
+}
+.THIS .telemeet-content{
+    width: 80%;
+    margin: auto;
+}
+.THIS .telemeet-completed{
+    color: #4b77ad;
+}
+.THIS .contact-availability-list .slds-table td:last-child{
+    padding-left: 0;
+    padding-right: 0;
+}
