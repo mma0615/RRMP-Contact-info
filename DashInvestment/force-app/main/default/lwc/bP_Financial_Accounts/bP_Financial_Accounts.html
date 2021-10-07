@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Financial Account" icon-name="custom:custom63">
+        <div class="slds-var-m-around_medium">
+            <template if:true={financialAccounts.data}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={financialAccounts.data}
+                    columns={columns}
+                >
+                </lightning-datatable>
+            </template>
+            <template if:true={financialAccounts.error}>
+                <!-- handle Apex error -->
+            </template>
+        </div>
+    </lightning-card>
+</template>

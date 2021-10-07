@@ -1,0 +1,112 @@
+<aura:component description="DSF_MyToDoList_MidYearTransfer_Topic">
+
+    <aura:attribute name="uploadedOn" type="String"/>
+    <aura:attribute name="taskCompletedOn" type="String"/>
+    <aura:attribute name="pendingReview" type="String" />
+    <aura:attribute name="transferringToADifferentDSFpartner" type="String"/>
+    <aura:attribute name="midYearTransferLinkText" type="String"/>
+    <aura:attribute name="midYearTransferURL" type="String"/>
+    <aura:attribute name="transferringToADifferentDSFpartnerTooltip" type="String"/>
+    <aura:attribute name="submitTranscriptForMidYearTransfer" type="String"/>
+    <aura:attribute name="midYearTransferFinancialAid" type="String"/>
+    <aura:attribute name="midYearTransferDenied" type="String"/>
+    <aura:attribute name="studentTerm" type="Object"/>
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="termDate" type="Object"/>
+    <aura:attribute name="formSubmissionDate" type="Object"/>
+    <aura:attribute name="dsfConfigLoaded" type="Boolean" default="false" />
+    <aura:attribute name="applicationLoaded" type="Boolean" default="false" />
+    <aura:attribute name="studentTermLoaded" type="Boolean" default="false" />
+
+    <aura:attribute name="midYearTransferSubDateBeforeEndDate" type="Boolean" default="false"/>
+    <aura:attribute name="todayBetweenTermStartDateAndEndDate" type="Boolean" default="false"/>
+    <aura:attribute name="midYearTransferStatusContainsNotApproved" type="Boolean" default="false"/>
+    <aura:attribute name="midYearTransferCaseSubject" type="String" />
+    <aura:attribute name="midYearTransferDeniedTooltip" type="String"/>
+    <aura:attribute name="finalAwardStatusIncludesTimedOut" type="String"/>
+    <aura:attribute name="currentYearFall" type="Boolean"/>
+    <aura:attribute name="today" type="String"/>
+
+    <aura:registerEvent name="updateAppEvent" type="c:DSF_MyToDoLis_ApplicationUpdateEVT"/>
+
+    <aura:handler name="DSF_FileUploadFinished" event="c:DSF_FileUploadFinished" action="{!c.onUploadFinished}"/>
+    <aura:handler name="change" value="{!v.formSubmissionDate}" action="{!c.onDsfConfigLoad}"/>
+    <aura:handler name="change" value="{!v.termDate}" action="{!c.onDsfConfigLoad}"/>
+    <aura:handler name="change" value="{!v.studentTerm}" action="{!c.onStudentTermLoad}"/>
+    <aura:handler name="change" value="{!v.application}" action="{!c.onApplicationLoad}"/>
+
+    <lightning:overlayLibrary aura:id="midYearFileUploader"/>
+
+    <lightning:navigation aura:id="navService" />
+
+    <aura:if isTrue="{!and(v.currentYearFall,
+                        and(or(v.studentTerm.Final_Award_Status__c == 'Eligible - Award Calculated', v.finalAwardStatusIncludesTimedOut),
+                            and(!v.application.Mid_Year_Transfer_Status__c,v.todayBetweenTermStartDateAndEndDate)))}">
+        <div class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+            <c:DSF_FormQuestionMarkCircle/>
+            <div class="slds-p-left_medium toDoList-item">
+                <div>
+                    <span>{!v.transferringToADifferentDSFpartner}&nbsp;<a onclick="{!c.navigateToMidYearTransferURL}">{!v.midYearTransferLinkText}</a>&nbsp;</span>
+                    <c:DSF_Tooltip text="{!v.transferringToADifferentDSFpartnerTooltip}"/>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.midYearTransferSubDateBeforeEndDate}">
+        <aura:if isTrue="{!and(v.application.Mid_Year_Transfer_Status__c == 'Not Approved - Insufficient/Incomplete', !v.application.Mid_Year_Transfer_Proof_Submission_Date__c)}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <div>
+                        <span>{!v.submitTranscriptForMidYearTransfer}</span>
+                        <a style="text-decoration: none; margin-left: 8px;" onclick="{!c.showFileUploader}">
+                            <img src="{!$Resource.DSF_Resources + '/upload-icon.png'}"/>&nbsp;
+                        </a>
+                        <c:DSF_Tooltip text="{!v.transferringToADifferentDSFpartnerTooltip}"/>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!and(v.application.Mid_Year_Transfer_Status__c == 'Pending', v.application.Mid_Year_Transfer_Proof_Submission_Date__c)}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <div>
+                        <span>{!v.submitTranscriptForMidYearTransfer}&nbsp;</span>
+                        <c:DSF_Tooltip text="{!v.transferringToADifferentDSFpartnerTooltip}"/>
+                    </div>
+                    <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                        {!v.uploadedOn}&nbsp;<lightning:formattedDateTime value="{!v.application.Mid_Year_Transfer_Proof_Submission_Date__c}"/>&nbsp;{!v.pendingReview}
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!v.application.Mid_Year_Transfer_Status__c == 'Approved'}">
+            <div data-isPending="false" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="true"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <div>
+                        <span>{!v.submitTranscriptForMidYearTransfer}</span>
+                        <c:DSF_Tooltip text="{!v.midYearTransferFinancialAid}" />
+                    </div>
+                    <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                        {!v.taskCompletedOn}&nbsp;<lightning:formattedDateTime value="{!v.application.Mid_Year_Transfer_Proof_Submission_Date__c}"/>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+    </aura:if>
+
+    <aura:if isTrue="{!and(v.midYearTransferStatusContainsNotApproved, v.application.Mid_Year_Transfer_Proof_Submission_Date__c)}">
+        <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+            <span class="circle" style="display: block;"></span>
+            <div class="slds-p-left_medium toDoList-item">
+                <span>{!v.midYearTransferDenied}&nbsp;<lightning:formattedDateTime value="{!v.application.Mid_Year_Transfer_Proof_Submission_Date__c}"/>&nbsp;<c:DSF_Tooltip text="{!v.midYearTransferDeniedTooltip}"/></span>
+            </div>
+        </div>
+    </aura:if>
+
+</aura:component>

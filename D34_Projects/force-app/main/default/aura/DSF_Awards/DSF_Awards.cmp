@@ -1,0 +1,113 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+
+    <aura:attribute name="recordError" type="String" default=""/>
+    <aura:attribute name="currUser" type="User" default=""/>
+    <aura:attribute name="currUserId" type="String" default=""/>
+    <aura:attribute name="contact" type="Contact" default=""/>
+    <aura:attribute name="isContactLoaded" type="Boolean" default="false"/>
+    <aura:attribute name="rawApplications" type="Application__c[]" default=""/>
+    <aura:attribute name="applications" type="Application__c[]" default=""/>
+    <aura:attribute name="condition" type="String" default=""/>
+    <aura:attribute name="rawStudentTerms" type="Student_Term__c[]" default=""/>
+    <aura:attribute name="filteredApplications" type="List[]" default=""/>
+
+    <!--Attributes editable through design attributes-->
+    <aura:attribute name="headingImg" type="String" default=""/>
+    <aura:attribute name="heading" type="String" default=""/>
+    <aura:attribute name="subheadingPartOne" type="String" default=""/>
+    <aura:attribute name="subheadingPartTwo" type="String" default=""/>
+    <aura:attribute name="subheadingnewapplicant" type="String" default=""/>
+    <aura:attribute name="seasonFall" type="String" default=""/>
+    <aura:attribute name="seasonWinter" type="String" default=""/>
+    <aura:attribute name="seasonSpring" type="String" default=""/>
+    <aura:attribute name="notQualified" type="String" default=""/>
+    <aura:attribute name="qualifiedInfo" type="String" default=""/>
+    <aura:attribute name="pending" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.currUser}" action="{!c.handleLoadedUser}"/>
+    <aura:handler name="change" value="{!v.rawApplications}" action="{!c.handleLoadedApplications}"/>
+    <aura:handler name="change" value="{!v.rawStudentTerms}" action="{!c.handleLoadedStudentTerms}"/>
+
+    <c:DSF_UserLoader
+        userId="{! v.currUserId }"
+        output="{! v.currUser }"
+        userError="{! v.recordError }"
+        fields="Id,ContactId"
+    />
+
+    <aura:if isTrue="{! and(not(empty(v.currUser)), not(empty(v.currUser.ContactId)))}">
+        <c:DSF_sObjectHelper methodName="getSObject"
+            object="Application__c"
+            fields="Id,
+                    Student_Name__c,
+                    Application_Submission_Year__c"
+            conditions="{!'Student_Name__c = \'' + v.currUser.ContactId + '\''}"
+            output="{! v.rawApplications  }"
+        />
+        <force:recordData aura:id="contactLoader"
+            recordId="{!v.currUser.ContactId}"
+            targetFields="{!v.contact}"
+            targetError="{!v.recordError}"
+            recordUpdated="{!c.handleContactUpdated}"
+            fields="Total_Payments_Amount_to_Date__c,
+                    Cohort_text__c"
+        />
+    </aura:if>
+    <aura:if isTrue="{! not(empty(v.applications)) }">
+        <c:DSF_sObjectHelper methodName="getSObject"
+            object="Student_Term__c"
+            fields="Student_Name__c,
+                    Application__c,
+                    Final_Award_Status__c,
+                    Final_Scholarship_Payment_Amount__c,
+                    Total_Payment_Value_Current_Term__c,
+                    Term_Semester__c,
+                    Most_Recent_Student_Term_Payment_Date__c,
+                    Need_Info__c"
+            conditions="{! v.condition }"
+            output="{! v.rawStudentTerms }"
+        />
+    </aura:if>
+    
+    <div class="slds-align_absolute-center slds-grid slds-wrap slds-p-bottom_medium">
+        <div class="slds-align_absolute-center slds-p-bottom_medium slds-col slds-size_1-of-1"><img src="{!$Resource.DSF_Resources + '/' + v.headingImg}" alt="Awards Icon"/></div>
+        <div class="slds-align_absolute-center slds-p-bottom_medium slds-text-heading_large slds-col slds-size_1-of-1 text-blue header-text"><p><b>{!v.heading}</b></p></div>
+        <aura:if isTrue="{! v.isContactLoaded }">
+            <aura:if isTrue="{! and(not(empty(v.contact)), and(not(empty(v.contact.Cohort_text__c)), empty(v.contact.Total_Payments_Amount_to_Date__c))) }">
+                <div class="slds-align_absolute-center slds-p-bottom_small slds-text-heading_medium slds-col slds-size_1-of-1"><p class="text_centered">
+                    {!v.subheadingnewapplicant} 
+                </p></div>
+            </aura:if>
+            <aura:if isTrue="{! and(not(empty(v.contact)), and(not(empty(v.contact.Cohort_text__c)), not(empty(v.contact.Total_Payments_Amount_to_Date__c)))) }">
+                <div class="slds-align_absolute-center slds-p-bottom_small slds-text-heading_medium slds-col slds-size_1-of-1"><p class="text_centered">
+                    {!v.subheadingPartOne} <b><lightning:formattedNumber style="currency" currencyCode="USD" value="{!v.contact.Total_Payments_Amount_to_Date__c}"/></b> {!v.subheadingPartTwo}&nbsp;{!v.contact.Cohort_text__c}.
+                </p></div>
+            </aura:if>
+            <aura:set attribute="else">
+                <div class="position-relative slds-align_absolute-center slds-col slds-size_1-of-1 slds-p-vertical_medium">
+                    <lightning:spinner alternativeText="Loading" size="medium" variant="brand"/>
+                </div>
+            </aura:set>
+        </aura:if>
+    </div>
+    <div class="slds-grid_vertical slds-wrap slds-gutters">
+        <aura:if isTrue="{! not(empty(v.filteredApplications)) }">
+            <aura:iteration items="{!v.filteredApplications}" var="item">
+                <div id="container_top" class="slds-grid slds-col slds-size_1-of-1 slds-border_top slds-p-vertical_small">
+                    <div class="slds-col slds-large-size_1-of-6 slds-medium-size_1-of-1 slds-x-small-size_1-of-1">
+                        <p id="year" class="slds-text-heading_medium text-blue year-font"><b>{! item.Application_Submission_Year__c }-{! (item.Application_Submission_Year__c * 1) + 1 }</b></p>
+                    </div>
+                    <div id="row" class="slds-col slds-x-small-size_5-of-6 slds-medium-size_5-of-6 slds-large-size_4-of-6">
+                        <c:DSF_AwardsRow rawStudentTerms="{! item.Student_Terms }"
+                            notQualified="{!v.notQualified}"
+                            qualifiedInfo="{!v.qualifiedInfo}"
+                            pending="{!v.pending}"
+                        />
+                    </div>
+                </div>
+            </aura:iteration>
+        </aura:if>
+    </div>
+
+</aura:component>

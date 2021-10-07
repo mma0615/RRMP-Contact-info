@@ -1,0 +1,49 @@
+<aura:component>
+    
+    <aura:attribute name="rawStudentTerms" type="Student_Term__c[]" default=""/>
+    <aura:attribute name="studentTerms" type="Student_Term__c[]" default=""/>
+    <aura:attribute name="sldsSize" type="String" default="slds-size_1-of-2"/>
+    <aura:attribute name="minHeight" type="String" default=""/>
+
+    <!--Attributes editable through design attributes-->
+    <aura:attribute name="notQualified" type="String" default=""/>
+    <aura:attribute name="qualifiedInfo" type="String" default=""/>
+    <aura:attribute name="pending" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    
+    <div class="slds-grid slds-wrap slds-gutters">
+        <aura:iteration items="{! v.studentTerms }" var="item">
+            <div class="{! 'slds-col ' + v.sldsSize }">
+                <p class="slds-text-heading_medium slds-p-bottom_x-small text-blue"><b>{!item.Term_Semester__c}</b></p>
+                <div class="{! 'slds-box box-div ' + v.minHeight }">
+                    <aura:if isTrue="{! item.Final_Award_Status__c == 'Eligible - Award Calculated' }">
+                        <aura:if isTrue="{! item.Total_Payment_Value_Current_Term__c > 0 }">
+                            <p class="slds-text-heading_large slds-p-vertical_x-small slds-p-left_x-small"><b>
+                                <lightning:formattedNumber style="currency" currencyCode="USD" value="{!item.Total_Payment_Value_Current_Term__c}"/>
+                            </b></p>
+                            <p class="slds-text-heading_small slds-p-left_x-small slds-p-bottom_x-small">
+                                {!v.qualifiedInfo} <lightning:formattedDateTime value="{!item.Most_Recent_Student_Term_Payment_Date__c}"/>
+                            </p>
+                            <aura:set attribute="else">
+                                <p class="slds-text-heading_large slds-p-vertical_x-small slds-p-left_x-small"><b>
+                                    <lightning:formattedNumber style="currency" currencyCode="USD" value="{!item.Final_Scholarship_Payment_Amount__c}"/>
+                                </b></p>
+                                <p class="slds-text-heading_small slds-p-left_x-small slds-p-bottom_x-small">{!v.pending}</p>
+                            </aura:set>
+                        </aura:if>
+                        <aura:set attribute="else">
+                            <aura:if isTrue="{!item.Need_Info__c == 'Need Info'}">
+                              <p class="slds-text-heading_small slds-m-top_x-small slds-m-bottom_xx-small slds-p-vertical_large slds-p-left_x-small">Pending eligiblity</p>
+                             <aura:set attribute="else">
+                            		<p class="slds-text-heading_small slds-m-top_x-small slds-m-bottom_xx-small slds-p-vertical_large slds-p-left_x-small">{!v.notQualified}</p>
+                            </aura:set>
+                           </aura:if>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </div>
+        </aura:iteration>
+    </div>
+
+</aura:component>

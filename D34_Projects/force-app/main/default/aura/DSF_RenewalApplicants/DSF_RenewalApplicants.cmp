@@ -1,0 +1,54 @@
+<!--
+    Created by smilankov 22/10/19.
+-->
+<aura:component description="DSF_ContactDSF" implements="forceCommunity:availableForAllPageTypes">
+
+    <aura:attribute name="Title"           type="String" default=""/>
+    <aura:attribute name="CustomMessage1"  type="String" default=""/> 
+    <aura:attribute name="Bolded"          type="String" default=""/>
+    <aura:attribute name="CustomMessage2"  type="String" default=""/>    
+    <aura:attribute name="Button"          type="String" default=""/>
+    <aura:attribute name="buttonContinue"  type="String" default=""/>
+    <aura:attribute name="finalButtonLabel" type="String" default=""/>
+    <aura:attribute name="buttonURL"       type="String" default=""/>
+    <aura:attribute name="buttonURLContinue" type="String" default=""/>
+    <aura:attribute name="finalButtonURL"  type="String" default=""/>
+    <aura:attribute name="currUser"        type="User" default=""/>
+    <aura:attribute name="recordError"     type="String" default=""/>
+	<aura:attribute name="linkText"        type="String" default=""/>
+    <aura:attribute name="link1"           type="String" default=""/>
+    <aura:attribute name="CustomMessage3"  type="String" default=""/>    
+    
+    <aura:handler name="change" value="{!v.currUser}" action="{!c.onUserLoad}" />
+
+    <c:DSF_UserLoader output="{!v.currUser}"
+                      userError="{!v.recordError}"
+                      fields="Id,ContactId,Contact.Application_Portal_Page_Access__c"
+    />
+
+    <div class="slds-grid slds-wrap  slds-align_absolute-center div-50vh">
+        <div class="slds-col slds-large-size_1-of-2 slds-medium-size--1-of-1 img-div">
+            <div class=" slds-size_1-of-1" style="{!'height: 100%; background:' + ' url(' + $Resource.DSF_Resources + '/26787065868_b4cb3ec630_o.jpg' +') no-repeat;background-size: cover;'}">
+            </div>
+        </div>
+        <div class="slds-col slds-large-size_1-of-2 slds-medium-size--1-of-1 slds-p-left_xx-large">
+            <div class="slds-size_1-of-1 slds-m-bottom_large">
+                <h1>{!v.Title}</h1>
+            </div>
+            <div>
+                <p>{!v.CustomMessage1} <b>{!v.Bolded}</b></p>
+            </div>
+            <div class="slds-p-top_medium">
+                 <p>{!v.CustomMessage2}<a href="{!v.link1}" target="_blank"><b>{!v.linkText}</b></a>{!v.CustomMessage3}</p>
+            </div>
+            
+        </div>
+        <div class="slds-col slds-large-size_1-of-2 slds-medium-size--1-of-1 button-col slds-m-top_x-large paddingFooter">
+             <aura:if isTrue="{!not(empty(v.currUser))}">
+                 <c:DSF_ApplicationButton buttonLabel="{!v.finalButtonLabel}"
+                                          buttonURL="{!v.finalButtonURL}"
+                 />
+           </aura:if>
+         </div>
+    </div>
+</aura:component>

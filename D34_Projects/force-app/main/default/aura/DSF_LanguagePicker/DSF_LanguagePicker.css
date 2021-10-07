@@ -1,0 +1,12 @@
+.THIS.picker{
+    padding: 0.5vh;
+    font-size: 16px;
+    text-decoration: none;
+    color: #E76E24;
+}
+
+@media only screen and (max-width: 450px) {
+    .THIS.THIS.picker {
+        margin-left: 10%;
+    }
+}

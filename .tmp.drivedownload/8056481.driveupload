@@ -1,0 +1,76 @@
+// This file is generated as an Apex representation of the
+//     corresponding sObject and its fields.
+// This read-only file is used by the Apex Language Server to
+//     provide code smartness, and is deleted each time you
+//     refresh your sObject definitions.
+// To edit your sObjects and their fields, edit the corresponding
+//     .object-meta.xml and .field-meta.xml files.
+
+global class Report_6__ChangeEvent {
+    global Id Id;
+    global String ReplayId;
+    global Object ChangeEventHeader;
+    global SObject Owner;
+    global Id OwnerId;
+    global String Name;
+    global Datetime CreatedDate;
+    global User CreatedBy;
+    global Id CreatedById;
+    global Datetime LastModifiedDate;
+    global User LastModifiedBy;
+    global Id LastModifiedById;
+    global String Load_Record_Id__c;
+    global String Patient_ID_Number__c;
+    global String PHI_Consent__c;
+    global String Patient_Opt_In__c;
+    global String Referral_Number__c;
+    global String Referral_Start_Date__c;
+    global String Patient_YOB__c;
+    global String Patient_Gender__c;
+    global String Activity_Type__c;
+    global String Activity_Date__c;
+    global String Activity_No__c;
+    global String NDC_Number__c;
+    global String Drug_Description__c;
+    global String Prescriber_Name__c;
+    global String Prescriber_NPI__c;
+    global String Current_Form__c;
+    global String Current_Strength__c;
+    global String Current_Frequency__c;
+    global String Current_Daily_Dose__c;
+    global String Optimization_Type__c;
+    global String Optimization_Status__c;
+    global String Optimization_Outcome__c;
+    global String New_Form__c;
+    global String New_Strength__c;
+    global String New_Frequency__c;
+    global String New_Daily_Dose__c;
+    global String Additional_Details__c;
+    global String Record_ID__c;
+    global String Transaction_ID__c;
+    global String Comment_1__c;
+    global String Comment_2__c;
+    global String Comment_3__c;
+    global String Comment_4__c;
+    global String Comment_5__c;
+    global String Comment_6__c;
+    global String Comment_7__c;
+    global String Comment_8__c;
+    global String Comment_9__c;
+    global String Comment_10__c;
+    global String Comment_11__c;
+    global String Comment_12__c;
+    global String Comment_13__c;
+    global String Comment_14__c;
+    global String Comment_15__c;
+    global String Comment_16__c;
+    global String Comment_17__c;
+    global String Comment_18__c;
+    global String Comment_19__c;
+    global String Comment_20__c;
+    global Account Patient__c;
+
+    global Report_6__ChangeEvent () 
+    {
+    }
+}

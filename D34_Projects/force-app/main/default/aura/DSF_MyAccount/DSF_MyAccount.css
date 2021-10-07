@@ -1,0 +1,105 @@
+.THIS .divider {
+    display: none;
+    border: none;
+    height: 1px;
+    width: 80%;
+    margin: 50px 0 2px;
+    background: #E76E24;
+}
+.THIS .text-blue {
+  color: #203366;
+}
+.THIS .header-text {
+  font-size: 32px;
+}
+.THIS .box-div {
+  background-color: #f7f8f9;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+.THIS .brown-font {
+  color: #574f49;
+}
+.THIS .padding-fix_box-text {
+  padding-top: 2px;
+}
+.THIS .slds-input {
+  border: 0.5px solid #7fb0cc;
+  border-radius: 0px;
+  height: 50px;
+}
+.THIS .slds-input_disabled {
+  border: none;
+  height: 50px;
+  background-color: #F7F8F9;
+}
+.THIS .slds-form-element__label {
+  padding-bottom: 4px;
+  font-size: 13px;
+}
+.THIS.display-none_success {
+  display: none;
+}
+.THIS .display-none_alert {
+  display: none;
+}
+.THIS.display-none_error {
+  display: none;
+}
+.THIS .position-relative {
+  position: relative;
+}
+.THIS .savedSuccessfully {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+.THIS .errorMsg {
+  background-color: darkred;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/*Radion Buttons desing updated by ahasic*/
+.THIS .slds-radio_faux {
+  width: 26px;
+  height: 26px;
+}
+
+.THIS .slds-radio_faux::after {
+  height: 18px !important;
+  width: 18px !important;
+  background-color: #7FB0CC !important;
+}
+
+/*Disabled input fields desing updated by ahasic*/
+.THIS .slds-input[disabled] {
+  border: none;
+}
+
+/*Radio button group displayed horizontally*/
+.THIS .slds-form-element__control .slds-radio{
+	display: inline-block;
+	padding-right: 4vw;
+}
+
+@media only screen and (max-width: 1024px) {
+    .THIS .mobile-heading {
+        text-align: center;
+    }
+    .THIS .divider {
+        display: block;
+    }
+    .THIS .mobile-radio-btns {
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 770px) {
+  .THIS .slds-gutters {
+    margin: auto;
+  }
+}

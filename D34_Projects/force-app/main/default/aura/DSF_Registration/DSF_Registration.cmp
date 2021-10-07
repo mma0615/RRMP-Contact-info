@@ -1,0 +1,193 @@
+<aura:component controller="DSF_Registration">
+	<aura:attribute name="screen" type="String" default="step1"/>  
+
+	<aura:attribute name="dpsidOrCollegeId"  type="String" default=""/>
+	<aura:attribute name="date_of_birth"     type="Date" default=""/>
+	<aura:attribute name="firstName"         type="String" default=""/>
+	<aura:attribute name="lastName" 		 type="String" default=""/>
+	<aura:attribute name="contact_list"      type="Object[]" default=""/>
+	<aura:attribute name="users_list" 		 type="Object[]" default=""/>
+	<aura:attribute name="recordError"  	 type="String" default=""/>
+	<aura:attribute name="currUser" 		 type="User" default=""/>
+	
+	<!-- Password Attributes non used  -->
+    <aura:attribute name="password" 		 type="String" default=""/>
+	<aura:attribute name="confirmPassword"   type="String" default=""/>
+	<!-- / Password Attributes non used  -->	
+
+    <aura:attribute name="email" 			 type="String" default=""/>
+	<aura:attribute name="errorMessage" 	 type="String" default=""/>
+	<aura:attribute name="emailErrorMessage" type="String" default=""/>
+	<aura:attribute name="userExist" 		 type="Boolean" default="false"/>
+	<aura:attribute name="contactExists" 	 type="Boolean" default="true"/>
+	<aura:attribute name="loadData" 		 type="Boolean" default="false"/>
+	<aura:attribute name="usersLoaded" 		 type="Boolean" default="false"/>
+	<aura:attribute name="contactsLoaded" 	 type="Boolean" default="false"/>
+	<aura:attribute name="contactIneligible" type="Boolean" default="false"/>
+	<!-- To put within design attributes, receiving values from DSF_LoginTabs -->
+	<aura:attribute name="userAlreadyExistMsg" 	   type="String" default=""/>
+	<aura:attribute name="BackToLogin" 	   		   type="String" default=""/>
+	<aura:attribute name="BirthdateErrorMsg"   	   type="String" default=""/>
+	<aura:attribute name="DpsidErrorMsg"       	   type="String" default=""/>
+	<aura:attribute name="FirstNameErrorMsg"   	   type="String" default=""/>
+	<aura:attribute name="LastNameErrorMsg"    	   type="String" default=""/>
+
+	<aura:attribute name="NextBtnLabel"			   type="String" default=""/>
+	<aura:attribute name="FirstNameInputLabel" 	   type="String" default=""/>
+	<aura:attribute name="LastNameInputLabel" 	   type="String" default=""/>
+	<aura:attribute name="BirthdateInputLabel" 	   type="String" default=""/>
+	<aura:attribute name="DpsidInputLabel" 		   type="String" default=""/>
+	<aura:attribute name="Step3EmailInputLabel"    type="String" default=""/>
+	<aura:attribute name="Step3PassInputLabel" 	   type="String" default=""/>
+	<aura:attribute name="Step3CnfPassInputLabel"  type="String" default=""/>
+	<aura:attribute name="CreateAccountBtnLabel"   type="String" default=""/>
+    <aura:attribute name="CreateAcctMsg"           type="String" default=""/>
+    
+
+	<aura:attribute name="EligibilityIntro"	   	   type="String" default=""/>
+	<aura:attribute name="EligibilityRow1Bolded"   type="String" default=""/>
+	<aura:attribute name="EligibilityRow1Text"     type="String" default=""/>
+	<aura:attribute name="EligibilityRow2Bolded"   type="String" default=""/>
+	<aura:attribute name="EligibilityRow2Text"     type="String" default=""/>
+	<aura:attribute name="EligibilityRow2Link"     type="String" default=""/>
+	<aura:attribute name="EligibilityRow2LinkText" type="String" default=""/>
+	<aura:attribute name="EligibilityRow3Bolded"   type="String" default=""/>
+	<aura:attribute name="EligibilityRow3Link"     type="String" default=""/>
+	<aura:attribute name="EligibilityRow3LinkText" type="String" default=""/>
+	<aura:attribute name="EligibilityRow4Text1"    type="String" default=""/>
+    <aura:attribute name="EligibilityRow4Bolded"   type="String" default=""/>
+    <aura:attribute name="EligibilityRow4Text2"    type="String" default=""/>
+    <aura:attribute name="EligibilityRow4Link"     type="String" default=""/>
+	<aura:attribute name="EligibilityRow4LinkText" type="String" default=""/>
+	<aura:attribute name="EligibilityRow5Text1"    type="String" default=""/>
+	<aura:attribute name="EligibilityRow5Link" 	   type="String" default=""/>
+	<aura:attribute name="EligibilityRow5LinkText" type="String" default=""/>
+	<aura:attribute name="EligibilityRow5Text2"    type="String" default=""/>
+	<aura:attribute name="EligibilityRow5Bolded"   type="String" default=""/>
+    <aura:attribute name="EligibilityRow6Text1"    type="String" default=""/>
+	<aura:attribute name="EligibilityRow6Link" 	   type="String" default=""/>
+	<aura:attribute name="EligibilityRow6LinkText" type="String" default=""/>
+	<aura:attribute name="EligibilityRow6Text2"    type="String" default=""/>
+	<aura:attribute name="EligibilityRow6Bolded"   type="String" default=""/> 
+    <aura:attribute name="EligibilityRow7Text1"    type="String" default=""/>
+	<aura:attribute name="EligibilityRow7Link" 	   type="String" default=""/>
+	<aura:attribute name="EligibilityRow7LinkText" type="String" default=""/>
+	<aura:attribute name="EligibilityRow7Text2"    type="String" default=""/>
+	<aura:attribute name="EligibilityRow7Bolded"   type="String" default=""/> 
+      
+	<aura:attribute name="CreateAccountStep3Msg"   type="String" default=""/>
+	<aura:attribute name="NoMatchLinkText"         type="String" default=""/>
+	<aura:attribute name="NoMatchErrorMessage"     type="String" default=""/>
+
+	<aura:registerEvent name="DSF_Login_Event" type="c:DSF_Login_Event"/>
+	<aura:registerEvent name="DSF_Ineligible_Event" type="c:DSF_Ineligible_Event"/>
+	<aura:registerEvent name="DSF_ShowContactUsEVT" type="c:DSF_ShowContactUsEVT"/>
+	<aura:registerEvent name="DSF_backToLogIn" type="c:DSF_backToLogIn"/>
+    <aura:handler name="change" value="{!v.users_list}" action="{!c.checkIfUserAlreadyExist}" />
+	<aura:handler name="change" value="{!v.contact_list}" action="{!c.checkIfContactAlreadyExist}" />
+
+	<c:DSF_UserLoader 
+		output="{! v.currUser }"
+		userError="{! v.recordError }"
+		fields="Id,ContactId"
+	/> 
+ 
+	<aura:if isTrue="{! v.loadData }">	
+		<c:DSF_sObjectHelper methodName="getSObject"
+			object="Contact"
+			fields="Id, AccountId, FirstName, LastName, Eligible_For_Initial_Registration__c, Ineligible_to_Reapply_Ever_Message__c, DPS_Enrollment_Eligibility__c, High_School_Class_of__c"
+			conditions="{!'(DPSID__c = \'' + v.dpsidOrCollegeId + '\' AND Birthdate = ' + v.date_of_birth + ') OR (Current_College_ID__c = \'' + v.dpsidOrCollegeId + '\' AND Birthdate = ' + v.date_of_birth + ')'}"
+			output="{! v.contact_list }"
+		/>
+
+		<c:DSF_sObjectHelper methodName="getSObject"
+			object="User"
+			fields="Id, ContactId"
+			conditions="{!'(ContactId != null AND Contact.DPSID__c = \'' + v.dpsidOrCollegeId + '\' AND Contact.Birthdate = ' + v.date_of_birth + ') OR (Contact.Current_College_ID__c = \'' + v.dpsidOrCollegeId + '\' AND Contact.Birthdate = ' + v.date_of_birth + ')'}"
+			output="{! v.users_list }"
+		/>
+	</aura:if>
+
+	<div class="slds-align_absolute-center">
+	
+		<div class="slds-size_2-of-3 position_fix">
+			<aura:if isTrue="{!v.screen == 'step1'}">
+				<div class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center slds-m-top_x-small">
+                    <b>{!v.CreateAcctMsg}</b>
+                <br></br>
+					{!v.EligibilityIntro}
+					<ul class="slds-m-top_small slds-list--dotted">
+						<li class="slds-p-left_small slds-p-bottom_xx-small"><b>{!v.EligibilityRow1Bolded}</b> {!v.EligibilityRow1Text}</li>
+						<li class="slds-p-left_small slds-p-bottom_xx-small"><b>{!v.EligibilityRow2Bolded}</b> {!v.EligibilityRow2Text} <a href="{!v.EligibilityRow2Link}" target="_blank">{!v.EligibilityRow2LinkText}</a></li>
+						<li class="slds-p-left_small slds-p-bottom_xx-small"><b>{!v.EligibilityRow3Bolded}</b> <a href="{!v.EligibilityRow3Link}" target="_blank">{!v.EligibilityRow3LinkText}</a></li>
+						<li class="slds-p-left_small slds-p-bottom_xx-small">{!v.EligibilityRow4Text1} <b>{!v.EligibilityRow4Bolded}</b> {!v.EligibilityRow4Text2} <a href="{!v.EligibilityRow4Link}" target="_blank">{!v.EligibilityRow4LinkText}</a></li>
+						<li class="slds-p-left_small slds-p-bottom_xx-small">{!v.EligibilityRow5Text1} <a href="{!v.EligibilityRow5Link}" target="_blank"><b>{!v.EligibilityRow5LinkText}</b></a> {!v.EligibilityRow5Text2}<b>{!v.EligibilityRow5Bolded}</b></li>
+                        <li class="slds-p-left_small slds-p-bottom_xx-small">{!v.EligibilityRow6Text1} <b>{!v.EligibilityRow6Bolded}</b><a href="{!v.EligibilityRow6Link}" target="_blank">{!v.EligibilityRow6LinkText}</a></li>
+                        
+					</ul>
+					
+					<div class='slds-size_1-of-1 slds-align_absolute-center'>
+						<lightning:button class="slds-m-top_x-large slds-button standardOrangeBtn" label="{!v.NextBtnLabel}" onclick="{!c.nextToStep2}"/>
+					</div>
+
+				</div>
+			</aura:if>
+			<aura:if isTrue="{!v.screen == 'step2'}">
+				<div class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center slds-m-top_x-small" onkeypress="{!c.handleEnterKey}">
+
+					<aura:if isTrue="{!v.loadData}">
+						<lightning:spinner variant="brand" size="large" class="slds-spinner_container" />
+					</aura:if>
+
+					<lightning:input aura:id="firstName" class="slds-size_1-of-1 slds-m-top_x-small" label="{!v.FirstNameInputLabel}" pattern="[a-zA-Z '-]{1,}" required="true" value="{!v.firstName}" messageWhenPatternMismatch="{!v.FirstNameErrorMsg}"/>
+					<lightning:input aura:id="lastName" class="slds-size_1-of-1 slds-m-top_x-small" label="{!v.LastNameInputLabel}" pattern="[a-zA-Z '-]{1,}" required="true" value="{!v.lastName}" messageWhenPatternMismatch="{!v.LastNameErrorMsg}"/>
+					<lightning:input aura:id="birthdate" onblur="{!c.loadUserAndContactData}" value="{!v.date_of_birth}" class="slds-size_1-of-1 slds-m-top_x-small" type="Date" label="{!v.BirthdateInputLabel}" required="true" messageWhenBadInput='{!v.BirthdateErrorMsg}'/>
+					<lightning:input aura:id="dpsid" onblur="{!c.loadUserAndContactData}" value="{!v.dpsidOrCollegeId}" class="slds-size_1-of-1 slds-m-top_x-small" label="{!v.DpsidInputLabel}" pattern="[A-z0-9]{6,10}" required="true" messageWhenPatternMismatch="{!v.DpsidErrorMsg}"/>
+					 					 
+					<aura:if isTrue="{! and(v.userExist, v.usersLoaded) }">
+						<p class="error slds-m-top_small">{!v.userAlreadyExistMsg}</p>
+
+						<aura:set attribute="else">
+							<aura:if isTrue="{! and(!v.contactExists, v.contactsLoaded) }">
+								<p class="error slds-m-top_small">{!v.NoMatchErrorMessage}<a onclick="{!c.showContactUs}"> {!v.NoMatchLinkText}</a></p>
+							</aura:if>
+
+							<aura:if isTrue="{! !empty(v.errorMessage) }">
+								<p class="error slds-m-top_small">{!v.errorMessage}</p>
+							</aura:if>
+						</aura:set>
+					</aura:if>
+					<aura:if isTrue="{! and(v.userExist, v.usersLoaded) }">
+                        
+						<div class="slds-align_absolute-center slds-m-top_small">
+                        	<a onclick="{!c.backToLogin}">{!v.BackToLogin}</a>
+						</div>
+						<div class='slds-size_1-of-1 slds-align_absolute-center'>
+							<lightning:button class="slds-m-top_x-large slds-button standardOrangeBtn" disabled="true" label="{!v.NextBtnLabel}"/>
+						</div>
+						<aura:set attribute="else">
+							<div class='slds-size_1-of-1 slds-align_absolute-center'>
+								<lightning:button class="slds-m-top_x-large slds-button standardOrangeBtn" disabled="{! or(and(!v.usersLoaded, !v.contactsLoaded), v.contactIneligible)}" label="{!v.NextBtnLabel}" onclick="{!c.nextToStep3}" />
+							</div>
+						</aura:set>
+					</aura:if>
+				</div>
+			</aura:if>
+			<aura:if isTrue="{!v.screen == 'step3'}">
+				<div class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center slds-m-top_x-small" onkeypress="{!c.handleEnterKey}">
+					
+					<lightning:input aura:id="fieldId" value="{!v.email}" class="slds-size_1-of-1 slds-m-top_x-small" type="Email" label="{!v.Step3EmailInputLabel}" required="true" pattern="^((?!.*(dpsk12\.org).*).)*" messageWhenPatternMismatch="Please do not use a dpsk.org email" />
+					<aura:if isTrue="{! !empty(v.emailErrorMessage) }">
+						<p class="error slds-m-top_small">{!v.emailErrorMessage}</p>
+					</aura:if>
+					<p class="slds-m-top_large slds-m-bottom_medium slds-text-heading_small">{!v.CreateAccountStep3Msg}</p>
+					
+					<div class='slds-size_1-of-1 slds-align_absolute-center'>
+						<lightning:button class="slds-m-top_x-large slds-button standardOrangeBtn" label="{!v.CreateAccountBtnLabel}" onclick="{!c.validate}" />
+					</div>
+ 
+				</div>
+			</aura:if>
+		</div>
+	</div>
+</aura:component>

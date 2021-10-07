@@ -1,0 +1,53 @@
+// This file is generated as an Apex representation of the
+//     corresponding sObject and its fields.
+// This read-only file is used by the Apex Language Server to
+//     provide code smartness, and is deleted each time you
+//     refresh your sObject definitions.
+// To edit your sObjects and their fields, edit the corresponding
+//     .object-meta.xml and .field-meta.xml files.
+
+global class Patient_Prescription__ChangeEvent {
+    global Id Id;
+    global String ReplayId;
+    global Object ChangeEventHeader;
+    global SObject Owner;
+    global Id OwnerId;
+    global String Name;
+    global Datetime CreatedDate;
+    global User CreatedBy;
+    global Id CreatedById;
+    global Datetime LastModifiedDate;
+    global User LastModifiedBy;
+    global Id LastModifiedById;
+    global Double Authorized_refills__c;
+    global String Brand_Name__c;
+    global String Compassionate_Use_Patient_Identifier__c;
+    global Date Date_Referral_Received__c;
+    global Double Days_Supplied__c;
+    global String Dosing_Instructions__c;
+    global String Frequency__c;
+    global String Full_Product_Name__c;
+    global Account Patients__c;
+    global Account Pharmacy__c;
+    global Account Prescriber__c;
+    global String Primary_Diagnosis_Code__c;
+    global Double Quantity_Shipped__c;
+    global Date RX_Date__c;
+    global String RX_Number__c;
+    global String RX_Type__c;
+    global String Referral_Number__c;
+    global String Referral_Source__c;
+    global String Referred_NDC_Code__c;
+    global Double Remaining_Refills__c;
+    global String SB_Source_Report_Name__c;
+    global Date SB_Source_Report_Process_Date__c;
+    global String Secondary_Diagnosis_Code__c;
+    global Date Ship_Date__c;
+    global String Tertiary_Diagnosis_Code__c;
+    global Date Void_Date__c;
+    global String Prescription_External_Id__c;
+
+    global Patient_Prescription__ChangeEvent () 
+    {
+    }
+}

@@ -1,0 +1,6 @@
+<apex:page standardController="Opportunity">
+    <c:process2 labels="['Qualification','Demo / Preso','Sales Engineering','Proposal/Price Quote','Won']"
+        shortlabels="['Q','DP','SE','PQ','WO']" 
+        selected="{!Opportunity.StageName}"
+    />
+</apex:page>

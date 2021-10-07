@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NavigationMenu xmlns="http://soap.sforce.com/2006/04/metadata">
+    <container>Demo</container>
+    <containerType>Network</containerType>
+    <label>Default Navigation</label>
+    <navigationMenuItem>
+        <label>My Courses</label>
+        <position>1</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>/my-course</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Course Catalog</label>
+        <position>2</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>hed__Course_Offering__c</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Reports</label>
+        <position>3</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Report</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+</NavigationMenu>

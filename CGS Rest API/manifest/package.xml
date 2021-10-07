@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>CGSRestAPIController</members>
+		<members>CGSRestAPIHelper</members>
+		<name>ApexClass</name>
+	</types>
+	<types>
+		<members>CGS_Rest_API.ExchangeRate</members>
+		<members>CGS_Rest_API.Mulesoft</members>
+		<members>CGS_Rest_API.Open_Weather_Map</members>
+		<members>CGS_Rest_Data_Mapping.Description</members>
+		<members>CGS_Rest_Data_Mapping.External_Id</members>
+		<members>CGS_Rest_Data_Mapping.Title</members>
+		<name>CustomMetadata</name>
+	</types>
+	<types>
+		<members>CGS_Rest_API__mdt-CGS Rest API Layout</members>
+		<members>CGS_Rest_Data_Mapping__mdt-CGS Rest Data Mapping Layout</members>
+		<name>Layout</name>
+	</types>
+	<version>50.0</version>
+</Package>

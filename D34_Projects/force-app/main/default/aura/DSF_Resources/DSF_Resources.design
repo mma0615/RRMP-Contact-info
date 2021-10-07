@@ -1,0 +1,37 @@
+<design:component >
+    <design:attribute name="PageHeader"         label="Page Header"  default=""/>
+    <design:attribute name="Icon"               label="Icon"         default=""/>
+
+    <design:attribute name="ResourcesBox1Title" label="Box 1 Title"  default=""/>
+    <design:attribute name="Box1Item1"          label="Box 1 Item 1" default=""/>
+    <design:attribute name="Box1Link1"          label="Box 1 Link 1" default=""/>
+    <design:attribute name="Box1Item2"          label="Box 1 Item 2" default=""/>
+    <design:attribute name="Box1Link2"          label="Box 1 Link 2" default=""/>
+    <design:attribute name="Box1Item3"          label="Box 1 Item 3" default=""/>
+    <design:attribute name="Box1Link3"          label="Box 1 Link 3" default=""/>
+    <design:attribute name="Box1Item4"          label="Box 1 Item 4" default=""/>
+    <design:attribute name="Box1Link4"          label="Box 1 Link 4" default=""/>
+    <design:attribute name="Box1Item5"          label="Box 1 Item 5" default=""/>
+    <design:attribute name="Box1Link5"          label="Box 1 Link 5" default=""/>
+    <design:attribute name="Box1Item6"          label="Box 1 Item 6" default=""/>
+    <design:attribute name="Box1Link6"          label="Box 1 Link 6" default=""/>
+
+    <design:attribute name="ResourcesBox2Title" label="Box 2 Title"  default=""/>
+    <design:attribute name="Box2Item1"          label="Box 2 Item 1" default=""/>
+    <design:attribute name="Box2Link1"          label="Box 2 Link 1" default=""/>
+    <design:attribute name="Box2Item2"          label="Box 2 Item 2" default=""/>
+    <design:attribute name="Box2Link2"          label="Box 2 Link 2" default=""/>
+    <design:attribute name="Box2Item3"          label="Box 2 Item 3" default=""/>
+    <design:attribute name="Box2Link3"          label="Box 2 Link 3" default=""/>
+    <design:attribute name="Box2Item4"          label="Box 2 Item 4" default=""/>
+    <design:attribute name="Box2Link4"          label="Box 2 Link 4" default=""/>
+    <design:attribute name="Box2Item5"          label="Box 2 Item 5" default=""/>
+    <design:attribute name="Box2Link5"          label="Box 2 Link 5" default=""/>
+    <design:attribute name="Box2Item6"          label="Box 2 Item 6" default=""/>
+    <design:attribute name="Box2Link6"          label="Box 2 Link 6" default=""/>
+    <design:attribute name="Box2Item7"          label="Box 2 Item 7" default=""/>
+    <design:attribute name="Box2Link7"          label="Box 2 Link 7" default=""/>
+    <design:attribute name="Box2Item8"          label="Box 2 Item 8" default=""/>
+    <design:attribute name="Box2Link8"          label="Box 2 Link 8" default=""/>
+    
+</design:component>

@@ -1,0 +1,35 @@
+/**
+ * Created by ahasic on 9/24/19.
+ */
+.THIS .pStyle {
+    color: #FFFFFF;
+    font-size: 13px;
+}
+
+.THIS .hrefStyle {
+    color: rgb(37, 116, 169);
+    font-size: 12px;
+}
+ 
+/**** MOBiLE ****/
+@media only screen and (max-width: 480px) {
+    .THIS .alignContentMobile {
+        text-align: center;
+    }
+
+    .THIS .hrefStyle {
+        padding-top: 0.2rem;
+    }
+    .THIS .paddingBottom {
+        padding-bottom: 2vh;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 800px) {
+    .THIS .tablet-p-left {
+        padding-left: 2rem;
+    }
+    .THIS .paddingBottom {
+        padding-bottom: 2vh;
+    }
+}

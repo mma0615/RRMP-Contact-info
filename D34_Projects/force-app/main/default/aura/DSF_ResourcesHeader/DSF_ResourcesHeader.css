@@ -1,0 +1,21 @@
+.THIS body {
+    background-color: #F7F8F9;
+}
+.THIS.box-header {
+    background-color: #F7F8F9;
+}
+.THIS h3 {
+    font-weight: 400;
+    padding-top: 40px;
+    padding-left: 25px;
+    padding-bottom: 7px;
+}
+
+@media only screen and  (max-width: 450px) {
+    .THIS h3 {
+        padding-left:0;
+    }
+    .THIS.box-header {
+        text-align: center;
+    }
+}

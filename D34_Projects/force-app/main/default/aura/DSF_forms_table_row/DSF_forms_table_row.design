@@ -1,0 +1,8 @@
+<design:component label="DSF_forms_table_row">
+    <design:attribute name="form" label="Form" default=""/>
+    <design:attribute name="deadline" label="Deadline" default=""/>
+    <design:attribute name="comp" label="Completition" default=""/>
+    <design:attribute name="link" label="Link" default=""/>
+    <design:attribute name="lm_link" label="Learn More Link" default=""/>
+    <design:attribute name="learnMore" label="Learn More Text" default=""/>
+</design:component>

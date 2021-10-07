@@ -1,0 +1,37 @@
+/* 
+    Created by smilankov on 18/10/19.
+*/
+
+.THIS h1 {
+    font-size: 30px;
+    color: #203366;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+.THIS h2 {
+    font-size: 24px;
+    color: #7FB0CC;
+    font-weight: 400;
+    padding-bottom:5px;
+}
+.THIS .slds-grid {
+    margin: auto;
+}
+.THIS  .column-row {
+    padding: 7px 0px;
+}
+.THIS .col-content {
+    background-color: #F7F8F9;
+    padding:40px 25px;
+    min-height: 350px;
+}
+.THIS .col-dsf-award {
+    background-color: #F7F8F9;
+    padding:40px 25px;
+}
+.THIS a {
+    text-decoration: none;
+    margin-left: 5px;
+    font-size: 15px;
+    color: black;
+}

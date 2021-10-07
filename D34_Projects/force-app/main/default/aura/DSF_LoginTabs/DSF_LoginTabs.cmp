@@ -1,0 +1,233 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+        
+    <aura:attribute name="selectedTabId"         type="String" />
+    <aura:attribute name="showTabs"              type="Boolean" default="true"/>
+    <aura:attribute name="showContactUs"         type="Boolean" default="false"/>
+    <aura:attribute name="ineligible"            type="Boolean" default="false"/>
+    <aura:attribute name="is_default_message"    type="Boolean" default="false"/>
+
+    <!-- attributes related to LoginTabs component-->
+    <aura:attribute name="message"               type="String" default=""/>
+    <aura:attribute name="LoginTabLabel"         type="String" default="LOG IN"/>
+    <aura:attribute name="CreateAccountTabLabel" type="String" default="CREATE ACCOUNT"/>
+    <aura:attribute name="ConfirmationMsg1"      type="String" default="We have sent a confirmation email with next steps."/>
+    <aura:attribute name="ConfirmationMsg2"      type="String" default="Please check your email to finish setting up your new password."/>
+    <aura:attribute name="DefaultContactUs"      type="String" default="contact us"/>
+
+
+    <!-- attributes related to registration component -->
+    <aura:attribute name="userAlreadyExistMsg"     type="String" default="Your account already exists. Try using the Forgot email address / Forgot password link under the Log In tab"/>
+    <aura:attribute name="BirthdateErrorMsg"       type="String" default="Please enter your birthdate in the format MM/DD/YYYY"/>
+    <aura:attribute name="DpsidErrorMsg"           type="String" default="Your ID can not be less than 6 and more than 10 characters long"/>
+    <aura:attribute name="FirstNameErrorMsg"       type="String" default=""/>
+    <aura:attribute name="LastNameErrorMsg"        type="String" default=""/>
+    <aura:attribute name="NextBtnLabel"			   type="String" default="NEXT"/>
+	<aura:attribute name="FirstNameInputLabel" 	   type="String" default="First Name"/>
+	<aura:attribute name="LastNameInputLabel" 	   type="String" default="Last Name"/>
+	<aura:attribute name="BirthdateInputLabel" 	   type="String" default="Birthdate"/>
+	<aura:attribute name="DpsidInputLabel" 		   type="String" default="6-Digit DPS Student ID OR Current College ID"/>
+	<aura:attribute name="Step3EmailInputLabel"    type="String" default="Email Address"/>
+	<aura:attribute name="Step3PassInputLabel" 	   type="String" default="Password"/>
+	<aura:attribute name="Step3CnfPassInputLabel"  type="String" default="Confirm Password"/>
+    <aura:attribute name="CreateAccountBtnLabel"   type="String" default="CREATE ACCOUNT"/>
+    <aura:attribute name="CreateAcctMsg"           type="String" default="This is a new portal. All Students need to create an account to get started."/>
+    <aura:attribute name="EligibilityIntro"        type="String" default="Creating an account will give you access to our scholarship application. You must meet the following requirements to receive a scholarship:"/>
+    <aura:attribute name="EligibilityRow1Bolded"   type="String" default="Attend a DPS High School for all four consecutive years"/>
+    <aura:attribute name="EligibilityRow1Text"     type="String" default=" before graduation and be included in the DPS October Count for all four years."/>
+    <aura:attribute name="EligibilityRow2Bolded"   type="String" default="Graduate from a DPS High School with at least a 2.0 GPA."/>
+    <aura:attribute name="EligibilityRow2Text"     type="String" default=" Learn about the"/>
+    <aura:attribute name="EligibilityRow2Link"     type="String" default=" https://denverscholarship.org/hsgpa"/>
+    <aura:attribute name="EligibilityRow2LinkText" type="String" default=" required minimum high school GPA for each college type."/>
+    <aura:attribute name="EligibilityRow3Bolded"   type="String" default="Demonstrate financial need."/>
+    <aura:attribute name="EligibilityRow3Link"     type="String" default="https://denverscholarship.org/students/dsf-scholarship/eligibility-requirements"/>
+    <aura:attribute name="EligibilityRow3LinkText" type="String" default=" Learn More."/>
+    <aura:attribute name="EligibilityRow4Text1"    type="String" default="Students who are ineligible for Federal Student Aid"/>
+    <aura:attribute name="EligibilityRow4Bolded"   type="String" default=" must be lawfully present in the United States"/>
+    <aura:attribute name="EligibilityRow4Text2"    type="String" default=" or have a pending application to be lawfully present."/>
+    <aura:attribute name="EligibilityRow4Link"     type="String" default="https://denverscholarship.org/lawfulpresence"/>
+    <aura:attribute name="EligibilityRow4LinkText" type="String" default=" Learn more."/>
+    <aura:attribute name="EligibilityRow5Text1"    type="String" default="If you are eligible for federal student aid, you must"/>
+	<aura:attribute name="EligibilityRow5Link" 	   type="String" default="https://fafsa.gov"/>
+	<aura:attribute name="EligibilityRow5LinkText" type="String" default=" complete the FAFSA"/>
+	<aura:attribute name="EligibilityRow5Text2"    type="String" default=" by your college's priority deadline, but no later than"/>
+    <aura:attribute name="EligibilityRow5Bolded"   type="String" default=" April 1."/>
+    <aura:attribute name="EligibilityRow6Text1"     type="String" default="Complete all steps needed to"/>
+    <aura:attribute name="EligibilityRow6Link"      type="String" default=""/>
+    <aura:attribute name="EligibilityRow6LinkText"  type="String" default="Learn More."/>
+    <aura:attribute name="EligibilityRow6Text2"     type="String" default=""/>
+    <aura:attribute name="EligibilityRow6Bolded"    type="String" default=" qualify for Colorado in-state tuition or state aid. "/>
+    <aura:attribute name="EligibilityRow7Text1"     type="String" default=""/>
+    <aura:attribute name="EligibilityRow7Link"      type="String" default=""/>
+    <aura:attribute name="EligibilityRow7LinkText"  type="String" default=""/>
+    <aura:attribute name="EligibilityRow7Text2"     type="String" default=""/>
+    <aura:attribute name="EligibilityRow7Bolded"    type="String" default=""/>
+
+    
+    
+    <aura:attribute name="CreateAccountStep3Msg"   type="String" default="Do not use your high school email (e.g. name@dpsk12.org or name@scienceandtech.org) since it will
+                                                                          be deactivated after high school graduation. Use a personal email (like Google or Outlook) or college email instead."/>
+	<aura:attribute name="NoMatchLinkText"         type="String" default="contact us."/>
+    <aura:attribute name="NoMatchErrorMessage"     type="String" default="There is no match with DPS records based on the information you provided. Please re-enter your information above. If you believe the
+                                                                          information was entered correctly or you do not remember your DPS School ID, please contact DSF at (303) 640-6564 or at "/>
+
+    <!-- attributes related to login component (if needed) -->
+    <aura:attribute name="PasswordErrorMsg"         type="String" default="A password must contain at least eight characters, including numbers and letters."/>
+    <aura:attribute name="EmailErrorMsg"            type="String" default="You have entered an invalid format."/>
+    <aura:attribute name="MailAndPassErrorMsg"      type="String" default="Make sure your email and password are correct. Remember, this is a new portal. You need to create an account before you'll be able to log in."/>
+    <aura:attribute name="ResetPaswordMsg1"         type="String" default="Enter your email address and we'll send you an email to reset your password."/>
+    <aura:attribute name="ResetPaswordMsg2"         type="String" default="Please reset your password."/>
+    <aura:attribute name="ResetPassEmailInputLabel" type="String" default="Email Address"/>
+    <aura:attribute name="ForgotPasswordLink"       type="String" default="Forgot Password?"/>
+    <aura:attribute name="ForgotEmail"              type="String" default="Forgot Email Address?"/>
+    <aura:attribute name="ForgotEmailText1"         type="String" default="If you no longer have access to the email address you used to create your login, please "/>
+    <aura:attribute name="ForgotEmailLinkText"      type="String" default="contact us "/>
+    <aura:attribute name="ForgotEmailText2"         type="String" default="for help."/>
+    <aura:attribute name="CreatenewAcctMsg"         type="String" default="" />
+    <aura:attribute name="EmailInputLabel"          type="String" default="Email"/>
+    <aura:attribute name="PasswordInputLabel"       type="String" default="Password"/>
+    <aura:attribute name="LogInBtnLabel"            type="String" default="LOG IN"/>
+    <aura:attribute name="ResetPassBtnLabel"        type="String" default="RESET PASSWORD"/>
+    <aura:attribute name="NewPassInputLabel"        type="String" default="New Password"/>
+    <aura:attribute name="ConfirmPassInputLabel"    type="String" default="Confirm Password"/>
+    <aura:attribute name="ReturningScholar"         type="String" default="DSF Scholar?"/>
+    <aura:attribute name="ReturningScholarText1"    type="String" default="If you are a returning DSF Scholar, you will need to create an account in the new portal. Head to the CREATE ACCOUNT tab to get started. "/>
+
+    <!--attributes related to contactDSF on login page-->
+    <aura:attribute name="TooltipMsg"     type="String" default="You will be able to upload an attachment if necessary after your message is submitted."/>
+    <aura:attribute name="ModalMessage"   type="String" default="Upload attachment if necessary."/>
+    <aura:attribute name="LoginModalMsg"  type="String" default="Thank you for contacting the Denver Scholarship Foundation. We have received your email and will respond promptly."/>
+    <aura:attribute name="BackToLoginMsg" type="String" default="Return to login page"/>
+    <aura:attribute name="ShareFilesMsg"   type="String" default="If you want to share any files with us please send to the:"/>
+    <aura:attribute name="ShareFilesEmail" type="String" default="support@denverscholarship.org"/>
+
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler name="DSF_Login_Event" event="c:DSF_Login_Event" action="{!c.handleLoginEvent}"/>
+    <aura:handler name="DSF_Ineligible_Event" event="c:DSF_Ineligible_Event" action="{!c.handleIneligibleEvent}"/>
+    <aura:handler event="c:DSF_ShowContactUsEVT" action="{!c.handleContactUsEvent}"/>
+    <aura:handler name="DSF_backToLogIn" event="c:DSF_backToLogIn" action="{!c.backToLoginEvtHandler}"/>
+    <aura:if isTrue="{! and(v.showTabs, !v.showContactUs)}">
+        <lightning:tabset class="slds-size_1-of-1 slds-wrap overflow-hidden" aura:id="tabSet">
+            
+            <lightning:tab class="tabHeader slds-size_1-of-1" label="{!v.CreateAccountTabLabel}" title="CREATE ACCOUNT" id="createaccount" onactive="{!c.handleCreateAccountTabSelected}">
+                <c:DSF_Registration aura:id="registrationComponent"
+                                    userAlreadyExistMsg="{!v.userAlreadyExistMsg}"
+                                    FirstNameErrorMsg="{!v.FirstNameErrorMsg}"
+                                    LastNameErrorMsg="{!v.LastNameErrorMsg}"
+                                    BirthdateErrorMsg="{!v.BirthdateErrorMsg}"
+                                    DpsidErrorMsg="{!v.DpsidErrorMsg}"
+                                    NextBtnLabel="{!v.NextBtnLabel}"
+                                    FirstNameInputLabel="{!v.FirstNameInputLabel}"
+                                    LastNameInputLabel="{!v.LastNameInputLabel}"
+                                    BirthdateInputLabel="{!v.BirthdateInputLabel}"
+                                    DpsidInputLabel="{!v.DpsidInputLabel}"
+                                    Step3EmailInputLabel="{!v.Step3EmailInputLabel}"
+                                    Step3PassInputLabel="{!v.Step3PassInputLabel}"
+                                    Step3CnfPassInputLabel="{!v.Step3CnfPassInputLabel}"
+                                    CreateAccountBtnLabel="{!v.CreateAccountBtnLabel}"
+                                    BackToLogin = "{!v.BackToLoginMsg}"
+                                    CreateAcctMsg = "{!v.CreateAcctMsg}"
+                                    EligibilityIntro="{!v.EligibilityIntro}"
+                                    EligibilityRow1Bolded="{!v.EligibilityRow1Bolded}"
+                                    EligibilityRow1Text="{!v.EligibilityRow1Text}"
+                                    EligibilityRow2Bolded="{!v.EligibilityRow2Bolded}"
+                                    EligibilityRow2Text="{!v.EligibilityRow2Text}"
+                                    EligibilityRow2Link="{!v.EligibilityRow2Link}"
+                                    EligibilityRow2LinkText="{!v.EligibilityRow2LinkText}"
+                                    EligibilityRow3Bolded="{!v.EligibilityRow3Bolded}"
+                                    EligibilityRow3Link="{!v.EligibilityRow3Link}"
+                                    EligibilityRow3LinkText="{!v.EligibilityRow3LinkText}"
+                                    EligibilityRow4Text1="{!v.EligibilityRow4Text1}"
+                                    EligibilityRow4Bolded="{!v.EligibilityRow4Bolded}"
+                                    EligibilityRow4Text2="{!v.EligibilityRow4Text2}"
+                                    EligibilityRow4Link="{!v.EligibilityRow4Link}"
+                                    EligibilityRow4LinkText="{!v.EligibilityRow4LinkText}"
+                                    EligibilityRow5Text1="{!v.EligibilityRow5Text1}"
+                                    EligibilityRow5Link="{!v.EligibilityRow5Link}"
+                                    EligibilityRow5LinkText="{!v.EligibilityRow5LinkText}"
+                                    EligibilityRow5Text2="{!v.EligibilityRow5Text2}"
+                                    EligibilityRow5Bolded="{!v.EligibilityRow5Bolded}"
+                                    EligibilityRow6Text1="{!v.EligibilityRow6Text1}"
+                                    EligibilityRow6Link="{!v.EligibilityRow6Link}"
+                                    EligibilityRow6LinkText="{!v.EligibilityRow6LinkText}"
+                                    EligibilityRow6Text2="{!v.EligibilityRow6Text2}"
+                                    EligibilityRow6Bolded="{!v.EligibilityRow6Bolded}"
+                                    
+                                    CreateAccountStep3Msg="{!v.CreateAccountStep3Msg}"
+                                    NoMatchLinkText="{!v.NoMatchLinkText}"
+                                    NoMatchErrorMessage="{!v.NoMatchErrorMessage}"
+                                    />
+            </lightning:tab>
+            <lightning:tab class="tabHeader slds-size_1-of-1" label="{!v.LoginTabLabel}" title="LOG IN" id="login" >
+                <c:DSF_Login  PasswordErrorMsg="{!v.PasswordErrorMsg}"
+                              EmailErrorMsg="{!v.EmailErrorMsg}"
+                              MailAndPassErrorMsg="{!v.MailAndPassErrorMsg}"
+                              ResetPaswordMsg1="{!v.ResetPaswordMsg1}"
+                              ResetPaswordMsg2="{!v.ResetPaswordMsg2}"
+                              ResetPassEmailInputLabel="{!v.ResetPassEmailInputLabel}"
+                              ForgotPasswordLink="{!v.ForgotPasswordLink}"
+                              ForgotEmail="{!v.ForgotEmail}"
+                              ForgotEmailText1="{!v.ForgotEmailText1}"
+                              ForgotEmailLinkText="{!v.ForgotEmailLinkText}"
+                              ForgotEmailText2="{!v.ForgotEmailText2}"
+                              CreatenewAcctMsg="{!v.CreatenewAcctMsg}"
+                              EmailInputLabel="{!v.EmailInputLabel}"
+                              PasswordInputLabel="{!v.PasswordInputLabel}"
+                              LogInBtnLabel="{!v.LogInBtnLabel}"
+                              ResetPassBtnLabel="{!v.ResetPassBtnLabel}"
+                              NewPassInputLabel="{!v.NewPassInputLabel}"
+                              ConfirmPassInputLabel="{!v.ConfirmPassInputLabel}"
+                              ReturningScholar="{!v.ReturningScholar}"
+                              ReturningScholarText1="{!v.ReturningScholarText1}"
+                              />
+            </lightning:tab>
+        </lightning:tabset>
+    </aura:if>
+
+    <aura:if isTrue="{! and(!v.showTabs, !v.showContactUs) }">
+
+        <aura:if isTrue="{! v.ineligible }">
+            <div class="slds-align_absoulte-center slds-size_1-of-1 pad">
+                {!v.message}
+                <aura:if isTrue="{!v.is_default_message}">
+                    <a onclick="{!c.showContactUs}">{!v.DefaultContactUs}</a>
+                </aura:if>
+            </div>                
+        </aura:if>
+
+        <aura:if isTrue="{! !v.ineligible }">
+            <div class="slds-align_absolute-center slds-size_1-of-1">
+                <div class="slds-align_absolute-center slds-grid slds-wrap">
+                    <div class="slds-align_absolute-center slds-p-bottom_x-large slds-col slds-size_1-of-1">
+                        <img src="{!$Resource.DSF_Resources + '/mail-icon.png'}" />
+                    </div>
+                    <div class="slds-align_absolute-center slds-p-bottom_large slds-text-heading_medium slds-col slds-size_1-of-1">
+                        <p>{!v.ConfirmationMsg1}</p>
+                    </div>
+                    <div class="slds-align_absolute-center slds-p-bottom_large slds-text-heading_medium slds-col slds-size_1-of-1">
+                        <p>{!v.ConfirmationMsg2}</p>
+                    </div>
+                    <div class="slds-align_absolute-center slds-m-top_small">
+                        <a onclick="{!c.backToLogin}">&lt; {!v.BackToLoginMsg}</a>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+    </aura:if>
+    <aura:if isTrue="{!v.showContactUs}">
+        <div class="contact-us">
+            <c:DSF_ContactDSF IsLogin="true"
+                              ShowContactUs="{!v.showContactUs}"
+                              ShowIcon="false"
+                              TooltipMsg="{!v.TooltipMsg}"
+                              ModalMessage="{!v.ModalMessage}"
+                              LoginModalMsg="{!v.LoginModalMsg}"
+                              BackToLoginMsg="{!v.BackToLoginMsg}"
+                              ShareFilesMsg="{!v.ShareFilesMsg}"
+                              ShareFilesEmail="{!v.ShareFilesEmail}"
+                              />
+        </div>
+    </aura:if>
+            
+     
+</aura:component>

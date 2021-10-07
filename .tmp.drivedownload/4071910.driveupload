@@ -1,0 +1,33 @@
+// This file is generated as an Apex representation of the
+//     corresponding sObject and its fields.
+// This read-only file is used by the Apex Language Server to
+//     provide code smartness, and is deleted each time you
+//     refresh your sObject definitions.
+// To edit your sObjects and their fields, edit the corresponding
+//     .object-meta.xml and .field-meta.xml files.
+
+global class AE_Report__ChangeEvent {
+    global Id Id;
+    global String ReplayId;
+    global Object ChangeEventHeader;
+    global String Name;
+    global Datetime CreatedDate;
+    global User CreatedBy;
+    global Id CreatedById;
+    global Datetime LastModifiedDate;
+    global User LastModifiedBy;
+    global Id LastModifiedById;
+    global Account Account__c;
+    global Date Ref_Receipt_Date__c;
+    global String PAM_State__c;
+    global Date Date_Reported__c;
+    global Date Therapy_Start_Date__c;
+    global String AE_Details__c;
+    global String Categories__c;
+    global String Patient_ID__c;
+    global String Patient_ID_integration__c;
+
+    global AE_Report__ChangeEvent () 
+    {
+    }
+}

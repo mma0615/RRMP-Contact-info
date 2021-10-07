@@ -1,0 +1,31 @@
+<aura:component description="DSF_UserOptions:: Drop down options related for logged in user" implements="forceCommunity:availableForAllPageTypes">
+
+    <aura:attribute name="user" type="User"/>
+    <aura:attribute name="recordError" type="String"/>
+    <aura:attribute name="languageParam" type="String"/>
+    <aura:attribute name="cbaseURL" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <c:DSF_UserLoader
+            output="{! v.user }"
+            userError="{! v.recordError }"
+            fields="Id,FirstName"
+    />
+    
+    <div style="display:inline-block; color: #E76E24; font-size: 16px; padding-top: 0.5vh;">{!v.user.FirstName}</div>
+
+    <div class="dropdown">
+        <div class="dropdown-content">
+            
+            <a href="{!v.cbaseURL+'/s/profile/'+v.user.Id }" style="padding-bottom: 1vh;">My Account</a> 
+           
+                <a href="{!v.cbaseURL+'/secur/logout.jsp'}">Log Out</a> 
+        
+            
+        </div>
+
+        <div class="triangleIcon"></div>
+    </div>
+    
+</aura:component>

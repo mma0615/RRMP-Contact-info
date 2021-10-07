@@ -1,0 +1,41 @@
+<aura:component description="DSF_MyToDoList_FAFSA_Topic">
+
+    <aura:attribute name="completeFAFSALabel" type="String"/>
+    <aura:attribute name="completeFAFSALinkLabel" type="String"/>
+    <aura:attribute name="FAFSAgovLink" type="String"/>
+    <aura:attribute name="taskCompletedOnLabel" type="String"/>
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="fafsa" type="Object"/>
+
+    <lightning:navigation aura:id="navService" />
+    <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+            <c:DSF_FormQuestionMarkCircle/>
+        <!--    <c:DSF_FormCircle checked="false"/>-->
+            <div class="slds-p-left_medium toDoList-item">
+                <span>{!v.completeFAFSALabel}<a href="{!v.FAFSAgovLink}" target="_blank">&nbsp;{!v.completeFAFSALinkLabel}</a></span>
+            </div>
+        </div>
+
+    <!--
+    <aura:if isTrue="{!or(!v.fafsa,v.fafsa.FAFSA_Requirement_Status__c == 'Requirement Not Met')}">
+        <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+            <c:DSF_FormQuestionMarkCircle/>
+           <c:DSF_FormCircle checked="false"/>
+            <div class="slds-p-left_medium toDoList-item">
+                <span>{!v.completeFAFSALabel}<a href="{!v.FAFSAgovLink}" target="_blank">&nbsp;{!v.completeFAFSALinkLabel}</a></span>
+            </div>
+        </div>
+    </aura:if>-->
+    <!--
+
+    <aura:if isTrue="{!v.fafsa.FAFSA_Requirement_Status__c == 'Requirement Met'}">
+        <div data-isPending="false" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+            <c:DSF_FormCircle checked="true"/>
+            <div class="slds-p-left_medium toDoList-item">
+                <span>{!v.completeFAFSALabel}&nbsp;<a onclick="{!c.navigateToFafsaGov}">{!v.completeFAFSALinkLabel}</a></span>
+                <div class="slds-text-body_small slds-m-top_x-small infoBox">{!v.taskCompletedOnLabel}&nbsp;<lightning:formattedDateTime value="{!v.fafsa.FAFSA_Completed_Date__c}"/>
+                </div>
+            </div>
+        </div>
+    </aura:if>-->
+</aura:component>

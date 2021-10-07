@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2020-11-19T16:28:47-08:00" hostname="https://dashacq--orchestrat.my.salesforce.com" tests="1" failures="1"  errors="0"  time="26.26">
+        <properties>
+            <property name="outcome" value="Failed"/>
+            <property name="testsRan" value="1"/>
+            <property name="passing" value="0"/>
+            <property name="failing" value="1"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="0%"/>
+            <property name="failRate" value="100%"/>
+            <property name="testStartTime" value="Nov 19, 2020 4:28 PM"/>
+            <property name="testExecutionTime" value="26.26 s"/>
+            <property name="testTotalTime" value="26.26 s"/>
+            <property name="commandTime" value="199.36 s"/>
+            <property name="hostname" value="https://dashacq--orchestrat.my.salesforce.com"/>
+            <property name="orgId" value="00D3K0000000P71UAE"/>
+            <property name="username" value="dash@dashinvestments.com.orchestrat"/>
+            <property name="testRunId" value="7073K00000R4vWY"/>
+            <property name="userId" value="0051a000000bX3NAAU"/>
+            <property name="testRunCoverage" value="87%"/>
+            <property name="orgWideCoverage" value="0%"/>
+        </properties>
+        <testcase name="FinancialAccountControllerTest" classname="FinancialAccountControllerTest" time="26.26">
+            <failure message="System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [OASP__OAS_Registration__c]: [OASP__OAS_Registration__c]"><![CDATA[Class.FinancialAccountControllerTest.FinancialAccountControllerTest: line 22, column 1]]></failure>
+        </testcase>
+    </testsuite>
+</testsuites>

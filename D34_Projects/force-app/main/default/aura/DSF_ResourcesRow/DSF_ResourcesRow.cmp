@@ -1,0 +1,47 @@
+<!--
+    Created by smilankov on 23/10/19.
+-->
+<aura:component description="DSF_ResourcesRow" implements="forceCommunity:availableForAllPageTypes" >
+    <aura:attribute name="RowIcon" type="String" default=""/>
+    <aura:attribute name="RowLink" type="String" default=""/>
+    <aura:attribute name="RowItem" type="String" default=""/>
+    <aura:attribute name="User"    type="User"   default=""/>
+    <aura:attribute name="currContact" type="Object" default=""/> 
+    <aura:attribute name="Application" type="Object[]" default=""/>
+
+    
+    <aura:if isTrue="{!v.RowItem == 'Student Success Requirements'}">
+        <c:DSF_UserLoader   output="{! v.User }"
+                          userError="{! v.recordError }"
+                          fields="Id,ContactId"/>
+    </aura:if>
+    
+    <aura:if isTrue="{! and(v.User != null, v.User.ContactId != null) }">
+        <force:recordData aura:id="contactLoader" 
+                          recordId="{!v.User.ContactId}"
+                          targetError="{!v.errorMessage}"
+                          targetFields="{!v.currContact}"
+                          fields="Id, SSR_link__c"   
+                          />
+
+          <c:DSF_sObjectHelper methodName="getSObject"
+                               object="Application__c"
+                               fields="Id,
+                                        Student_Name__c,
+                                        isCurrentApplication__c,
+                                        School_Name__c,
+                                        School_Name__r.SSR_Link__c"
+                               conditions="{!'Student_Name__c = \'' + v.User.ContactId + '\' AND isCurrentApplication__c = true'}"
+                               output="{! v.Application  }"
+          />
+    </aura:if>
+    <div class="slds-size_1-of-1 col-row">
+        <img src="{!$Resource.DSF_Resources + '/' + v.RowIcon}"/>
+        <aura:if isTrue="{!v.RowItem == 'Student Success Requirements'}">
+            <a href="{! and(v.Application != null, v.Application[0].School_Name__c != null) ? v.Application[0].School_Name__r.SSR_Link__c : v.RowLink }" target="_blank">{!v.RowItem}</a>
+            <aura:set attribute="else">
+                <a href="{!v.RowLink}" target="_blank">{!v.RowItem}</a>
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

@@ -1,0 +1,3 @@
+<apex:page tabStyle="TASKRAY__Project__c">
+    <apex:enhancedList type="TaskRay__Project__c" height="300" rowsPerPage="10" listid="00B1N000004xrLH" />
+</apex:page>

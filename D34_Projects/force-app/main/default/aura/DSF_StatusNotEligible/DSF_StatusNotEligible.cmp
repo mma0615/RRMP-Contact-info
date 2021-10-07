@@ -1,0 +1,45 @@
+<aura:component description="DSF_StatusNotEligible" implements="forceCommunity:availableForAllPageTypes" >
+    <aura:attribute name="currUserId" type="String" default=""/>
+    <aura:attribute name="currUser" type="User" default=""/>
+    <aura:attribute name="app" type="Application__c[]" default=""/>
+    <!--Design attributes-->
+    <aura:attribute name="PageHeader"   type="String" default=""/>
+    <aura:attribute name="PageAccessError"   type="String" default="There may be an error in your information. Please navigate to Contact DSF and follow up for more details."/>
+    <aura:attribute name="Icon"   type="String" default=""/>
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+        <img class="imgStyle" src="{!$Resource.DSF_Resources + '/' + v.Icon}" />
+    </div>
+
+    <c:DSF_UserLoader
+        userId="{! v.currUserId }"
+        output="{! v.currUser }"
+        userError="{! v.recordError }"
+        fields="Id,ContactId"
+    />
+
+    <aura:if isTrue="{! not(empty(v.currUser))}">
+        <c:DSF_sObjectHelper methodName="getSObject"
+            object="Application__c"
+            fields="App_Status_Portal_Message__c"
+            conditions="{!'Student_Name__c = \'' + v.currUser.ContactId +'\' AND Current_per_Custom_Label_WORKFLOW__c = true'}"
+            limit="1"
+            output="{! v.app }"
+        />
+    </aura:if>
+
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large slds-p-around_medium">
+        <h4>{!v.PageHeader}</h4>
+    </div>
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-around_medium">
+    <aura:if isTrue="{!not(empty(v.app))}">
+        <p class="pStyle" style="text-align: inherit;">{!v.app[0].App_Status_Portal_Message__c}</p>
+        <aura:set attribute="else">
+            <p class="pStyle" style="text-align: inherit;">{!v.PageAccessError}</p>
+        </aura:set>
+    </aura:if>
+    </div>
+</aura:component>

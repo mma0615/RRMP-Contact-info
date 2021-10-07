@@ -1,0 +1,3 @@
+<apex:page tabStyle="Task">
+    <apex:enhancedList type="Activity" height="400" rowsPerPage="25" listid="00B1N000007z7qP" />
+</apex:page>

@@ -1,0 +1,6 @@
+<design:component label="DSF_application_first_time">
+    <design:attribute name="icon" label="Path to icon"/>
+    <design:attribute name="text" label="Guideline text"/>
+    <design:attribute name="learn_more" label="Learn more URL" default="blank"/>
+    <design:attribute name="linkedText" label="Linked Text" default=""/>
+</design:component>

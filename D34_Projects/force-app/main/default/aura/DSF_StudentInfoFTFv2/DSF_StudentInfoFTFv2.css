@@ -1,0 +1,30 @@
+.THIS .GeneralElement {
+    font-size: 40px;
+    color: red;
+}
+
+.THIS .PageBreakHeader-Wrap {
+    display: none;
+}
+
+.THIS .FormRow {
+    background-color: red;
+}
+
+.THIS .preview-form-element {
+    margin-top: 20px;
+}
+
+.THIS .body {
+    padding-bottom: 0;
+}
+
+.THIS .slds-m-bottom_xx-large,
+.THIS .slds-m-bottom--xx-large {
+    margin-bottom: 0;
+}
+
+.THIS .slds-m-top_xx-large,
+.THIS .slds-m-top--xx-large {
+    margin-top: 0;
+}

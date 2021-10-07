@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Event that notifies the student of their ineligibility">
+    <aura:attribute name="message" type="String" default="" />
+    <aura:attribute name="isIneligible" type="Boolean" />
+    <aura:attribute name="is_default_message" type="Boolean"/>
+</aura:event>

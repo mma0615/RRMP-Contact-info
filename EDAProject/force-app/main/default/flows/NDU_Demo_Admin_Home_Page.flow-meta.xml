@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <choices>
+        <name>Create_a_Course</name>
+        <choiceText>Create a Course</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Create_a_Program</name>
+        <choiceText>Create a Program</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Create_Term</name>
+        <choiceText>Create an Academic Term</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Enroll_Program</name>
+        <choiceText>Enroll a Student(s) in a Program</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Enroll_Student</name>
+        <choiceText>Enroll a Student(s) in a Course</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <interviewLabel>NDU_Demo_Admin_Home_Page {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>NDU_Demo_Admin_Home_Page</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Home_Page</name>
+        <label>Home Page</label>
+        <locationX>496</locationX>
+        <locationY>69</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Manage_Students_and_Courses</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 20px;&quot;&gt;&lt;u&gt;Manage Students and Courses&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>I_want_to</name>
+            <choiceReferences>Create_a_Course</choiceReferences>
+            <choiceReferences>Create_a_Program</choiceReferences>
+            <choiceReferences>Create_Term</choiceReferences>
+            <choiceReferences>Enroll_Student</choiceReferences>
+            <choiceReferences>Enroll_Program</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>I want to:</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Home_Page</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

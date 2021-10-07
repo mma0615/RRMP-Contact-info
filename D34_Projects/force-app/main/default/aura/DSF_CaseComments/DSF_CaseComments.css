@@ -1,0 +1,144 @@
+.THIS .button {
+    border: none;
+    color: #7FB0CC;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 22px;
+}
+
+.THIS.parent{
+    margin: auto;
+}
+.THIS.slds-spinner_container {
+    position: fixed;
+}
+.THIS h3 {
+    color: #203366;
+    font-size: 24px;
+    font-weight: 600;
+}
+.THIS h5 {
+    color: #7FB0CC;
+}
+.THIS .status {
+    border-radius: 10px;
+    width: fit-content;
+    padding: 0.5vh 0.5vw;
+    text-align: center;
+    color: white;
+}
+.THIS .name {
+    color: #E76E24;
+    font-weight: 600;
+    padding-bottom: 1vh;
+}
+.THIS .reply {
+    color: #E76E24;
+    font-weight: 600;
+}
+.THIS .slds-textarea {
+    min-height: 20vh;
+    padding: 15px;
+}
+.THIS .date {
+    font-size: 13px;
+}
+.THIS .error {
+    color: rgb(194, 57, 52);
+}
+.THIS .status_orange {
+    background-color: #E76E24;
+}
+.THIS .status_red {
+    background-color: #D65050;
+}
+.THIS .status_green {
+    background-color: #71BB7C;
+}
+.THIS .slds-modal__container {
+    max-width: 40%;
+}
+.THIS .downloads {
+    color: #7FB0CC;
+    padding-left:0.5vw;
+    display: inline-block;
+    vertical-align: sub;
+}
+.THIS .modal-header {
+    font-weight: bold;
+}
+.THIS .forceContentFileCard  {
+    max-width: 15rem;
+    margin: auto;
+}
+
+/* upload style modifications*/
+.THIS .slds-file-selector__body span {
+    color: #7FB0CC;
+}
+.THIS .pload-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+.THIS .slds-file-selector__dropzone {
+    border: none;
+    display:inline-block;
+    vertical-align: middle;
+}
+.THIS .slds-file-selector__dropzone .slds-file-selector__text{
+    display: none;
+}
+.THIS .slds-file-selector__button .slds-button__icon {
+    display: none;
+}
+.THIS .pload-icon  {
+    display: inline;
+}
+.THIS .slds-file-selector__button{
+    border: none;
+}
+.THIS .upload-wrap .slds-form-element {
+    display: inline-block;
+}
+.THIS .slds-file-selector__button  {
+    padding-left: 1vh;
+}
+
+@media only screen and (max-width: 1600px) {
+    .THIS .slds-modal__container {
+        max-width: 45%;
+    }
+}
+@media only screen and (max-width: 330px) {
+    .THIS .slds-modal__container {
+        max-width: 95%;
+        height: 80%;
+        margin: auto;
+    }
+    .THIS .slds-modal__content .slds-col {
+        width: 100%;
+    }
+    .THIS .forceContentFileCard {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 450px) and (min-width: 330px) {
+    .THIS .slds-modal__container {
+        max-width: 85%;
+        height: 80%;
+        margin: auto;
+    }
+    .THIS .slds-modal__content .slds-col {
+        width: 100%;
+    }
+    .THIS .forceContentFileCard {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 1100px) and (min-width: 450px) {
+    .THIS .slds-modal__container {
+        max-width: 80%;
+        height: 65%;
+    }
+}

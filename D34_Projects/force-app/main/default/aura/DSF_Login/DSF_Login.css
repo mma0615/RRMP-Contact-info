@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Muli';
+    src: url('../s/sfsites/c/resource/DSF_Resources/Fonts/Muli/Muli-Regular.ttf') format('truetype');
+}
+.THIS .slds-input {
+    height: 50px;
+    border: none;
+    background-color: #f7f8f9;
+    border-radius: 0px;
+    /*width: 80%;*/
+}
+.THIS .pStyle {
+    color: #574F49;
+    font-size: 12px;
+    text-align: left;
+    line-height: 16px;
+}
+.THIS h5 {
+    text-align: left;
+    font-weight: bold;
+}
+.THIS .footerIntro{
+    margin-top: 12vh;
+}
+.THIS .position_fix {
+    margin-right: 12%;
+    width: 72%;
+}

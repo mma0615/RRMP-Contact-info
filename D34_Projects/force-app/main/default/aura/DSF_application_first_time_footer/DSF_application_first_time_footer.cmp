@@ -1,0 +1,35 @@
+<!--BY ANDREJA-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="buttonStart" type="String" default=""/>
+    <aura:attribute name="buttonContinue" type="String" default=""/>
+    <aura:attribute name="finalButtonLabel" type="String" default=""/>
+    <aura:attribute name="buttonURL" type="String" default=""/>
+    <aura:attribute name="buttonURLContinue" type="String" default=""/>
+    <aura:attribute name="finalButtonURL" type="String" default=""/>
+    <aura:attribute name="text" type="String" default=""/>
+    <aura:attribute name="contactUsLink" type="String" default=""/>
+    <aura:attribute name="contactUsText" type="String" default=""/>
+    <aura:attribute name="currUser" type="User" default=""/>
+    <aura:attribute name="recordError" type="String" default=""/>
+
+    <aura:handler name="change" value="{!v.currUser}" action="{!c.onUserLoad}" />
+
+    <c:DSF_UserLoader output="{!v.currUser}"
+                      userError="{!v.recordError}"
+                      fields="Id,ContactId,Contact.Application_Portal_Page_Access__c"
+    />
+
+    <div class="slds-align_absolute-center slds-grid slds-wrap look">
+
+        <aura:if isTrue="{!not(empty(v.currUser))}">
+            <c:DSF_ApplicationButton buttonLabel="{!v.finalButtonLabel}"
+                                     buttonURL="{!v.finalButtonURL}"
+                                     class="button-look"
+            />
+        </aura:if>
+
+        <div class="slds-col slds-size_1-of-1 text-look">
+            {!v.text} <a href="{!v.contactUsLink}" target="_blank">{!v.contactUsText}</a>
+        </div>
+    </div>
+</aura:component>

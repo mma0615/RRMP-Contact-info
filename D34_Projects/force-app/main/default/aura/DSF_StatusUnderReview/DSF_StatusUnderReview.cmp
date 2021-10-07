@@ -1,0 +1,64 @@
+<aura:component description="DSF_StatusUnderReview" implements="forceCommunity:availableForAllPageTypes">
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:attribute name="PageHeader" type="String" default=""/>
+    <aura:attribute name="PageMessage" type="String" default=""/>
+    <aura:attribute name="Button1" type="String" default=""/>
+    <aura:attribute name="Button2" type="String" default=""/>
+    <aura:attribute name="Icon"    type="String"  default=""/>
+    <aura:attribute name="currUser" type="User" default="" />
+    <aura:attribute name="currentYear" type="String" default=""/>
+    <aura:attribute name="app" type="Application__c[]" default=""/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <c:DSF_UserLoader output="{!v.currUser}"
+                      userError="{!v.recordError}"
+                      fields="Id,ContactId,Contact.Applications_Current_Renewal_ALL__c, Contact.Applications_Current_New_ALL__c"
+    />
+
+    <aura:if isTrue="{! not(empty(v.currUser))}">
+        <c:DSF_sObjectHelper methodName="getSObject"
+                             object="Application__c"
+                             fields="App_Status_Portal_Message__c" 
+                             conditions="{!'Application_Submission_Year__c = \''+ v.currentYear +'\' AND Student_Name__c = \'' + v.currUser.ContactId + '\''}"
+                             limit="1"
+                             output="{! v.app }"
+        />
+    </aura:if>
+
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+        <img class="imgStyle" src="{!$Resource.DSF_Resources + '/' + v.Icon}" />
+    </div>
+    
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large slds-p-around_medium">
+        <h4>{!v.PageHeader}</h4>
+    </div>
+    
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large slds-p-around_medium">
+        <aura:if isTrue="{!not(empty(v.app))}">
+            <p class="pStyle" >{!v.app[0].App_Status_Portal_Message__c}</p>
+            <aura:set attribute="else">
+                <p class="pStyle">{!v.PageMessage}</p>
+            </aura:set>
+        </aura:if>
+    </div>
+    
+    <div class="slds-grid slds-wrap slds-size_1-of-1 slds-align_absolute-center">
+        <div class="slds-align_absolute-center slds-m-around_medium">
+            <lightning:button
+                              class="slds-button standardOrangeBtn"
+                              label="MY TO DO LIST"
+                              onclick="{!c.goToDash}">
+                {!v.Button1}
+            </lightning:button>
+        </div>
+        <div class="slds-align_absolute-center slds-m-around_medium">
+            <lightning:button
+                              class="slds-button standardWhiteBtn"
+                              label="VIEW MY APPLICATION"
+                              onclick="{!c.goToMyApp}">
+                {!v.Button2}
+            </lightning:button>
+        </div>
+    </div>
+</aura:component>

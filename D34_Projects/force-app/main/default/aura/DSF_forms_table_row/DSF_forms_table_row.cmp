@@ -1,0 +1,37 @@
+<!--BY ANDREJA-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="form" type="String" default=""/>
+    <aura:attribute name="deadline" type="String" default=""/>
+    <aura:attribute name="comp" type="String" default=""/>
+    <aura:attribute name="link" type="String" default=""/>
+    <aura:attribute name="lm_link" type="String" default=""/>
+    <aura:attribute name="learnMore" type="String" default=""/>
+    <lightning:navigation aura:id="navService"/>
+
+    <div class="slds-align_absolute-center slds-grid slds-wrap">
+        <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_header-hidden slds-border_bottom table-look">
+            <tbody>
+                <tr class="slds-grid slds-wrap slds-p-vertical_small">
+                    <td class="slds-col col-1 slds-p-left_none" data-label="Form name" scope="row">
+                        <div class="slds-truncate comp-look" title="{!v.form}">
+                            <a class="text-color" tabindex="-1" onclick= "{!c.goToCommunityLink}">{!v.form}</a>
+                        </div>
+                    </td>
+                    <td class="slds-col col-2 slds-p-left_none" data-label="Deadline">
+                        <div class="comp-look" title="{!v.deadline}">{!v.deadline}</div>
+                    </td>
+                    <td class="slds-col col-3 slds-p-left_none" data-label="Comletition">
+                        <div class="comp-look" title="{!v.comp}">
+                            {!v.comp}<br/>
+                           <aura:if isTrue="{! v.learnMore}">
+                            <a class="learn-more-color" tabindex="-1" onclick="{!c.goToLearnMoreLink}">
+                                <img src="{!$Resource.DSF_Resources +'/learn-more-icon.png'}" alternativeText="Image"/>{!v.learnMore}
+                            </a>
+                            </aura:if>   
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</aura:component>

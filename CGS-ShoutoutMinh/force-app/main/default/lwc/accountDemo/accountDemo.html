@@ -1,0 +1,45 @@
+<template>
+    <lightning-card title="Create Account Record" icon-name="standard:account">
+        <div style="margin-left: 6%" if:true={error}>
+            <lightning-badge label={error} style="color: red;"></lightning-badge>
+        </div>
+
+        <template if:true={accRecord}>
+            <div class="slds-m-around--xx-large">
+                <div class="container-fluid">
+                    <div class="form-group">
+                        <lightning-input label="Account Name" 
+                            name="accName" required="required" 
+                            type="text" value={accRecord.Name} 
+                            onchange={handleNameChange}></lightning-input>
+                    </div>
+                    <div class="form-group">
+                        <lightning-input label="Account Number" 
+                            name="accName" required="required" 
+                            type="text" value={accRecord.Name} 
+                            onchange={handleNameChange}></lightning-input>
+                    </div>
+                    <div class="form-group">
+                        <lightning-input label="Street" name="street" 
+                            type="text" value={accRecord.Phone} 
+                            onchange={handlePhoneChange}></lightning-input>
+                    </div>
+                    <div class="form-group">
+                        <lightning-input label="City" name="city" 
+                            type="text" value={accRecord.Type} 
+                            onchange={handleTypeChange}></lightning-input>
+                    </div>
+                    <div class="form-group">
+                        <lightning-input label="State" name="state" 
+                            type="text" value={accRecord.Industry} 
+                            onchange={handleIndustryChange}></lightning-input>
+                    </div>
+                </div>  
+                <br/>
+                <lightning-button label="Post Account" onclick={handleSyncButtonClick} 
+                    variant="brand"></lightning-button>
+            </div>
+        </template>
+    </lightning-card>
+    
+</template>

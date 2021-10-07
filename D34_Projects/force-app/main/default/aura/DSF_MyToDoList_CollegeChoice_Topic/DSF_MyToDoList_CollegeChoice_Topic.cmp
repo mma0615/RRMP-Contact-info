@@ -1,0 +1,28 @@
+<aura:component description="DSF_MyToDoList_CollegeChoice_Topic">
+
+    <aura:attribute name="confirmCollegeChoiceLabel" type="String"/>
+    <aura:attribute name="collegeHeaderChoiceLabel" type="String"/>
+    <aura:attribute name="collegeBtnLabel" type="String"/>
+    <aura:attribute name="collegeInfoLabel" type="String"/>
+    <aura:attribute name="refresh" type="Boolean" default="false"/>
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="isDateBetween" type="Boolean" default="true"/>
+    <aura:attribute name="dsfConfig" type="Object"/>
+    <aura:handler name="change" value="{!v.dsfConfig}" action="{!c.checkDates}"/>
+    
+    <aura:if isTrue="{!(v.isDateBetween)}">
+        <div class="slds-text-heading_small slds-m-top_large">
+            
+			
+			<c:DSF_FormQuestionMarkCircle/>
+            <div class="slds-p-left_medium" style="display: inline-block">{!v.confirmCollegeChoiceLabel}&nbsp;<c:DSF_Tooltip text="The college you selected is the only college where you may receive a DSF award in the upcoming year. You may continue to change your college choice until July 15." /></div>
+			
+            <c:DSF_SchoolDetails
+                    collegeHeaderChoiceLabel="{!v.collegeHeaderChoiceLabel}"
+                    collegeBtnLabel="{!v.collegeBtnLabel}"
+                    collegeInfoLabel="{!v.collegeInfoLabel}" 
+                    alignAttribute="justify"
+            />
+        </div>
+    </aura:if>
+</aura:component>

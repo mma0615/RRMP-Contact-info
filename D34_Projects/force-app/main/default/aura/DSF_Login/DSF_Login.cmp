@@ -1,0 +1,114 @@
+<!--
+ - Created by ahasic on 10/11/19.
+ -->
+
+<aura:component description="DSF_Login" controller="LightningLoginFormController" implements="forceCommunity:availableForAllPageTypes">
+
+    <aura:attribute name="isLoginReqSent" type="Boolean" default="false"/>
+    <aura:attribute name="screen" type="String" default="login"/>
+    <aura:attribute name="showErrorMessage" type="Boolean" default="false"/>
+    <aura:attribute name="email" type="String" default=""/>
+
+    <!--Aura attributes configurable through design attributes-->
+    <aura:attribute name="errorMsg" type="String" default=""/>
+    <aura:attribute name="emailLabel" type="String" default=""/>
+    <aura:attribute name="passwordLabel" type="String" default=""/>
+    <aura:attribute name="passwordMismatchMsg" type="String" default=""/>
+    <aura:attribute name="forgotPassword" type="String" default=""/>
+    <aura:attribute name="logInButton" type="String" default=""/>
+    <aura:attribute name="forgotEmailInfoHeading" type="String" default=""/>
+    <aura:attribute name="forgotEmailInfoFirstPart" type="String" default=""/>
+    <aura:attribute name="forgotEmailInfoLink" type="String" default=""/>
+    <aura:attribute name="forgotEmailInfoSecondPart" type="String" default=""/>
+    <aura:attribute name="enterEmail" type="String" default=""/>
+    <aura:attribute name="resetPasswordButton" type="String" default=""/>
+    <aura:attribute name="resetPasswordMsg" type="String" default=""/>
+    <aura:attribute name="newPasswordLabel" type="String" default=""/>
+    <aura:attribute name="confirmPasswordLabel" type="String" default=""/>
+
+    <!-- To put within design attributes, receiving values from DSF_LoginTabs -->
+    <aura:attribute name="PasswordErrorMsg"         type="String" default=""/>
+    <aura:attribute name="EmailErrorMsg"            type="String" default=""/>
+    <aura:attribute name="MailAndPassErrorMsg"      type="String" default=""/>
+    <aura:attribute name="ResetPaswordMsg1"         type="String" default=""/>
+    <aura:attribute name="ResetPaswordMsg2"         type="String" default=""/>
+    <aura:attribute name="ResetPassEmailInputLabel" type="String" default=""/>
+    <aura:attribute name="ForgotPasswordLink"       type="String" default=""/>
+    <aura:attribute name="ForgotEmail"              type="String" default=""/>
+    <aura:attribute name="ForgotEmailText1"         type="String" default=""/>
+    <aura:attribute name="ForgotEmailLinkText"      type="String" default=""/>
+    <aura:attribute name="ForgotEmailText2"         type="String" default=""/>
+    <aura:attribute name="CreatenewAcctMsg"         type="String" default="" />
+    <aura:attribute name="EmailInputLabel"          type="String" default=""/>
+    <aura:attribute name="PasswordInputLabel"       type="String" default=""/>
+    <aura:attribute name="LogInBtnLabel"            type="String" default=""/>
+    <aura:attribute name="ResetPassBtnLabel"        type="String" default=""/>
+    <aura:attribute name="NewPassInputLabel"        type="String" default=""/>
+    <aura:attribute name="ConfirmPassInputLabel"    type="String" default=""/>
+    <aura:attribute name="ReturningScholar"         type="String" default=""/>
+    <aura:attribute name="ReturningScholarText1"    type="String" default=" "/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:registerEvent name="DSF_Login_Event" type="c:DSF_Login_Event"/>
+    <aura:registerEvent name="DSF_ShowContactUsEVT" type="c:DSF_ShowContactUsEVT"/>
+
+    <div class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
+        <div class="slds-size_2-of-3 position_fix">
+            <aura:if isTrue="{!v.screen == 'login'}">
+                <div class="slds-size_1-of-1 slds-m-top_x-large">
+                   <h5>{!v.CreatenewAcctMsg}</h5>
+                </div>   
+                <div class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center slds-m-top_x-small" onkeypress="{!c.handleEnterKey}">
+                    <aura:if isTrue="{!v.showErrorMessage}">
+                        <div class="slds-size_1-of-1 slds-text-align_center">
+                            <p class="slds-m-top_large slds-m-bottom_medium slds-text-heading_small slds-text-color_error">{!v.MailAndPassErrorMsg}</p>
+                        </div>
+                    </aura:if>
+                    <lightning:input aura:id="email" class="slds-size_1-of-1 slds-m-top_x-small"  type="Email" label="{!v.EmailInputLabel}" value="{!v.email}" messageWhenBadInput="{!v.EmailErrorMsg}"></lightning:input>
+                    <lightning:input aura:id="password" class="slds-size_1-of-1 slds-m-top_x-small" type="Password" label="{!v.PasswordInputLabel}" pattern="^(?=.*\d)(?=.*[a-z]).{8,}$" messageWhenPatternMismatch="{!v.PasswordErrorMsg}" />
+                    <a class="slds-size_1-of-1 slds-p-top_medium hrefStyle" href="javascript:void(0)" onclick="{!c.goToForgotPassword}">{!v.ForgotPasswordLink}</a>
+                    <aura:if isTrue="{! not(v.isLoginReqSent) }">
+                        <lightning:button class="slds-m-top_x-large slds-button standardOrangeBtn" label="{!v.LogInBtnLabel}" onclick="{!c.userLogin}"></lightning:button>
+                        <aura:set attribute="else">
+                            <div class="position-relative">
+                                <lightning:spinner alternativeText="Loading" size="medium" />
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.screen == 'resetpassword'}">
+                <div class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center slds-m-top_x-small">
+                    <div class="slds-size_1-of-1 slds-text-align_center">
+                        <p class="slds-m-top_large slds-m-bottom_medium slds-text-heading_small">{!v.ResetPaswordMsg1}</p>
+                    </div>
+                    <lightning:input aura:id="emailReset" class="slds-size_1-of-1 slds-m-top_x-small" value="{!v.email}" type="Email" label="{!v.ResetPassEmailInputLabel}"></lightning:input>
+                    <lightning:button class="slds-m-top_x-large slds-button standardOrangeBtn" label="{!v.ResetPassBtnLabel}" onclick="{!c.forgotPassword}"></lightning:button>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.screen == 'newpassword'}">
+                <div class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center slds-m-top_x-small">
+                    <div class="slds-size_1-of-1 slds-text-align_center">
+                        <p class="slds-m-top_large slds-m-bottom_medium slds-text-heading_small">{!v.ResetPaswordMsg2}</p>
+                    </div>
+                    <lightning:input class="slds-size_1-of-1 slds-m-top_x-small" type="Password" label="{!v.NewPassInputLabel}" pattern="^(?=.*\d)(?=.*[a-z]).{8,}$" messageWhenPatternMismatch="A password must contain at least eight characters, including numbers and letters."></lightning:input>
+                    <lightning:input class="slds-size_1-of-1 slds-m-top_x-small" type="Password" label="{!v.ConfirmPassInputLabel}"></lightning:input>
+                    <lightning:button class="slds-m-top_x-large slds-button standardOrangeBtn" label="{!v.ResetPassBtnLabel}"></lightning:button>
+                </div>
+            </aura:if>
+
+            <div class="slds-size_1-of-1 slds-m-top_x-large">
+                <h5>{!v.ForgotEmail}</h5>
+                <p class="pStyle">{!v.ForgotEmailText1} <a onclick="{!c.showContactUs}">{!v.ForgotEmailLinkText}</a> {!v.ForgotEmailText2}</p>
+            </div>
+            
+             <div class="slds-size_1-of-1 slds-m-top_x-large">
+                <h5>{!v.ReturningScholar}</h5>
+                <p class="pStyle">{!v.ReturningScholarText1} </p>
+            </div>
+            
+        </div>
+    </div>
+
+</aura:component>

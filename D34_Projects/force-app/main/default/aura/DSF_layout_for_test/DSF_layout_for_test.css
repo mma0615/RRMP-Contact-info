@@ -1,0 +1,20 @@
+/*
+Created by smilankov on 23/10/19.
+*/
+.THIS .row-column {
+    background-color: #F7F8F9;
+    min-height: 35vh;
+}
+.THIS .row-col5 {
+    background-color: #F7F8F9;
+    min-height: 15vh;
+}
+
+@media only screen and (max-width: 1600px) {
+    .THIS .row-col5 {
+      min-height: 20vh;
+    }
+    .THIS .row-column {
+        min-height: 45vh;
+    }
+  }

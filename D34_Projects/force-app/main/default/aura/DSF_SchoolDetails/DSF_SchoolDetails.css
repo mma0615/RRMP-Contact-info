@@ -1,0 +1,54 @@
+.THIS .slds-modal__container {
+	height: 80%;
+}
+.THIS img{
+	max-height: 120px;
+}
+.THIS .recordError {
+	text-align: center;
+}
+.THIS .padding-left {
+	padding-left: 3rem;
+}
+.THIS .button-img-wrap {
+	justify-content: center;
+	align-items: flex-end;
+}
+.THIS .max-img-width {
+	max-width: 170px;
+}
+
+.THIS .justify {
+	justify-content: flex-start;
+}
+/*Desktop*/
+@media only screen and (min-width: 800px) {
+    .THIS .paddingDesktop {
+        padding-top: 1vh;
+    }
+}
+/*for tablet*/
+@media only screen and (min-width:450px) and (max-width:800px){
+    .THIS .paddingDesktop {
+        padding-top: 1vh;
+    } 
+}
+
+@media only screen and (max-width: 450px) {
+	.THIS .pStyle {
+		padding: 1rem;
+	}
+	.THIS div#modalContainer {
+		width: 83.3333%;
+	}
+	.THIS .mobile-padding-left {
+		padding-left: 10%;
+	}
+	.THIS .padding-left {
+		padding-left: 1.5rem;
+	}
+	.THIS .justify {
+		justify-content: initial;
+	}
+
+}

@@ -1,0 +1,166 @@
+/**
+ * Created by ahasic on 10/15/19.
+ */
+ .THIS .pStyle {
+    text-align: justify; 
+}
+
+.THIS body {
+    font-family: Muli;
+}
+
+.THIS .roundImgStyle {
+    height: 8vh;
+    border-radius: 50%;
+}
+
+.THIS .divColor {
+    background-color: #E8EAEC;
+}
+
+.THIS h4 {
+    color: #574F49;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.THIS h5 {
+    font-weight: bold;
+}
+
+.THIS .infoBox {
+    background-color: #574F49;
+    color: white;
+    padding: 4px;
+    font-family: Muli;
+}
+
+.THIS .circle {
+    width: 90px;
+    height: 90px;
+    background-color: #203366;
+    border-radius: 50%;
+}
+
+/* Added by smilankov 21/10/2019 */
+.THIS .slds-modal__header {
+    border-bottom: none;
+    position: relative;
+}
+.THIS .slds-modal__close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.THIS .slds-modal__content {
+    text-align: center;
+    overflow:  visible;
+}
+.THIS .pModal {
+    font-size: 15px;
+}
+.THIS .button-div {
+    text-align: center;
+}
+/*
+.THIS .slds-select {
+    height: 40px;
+    border: 0.5px solid #7FB0CC;
+    border-radius: 0px;
+}
+*/
+
+.THIS .slds-checkbox .slds-checkbox__label .slds-form-element__label {
+    font-size: 15px;
+}
+
+.THIS .button-look {
+    background-color: #E76E24;
+    /*width: 311px;*/
+    padding: 20px;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+    font-size: 15px;
+    line-height: 15px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 0;
+}
+
+.THIS.equal-height-container {
+    display: flex;
+    align-items: unset;
+}
+
+.THIS .flex-column {
+    flex-direction: column;
+}
+/*Mobile*/
+@media only screen and (max-width: 480px) {
+    .THIS .padding {
+        padding-right: 2vw;
+        padding-left: 2vw;
+    }
+
+    .THIS .slds-p-left_medium{
+        padding-left: 2vw;
+        padding-right: 2vw;
+    }
+}
+/*Tablet*/
+@media only screen and (min-width: 480px) and (max-width: 800px) {
+    .THIS .padding{
+        padding-left: 2vw;
+        padding-right: 2vw;
+    }
+
+    .THIS .slds-p-left_medium{
+        padding-left: 2vw;
+        padding-right: 2vw;
+    }
+
+}
+
+@media only screen and (min-width: 800px) and (max-width: 1000px) {
+    .THIS .slds-p-left_medium{
+        padding-left: 0.1vw
+    }
+    .THIS .padding{
+        padding-left: 0.1vw;
+        padding-right: 0.1vw;
+    }
+    
+    .THIS .paddingTop {
+        padding-bottom: 3vh
+    }
+}
+
+@media only screen and (min-width: 1000px){
+    .THIS .paddingTop {
+        padding-bottom: 4vh
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .THIS .paddingTop{
+        padding-top: 5vh;
+    }
+    .THIS .paddingIcon{
+        padding-top: 0.01vh;
+    }
+    .THIS .buttonMargin {
+        margin-top: -2vh
+    }
+}
+
+@media only screen and (min-width: 1300px){
+    .THIS .paddingTop{
+        padding-top: 9vh;
+    }
+    .THIS .paddingIcon{
+        padding-top: 0.001vh;
+    }
+    .THIS .buttonMargin {
+        margin-top: -4vh
+    }
+}

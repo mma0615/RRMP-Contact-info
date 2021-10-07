@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Attribut</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Attributs</value>
+    </caseValues>
+    <gender>Masculine</gender>
+    <layouts>
+        <layout>EDA Credential Layout</layout>
+        <sections>
+            <label>Liens personnalisés</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>EDA Student Characteristic Layout</layout>
+        <sections>
+            <label>Liens personnalisés</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Nom de l’attribut</nameFieldLabel>
+    <recordTypes>
+        <description><!-- Allows educational institutions to track licenses, certifications, or endorsements earned by staff or students. --></description>
+        <label><!-- Credential --></label>
+        <name>hed__Credential</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Allows educational institutions to track important student characteristics that might affect students&apos; education. --></description>
+        <label><!-- Student Characteristic --></label>
+        <name>hed__Student_Characteristic</name>
+    </recordTypes>
+    <startsWith>Vowel</startsWith>
+</CustomObjectTranslation>

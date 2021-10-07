@@ -1,0 +1,17 @@
+<aura:component description="DSF_MyToDoList_HSGPA_Topic">
+
+    <aura:attribute name="eligibleConfirmationGPA" type="String"/>
+    <aura:attribute name="learnMoreGPA" type="String"/>
+    <aura:attribute name="learnMoreGPALink" type="String"/>
+    <aura:attribute name="contact" type="Object"/>
+    <aura:attribute name="application" type="Object"/>
+
+    <aura:if isTrue="{!or(v.contact.Highest_Cumulative_HS_GPA__c == null, v.application.Application_Status__c == 'Pending')}">
+        <div class="slds-text-heading_small slds-m-top_large slds-align-content-center toDoList-item-container">
+            <c:DSF_FormQuestionMarkCircle/>
+            <div class="slds-p-left_medium toDoList-item">{!v.eligibleConfirmationGPA}
+                <c:DSF_MyToDoList_LearnMoreLink url="{!v.learnMoreGPALink}" label="{!v.learnMoreGPA}"/>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

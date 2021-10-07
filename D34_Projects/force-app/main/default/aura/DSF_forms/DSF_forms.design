@@ -1,0 +1,5 @@
+<design:component>
+    <design:attribute name="formCol" label="Form Column" default=""/>
+    <design:attribute name="deadlineCol" label="Deadline Column" default=""/>
+    <design:attribute name="descCol" label="Description Column" default=""/>
+</design:component>

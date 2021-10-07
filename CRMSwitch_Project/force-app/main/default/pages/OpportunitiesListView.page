@@ -1,0 +1,3 @@
+<apex:page tabStyle="Opportunity">
+    <apex:enhancedList type="Opportunity" height="300" rowsPerPage="10" listid="00B1N000004yHDE" />
+</apex:page>

@@ -1,0 +1,7 @@
+<design:component>
+    <design:attribute name="PageHeader"  label="Page Header"  default=""/>
+    <design:attribute name="PageMessage" label="Page Message" default=""/>
+    <design:attribute name="Button1"     label="Button 1"     default=""/>
+    <design:attribute name="Button2"     label="Button 2"     default=""/>
+    <design:attribute name="Icon"        label="Icon"         default=""/>
+</design:component>

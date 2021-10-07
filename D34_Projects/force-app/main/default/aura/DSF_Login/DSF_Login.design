@@ -1,0 +1,17 @@
+<design:component>
+    <design:attribute name="errorMsg" label="Error Message" default=""/>
+    <design:attribute name="emailLabel" label="Email Label" default=""/>
+    <design:attribute name="passwordLabel" label="Password Label" default=""/>
+    <design:attribute name="passwordMismatchMsg" label="Password Pattern Error Message" default=""/>
+    <design:attribute name="forgotPassword" label="Forgot Password Link" default=""/>
+    <design:attribute name="logInButton" label="Log In Button" default=""/>
+    <design:attribute name="forgotEmailInfoHeading" label="Forgot Email Heading" default=""/>
+    <design:attribute name="forgotEmailInfoFirstPart" label="Forgot Email Message First Part" default=""/>
+    <design:attribute name="forgotEmailInfoLink" label="Forgot Email Message Link" default=""/>
+    <design:attribute name="forgotEmailInfoSecondPart" label="Forgot Email Message Second Part" default=""/>
+    <design:attribute name="enterEmail" label="Enter Email Message" default=""/>
+    <design:attribute name="resetPasswordButton" label="Reset Password Button" default=""/>
+    <design:attribute name="resetPasswordMsg" label="Reset Password Message" default=""/>
+    <design:attribute name="newPasswordLabel" label="New Password Label" default=""/>
+    <design:attribute name="confirmPasswordLabel" label="Confirm Password Label" default=""/>
+</design:component>

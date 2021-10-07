@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <interviewLabel>My Student Info {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>My Student Info</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <name>My_Student_Information</name>
+        <label>My Student Information</label>
+        <locationX>482</locationX>
+        <locationY>67</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>My_Student_Info</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;&lt;u&gt;My Student Info&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;GPA: &lt;/b&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;3.6&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;College: &lt;/b&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;College of Information and Cyberspace&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Program: &lt;/b&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Master of Science in Government Information Leadership&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Academic Advisor: &lt;/b&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;James Churbuck, &lt;/span&gt;&lt;u style=&quot;font-size: 16px; color: rgb(65, 20, 189);&quot;&gt;james.churbuck@ndu.edu&lt;/u&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Expected Graduation Date: &lt;/b&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;June 2023&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>My_Student_Information</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

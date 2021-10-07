@@ -1,0 +1,194 @@
+<!--
+    Created by smilankov on 21/10/19.
+-->
+<aura:component description="DSF_ContactDSF" implements="forceCommunity:availableForAllPageTypes" controller="DSF_ContactDSFController" >
+    <lightning:navigation aura:id="navService"/>
+    
+	<!--Design attributes-->
+    <aura:attribute name="PageTitle" type="String"  default="Get In Touch With DSF"/>
+	<aura:attribute name="HeaderIcon" type="String" default=""/>
+    <aura:attribute name="SubTitle"  type="String"  default=""/>
+    <aura:attribute name="UploadFile" type="String" default="Upload"/>
+    <aura:attribute name="FirstNameLabel" type="String"  default="First Name"/>
+    <aura:attribute name="LastNameLabel" type="String"  default="Last Name"/>
+    <aura:attribute name="EmailLabel" type="String"  default="Email"/>
+    <aura:attribute name="DateOfBirthLabel" type="String"  default="Date of Birth"/>
+    <aura:attribute name="CollegeIdLabel" type="String"  default="DPSID/College ID"/>
+    <aura:attribute name="SubjectLabel" type="String"  default="Subject"/>
+    <aura:attribute name="MessageLabel" type="String"  default="Message"/>
+    <aura:attribute name="Button" type="String"  default="SEND MESSAGE"/>
+    <aura:attribute name="ModalMessage" type="String"  default="Upload attachment if necessary."/> 
+    <aura:attribute name="ModalMessage2" type="String" default=""/>
+    <aura:attribute name="ModalMessage3" type="String" default=""/>
+    <aura:attribute name="TooltipMsg" type="String"  default="You will be able to upload an attachment if necessary after your message is submitted."/>
+    <aura:attribute name="BackToLoginMsg" type="String" default="Return to login page"/>
+    <aura:attribute name="LoginModalMsg" type="String" default="Thank you for contacting the Denver Scholarship Foundation. We have received your email and will respond promptly."/>
+    <aura:attribute name="LoginHeaderMsg" type="String" default="If you have an account, please log in and submit your question inside the portal."/>
+    <aura:attribute name="MissingValueMsg" type="String" default=""/>
+    <aura:attribute name="DpsidErrorMsg"  type="String" default="Your ID can not be less than 6 and more than 10 characters long"/>
+    <aura:attribute name="DateBadInput"   type="String" default="Please enter your birthdate in the format MM/DD/YYYY"/>
+    <aura:attribute name="SubjectErrorMsg" type="String" default=""/>
+    <aura:attribute name="SubjectMaxLength" type="Integer" default="100"/>
+    <aura:attribute name="MessageErrorMsg" type="String" default=""/>
+    <aura:attribute name="ShareFilesMsg"   type="String" default="If you want to share any files with us please send to the:"/>
+    <aura:attribute name="ShareFilesEmail" type="String" default="support@denverscholarship.org"/>
+    <!--Fields-->
+    <aura:attribute name="FirstName" type="String"  default=""/>
+    <aura:attribute name="LastName" type="String" default=""/>
+    <aura:attribute name="Email" type="String" default=""/>
+    <aura:attribute name="DateOfBirth" type="Date" />
+    <aura:attribute name="CollegeId" type="String" default=""/>
+    <aura:attribute name="Subject" type="String" default=""/>
+    <aura:attribute name="Message" type="String" default=""/> 
+    <aura:attribute name="User" type="User" default=""/>
+    <aura:attribute name="Contact" type="Object" default=""/> 
+    <aura:attribute name="newCase" type="Object" /> 
+    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="caseRecordId" type="String"/>
+    <!-- <aura:attribute name="caseOwnerId" type="String" default=""/> -->
+    <aura:attribute name="contactId" type="String" default=""/>
+    <aura:attribute name="loginPadding"  type="String" default=""/>
+    <aura:attribute name="IsLogin"  type="Boolean" default="false"/>
+    <aura:attribute name="ShowIcon" type="Boolean" default="true"/>
+    <aura:attribute name="ShowContactUs" type="Boolean" default="true"/>
+    
+    
+    <c:DSF_UserLoader
+                output="{! v.User }"
+                userError="{! v.errorMessage }" 
+                fields="Id, ContactId"
+    /> 
+    
+    <aura:if isTrue="{! and(v.User != null, v.User.ContactId != null) }">        
+        <force:recordData aura:id="contactLoader" 
+                          recordId="{!v.User.ContactId}"
+                          targetError="{!v.errorMessage}"
+                          targetFields="{!v.Contact}"
+                          recordUpdated="{!c.handleContactUpdated}"
+                          fields="Id, FirstName, LastName, Birthdate, DPSID__c, Email"   
+                          />
+    </aura:if>  
+    
+    <aura:if isTrue="{!v.ShowIcon}">
+        <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+            <img src="{!$Resource.DSF_Resources + '/' + v.HeaderIcon}" />
+        </div>
+        <aura:set attribute="else">
+            <div class="slds-m-bottom_small loginHeaderMsg">
+                <p>{!v.LoginHeaderMsg}</p>
+            </div>
+        </aura:set>
+    </aura:if>
+
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+        <h1>{!v.PageTitle}</h1>
+    </div>
+    
+    <div class="slds-grid_vertical slds-x-small-size_10-of-12 slds-large-size_5-of-12 slds-medium-size_8-of-12 slds-align_absolute-center">
+        <div class="slds-col slds-wrap slds-grid slds-size_1-of-1 slds-m-bottom_large">
+            <div class="slds-col slds-x-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-right_small mobile-no-padding"> 
+                <lightning:input aura:id="fieldId" label="{!v.FirstNameLabel}" name="FirstName" required="true"  value="{!v.FirstName}" messageWhenValueMissing="{!v.MissingValueMsg}"/>
+            </div>
+            <div class="slds-col slds-x-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-left_small mobile-no-padding mobile-m-top"> 
+                <lightning:input aura:id="fieldId" label="{!v.LastNameLabel}" name="LastName"   required="true" value="{!v.LastName}" messageWhenValueMissing="{!v.MissingValueMsg}"/>
+            </div>
+        </div>   
+        <aura:if isTrue="{!v.ShowIcon}">
+        <div class="slds-col slds-size_1-of-1 slds-m-bottom_large">
+            <lightning:input type="email" aura:id="fieldId" label="{!v.EmailLabel}" name="Email" required="true"  value="{!v.Email}" disabled="true" messageWhenValueMissing="{!v.MissingValueMsg}"/>
+        </div>
+            <aura:set attribute="else">
+                <div class="slds-col slds-size_1-of-1 slds-m-bottom_large">
+            <lightning:input type="email" aura:id="fieldId" label="{!v.EmailLabel}" name="Email" required="true"  value="{!v.Email}"  messageWhenValueMissing="{!v.MissingValueMsg}"/>
+        </div>
+            </aura:set>
+        </aura:if>
+        
+        <div class="slds-col slds-grid slds-wrap slds-size_1-of-1 slds-m-bottom_large">
+            <div class="slds-col slds-x-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-right_small mobile-no-padding">
+                <lightning:input type="date" aura:id="fieldId" label="{!v.DateOfBirthLabel}" name="DateOfBirth"  value="{!v.DateOfBirth}" messageWhenValueMissing="{!v.MissingValueMsg}"  messageWhenBadInput="{!v.DateBadInput}"/>
+            </div> 
+            <div class="slds-col slds-x-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-left_small mobile-no-padding mobile-m-top">
+                <lightning:input  aura:id="fieldId" label="{!v.CollegeIdLabel}" name="CollegeID" value="{!v.CollegeId}" pattern="[A-z0-9]{6,10}" messageWhenPatternMismatch="{!v.DpsidErrorMsg}" messageWhenValueMissing="{!v.MissingValueMsg}"/>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-m-bottom_large">
+            <lightning:input aura:id="fieldId" label="{!v.SubjectLabel}" name="Subject" required="true" value="{!v.Subject}" messageWhenValueMissing="{!v.MissingValueMsg}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-m-bottom_large">
+            <lightning:textarea aura:id="fieldId" label="{!v.MessageLabel}" name="Message" required="true" value="{!v.Message}" messageWhenValueMissing="{!v.MissingValueMsg}" />
+        </div>   
+
+        <div class="slds-col slds-size_1-of-1 button-col">
+
+            <div style="display: inline-block; padding-top: 0.25rem; padding-right: 1vw;">
+                <c:DSF_Tooltip text="{!v.TooltipMsg}" />
+            </div>   
+
+            <lightning:button class="standardOrangeBtn" onclick="{!c.sendMessage}" disabled="{!v.disabled}">{!v.Button}</lightning:button>
+            <aura:if isTrue="{!v.IsLogin}">
+                <div class="slds-m-top_small">
+                    <a onclick="{!c.backToLogin}">&lt; {!v.BackToLoginMsg}</a>
+                </div>
+            </aura:if>
+           
+        </div>
+
+        <aura:if isTrue="{! !empty(v.errorMessage) }">
+			<p class="slds-size_1-of-1 slds-align_absolute-center error">{!v.errorMessage}</p>
+		</aura:if>
+
+    </div>
+
+    <!-- MODAL-->
+    <div class="slds-modal" aura:id="modal">
+        <div class="slds-modal__container slds-x-small-size_2-of-3 slds-size_1-of-3">
+            <div class="slds-modal__header ">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{!c.close}"
+                                          alternativeText="close"
+                                          variant="bare"
+                                          size="large"
+                                          class="slds-modal__close"/>            
+            </div>
+            <div class="slds-modal__content slds-p-right_xx-large slds-p-left_xx-large slds-p-bottom_xx-large slds-p-top_large ">
+                <div class="slds-size_1-of-1 slds-m-bottom_large">
+                    <p>{!v.ModalMessage}</p>
+                    <p>{!v.ModalMessage2}</p>
+                    <p>{!v.ModalMessage3}</p>
+                    <div class="upload-wrap">
+                        <img class="pload-icon" src="{!$Resource.DSF_Resources + '/upload-icon.png'}"/>
+                        <!--Upload-->
+                        <lightning:fileUpload   multiple="true" 
+                                                accept=".png,.jpg,.jpeg,.pdf,.doc,.docx,.xls,.ppt"
+                                                recordId="{!v.caseRecordId}" 
+                                                onuploadfinished="{!c.handleUploadFinished}" />
+                    </div>                       
+                </div>  
+            </div>
+        </div>
+    </div> 
+    
+    <!--MODAL WITH MESSAGE THAT ONLY POPS UP ON LOGIN SCREEN-->
+    
+    <div class="slds-modal" aura:id="msgmodal">
+        <div class="slds-modal__container slds-x-small-size_10-of-12 slds-medium-size_2-of-3 slds-large-size_1-of-3">
+            <div class="slds-modal__header ">
+                <lightning:buttonIcon iconName="utility:close"
+                                      onclick="{!c.close}"
+                                      alternativeText="close"
+                                      variant="bare"
+                                      size="large"
+                                      class="slds-modal__close"/>            
+            </div>
+            <div class="slds-modal__content msgmodal">
+                <p class="slds-align_absolute-center">{!v.LoginModalMsg}</p>
+                <p class="slds-align_absolute-center">{!v.ShareFilesMsg}</p>
+                <p class="slds-align_absolute-center">
+                    <lightning:formattedEmail value="{!v.ShareFilesEmail}" hideIcon="true"/>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="slds-backdrop" aura:id="backdrop"></div>
+</aura:component>

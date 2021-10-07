@@ -1,0 +1,84 @@
+<aura:component controller="DSF_MyToDoList_FAFSAProof_Topic" description="DSF_MyToDoList_FAFSAProof_Topic">
+
+    <aura:attribute name="submitFAFSAProofLabel" type="String"/>
+    <aura:attribute name="submitFAFSATooltipLabel" type="String"/>
+    <aura:attribute name="submitFAFSAToLateLabel" type="String"/>
+    <aura:attribute name="uploadProofOfFAFSA" type="String"/>
+    <aura:attribute name="taskUploadedOnLabel" type="String"/>
+    <aura:attribute name="FAFSAProofPendingReviewLabel" type="String"/>
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="fafsa" type="Object"/>
+    <aura:attribute name="simpleFafsa" type="Object"/>
+    <aura:attribute name="fafsaRecordId" type="String"/>
+    <aura:attribute name="currentApplicationSeasonYear" type="String"/>
+    <aura:attribute name="dsfConfig" type="Object"/>
+    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="fafsaProofCaseSubject" type="String" />
+
+    <aura:attribute name="isDateBetween" type="Boolean" default="true" />
+    <aura:attribute name="isBeforeStartDate" type="Boolean" default="false" />
+    <aura:attribute name="isBeforeEndDate" type="Boolean" default="false" />
+    <aura:attribute name="today" type="String" />
+
+    <aura:registerEvent name="DSF_MyToDoList_RefreshFafsaEVT" type="c:DSF_MyToDoList_RefreshFafsaEVT" />
+
+    <aura:handler name="DSF_FileUploadFinished" event="c:DSF_FileUploadFinished" action="{!c.onUploadFinished}"/>
+    <aura:handler name="change" value="{!v.dsfConfig}" action="{!c.checkDates}" />
+
+    <lightning:overlayLibrary aura:id="FAFSAProofUploader"/>
+    
+    <aura:if isTrue="{!v.isDateBetween}">
+    <h5 class="slds-text-heading_small slds-m-top_large"><b>MAY 20</b></h5>
+    </aura:if>
+    <aura:if isTrue="{!v.isBeforeEndDate}">
+        <aura:if isTrue="{!and(or(v.isBeforeStartDate,and(v.application.Application_Status__c == 'Ineligible - Process', v.application.App_Status_Detail__c == 'No FAFSA proof')), !v.fafsa.FAFSA_Proof_Submission_Date__c)}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <div>
+                        <span>{!v.submitFAFSAProofLabel}&nbsp;</span>
+                        <c:DSF_Tooltip text="{!v.submitFAFSATooltipLabel}"/>
+                    </div>
+                    <div class="slds-m-top_x-small">
+                        <a href="" tabindex="-1" style="text-decoration: none;" onclick="{!c.showFileUploader}">
+                            <img src="{!$Resource.DSF_Resources + '/upload-icon.png'}"/>
+                            <span>&nbsp;<b>{!v.uploadProofOfFAFSA}</b></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!and(v.fafsa.FAFSA_Proof_Submission_Date__c, !v.fafsa.FAFSA_Completed_Date__c)}">
+            <div data-isPending="true" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormCircle checked="false"/>
+                <div class="slds-p-left_medium toDoList-item">
+                    <span>{!v.submitFAFSAProofLabel}</span>
+                    <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                        {!v.taskUploadedOnLabel}&nbsp;<lightning:formattedDateTime value="{!v.fafsa.FAFSA_Proof_Submission_Date__c}"/>&nbsp;{!v.FAFSAProofPendingReviewLabel}
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{!and(v.fafsa.FAFSA_Proof_Submission_Date__c, v.fafsa.FAFSA_Completed_Date__c)}">
+            <div data-isPending="false" class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <aura:if isTrue="{!v.fafsa.FAFSA_Requirement_Status__c != 'Requirement Met'}">
+                    <c:DSF_FormCircle checked="false"/>
+                    <div class="slds-p-left_medium toDoList-item">
+                        <span>{!v.submitFAFSAToLateLabel}</span>
+                    </div>
+                    <aura:set attribute="else">
+                        <c:DSF_FormCircle checked="true"/>
+                        <div class="slds-p-left_medium toDoList-item">
+                            <span>{!v.submitFAFSAProofLabel}</span>
+                            <div class="slds-text-body_small slds-m-top_x-small infoBox">
+                            {!v.taskUploadedOnLabel}&nbsp;<lightning:formattedDateTime value="{!v.fafsa.FAFSA_Proof_Submission_Date__c}"/>
+                            </div>
+                        </div>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </aura:if>
+    </aura:if>
+</aura:component>

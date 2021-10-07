@@ -1,0 +1,110 @@
+<!--
+ - Created by ahasic on 10/15/19.
+ -->
+
+<aura:component description="DSF_ApplicationProgressStatus" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="currUserId" type="String" default=""/>
+    <aura:attribute name="currUser" type="User" default=""/>
+    <aura:attribute name="status" type="Application__c[]" default=""/>
+    <aura:attribute name="currContactId" type="String" default=""/>
+    <aura:attribute name="applicationStatus" type="String" default="1"/>
+
+    <div class="slds-size_1-of-1">
+
+        <c:DSF_UserLoader 
+            output="{! v.currUser }" 
+            fields="Id,ContactId"
+        />
+
+        <aura:if isTrue="{! not(empty(v.currUser))}">
+            <c:DSF_sObjectHelper methodName="getSObject"
+                object="Application__c"
+                fields="Student_Name__c, Application_Status__c"
+                conditions="{!'Student_Name__c = \'' + v.currUser.ContactId + '\''}"
+                limit="1"
+                output="{! v.status }"
+            />
+        </aura:if>
+
+        <aura:if isTrue="{! v.applicationStatus == '1' }">
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <img class="imgStyle" src="{!$Resource.DSF_Resources + '/under-review-icon.png'}" />
+            </div>
+
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <h4>Way to go! Your scholarship application has been successfully submitted to Denver Scholarship Foundation.</h4>
+            </div>
+
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <p class="pStyle">We're reviewing your application to confirm that you met the initial eligibility requirements. We'll be in touch in late April with an update on your status.</p>
+            </div>
+
+            <div class="slds-size_1-of-1 slds-align_absolute-center">
+
+                <lightning:button
+                        class="slds-button standardOrangeBtn slds-m-right_large"
+                        label="MY TO DO LIST">
+                    MY TO DO LIST
+                </lightning:button>
+
+                <lightning:button
+                        class="slds-button standardWhiteBtn slds-m-left_large"
+                        label="VIEW MY APPLICATION">
+                    VIEW MY APPLICATION
+                </lightning:button>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{! v.applicationStatus == '2' }">
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <img class="imgStyle" src="{!$Resource.DSF_Resources + '/finalist-icon.png'}" />
+            </div>
+
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <h4>Congratulations! You are a DSF Scholarship finalist. </h4>
+            </div>
+
+            <div class="slds-size_1-of-1 slds-wrap slds-align_absolute-center slds-m-bottom_large">
+                <p class="pStyle">You will receive a scholarship status update at the end of July and will be notified whether you have met all the requirements
+                    to receive a DSF Scholarship award in early to mid-September, usually after we confirm your financial aid and college requirements directly
+                    with your college, DSF will inform you of your scholarship award status in early to mid-September.
+                </p>
+                <p class="pStyle slds-m-top_large">If your contact information has changed, please <a href="" >update it</a> to receive notifications.</p>
+            </div>
+
+            <div class="slds-grid slds-size_1-of-1 slds-align_absolute-center">
+
+                <lightning:button
+                        class="slds-button standardOrangeBtn slds-m-right_large"
+                        label="MY TO DO LIST">
+                    MY TO DO LIST
+                </lightning:button>
+
+                <lightning:button
+                        class="slds-button standardWhiteBtn slds-m-left_large"
+                        label="VIEW MY APPLICATION">
+                    VIEW MY APPLICATION
+                </lightning:button>
+            </div>
+        </aura:if>
+
+        <aura:if isTrue="{! v.applicationStatus == '3' }">
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <img class="imgStyle" src="{!$Resource.DSF_Resources + '/not-eligible-icon.png'}" />
+            </div>
+
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+                <h4>Sorry, you don’t meet the eligibility requirements for a DSF Scholarship.</h4>
+            </div>
+
+            <div class="slds-size_1-of-1">
+                <p class="pStyle slds-m-bottom_medium" style="text-align: inherit; font-weight: bold;">Reason for Inegibility</p>
+                <p class="pStyle" style="text-align: inherit;">The yyyy-yy DSF Scholarship Application is now closed.</p>
+                <p class="pStyle" style="text-align: inherit;">You are not eligible for a yyyy-yy DSF Scholarship because you did not submit an application.</p>
+            </div>
+
+        </aura:if>
+
+    </div>
+
+</aura:component>

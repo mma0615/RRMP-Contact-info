@@ -1,0 +1,11 @@
+<aura:component description="DSF_ResourcesR_Header" implements="forceCommunity:availableForAllPageTypes">
+
+    <aura:attribute name="HeaderIcon" type="String" default=""/>
+	<aura:attribute name="HeaderText" type="String" default=""/>
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+        <img src="{!$Resource.DSF_Resources + '/' + v.HeaderIcon}" />
+    </div>
+    <div class="slds-size_1-of-1 slds-align_absolute-center slds-m-bottom_large">
+        <h1>{!v.HeaderText}</h1>
+    </div>
+</aura:component>

@@ -1,0 +1,34 @@
+<aura:component description="DSF_NewFileAndCaseModal">
+    <aura:attribute name="fileLabel" type="String"/>
+    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="applicationId" type="String"/>
+    <aura:attribute name="fafsaId" type="String"/>
+    <aura:attribute name="caseSubject" type="String"/>
+    <aura:attribute name="caseRecordId" type="String"/>
+    <aura:attribute name="caseRecord" type="Object"/>
+    <aura:attribute name="allowMultiple" type="Boolean" default="false"/>
+    <aura:attribute name="uploadLabel" type="String" default="Upload File"/>
+    <aura:registerEvent name="DSF_FileUploadFinished" type="c:DSF_FileUploadFinished"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+        {!v.errorMessage}
+    <lightning:overlayLibrary aura:id="fileUploader"/>
+        {!v.caseRecord.Id}
+    <force:recordData aura:id="caseRecordCreator"
+                      recordId="{!v.caseRecordId}"
+                      targetFields="{!v.caseRecord}"
+                      targetError="{!v.errorMessage}"
+                      mode="EDIT"
+                      fields="Origin,
+                              Subject,
+                              Fafsa__c,
+                              Application__c"
+    />
+
+    <lightning:fileUpload recordId="{!v.caseRecordId}"
+                          multiple="{!v.allowMultiple}"
+                          label="{!v.uploadLabel}"
+                          accept=".png,.jpg,.jpeg,.pdf,.doc,.docx,.xls,.ppt"
+                          onuploadfinished="{!c.onUploadFinished}"/>
+</aura:component>

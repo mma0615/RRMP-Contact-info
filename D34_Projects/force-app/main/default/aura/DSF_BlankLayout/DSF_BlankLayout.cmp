@@ -1,0 +1,20 @@
+<!--
+ - Created by ahasic on 9/23/19.
+ -->
+
+ <aura:component description="DSF_BlankLayout:: Custom Theme Layout for Login page" implements="forceCommunity:layout" access="global">
+  
+     <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+     
+     <lightning:navigation aura:id="navService"/>
+
+    <div class="wrapper">
+        <!-- BODY -->
+        <div class="slds-grid slds-wrap body">
+            <div class="slds-size_1-of-1">
+            {!v.body}
+            </div>
+        </div>
+    </div>
+
+</aura:component>

@@ -1,0 +1,43 @@
+.THIS .comp-look
+{
+    word-break: break-word;
+    white-space: normal;
+}
+
+.THIS .table-look
+{
+    width: 65%;
+}
+
+.THIS .col-1 
+{
+    width: 25%;
+}
+
+.THIS .col-2 
+{
+    width: 20%;
+}
+
+.THIS .col-3 
+{
+    width: 55%;
+}
+
+.THIS .slds-table_bordered
+{
+    border-top: none;
+}
+
+@media only screen and (max-width: 1024px) 
+{
+    .THIS .table-look
+    {
+        display: none;
+    }
+}
+/*
+.THIS .table-top-border-remove
+{
+border-top: none;
+}*/

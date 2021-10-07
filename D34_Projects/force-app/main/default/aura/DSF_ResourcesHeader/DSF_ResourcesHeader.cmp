@@ -1,0 +1,9 @@
+<!--
+    Created by smilankov on 23/10/19.
+-->
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="Header" type="String" default=""/>
+    <div class="slds-size_1-of-1 box-header">
+        <h3>{!v.Header}</h3>
+    </div>
+</aura:component>

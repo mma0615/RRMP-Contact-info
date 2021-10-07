@@ -1,0 +1,23 @@
+.THIS .ms-help-popup-in-header {
+    display: inline-block; 
+    position: absolute;
+    top: -13px;
+    margin-left: 0.4vw;
+    overflow: visible;
+    text-transform: none;
+}
+
+.THIS .ms-help-popup-in-header:before, .THIS .ms-help-popup-in-header:after {
+    background-color: #574F49;
+    left: -0.1rem;
+}
+
+.THIS .ms-help-popup-body {
+    width: 240px;
+    background-color: #574F49;
+}
+
+.THIS .textStyle {
+    text-align: left;
+    line-height: 15px;
+}

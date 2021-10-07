@@ -1,0 +1,5 @@
+<design:component>
+    <design:attribute name="PageHeader"      label="Page Header"       default=""/>
+    <design:attribute name="PageAccessError" label="Page Access Error" default=""/>
+    <design:attribute name="Icon"            label="Icon"              default=""/>
+</design:component>

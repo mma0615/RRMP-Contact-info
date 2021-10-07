@@ -1,0 +1,82 @@
+<design:component>
+    <design:attribute name="myToDoListHeaderLabel" label="To Do List Header" />
+    <design:attribute name="toDoListCheckboxLabel" label="Checkbox Label" />
+    <design:attribute name="toDoListSubheaderLabel" label="Subheader" />
+    <design:attribute name="learnMore" label="Learn More" />
+    <design:attribute name="pendingReviewLabel" label="Pending Review" />
+
+    <design:attribute name="submitDSFApplLabel" label="Submit DSF Appl." />
+    <design:attribute name="completeDSFApplLabel" label="Complete DSF Appl." />
+    <design:attribute name="completeFAFSALabel" label="Complete FAFSA Label" />
+    <design:attribute name="completeFAFSALinkLabel" label="Complete FAFSA Link" />
+    <design:attribute name="FAFSAgovLink" label="FAFSA gov Link" />
+
+    <design:attribute name="submitFAFSAProofLabel" label="Submit FAFSA" />
+    <design:attribute name="submitFAFSATooltipLabel" label="Submit FAFSA Tooltip Text" />
+    <design:attribute name="submitFAFSAToLateLabel" label="Submit FAFSA Label When After End Date" />
+    <design:attribute name="FAFSAProofPendingReviewLabel" label="FAFSA Proof pending review" />
+    <design:attribute name="uploadProofOfFAFSA" label="Upload Proof of FAFSA Text" />
+    <design:attribute name="taskSubmittedOnLabel" label="Task submitted on Text" />
+    <design:attribute name="taskCompletedOnLabel" label="Task completed on Text" />
+    <design:attribute name="taskUploadedOnLabel" label="Task uploaded on Text" />
+    <design:attribute name="confirmCollegeChoiceLabel" label="Confirm College Choice Label" />
+    <design:attribute name="financialAidRequirementsLabel" label="Financial Aid Requirements Label" />
+    <design:attribute name="collegePortalLinkText" label="Financial Aid College Portal Link Text" />
+    <design:attribute name="financialAidReqTooltipLabel" label="Financial Aid Req. Tooltip Text" />
+    <design:attribute name="institutionalLabel" label="Institutional Aid Label" />
+    <design:attribute name="institutionalLabelTooltip" label="Institutional Aid Label Tooltip"/>
+
+    <design:attribute name="submit" label="Submit Text" />
+    <design:attribute name="proofOfLawfulPresence" label="proof of lawful presence link text"  />
+    <design:attribute name="proofOfLawfulPresenceLink" label="Lawful Presence DSF Link"  />
+    <design:attribute name="uploadProofOfLawfulPresence" label="Upload Proof Of Lawful Presence label"/>
+    <design:attribute name="uploadProofOfLawfulPresenceToolTip" label="Upload Proof Of Lawful Presence tooltip"/>
+    <design:attribute name="submitLawfulPresenceToLateLabel" label="Lawful Presence Label When Proof Expiration After End Date"/>
+    
+    
+    <design:attribute name="eligibleConfirmationGPA" label="Eligibility at selected college confirmation text"  />
+    <design:attribute name="learnMoreGPALink" label="Learn More GPA Link"  />
+
+    <design:attribute name="completeTheGPAExceptionForm" label="Complete The GPA Form Text"  />
+    <design:attribute name="GPAExceptionFormLinkText" label="Gpa Exception Form Link Text"/>
+    <design:attribute name="GPAExceptionURL" label="GPA Exception URL"/>
+    <design:attribute name="submitCollegeTranscriptGPAException" label="Submit College transcript Text"/>
+    <design:attribute name="completeStudentSuccessRequirements" label="Complete SSR text"/>
+    <design:attribute name="completeStudentSuccessRequirementsToolTip" label="Complete SSR Tooltip Text" />
+    <design:attribute name="defaultSSRLink" label="Default SSR Link" />
+    <design:attribute name="enrollFullTimeWhenClassesStart" label="Enroll Full time when classes tart text" />
+    <design:attribute name="learnMoreEnrollmentLink" label="Learn More Enrollment Link"/>
+    <design:attribute name="enrollFullTimeWhenClassesStartToolTip" label="Enroll Full time when classes tart text tooltip"  />
+
+    <design:attribute name="transferringToADifferentDSFpartner" label="Transferring To A Different DSF partner" />
+    <design:attribute name="midYearTransferLinkText" label="Mid-Year Transfer Form Link Text" />
+    <design:attribute name="midYearTransferURL" label="Mid-Year Transfer URL" />
+    <design:attribute name="transferringToADifferentDSFpartnerTooltip" label="Transferring To A Different DSF partner tooltip"  />
+    <design:attribute name="submitTranscriptForMidYearTransfer" label="Submit Transcript For Transfer text"/>
+    <design:attribute name="midYearTransferFinancialAid" label="Mid Year Transfer Financial Aid text" />
+    <design:attribute name="midYearTransferDenied" label="Mid Year Transfer Denied" />
+    <design:attribute name="midYearTransferDeniedTooltip" label="Mid Year Transfer Denied Tooltip" />
+
+    <design:attribute name="eligibleForAProgramExtension" label="Eligible For A Program Extension"  />
+    <design:attribute name="programExtensionFormLinkText" label="Program Extension Form Link Text"  />
+    <design:attribute name="programExtensionFormURL" label="Program Extension Form URL"  />
+    <design:attribute name="eligibleForAProgramExtensionToolTip" label="Eligible For A program Extension Tooltip"/>
+    <design:attribute name="submitTranscriptForProgramExtension" label="Submit Transcript for extension text" />
+    <design:attribute name="submitTranscriptForProgramExtensionTooltip" label="Submit Transcript for extension tooltip"/>
+    <design:attribute name="completeProgramExtensionForm" label="Complete Program Extension Form Text" />
+    <design:attribute name="requestDeniedProgramExtension" label="Request Denied for Program Extension"/>
+    <design:attribute name="requestDeniedProgramExtensionToolTip" label="Request Denied for Program Extension tooltip"/>
+    <!-- MY COLLEGE CHOICE SECTION -->
+    <design:attribute name="collegeHeaderChoiceLabel" label="College Choice Header Label" />
+    <design:attribute name="collegeBtnLabel" label="Button Label" default="CHANGE"/>
+    <design:attribute name="collegeInfoLabel" label="Info Label" />
+
+<!--    CASE SUBJECT LABELS -->
+    <design:attribute name="fafsaProofCaseSubject" label="Fafsa Proof Case Subject" />
+    <design:attribute name="lawfulPresenceCaseSubject" label="Lawful Presence Case Subject" />
+    <design:attribute name="gpaExceptionCaseSubject" label="GPA Exception Case Subject" />
+    <design:attribute name="midYearTransferCaseSubject" label="Mid Year Transfer Case Subject" />
+    <design:attribute name="programExtensionCaseSubject" label="Program Extension Case Subject" />
+    <!-- MY ADVISORS SECTION -->
+    <design:attribute name="advisorsHeaderLabel" label="Advisors Header Label" />
+</design:component>

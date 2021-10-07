@@ -1,0 +1,44 @@
+<!--
+ - Created by ahasic on 9/23/19.
+ -->
+
+<aura:component description="DSF_Footer" implements="forceCommunity:availableForAllPageTypes">
+
+    <aura:attribute name="btnText" type="String"/>
+    <aura:attribute name="questLabel" type="String"/>
+
+    <lightning:navigation aura:id="navService"/>
+
+    <div class="slds-grid slds-wrap slds-size_1-of-1 slds-p-top_medium slds-p-bottom_medium">
+
+        <div class="slds-grid slds-wrap slds-x-small-size_1-of-1 slds-medium-size_2-of-3 slds-large-size_1-of-2 paddingBottom">
+
+            <div class="slds-x-small-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 alignContentMobile tablet-p-left">
+                <img style="height:10vh;" src="{!$Resource.DSF_Resources + '/DSF-logo-white.png'}" />
+            </div>
+
+            <div class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 alignContentMobile tablet-p-left">
+                <p class="pStyle">Denver Scholarship Foundation</p>
+                <p class="pStyle">789 Sherman Street, Suite 610</p>
+                <p class="pStyle">Denver, CO 80203</p>
+                <p class="pStyle">303.640.6564</p>
+                <a class="hrefStyle" href="{!$Label.c.DSF_Portal_uRL}" target="_blank">denverscholarship.org</a>
+            </div>
+        </div>
+
+        <div class="slds-wrap slds-x-small-size_1-of-1 slds-medium-size_1-of-3 slds-large-size_1-of-3">
+
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-bottom_medium" style="font-size: 20px; font-weight: 300;">{!v.questLabel}</div>
+
+            <div class="slds-size_1-of-1 slds-align_absolute-center">
+                <lightning:button
+                            class="slds-button standardOrangeBtn"
+                            label="{!v.btnText}"
+                            onclick="{!c.goToContactDsf}">
+                        {!v.btnText}
+                </lightning:button>
+            </div>
+        </div>
+
+    </div>
+</aura:component>

@@ -1,0 +1,7 @@
+<!--
+ - Created by ahasic on 10/16/19.
+ -->
+
+<design:component>
+    <design:attribute name="applicationStatus"  label="Status"/>
+</design:component>

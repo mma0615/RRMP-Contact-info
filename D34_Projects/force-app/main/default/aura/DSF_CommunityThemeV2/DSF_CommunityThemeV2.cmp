@@ -1,0 +1,44 @@
+<!--
+ - Created by ahasic on 9/23/19.
+ -->
+
+ <aura:component description="DSF_CommunityTheme:: Custom Theme Layout for DSF"
+ implements="forceCommunity:themeLayout"
+ access="global">
+
+<aura:attribute name="navBar" type="Aura.Component[]" required="false"/>
+<aura:attribute name="languageSelector" type="Aura.Component[]" required="false"/>
+<aura:attribute name="search" type="Aura.Component[]" required="false"/>
+<aura:attribute name="userOptions" type="Aura.Component[]" required="false"/>
+<aura:attribute name="footer" type="Aura.Component[]" required="false"/>
+
+<div class="wrapper">
+
+<!-- HEADER -->
+<div class="slds-align_absolute-center navBar forceCommunityGlobalNavigation">
+
+    <div class="slds-size_1-of-10 searchRegion">
+        {!v.search}
+    </div>
+    <div class="slds-size_10-of-10">            
+            {!v.navBar}
+        </div>
+        
+        <div class="slds-medium-size_1-of-8 slds-large-size_1-of-12">
+            {!v.userOptions}
+        </div>
+
+
+ 
+</div>
+
+<!-- BODY -->
+<div class="slds-grid slds-wrap body">
+<div class="slds-size_1-of-1">
+{!v.body}
+</div>
+</div>
+
+
+</div>
+</aura:component>

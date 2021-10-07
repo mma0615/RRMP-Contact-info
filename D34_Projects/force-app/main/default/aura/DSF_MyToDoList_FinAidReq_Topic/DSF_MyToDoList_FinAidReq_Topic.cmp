@@ -1,0 +1,39 @@
+<aura:component description="DSF_MyToDoList_FinAidReq_Topic">
+    <aura:attribute name="financialAidRequirementsLabel" type="String"/>
+    <aura:attribute name="collegePortalLinkText" type="String"/>
+    <aura:attribute name="financialAidReqTooltipLabel" type="String"/>
+    <aura:attribute name="institutionalLabel" type="String"/>
+    <aura:attribute name="institutionalLabelTooltip" type="String"/>
+    <aura:attribute name="application" type="Object"/>
+    <aura:attribute name="isDateBetween" type="Boolean" default="true"/>
+    <aura:attribute name="dsfConfig" type="Object"/>
+
+    <aura:handler name="change" value="{!v.dsfConfig}" action="{!c.checkDates}"/>
+
+    <lightning:navigation aura:id="navService"/>
+
+    <aura:if isTrue="{! and((v.isDateBetween),  v.application != null) }">
+
+       <!-- <aura:if isTrue="{!v.application.Federal_FA_Eligible__c == 'Yes'}">-->
+            <div class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormQuestionMarkCircle/>
+                <div class="slds-p-left_medium">
+                <!--    <span>{!v.financialAidRequirementsLabel} {!v.collegePortalLinkText}</span>-->
+                   <span>{!v.financialAidRequirementsLabel}&nbsp;<a
+                            onclick="{!c.navigateToCollegePortal}">{!v.collegePortalLinkText}</a>&nbsp;</span>
+                    <c:DSF_Tooltip text="{!v.financialAidReqTooltipLabel}"/>
+                </div>
+            </div>
+       <!-- </aura:if>-->
+<!--
+        <aura:if isTrue="{!v.application.Federal_FA_Eligible__c == 'No'}">
+            <div class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+                <c:DSF_FormQuestionMarkCircle/>
+                <div class="slds-p-left_medium">
+                    <span>{!v.institutionalLabel}&nbsp;</span>
+                    <c:DSF_Tooltip text="{!v.institutionalLabelTooltip}"/>
+                </div>
+            </div>
+        </aura:if>-->
+    </aura:if>
+</aura:component>

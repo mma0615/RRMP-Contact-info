@@ -1,0 +1,173 @@
+/**
+ * Created by ahasic on 9/23/19.
+ */
+
+/*Body content width*/
+.THIS.wrapper
+{
+    position: relative;
+    min-height: 100vh;
+}
+
+.THIS .body {
+    width:100%;
+    padding-bottom: 8.5rem;
+    /*padding-bottom: 140px !important; THIS IS REQUIRED IF FOOTER POSITION HAS TO BE FIXED*/
+}
+
+/*Footer style*/
+.THIS .footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 8.5rem;
+    z-index: 1;
+}
+
+/*Global navigation styling + Color selected within Community Builder*/
+.THIS .forceCommunityGlobalNavigation {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+/*Replaced navigation bar default home text with new Text*/
+.THIS .comm-navigation .slds-list__item a[data-type="home"] > span {
+    display:none;
+}
+
+.THIS .comm-navigation .slds-list__item a[data-type="home"]::after {
+    content: "My Dashboard";
+}
+
+/*Set background-color if home button is active*/
+.THIS .comm-navigation__item>a.slds-is-active {
+    background-color: rgba(255,255,255,.2);
+}
+
+
+.THIS .comm-navigation .slds-list__item:hover {
+    background-color: rgba(255,255,255,.2);
+}
+
+/*Global navigation bar styling*/
+.THIS .navBar {
+    width: 100%;
+    text-align: center;
+}
+
+/*Notification bell style*/
+.THIS .slds-icon-utility-notification {
+    color: #E76E24;
+}
+
+/* Manage standard navigation bar list items  */
+.THIS .forceCommunityGlobalNavigation .slds-list__item a {
+    text-transform: capitalize;
+    font-family: Muli;
+    font-size: 16px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+/*Icon displayed next to user name to show/hide user options*/
+.THIS .triangleIcon {
+    display: inline-block;
+    content: '';
+    margin-left: 0.5vw;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 9px solid #E76E24;
+}
+
+/*CSS related to user options drop down list*/
+.THIS .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.THIS .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #7FB0CC;
+    width: 120px;
+    top: 3.8vh;
+    right: -15px;
+    padding: 1vw;
+	z-index: 100;
+}
+
+.THIS .dropdown-content:before {
+    top: -1.5vh;
+    right: 13px;
+    position: absolute;
+    content: '';
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 14px solid #7FB0CC;
+}
+
+.THIS .dropdown-content a {
+    color: #FFFFFF;
+    font-size: 15px;
+    text-decoration: none;
+    display: block;
+    text-align: right;
+}
+
+.THIS .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/*Language Selector CSS*/
+/* .THIS .forceCommunityLanguageSelector43 {
+    border-radius: inherit;
+    background-color: #E66F25;
+    color: #1F3366;
+} */
+
+/*Mobile*/
+@media only screen and (max-width: 480px) {
+    /*  .THIS .footer {
+    	position: relative;
+    	width: 100%;
+    	bottom: 0;
+    	height: 100%;
+    	z-index: 1;
+    }*/
+    
+    .THIS .footer{
+        display:none;
+    }
+    
+    .THIS .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .THIS .hideForMobile {
+        display: none;
+    }
+
+    /* .THIS .lengSize {
+        width: 15%;
+    }
+
+    .THIS .slds-input__icon-group_right {
+        display: none !important;
+    } */
+}
+/*Tablet*/
+@media only screen and (min-width: 480px) and (max-width: 800px) {
+    .THIS .navBar{
+        text-align: center;
+    }
+    .THIS .forceCommunityGlobalNavigation .slds-list_horizontal{
+        display:block;
+    }
+    .THIS .dropDownTablet {
+        margin-right: 1%
+    }
+
+    .THIS .dropdown:hover .dropdown-content {
+        display: block;
+    }
+}

@@ -1,0 +1,25 @@
+<!--BY ANDREJA-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="icon" type="String" default=""/>
+    <aura:attribute name="text" type="String" default=""/>
+    <aura:attribute name="title" type="String" default=""/>
+
+    <div class="slds-align_absolute-center slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1">
+            <aura:if isTrue="{!not(empty(v.icon))}">
+                <div class="slds-align_absolute-center">
+                    <img class="image-look" src="{!$Resource.DSF_Resources + '/' + v.icon}" alternativeText="Image"/>
+                </div>
+            </aura:if>
+            <div class="slds-align_absolute-center slds-m-top_small slds-m-bottom_x-large">
+            <p class="title-look">{!v.title}</p>
+            </div>
+        </div>
+        <div class="slds-align_absolute-center slds-col slds-size_12-of-12 slds-grid slds-wrap text-look">
+            <div class="slds-col slds-size_1-of-1 text-look">
+                {!v.text}
+            </div>
+            <hr class="forms-divider slds-size_1-of-1" />
+        </div>        
+    </div>    
+</aura:component>

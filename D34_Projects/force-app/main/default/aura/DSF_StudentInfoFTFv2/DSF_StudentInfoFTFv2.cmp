@@ -1,0 +1,9 @@
+<aura:component description="DSF_StudentInfoFTFv2" implements="forceCommunity:availableForAllPageTypes">
+    
+  
+    <aura:attribute name="iframeUrl" type="String" default=""/>  
+    
+    <div class="iframe-container">
+        <iframe id="iFrame" src="{! v.iframeUrl }" frameBorder="0"/>   
+    </div>
+</aura:component>

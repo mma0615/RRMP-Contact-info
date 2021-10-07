@@ -1,0 +1,23 @@
+<aura:component description="DSF_MyToDoList_SSR_Topic">
+
+    <aura:attribute name="completeStudentSuccessRequirements" type="String"/>
+    <aura:attribute name="completeStudentSuccessRequirementsToolTip" type="String"/>
+    <aura:attribute name="learnMore" type="String"/>
+    <aura:attribute name="application" type="Object"/>
+   <!-- <aura:attribute name="studentTerm" type="Object"/>-->
+    <aura:attribute name="defaultSSRLink" type="String"/>
+
+   <!-- <aura:if isTrue="{!and(v.studentTerm,and(or(!v.studentTerm.SSR_Requirements_Completed__c, v.studentTerm.SSR_Requirements_Completed__c == 'No'), or(!v.studentTerm.Final_Award_Status__c, v.studentTerm.Final_Award_Status__c == 'Eligible - Award Calculated')))}">-->
+        <div class="slds-text-heading_small slds-m-top_large toDoList-item-container">
+            <c:DSF_FormQuestionMarkCircle/>
+            <div class="slds-p-left_medium toDoList-item">
+                <div>
+                    <span>{!v.completeStudentSuccessRequirements}&nbsp;</span>
+                    <c:DSF_Tooltip text="{!v.completeStudentSuccessRequirementsToolTip}"/>
+                </div>
+              <!--  <c:DSF_MyToDoList_LearnMoreLink url="{!and(v.studentTerm.College_or_University__c != null, v.studentTerm.College_or_University__r.SSR_Link__c != null) ? v.studentTerm.College_or_University__r.SSR_Link__c : v.defaultSSRLink}" label="{!v.learnMore}"/>-->
+                <c:DSF_MyToDoList_LearnMoreLink url="{!and(v.application.School_Name__c != null, v.application.School_Name__r.SSR_Link__c != null) ? v.application.School_Name__r.SSR_Link__c : v.defaultSSRLink}" label="{!v.learnMore}"/>
+            </div>
+        </div>
+    <!--</aura:if>-->
+</aura:component>

@@ -1,0 +1,14 @@
+.THIS .slds-input {
+    height: 50px;
+    border: none;
+    background-color: #f7f8f9;
+    border-radius: 0px;
+}
+.THIS .position_fix {
+    margin-right: 6.25%;
+    width: 72%;
+}
+
+.THIS .error {
+    color: rgb(194, 57, 52);
+}

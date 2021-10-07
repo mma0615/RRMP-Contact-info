@@ -1,0 +1,16 @@
+<design:component>
+	<design:attribute name="btnText" label="Button Text" default=""/>
+    <design:attribute name="textBoxValue" label="Blue Box Label" default=""/>
+    <design:attribute name="welcomeLabel" label="Welcome Label" default=""/>
+    <design:attribute name="infoLabel" label="Info Label" default=""/>
+    <design:attribute name="questionLabel" label="Question Label" default=""/>
+    <design:attribute name="CollegeInfo1" label="College Info 1" default=""/>
+    <design:attribute name="CollegeInfo2" label="College Info 2" default=""/>
+    <design:attribute name="CollegeInfo3" label="College Info 3" default=""/>
+    <design:attribute name="CollegeInfo4" label="College Info 4" default=""/>
+    <design:attribute name="CollegeInfo5" label="College Info 5" default=""/>
+    <design:attribute name="Videotext" label="Video Text" default=""/>
+    <design:attribute name="Videolink" label="Video Link" default=""/>
+    <design:attribute name="Videolinktext" label="Video Link Text" default=""/>
+    
+</design:component>

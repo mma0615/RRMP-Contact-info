@@ -1,0 +1,42 @@
+=== Test Reports
+FORMAT  FILE
+──────  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+txt     c:\Users\Mikey\Dropbox (Eversource LiquidHub)\vscode-workspace\DashInvestmentFinancialAccount\.sfdx\tools\testresults\apex\test-result.txt
+txt     c:\Users\Mikey\Dropbox (Eversource LiquidHub)\vscode-workspace\DashInvestmentFinancialAccount\.sfdx\tools\testresults\apex\test-run-id.txt
+junit   c:\Users\Mikey\Dropbox (Eversource LiquidHub)\vscode-workspace\DashInvestmentFinancialAccount\.sfdx\tools\testresults\apex\test-result-7073K00000R4wgl-junit.xml
+json    c:\Users\Mikey\Dropbox (Eversource LiquidHub)\vscode-workspace\DashInvestmentFinancialAccount\.sfdx\tools\testresults\apex\test-result-7073K00000R4wgl.json
+json    c:\Users\Mikey\Dropbox (Eversource LiquidHub)\vscode-workspace\DashInvestmentFinancialAccount\.sfdx\tools\testresults\apex\test-result-codecoverage.json
+
+=== Apex Code Coverage
+ID                  NAME                        % COVERED  UNCOVERED LINES
+──────────────────  ──────────────────────────  ─────────  ───────────────
+01p3K0000001bIXQAY  FinancialAccountController  100%
+01q2L000000JBbVQAW  AccountTrigger              87.5%      20
+
+=== Test Results
+TEST NAME                                                      OUTCOME  MESSAGE  RUNTIME (MS)
+─────────────────────────────────────────────────────────────  ───────  ───────  ────────────
+FinancialAccountControllerTest.FinancialAccountControllerTest  Pass              2715
+
+=== Test Summary
+NAME                 VALUE
+───────────────────  ──────────────────────────────────────────────
+Outcome              Passed
+Tests Ran            1
+Passing              1
+Failing              0
+Skipped              0
+Pass Rate            100%
+Fail Rate            0%
+Test Start Time      Nov 19, 2020 5:03 PM
+Test Execution Time  2715 ms
+Test Total Time      2715 ms
+Command Time         13133 ms
+Hostname             https://dashacq--orchestrat.my.salesforce.com
+Org Id               00D3K0000000P71UAE
+Username             dash@dashinvestments.com.orchestrat
+Test Run Id          7073K00000R4wgl
+User Id              0051a000000bX3NAAU
+Test Run Coverage    98%
+Org Wide Coverage    2%
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <interviewLabel>My Student Information {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>My Student Information</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Student_Home_Screen</name>
+        <label>Student Home Screen</label>
+        <locationX>474</locationX>
+        <locationY>55</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>My_Student_Information</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;&lt;u&gt;My Student Information&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;College:&lt;/b&gt; College of Information and Cyberspace&lt;/p&gt;&lt;p&gt;&lt;b&gt;Program:&lt;/b&gt; Master of Science in Government Information Leadership&lt;/p&gt;&lt;p&gt;&lt;b&gt;Current GPA:&lt;/b&gt; 3.76&lt;/p&gt;&lt;p&gt;&lt;b&gt;Expected Graduation Date:&lt;/b&gt; June 2022&lt;/p&gt;&lt;p&gt;&lt;b&gt;Academic Advisor:&lt;/b&gt; James Churbuck, &lt;u style=&quot;color: rgb(27, 18, 195);&quot;&gt;jchurbuck@ndu.edu &lt;/u&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Student_Home_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

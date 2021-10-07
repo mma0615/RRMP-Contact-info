@@ -1,0 +1,9 @@
+<design:component label="DSF_application_first_time_footer">
+    <design:attribute name="buttonStart" label="Start Button Text"/>
+    <design:attribute name="buttonContinue" label="Continue Button Text"/>
+    <design:attribute name="buttonURL" label="Start Button URL"/>
+    <design:attribute name="buttonURLContinue" label="Continue Button URL"/>
+    <design:attribute name="text" label="Text"/>
+    <design:attribute name="contactUsLink" label="Link"/>
+    <design:attribute name="contactUsText" label="Link Text"/>
+</design:component>

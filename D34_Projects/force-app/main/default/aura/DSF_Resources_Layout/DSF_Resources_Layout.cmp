@@ -1,0 +1,95 @@
+<aura:component implements="forceCommunity:layout" description="DSF_Resources_Layout" access="global">
+
+    <aura:attribute name="header"    type="Aura.Component[]" required="false"/>
+    <aura:attribute name="content1"  type="Aura.Component[]" required="false"/>
+    <aura:attribute name="content2"  type="Aura.Component[]" required="false"/>
+    <aura:attribute name="content3"  type="Aura.Component[]" required="false"/>
+    <aura:attribute name="content4"  type="Aura.Component[]" required="false"/>
+    <aura:attribute name="content5"  type="Aura.Component[]" required="false"/>
+    <aura:attribute name="content6"  type="Aura.Component[]" required="false"/>
+    
+    <div class="slds-size_1-of-1 slds-m-bottom_xx-large slds-m-top_xx-large">
+        	{!v.header}
+    </div>
+   
+    <div class="slds-grid_vertical slds-x-small-size_8-of-12 slds-medium-size_8-of-12 slds-large-size_7-of-12 slds-align_absolute-center">
+        <!--FIRST ROW-->
+        <div class="slds-col slds-grid slds-size_1-of-1 slds-m-bottom_x-large wrap">
+            <!--Top left box-->
+            <aura:if isTrue="{!not(empty(v.content1))}">
+                <div class="slds-col slds-size_1-of-2 slds-m-right_medium row-column"> 
+                    {!v.content1}
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-col slds-size_1-of-2 slds-m-right_medium"> 
+                        {!v.content1}
+                    </div>
+                </aura:set>
+            </aura:if>
+            <!--Top right box-->
+            <aura:if isTrue="{!not(empty(v.content2))}">
+                <div class="slds-col slds-size_1-of-2 slds-m-left_medium row-column"> 
+                    {!v.content2}
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-col slds-size_1-of-2 slds-m-left_medium"> 
+                        {!v.content2}
+                    </div>
+                </aura:set>
+            </aura:if>      
+        </div>
+        <!--SECOND ROW-->
+        <div class="slds-col slds-grid slds-size_1-of-1 slds-m-bottom_x-large wrap">
+            <!--Middle left box-->
+            <aura:if isTrue="{!not(empty(v.content3))}">
+                <div class="slds-col slds-size_1-of-2 slds-m-right_medium row-column"> 
+                    {!v.content3}
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-col slds-size_1-of-2 slds-m-right_medium"> 
+                        {!v.content3}
+                    </div>
+                </aura:set>
+            </aura:if>
+            <!--Middle right box-->
+            <aura:if isTrue="{!not(empty(v.content4))}">
+                <div class="slds-col slds-size_1-of-2 slds-m-left_medium row-column"> 
+                    {!v.content4}
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-col slds-size_1-of-2 slds-m-left_medium"> 
+                        {!v.content4}
+                    </div>
+                </aura:set>
+            </aura:if>     
+        </div>
+        <!--THIRD ROW-->
+        <div class="slds-col slds-grid slds-size_1-of-1 slds-m-bottom_large wrap">
+			<!--Bottom left box-->
+            <aura:if isTrue="{!not(empty(v.content5))}">
+                <div class="slds-col slds-size_1-of-2 slds-m-right_medium bottom-left"> 
+                    {!v.content5}
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-col slds-size_1-of-2 slds-m-right_medium"> 
+                        {!v.content5}
+                    </div>
+                </aura:set>
+            </aura:if>    
+            <!--Bottom right box-->
+            <aura:if isTrue="{!not(empty(v.content6))}">
+                <div class="slds-col slds-size_1-of-2 slds-m-left_medium row-column"> 
+                    {!v.content6}
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-col slds-size_1-of-2 slds-m-left_medium"> 
+                        {!v.content6}
+                    </div>
+                </aura:set>
+            </aura:if>
+            
+        </div>
+    </div>
+    
+    
+</aura:component>

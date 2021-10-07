@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="force.apex" timestamp="2020-11-19T17:03:43-08:00" hostname="https://dashacq--orchestrat.my.salesforce.com" tests="1" failures="0"  errors="0"  time="2.72">
+        <properties>
+            <property name="outcome" value="Passed"/>
+            <property name="testsRan" value="1"/>
+            <property name="passing" value="1"/>
+            <property name="failing" value="0"/>
+            <property name="skipped" value="0"/>
+            <property name="passRate" value="100%"/>
+            <property name="failRate" value="0%"/>
+            <property name="testStartTime" value="Nov 19, 2020 5:03 PM"/>
+            <property name="testExecutionTime" value="2.72 s"/>
+            <property name="testTotalTime" value="2.72 s"/>
+            <property name="commandTime" value="13.13 s"/>
+            <property name="hostname" value="https://dashacq--orchestrat.my.salesforce.com"/>
+            <property name="orgId" value="00D3K0000000P71UAE"/>
+            <property name="username" value="dash@dashinvestments.com.orchestrat"/>
+            <property name="testRunId" value="7073K00000R4wgl"/>
+            <property name="userId" value="0051a000000bX3NAAU"/>
+            <property name="testRunCoverage" value="98%"/>
+            <property name="orgWideCoverage" value="2%"/>
+        </properties>
+        <testcase name="FinancialAccountControllerTest" classname="FinancialAccountControllerTest" time="2.72">
+        </testcase>
+    </testsuite>
+</testsuites>

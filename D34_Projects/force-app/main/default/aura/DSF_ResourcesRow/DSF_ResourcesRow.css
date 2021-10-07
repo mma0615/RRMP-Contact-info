@@ -1,0 +1,30 @@
+/*
+    Created by smilankov on 23/10/19.
+*/
+.THIS body {
+    background-color: #F7F8F9;
+}
+.THIS img {
+    display:inline;
+    vertical-align: middle;
+}
+.THIS a {
+    display:inline;
+    vertical-align: middle;
+    text-decoration: none;
+    margin-left: 5px;
+    font-size: 15px;
+    color: black;
+}
+.THIS.col-row {
+    padding-left: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: #F7F8F9;
+}
+
+@media only screen and  (max-width: 450px) {
+    .THIS.col-row {
+        padding-left: 10px;
+    }
+}

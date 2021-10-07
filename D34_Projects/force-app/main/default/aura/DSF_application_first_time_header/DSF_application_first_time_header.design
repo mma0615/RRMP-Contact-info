@@ -1,0 +1,4 @@
+<design:component label="DSF_application_first_time_header">
+    <design:attribute name="header" label="Header"/>
+    <design:attribute name="text" label="Text"/>
+</design:component>

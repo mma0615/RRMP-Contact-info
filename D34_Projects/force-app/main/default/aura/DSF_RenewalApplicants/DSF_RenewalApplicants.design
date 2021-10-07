@@ -1,0 +1,13 @@
+<design:component >
+    <design:attribute name="Title"           label="Title"             default=""/>
+    <design:attribute name="CustomMessage1"  label="Custom Message 1"  default=""/>
+    <design:attribute name="Bolded"          label="Bolded"            default=""/>
+    <design:attribute name="CustomMessage2"  label="Custom Message 2"  default=""/>
+    <design:attribute name="Button"          label="Start Button Text" default=""/>
+    <design:attribute name="buttonContinue"  label="Continue Button Text" default=""/>
+    <design:attribute name="buttonURL"       label="Start Button URL" default=""/>
+    <design:attribute name="buttonURLContinue" label="Continue Button URL" default=""/>
+    <design:attribute name="CustomMessage3"  label="Custom Message 3"  default=""/>
+    <design:attribute name="linkText"        label="Link Text"  default=""/>
+    <design:attribute name="link1"           label="Link 1"  default=""/>
+</design:component>

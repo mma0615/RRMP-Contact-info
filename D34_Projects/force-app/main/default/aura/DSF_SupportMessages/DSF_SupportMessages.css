@@ -1,0 +1,98 @@
+.THIS table{
+    width: 100%;
+}
+.THIS.table-wrap {
+    position: relative;
+}
+.THIS th {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    width: 20%;
+}
+.THIS td {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+.THIS a{
+    text-decoration: none;
+    color: black;
+}
+.THIS h3 {
+    color: #203366;
+	font-weight: bold;
+}
+.THIS .table-header th{
+    font-weight: bold;
+}
+.THIS .subject {
+    width: 60%;
+}
+.THIS .status {
+	border-radius: 10px;
+    width: fit-content;
+    padding: 0.5vh 0.5vw;
+	text-align: center;
+    color: white;
+}
+.THIS .status-truncate {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.THIS .status_orange {
+    background-color: #E76E24;
+}
+.THIS .status_red {
+    background-color: #D65050;
+}
+.THIS .status_green {
+    background-color: #71BB7C;
+}
+
+@media only screen and  (max-width: 450px) {
+    .THIS table {
+        width: 95%;
+        margin: auto;
+    }
+    .THIS th {
+        padding-left: 1vh;
+    }
+    .THIS td {
+        position:relative;
+        padding-left: 1vh;
+        padding-right: 1vh;
+    }
+    .THIS a {
+        position: absolute;
+        top: 30%;
+    }
+	.THIS .status-truncate {
+        overflow: initial;
+        text-overflow: initial;
+        white-space: initial;
+    }
+    .THIS h3 {
+        padding-left: 1vh;
+    }
+    .THIS .standardOrangeBtn {
+        margin-left: 1vh;
+    }
+    .THIS .subject {
+        width: 40%;
+    }
+}
+@media only screen and (max-width: 1100px) and (min-width: 450px) {
+
+    .THIS td {
+        position:relative;
+        padding-right:1vh;
+    }
+    .THIS a {
+        position: absolute;
+        top: 30%;
+    }
+    .THIS .subject {
+        width: 60%;
+    }
+}

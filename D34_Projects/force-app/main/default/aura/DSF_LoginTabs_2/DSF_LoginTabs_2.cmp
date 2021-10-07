@@ -1,0 +1,128 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+        
+    <aura:attribute name="selectedTabId"         type="String" />
+    <aura:attribute name="showTabs"              type="Boolean" default="true"/>
+    <aura:attribute name="showContactUs"         type="Boolean" default="false"/>
+    <aura:attribute name="ineligible"            type="Boolean" default="false"/>
+    <aura:attribute name="is_default_message"    type="Boolean" default="false"/>
+
+   <aura:attribute name="DefaultContactUs" type="String" default=""/> 
+    <!-- attributes related to LoginTabs component-->
+    <aura:attribute name="message"               type="String" default=""/>
+    <aura:attribute name="LoginTabLabel"         type="String" default="LOG IN"/>
+    <aura:attribute name="CreateAccountTabLabel" type="String" default="CREATE ACCOUNT"/>
+    <aura:attribute name="ConfirmationMsg1"      type="String" default="We have sent a confirmation email with next steps."/>
+    <aura:attribute name="ConfirmationMsg2"      type="String" default="Please check your email to finish setting up your new password."/>
+   
+  
+    <!-- attributes related to login component (if needed) -->
+    <aura:attribute name="PasswordErrorMsg"         type="String" default="A password must contain at least eight characters, including numbers and letters."/>
+    <aura:attribute name="EmailErrorMsg"            type="String" default="You have entered an invalid format."/>
+    <aura:attribute name="MailAndPassErrorMsg"      type="String" default="Make sure your email and password are correct."/>
+    <aura:attribute name="ResetPaswordMsg1"         type="String" default="Enter your email address and we'll send you an email to reset your password."/>
+    <aura:attribute name="ResetPaswordMsg2"         type="String" default="Please reset your password."/>
+    <aura:attribute name="ResetPassEmailInputLabel" type="String" default="Email Address"/>
+    <aura:attribute name="ForgotPasswordLink"       type="String" default="Forgot Password?"/>
+    <aura:attribute name="ForgotEmail"              type="String" default="Forgot Email Address?"/>
+    <aura:attribute name="ForgotEmailText1"         type="String" default="If you no longer have access to the email address you used to create your login, please "/>
+    <aura:attribute name="ForgotEmailLinkText"      type="String" default="contact us "/>
+    <aura:attribute name="ForgotEmailText2"         type="String" default="for help."/>
+    <aura:attribute name="EmailInputLabel"          type="String" default="Email"/>
+    <aura:attribute name="PasswordInputLabel"       type="String" default="Password"/>
+    <aura:attribute name="LogInBtnLabel"            type="String" default="LOG IN"/>
+    <aura:attribute name="ResetPassBtnLabel"        type="String" default="RESET PASSWORD"/>
+    <aura:attribute name="NewPassInputLabel"        type="String" default="New Password"/>
+    <aura:attribute name="ConfirmPassInputLabel"    type="String" default="Confirm Password"/>
+    <aura:attribute name="ReturningScholar"         type="String" default="DSF Scholar?"/>
+    <aura:attribute name="ReturningScholarText1"    type="String" default=" "/>
+    
+
+    <!--attributes related to contactDSF on login page-->
+    <aura:attribute name="TooltipMsg"     type="String" default="You will be able to upload attachment if necessary after SEND MESSAGE button is clicked."/>
+    <aura:attribute name="ModalMessage"   type="String" default="Upload attachment if necessary."/>
+    <aura:attribute name="LoginModalMsg"  type="String" default="Thank you for contacting the Denver Scholarship Foundation. We have received your email and will respond promptly."/>
+    <aura:attribute name="BackToLoginMsg" type="String" default="Return to login page"/>
+    <aura:attribute name="ShareFilesMsg"   type="String" default="If you want to share any files with us please send to the:"/>
+    <aura:attribute name="ShareFilesEmail" type="String" default="support@denverscholarship.org"/>
+
+
+    <aura:handler name="DSF_Login_Event" event="c:DSF_Login_Event" action="{!c.handleLoginEvent}"/>
+    <aura:handler name="DSF_Ineligible_Event" event="c:DSF_Ineligible_Event" action="{!c.handleIneligibleEvent}"/>
+    <aura:handler event="c:DSF_ShowContactUsEVT" action="{!c.handleContactUsEvent}"/>
+    <aura:handler name="DSF_backToLogIn" event="c:DSF_backToLogIn" action="{!c.backToLoginEvtHandler}"/>
+    <aura:if isTrue="{! and(v.showTabs, !v.showContactUs)}">
+        <lightning:tabset class="slds-size_1-of-1 slds-wrap overflow-hidden" aura:id="tabSet">
+            <lightning:tab class="tabHeader slds-size_1-of-1" label="{!v.LoginTabLabel}" title="LOG IN" id="login" >
+                <c:DSF_Login  PasswordErrorMsg="{!v.PasswordErrorMsg}"
+                              EmailErrorMsg="{!v.EmailErrorMsg}"
+                              MailAndPassErrorMsg="{!v.MailAndPassErrorMsg}"
+                              ResetPaswordMsg1="{!v.ResetPaswordMsg1}"
+                              ResetPaswordMsg2="{!v.ResetPaswordMsg2}"
+                              ResetPassEmailInputLabel="{!v.ResetPassEmailInputLabel}"
+                              ForgotPasswordLink="{!v.ForgotPasswordLink}"
+                              ForgotEmail="{!v.ForgotEmail}"
+                              ForgotEmailText1="{!v.ForgotEmailText1}"
+                              ForgotEmailLinkText="{!v.ForgotEmailLinkText}"
+                              ForgotEmailText2="{!v.ForgotEmailText2}"
+                              EmailInputLabel="{!v.EmailInputLabel}"
+                              PasswordInputLabel="{!v.PasswordInputLabel}"
+                              LogInBtnLabel="{!v.LogInBtnLabel}"
+                              ResetPassBtnLabel="{!v.ResetPassBtnLabel}"
+                              NewPassInputLabel="{!v.NewPassInputLabel}"
+                              ConfirmPassInputLabel="{!v.ConfirmPassInputLabel}"
+                              ReturningScholar="{!v.ReturningScholar}"
+                              ReturningScholarText1="{!v.ReturningScholarText1}"
+                              />
+            </lightning:tab>
+          
+        </lightning:tabset>
+    </aura:if>
+
+    <aura:if isTrue="{! and(!v.showTabs, !v.showContactUs) }">
+
+        <aura:if isTrue="{! v.ineligible }">
+            <div class="slds-align_absoulte-center slds-size_1-of-1 pad">
+                {!v.message}
+                <aura:if isTrue="{!v.is_default_message}">
+                    <a onclick="{!c.showContactUs}">{!v.DefaultContactUs}</a>
+                </aura:if>
+            </div>                
+        </aura:if>
+
+        <aura:if isTrue="{! !v.ineligible }">
+            <div class="slds-align_absolute-center slds-size_1-of-1">
+                <div class="slds-align_absolute-center slds-grid slds-wrap">
+                    <div class="slds-align_absolute-center slds-p-bottom_x-large slds-col slds-size_1-of-1">
+                        <img src="{!$Resource.DSF_Resources + '/mail-icon.png'}" />
+                    </div>
+                    <div class="slds-align_absolute-center slds-p-bottom_large slds-text-heading_medium slds-col slds-size_1-of-1">
+                        <p>{!v.ConfirmationMsg1}</p>
+                    </div>
+                    <div class="slds-align_absolute-center slds-p-bottom_large slds-text-heading_medium slds-col slds-size_1-of-1">
+                        <p>{!v.ConfirmationMsg2}</p>
+                    </div>
+                    <div class="slds-align_absolute-center slds-m-top_small">
+                        <a onclick="{!c.backToLogin}">&lt; {!v.BackToLoginMsg}</a>
+                    </div>
+                </div>
+            </div>
+        </aura:if>
+
+    </aura:if>
+    <aura:if isTrue="{!v.showContactUs}">
+        <div class="contact-us">
+            <c:DSF_ContactDSF IsLogin="true"
+                              ShowContactUs="{!v.showContactUs}"
+                              ShowIcon="false"
+                              TooltipMsg="{!v.TooltipMsg}"
+                              ModalMessage="{!v.ModalMessage}"
+                              LoginModalMsg="{!v.LoginModalMsg}"
+                              BackToLoginMsg="{!v.BackToLoginMsg}"
+                              ShareFilesMsg="{!v.ShareFilesMsg}"
+                              ShareFilesEmail="{!v.ShareFilesEmail}"
+                              />
+        </div>
+    </aura:if>
+            
+     
+</aura:component>

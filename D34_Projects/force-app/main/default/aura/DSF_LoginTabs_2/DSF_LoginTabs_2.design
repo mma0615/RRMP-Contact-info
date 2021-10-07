@@ -1,0 +1,42 @@
+<design:component>
+   
+
+ 
+    <!-- attributes related to LoginTabs component-->
+    <design:attribute name="message"                 default=""/>
+    <design:attribute name="LoginTabLabel"           default="LOG IN"/>
+    <design:attribute name="CreateAccountTabLabel"   default="CREATE ACCOUNT"/>
+    <design:attribute name="ConfirmationMsg1"        default="We have sent a confirmation email with next steps."/>
+    <design:attribute name="ConfirmationMsg2"        default="Please check your email to finish setting up your new password."/>
+    <design:attribute name="DefaultContactUs" default=""/>
+    
+    <!-- attributes related to login component (if needed) -->
+    <design:attribute name="PasswordErrorMsg"           default="A password must contain at least eight characters, including numbers and letters."/>
+    <design:attribute name="EmailErrorMsg"              default="You have entered an invalid format."/>
+    <design:attribute name="MailAndPassErrorMsg"        default="Make sure your email and password are correct."/>
+    <design:attribute name="ResetPaswordMsg1"           default="Enter your email address and we'll send you an email to reset your password."/>
+    <design:attribute name="ResetPaswordMsg2"           default="Please reset your password."/>
+    <design:attribute name="ResetPassEmailInputLabel"   default="Email Address"/>
+    <design:attribute name="ForgotPasswordLink"         default="Forgot Password?"/>
+    <design:attribute name="ForgotEmail"                default="Forgot Email Address?"/>
+    <design:attribute name="ForgotEmailText1"           default="If you no longer have access to the email address you used to create your login, please "/>
+    <design:attribute name="ForgotEmailLinkText"        default="contact us "/>
+    <design:attribute name="ForgotEmailText2"           default="for help."/>
+    <design:attribute name="EmailInputLabel"            default="Email"/>
+    <design:attribute name="PasswordInputLabel"         default="Password"/>
+    <design:attribute name="LogInBtnLabel"              default="LOG IN"/>
+    <design:attribute name="ResetPassBtnLabel"          default="RESET PASSWORD"/>
+    <design:attribute name="NewPassInputLabel"          default="New Password"/>
+    <design:attribute name="ConfirmPassInputLabel"      default="Confirm Password"/>
+    <design:attribute name="ReturningScholar"           default="DSF Scholar?"/>
+    <design:attribute name="ReturningScholarText1"      default=""/>
+
+    <!--attributes related to contactDSF on login page-->
+    <design:attribute name="TooltipMsg"       default="You will be able to upload attachment if necessary after SEND MESSAGE button is clicked."/>
+    <design:attribute name="ModalMessage"     default="Upload attachment if necessary."/>
+    <design:attribute name="LoginModalMsg"    default="Thank you for contacting the Denver Scholarship Foundation. We have received your email and will respond promptly."/>
+    <design:attribute name="BackToLoginMsg"   default="Return to login page"/>
+    <design:attribute name="ShareFilesMsg"     default="If you want to share any files with us please send to the:"/>
+    <design:attribute name="ShareFilesEmail"   default="support@denverscholarship.org"/>
+
+</design:component>

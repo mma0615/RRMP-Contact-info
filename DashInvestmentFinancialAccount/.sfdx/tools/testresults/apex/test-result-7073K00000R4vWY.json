@@ -1,0 +1,116 @@
+{
+    "summary": {
+        "outcome": "Failed",
+        "testsRan": 1,
+        "passing": 0,
+        "failing": 1,
+        "skipped": 0,
+        "passRate": "0%",
+        "failRate": "100%",
+        "testStartTime": "Nov 19, 2020 4:28 PM",
+        "testExecutionTime": "26260 ms",
+        "testTotalTime": "26260 ms",
+        "commandTime": "199357 ms",
+        "hostname": "https://dashacq--orchestrat.my.salesforce.com",
+        "orgId": "00D3K0000000P71UAE",
+        "username": "dash@dashinvestments.com.orchestrat",
+        "testRunId": "7073K00000R4vWY",
+        "userId": "0051a000000bX3NAAU",
+        "testRunCoverage": "87%",
+        "orgWideCoverage": "0%"
+    },
+    "tests": [
+        {
+            "attributes": {
+                "type": "ApexTestResult",
+                "url": "/services/data/v50.0/tooling/sobjects/ApexTestResult/07M3K000002IFmEUAW"
+            },
+            "Id": "07M3K000002IFmEUAW",
+            "QueueItemId": "7093K000000G67wQAC",
+            "StackTrace": "Class.FinancialAccountControllerTest.FinancialAccountControllerTest: line 22, column 1",
+            "Message": "System.DmlException: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [OASP__OAS_Registration__c]: [OASP__OAS_Registration__c]",
+            "AsyncApexJobId": "7073K00000R4vWYQAZ",
+            "MethodName": "FinancialAccountControllerTest",
+            "Outcome": "Fail",
+            "ApexClass": {
+                "attributes": {
+                    "type": "ApexClass",
+                    "url": "/services/data/v50.0/tooling/sobjects/ApexClass/01p3K0000001bIYQAY"
+                },
+                "Id": "01p3K0000001bIYQAY",
+                "Name": "FinancialAccountControllerTest",
+                "NamespacePrefix": null
+            },
+            "RunTime": 26260,
+            "FullName": "FinancialAccountControllerTest.FinancialAccountControllerTest"
+        }
+    ],
+    "coverage": {
+        "coverage": [
+            {
+                "id": "01q2L000000JBbVQAW",
+                "name": "AccountTrigger",
+                "totalLines": 8,
+                "lines": {
+                    "7": 1,
+                    "8": 1,
+                    "11": 1,
+                    "17": 1,
+                    "18": 1,
+                    "19": 1,
+                    "20": 0,
+                    "23": 1
+                },
+                "totalCovered": 7,
+                "coveredPercent": 87.5
+            }
+        ],
+        "records": [
+            {
+                "attributes": {
+                    "type": "ApexCodeCoverage",
+                    "url": "/services/data/v50.0/tooling/sobjects/ApexCodeCoverage/7143K00000Fvtu8QAB"
+                },
+                "ApexTestClass": {
+                    "attributes": {
+                        "type": "ApexClass",
+                        "url": "/services/data/v50.0/tooling/sobjects/ApexClass/01p3K0000001bIYQAY"
+                    },
+                    "Id": "01p3K0000001bIYQAY",
+                    "Name": "FinancialAccountControllerTest"
+                },
+                "Coverage": {
+                    "coveredLines": [
+                        7,
+                        8,
+                        11,
+                        17,
+                        18,
+                        19,
+                        23
+                    ],
+                    "uncoveredLines": [
+                        20
+                    ]
+                },
+                "TestMethodName": "FinancialAccountControllerTest",
+                "NumLinesCovered": 7,
+                "ApexClassOrTrigger": {
+                    "attributes": {
+                        "type": "Name",
+                        "url": "/services/data/v50.0/tooling/sobjects/ApexTrigger/01q2L000000JBbVQAW"
+                    },
+                    "Id": "01q2L000000JBbVQAW",
+                    "Name": "AccountTrigger"
+                },
+                "NumLinesUncovered": 1
+            }
+        ],
+        "summary": {
+            "totalLines": 8,
+            "coveredLines": 7,
+            "testRunCoverage": "87%",
+            "orgWideCoverage": "0%"
+        }
+    }
+}
