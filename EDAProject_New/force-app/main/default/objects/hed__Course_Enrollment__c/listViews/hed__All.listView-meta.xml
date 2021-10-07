@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>hed__All</fullName>
+    <columns>NAME</columns>
+    <columns>hed__Course_Offering__c</columns>
+    <columns>Course_Name__c</columns>
+    <columns>hed__Contact__c</columns>
+    <columns>Faculty_Name__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Faculty_Name__c</field>
+        <operation>notEqual</operation>
+        <value>Michael Brody</value>
+    </filters>
+    <filters>
+        <field>hed__Course_Offering__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Running_User__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>All</label>
+</ListView>

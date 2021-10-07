@@ -1,0 +1,47 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AvailableResourceController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <!-- Doctor -->
+    <aura:attribute name="resource" type="Contact[]" />
+    <aura:attribute name="reId" type="Id" />
+    
+    <div>
+        <div class="home-page">
+            <!-- Resources -->
+            <aura:if isTrue="{!v.resource.length > 0}">
+                <div class="doctor-list-page">
+                    <aura:iteration items="{!v.resource}" var="doctor" indexVar="index">
+                        <div class="services-content" data-selected-Index="{!index}">
+                            <div class="doctor-header" id="{!doctor.Contact__c}" onmouseenter="{!c.handleMouseHover}" onmouseleave="{!c.handleMouseOut}" data-index="{!index}" tabindex="-1" >
+                                <a href="{!'/Connect/s/contact-availability?id='+v.contact.Id+'&amp;serviceId='+v.serviceId+'&amp;practiceId='+doctor.Practice_Management__c+'&amp;doctorId='+doctor.Contact__c}">
+                                    <img src="{!doctor.Contact__r.Profile_Picture_URL__c}" />
+                                </a>
+                            </div>
+                            <div class="service-info">
+                                <div class="service-desc">
+                                    <div class="desc-content flex">
+                                        <div class="">
+                                            <lightning:formattedRichText value=""/>
+                                            <div class="doctor-name">{!doctor.Contact__r.Name}</div>
+                                            <div class="doctor-title">{!doctor.Contact__r.Name}</div>
+                                            <div class="doctor-info">
+                                                Account: {!doctor.Contact__r.Account.Name}<br />
+                                                Email: {!doctor.Contact__r.Name}<br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="learn-more">
+                                        <a href="{!'/Connect/s/contact-availability?id='+v.contact.Id+'&amp;serviceId='+v.serviceId+'&amp;practiceId='+doctor.Practice_Management__c+'&amp;doctorId='+doctor.Contact__c}">
+                                            <lightning:icon iconName="utility:chevronright" size="x-small"/>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aura:iteration>
+                </div>
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

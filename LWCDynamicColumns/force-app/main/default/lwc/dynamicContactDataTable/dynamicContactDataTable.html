@@ -1,0 +1,61 @@
+<template>
+    <lightning-card title="dynamic Contact Data table">
+        <div>
+            recordId: {recordId}
+            AccountId: {accountid}
+            ContactId: {contactid}
+        </div>
+        <div>Begin table</div>
+
+        <lightning-layout class="slds-m-top_x-small">
+            <article class="slds-card lightning-card">
+                <div class="slds-card__header slds-grid slds-theme_shade">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate ">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="custom7_120" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <a class="slds-card__header-link" onclick={handleGotoRelatedList}>Contact</a>
+                            </h2>
+                        </div>
+                        <div class="slds-no-flex">
+                            <lightning-button label="New" onclick={handleCreateRecord}></lightning-button>
+                        </div>
+                    </header>
+                </div>
+                
+                <div>
+                    <lightning-datatable class="related-list"
+                        onrowaction={handleRowAction}
+                        columns={columns}
+                        data={data}
+                        key-field="Id"
+                        hide-checkbox-column="true"
+                        resize-column-disabled="true">
+                    </lightning-datatable>   
+                </div>
+                    
+                <footer class="slds-card__footer">
+                    <a onclick={handleGotoRelatedList}>View All</a>
+                </footer>                            
+                
+            </article>                       
+        </lightning-layout>
+
+        <lightning-datatable class="related-list"
+            onrowaction={handleRowAction}
+            columns={columns}
+            data={data}
+            key-field="Id"
+            hide-checkbox-column="true"
+            resize-column-disabled="true">
+        </lightning-datatable>
+
+
+        
+
+
+    </lightning-card>
+    
+</template>

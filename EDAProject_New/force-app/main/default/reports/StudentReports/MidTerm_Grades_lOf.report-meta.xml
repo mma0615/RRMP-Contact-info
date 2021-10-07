@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <field>FK_$hed__Course_Offering__c.hed__Course__c</field>
+    </columns>
+    <columns>
+        <field>FK_$hed__Course_Offering__c.hed__Faculty__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>hed__Term_Grade__c.hed__Credits_Attempted__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>hed__Term_Grade__c.hed__Credits_Earned__c</field>
+    </columns>
+    <columns>
+        <field>hed__Term_Grade__c.hed__Letter_Grade__c</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>hed__Term_Grade__c.hed__Contact__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Andrew Smith</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>hed__Term_Grade__c.hed__Term_Grade_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Mid-Term Grade</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>hed__Term_Grade__c.hed__Term__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Mid-Term Grades</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$hed__Term_Grade__c@hed__Term_Grade__c.hed__Course_Offering__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

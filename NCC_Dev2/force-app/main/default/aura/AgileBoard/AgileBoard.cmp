@@ -1,0 +1,74 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="AgileBoardController">
+
+    <aura:attribute name="filterByPriority" type="String" default=""/>
+    <aura:attribute name="filterByProject" type="String" default=""/>
+    <aura:attribute name="filterByEpicName" type="String" default=""/>
+    <aura:attribute name="filterByText" type="String" default=""/>
+    <aura:attribute name="isShowClosedTasks" type="Boolean" default="false"/>
+    <aura:attribute name="sourceFieldsMap" type="Object" default=""/>
+    <aura:attribute name="sortByOption" type="String" default="Name"/>
+    <aura:attribute name="searchFilterANDConditions" type="Object" default="{}"/>
+    <aura:attribute name="searchFilterORConditions" type="Object" default="{}"/>
+    <aura:attribute name="filterTextFields" type="List" default="['Assigned_To__r.Name','Title__c','Name','Feature__r.Name','Functionality__r.Name']"/>
+    <aura:attribute name="projectOptions" type="List" default="[]"/>
+    <aura:attribute name="priorityOptions" type="List" default="[]"/>
+    <aura:attribute name="epicOptions" type="List" default="[]"/>
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+    <aura:html tag="style">
+        .filter-section {
+            background-color: white;
+            border: 1px solid #d8dde6;
+            padding: 10px;
+            margin-top: -13px;
+        }
+
+        .filter-title {
+            width: 5%;
+        }
+    </aura:html>
+
+    <div class="filter-section">
+        <div class="slds-grid slds-gutters slds-grid_vertical-align-center slds-align_absolute-center">
+            <div class="slds-col slds-size_2-of-12">
+                <lightning:input name="assignedToFilter" label="Filter" value="{!v.filterByText}" onkeyup="{!c.filterCards}" 
+                    fieldLevelHelp="Type a text to search in Assigned To, Title, Task Number, Feature, and Functionality"/>
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <lightning:combobox name="projectOptions" label="Filter By Project" value="{!v.filterByProject}" options="{!v.projectOptions}" onchange="{!c.fetchEpicOptions}"/>
+            </div>
+            <aura:if isTrue="{!v.epicOptions.length}">
+                <div class="slds-col slds-size_2-of-12">
+                    <lightning:combobox name="epicOptions" label="Filter By Epic" value="{!v.filterByEpicName}" options="{!v.epicOptions}" onchange="{!c.filterCards}"/>
+                </div>
+            </aura:if>
+            <div class="slds-col slds-size_2-of-12">
+                <lightning:combobox  name="priorityOptions" label="Filter By Priority" 
+                    value="{!v.filterByPriority}" options="{!v.priorityOptions}" onchange="{!c.filterCards}"/>
+            </div>
+
+            <div class="slds-col slds-size_2-of-12">
+                <lightning:input type="checkbox" label="Show Closed?" name="showClosed" checked="{!v.isShowClosedTasks}" onchange="{!c.filterCards}"/>
+            </div>
+            
+            <div class="slds-col slds-size_2-of-12">
+                <lightning:select name="sortByOptions" aura:id="sortByOptions" label="Sort By" value="{!v.sortByOption}" onchange="{!c.changeSorting}">
+                    <option value="Name" selected="true">Project Task Number</option>
+                    <option value="Assigned_To_Name__c">Assigned By</option>
+                </lightning:select>
+            </div>
+        </div>                  
+    </div>
+
+    <aura:if isTrue="{!v.sourceFieldsMap}">
+        <c:CustomKanbanBoard cardSourceObjectName = "Project_Task__c" 
+                        cardSourceObjectFields = "{!v.sourceFieldsMap}"
+                        cardFilterANDConditions = "{!v.searchFilterANDConditions}"
+                        cardFilterORConditions = "{!v.searchFilterORConditions}"
+                        kanbanColumnFieldSource = "Status__c"
+                        cardSortByField = "{!v.sortByOption}"
+                        hasRecordTypeFilter = "true"
+                        aura:id = "customKanban"/>
+    </aura:if>
+</aura:component>

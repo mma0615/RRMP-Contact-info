@@ -1,0 +1,44 @@
+.THIS {
+    background-color : white;
+}
+
+.THIS .table-checkbox {
+    padding-left : 2rem;
+}
+
+.THIS .slds-input {
+    border: 1px solid #B1B1B1 !important;
+    max-width: none !important;
+}
+
+.THIS .required-mark {
+    color: red;
+    font-weight: bold;
+    margin-right: 2px;
+}
+
+/*Tablet*/
+@media only screen 
+    and (min-device-width : 768px) 
+    and (max-device-width : 1024px)
+    and (orientation : portrait) { 
+    .THIS .registration-container {
+        width: 100%;
+        padding: 2rem .5rem;
+        min-height: 1224px;
+    }
+    .THIS .registration-session-table{
+        font-size: 12px;
+    }
+}
+
+/* Phone */
+@media screen and (max-device-width: 640px) { 
+    .THIS .registration-container {
+        width: 100%;
+        padding: 2rem .5rem;
+    }
+    .THIS .registration-session-table{
+        font-size: 12px;
+    }
+}

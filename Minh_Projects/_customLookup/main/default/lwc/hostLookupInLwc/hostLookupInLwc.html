@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-card">
+        <c-m-custom-lookup 
+            field-label="Select Account Record" 
+            child-object-api-name='Project_Task__c'
+            target-field-api-name='Previous_Assigned_To__c' 
+            required onvalueselected={handleValueSelected}>
+        </c-m-custom-lookup>
+        The selected record Id is:- {selectedRecordId}
+    </div>
+</template>

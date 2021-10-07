@@ -1,0 +1,16 @@
+{
+  "packageDirectories": [
+    {
+      "path": "LeadConversionTrigger",
+      "default": true
+    },
+    {
+      "path": "force-app",
+      "default": false
+    }
+  ],
+  "name": "HalcyonConsultingProjects",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "52.0"
+}

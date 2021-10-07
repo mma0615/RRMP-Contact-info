@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Course_Summary__c</fullName>
+    <externalId>false</externalId>
+    <formula>Name &amp;&quot;, &quot;&amp;  hed__Course__r.Name &amp; &quot;, Professor: &quot; &amp;  hed__Faculty__r.FirstName &amp; &quot; &quot; &amp; hed__Faculty__r.LastName &amp; &quot;, Section Number: &quot; &amp;  hed__Section_ID__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Course Summary</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

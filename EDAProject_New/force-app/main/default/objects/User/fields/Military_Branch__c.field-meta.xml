@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Military_Branch__c</fullName>
+    <externalId>false</externalId>
+    <label>Military Branch</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Student_Affiliation__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Army</fullName>
+                <default>false</default>
+                <label>Army</label>
+            </value>
+            <value>
+                <fullName>Air Force</fullName>
+                <default>false</default>
+                <label>Air Force</label>
+            </value>
+            <value>
+                <fullName>Sea Student (Navy, USMC, Coast Guard)</fullName>
+                <default>false</default>
+                <label>Sea Student (Navy, USMC, Coast Guard)</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Civilian</controllingFieldValue>
+            <controllingFieldValue>International</controllingFieldValue>
+            <valueName>N/A</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Military</controllingFieldValue>
+            <valueName>Army</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Military</controllingFieldValue>
+            <valueName>Air Force</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Military</controllingFieldValue>
+            <valueName>Sea Student (Navy, USMC, Coast Guard)</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

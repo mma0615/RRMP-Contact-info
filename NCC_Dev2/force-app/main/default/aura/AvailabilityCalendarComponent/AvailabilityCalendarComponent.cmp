@@ -1,0 +1,152 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="AvailabilityCalendarController">
+    
+    <aura:attribute name="resourceId" type="String"/>
+    <aura:attribute name="contactId" type="String"/>
+    <aura:attribute name="scheduled" type="Boolean" default="false"/>
+    <aura:attribute name="confirmSchedule" type="Boolean" default="false"/>
+    
+    <aura:attribute name="SFTimeZoneMap" type="Map"/>
+    <aura:attribute name="SFTimeZone" type="List"/>
+    
+    <aura:attribute name="selectedTimeZone" type="String"/>
+    
+    
+    <aura:attribute name="loggedIn" type="Boolean" default="false"/>
+    <aura:attribute name="doctorId" type="String"/>
+    <aura:attribute name="practiceId" type="String"/>
+    <aura:attribute name="doctor" type="Contact"/>
+    <aura:attribute name="contact" type="Contact"/>
+    <aura:attribute name="contactAvailability" type="String"/>
+    
+    
+    <aura:attribute name="conAvaList" type="Contact_Availability__c[]"/>
+    
+    
+    <aura:attribute name="selectedDate" type="Date"/>
+    <aura:attribute name="startDateTime" type="String"/>
+    <aura:attribute name="endDateTime" type="String"/>
+    
+    <aura:attribute name="month" type="string" />
+    <aura:attribute name="year" type="string" />
+    <aura:attribute name="dateToday" type="string" />
+    <aura:attribute name="dateTodayFull" type="date" />
+    <aura:attribute name="days" type="string" />
+    
+    
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    <div>
+        <div style="background: white;">
+            <aura:if isTrue="{!v.contactAvailability == null}">
+                <div class="doctor-selected">
+                    <div class="doctor-info">
+                        <img src="{!$Resource.DoctorImage}" /> <br />
+                        {!v.doctor.Name}'s Calendar
+                    </div>
+                    
+                <div class="timezone-page">
+                    <div class="slds-form-element__control">
+                        <lightning:select name="timezone" value="{!v.selectedTimeZone}" aura:id="selectedTimeZone" onchange="{!c.selectDate}">
+                            <aura:iteration items="{!v.SFTimeZone}" var="tz" indexVar="key">
+                                <option value="{!tz.value}">{!tz.key}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </div>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.contactAvailability != null}">
+                <!-- After Select of Contact Availability -->
+                
+                <aura:if isTrue="{!v.scheduled}">
+                    <div class="slds-notify slds-notify--toast slds-theme--success success-page" role="alert">
+                        <span class="slds-assistive-text">Success</span>    
+                        
+                        <div class="notify__content slds-grid">                       
+                            <span class="slds-icon__container ">
+                                <lightning:icon iconName="utility:success" alternativeText="Success!" variant="Success" size="medium" />
+                                <span class="slds-assistive-text">Alert</span>
+                            </span>
+                            <div class="slds-col slds-align-middle">
+                                <h2 class="slds-text-heading--small ">Video Call successfully scheduled.</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <aura:set attribute="else">
+                        <div class="confirm-schedule">
+                            Are you sure you want to Schedule this Video Call?
+                        </div>
+                        <footer class="slds-modal__footer confirm-schedule-button">
+                            <button class="slds-button slds-button_neutral" onclick="{!c.handleSubmit}" disabled="{!v.confirmSchedule}">Confirm Schedule</button>
+                        </footer>
+                    </aura:set>
+                </aura:if>
+                    
+                
+                <!-- Calendar -->
+                <aura:set attribute="else">
+                    <div class="container">
+                        <div class="calendar">
+                            <div class="month">
+                                
+                                <div class="fas fa-angle-left prev" onclick="{!c.prev}">
+                                    <lightning:icon iconName="utility:chevronleft" size="small" alternativeText="left" />
+                                </div>
+                                <div class="date">
+                                    <h1>{!v.month}</h1>
+                                    <p>{!v.year}</p>
+                                    <!--<p>{!v.dateToday}</p>-->
+                                </div>
+                                <div class="fas fa-angle-right next" onclick="{!c.next}">
+                                    <lightning:icon iconName="utility:chevronright" size="small" alternativeText="right" />
+                                </div>
+                            </div>
+                            <div class="weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div class="days" aura:id="daysValue"><!--<ui:outputRichText value="{!v.days}"/>--></div>
+                        </div>
+                        <div class="availability">
+                            <div class="date-selected">
+                                <lightning:formattedDateTime value="{!v.selectedDate}" year="numeric" month="short" day="2-digit" weekday="short"/>
+                            </div>
+                            <aura:if isTrue="{!v.conAvaList.length > 0}">
+                                <aura:iteration items="{!v.conAvaList}" var="conAva">
+                                    <div class="time-record" id="{!conAva.Id+'toConfirm'}">
+                                        <button type="button" onclick="{!(or(conAva.Status__c == 'Completed', conAva.Status__c == 'Scheduled') ? '' : c.selectAvailability)}" id="{!conAva.Id}" class="{!(or(conAva.Status__c == 'Completed', conAva.Status__c == 'Scheduled') ? 'disabled-btn ' : '')+'conava-time'}">
+                                            <div class="availability-list">
+                                                <lightning:formattedDateTime value="{!conAva.StartDateTime}" hour="numeric" minute="2-digit" hour12="true" /> <!--&nbsp; ({!conAva.timeZone})-->
+                                            </div>
+                                        </button>
+                                        <button type="button" onclick="{!c.confirmAvailability}" id="{!conAva.Id+'confirmed'}" class="btn-confirm">
+                                            Schedule
+                                        </button>
+                                        <!--<div aura:id="{!conAva.StartDateTime+'confirms'}" id="{!conAva.StartDateTime+'confirm'}" >
+                            </div>-->
+                                    </div>
+                                </aura:iteration>
+                                
+                                <aura:set attribute="else">
+                                    <div class="time-record">
+                                        <lightning:button variant="base">
+                                            <div>
+                                                No Availability Found
+                                            </div>
+                                        </lightning:button>
+                                    </div>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div>
+    </div>
+</aura:component>

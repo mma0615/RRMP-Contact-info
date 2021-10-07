@@ -1,0 +1,8 @@
+.THIS .slds-text-title_caps{
+    font-weight: bold;
+}
+
+.THIS .slds-dropdown-trigger .slds-dropdown {
+    height: 200px;
+    overflow: auto;
+}

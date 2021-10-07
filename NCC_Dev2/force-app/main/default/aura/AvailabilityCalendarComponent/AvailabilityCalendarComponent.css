@@ -1,0 +1,222 @@
+.THIS .container {
+    width: auto;
+    background-color: white;
+    color: #eee;
+    display: flex;
+    padding: 10px;
+    margin: 0 auto;
+    /*height: 100vh;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+}
+
+.THIS .calendar {
+    /*width: 45rem;*/
+    width: 22rem;
+    height: 25.5rem;
+    background-color: #222227;
+    box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
+}
+
+.THIS .month {
+    width: 100%;
+    height: 5rem;
+    background-color: #167e56;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    text-align: center;
+    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.THIS .month i {
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.THIS .month h1 {
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+.THIS .month p {
+    font-size: 1.2rem;
+}
+
+.THIS .weekdays {
+    width: 100%;
+    height: 2rem;
+    padding: 0 0.4rem;
+    display: flex;
+    align-items: center;
+}
+
+.THIS .weekdays div {
+    /*font-size: 1.5rem;*/
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    /*width: calc(44.2rem / 7);*/
+    width: calc(21rem / 7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.THIS .days {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.2rem;
+}
+
+.THIS .days div {
+    font-size: 1rem;
+    /*margin: 0.3rem;*/
+    width: calc(21rem / 7);
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    transition: background-color 0.2s;
+}
+
+.THIS .days div:hover:not(.today) {
+    background-color: #262626;
+    border: 0.2rem solid #777;
+    cursor: pointer;
+}
+
+.THIS .prev-date,
+.THIS .next-date {
+    opacity: 0.5;
+}
+
+
+.THIS .days div:hover:not(.today) {
+  background-color: #262626;
+  border: 0.2rem solid #777;
+  cursor: pointer;
+}
+
+.THIS .prev-date,
+.THIS .next-date {
+  opacity: 0.5;
+}
+.THIS .prev svg, .THIS .next svg{
+    fill: white;
+}
+.THIS .today {
+  background-color: #167e56;
+    color: #eee !important;
+}
+
+
+.THIS .availability{
+    margin-left: 10px;
+    width: 40%;
+    /*max-width: 15%;*/
+}
+.THIS .time-record{
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.THIS .time-record div:first-child{
+    text-align: center;
+    width: 100%;
+}
+.THIS .time-record button{
+    width: 100%;
+    height: 52px;
+    color: var(--primary-color, rgb(22 126 86));
+	border: 1px solid var(--primary-color-level2, rgb(22, 126, 86, .5));
+    position: relative;
+    padding: 13px 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-radius: 4px;
+    transition: all .3s ease;
+    transition-property: width,transform;
+    background: white;
+}
+.THIS .time-record button:after{
+    position: absolute;
+    top: -7px;
+    bottom: -7px;
+    left: 0;
+    width: 100%;
+    content: '';
+}
+.THIS .date-selected{
+    color: #167e56;
+    margin-bottom: 5px;
+}
+.THIS .btn-confirm{
+    display: none;
+    margin-left: 3%;
+}
+
+.THIS .disable{
+    pointer-events: none;
+}.THIS .disabled-btn{
+    pointer-events: none;
+    opacity: .5
+}
+
+            .THIS .confirm-schedule{
+                text-align: center;
+                font-size: 16px;
+                padding: 1rem;
+                border: none;
+            }
+            .THIS .confirm-schedule-button{
+            	border: none;
+            }
+            .THIS .success-page{
+                background: none;
+                color: rgb(46 132 74);
+                width: 100%;
+                margin: .5rem auto;
+            }
+            .THIS .success-page .slds-grid{
+                margin: auto;
+            }
+            .THIS .slds-icon-utility-success{
+                padding-right: 5px;
+            }
+
+
+            
+/*Doctors Page*/
+            .THIS .doctor-selected{
+                width: 50%;
+                /*display: flex;*/
+                padding: 10px 0 0 0;
+                margin: 0 auto;
+            }
+            .THIS .doctor-info{
+                width: 100%;
+                text-align: center;
+                font-size: 1rem;
+                font-weight: bold;
+            }
+            .THIS .doctor-info img{
+                height: 150px;
+            }
+            .THIS .timezone-page{
+                width: 100%;
+                margin: 0 auto;
+            }
+            
+            .THIS .hasSchedule{
+                color: #167e56;
+                font-weight: 700;
+            }

@@ -1,0 +1,14 @@
+<template>
+    <div class="slds-box">  
+        <c-mlwc-lookup 
+            lookup-label="Owner" 
+            object-api-name="user" 
+            icon-name="standard:user"  
+            onrecordselection={onSelection}>
+        </c-mlwc-lookup>  
+    </div>  
+    <div class="slds-box">  
+        Selected Account Name : {accountName}  
+        Selected Account Id  : {accountRecordId}  
+    </div>
+</template>

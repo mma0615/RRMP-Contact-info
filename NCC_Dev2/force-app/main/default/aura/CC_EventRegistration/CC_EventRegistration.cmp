@@ -1,0 +1,100 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="CC_EventRegistrationClass">
+    
+    <aura:attribute name="sessionList" type="List"/>
+    <!--<aura:attribute name="FirstName" type="string"/>
+    <aura:attribute name="LastName" type="string"/>
+    <aura:attribute name="Email" type="string"/>
+    <aura:attribute name="Company" type="string"/>-->
+    <aura:attribute name="dynamicFields" type="List" />
+    <aura:attribute name="isLoading" type="Boolean" default="true"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    
+    <aura:attribute name="EventId" type="string" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <!-- spinner -->
+    <aura:if isTrue="{!v.showSpinner}">
+        <div role="dialog" tabindex="-1" aria-labelledby="header99" class="slds-modal slds-fade-in-open ">
+            <div class="slds-modal__container" aura:id="block">
+                <div class="slds-modal__header spinner-text">
+                    <aura:if isTrue="{!v.isLoading}">
+                        <lightning:spinner aura:id="loadSpinner" alternativeText="Loading page content..." />
+                        Loading page content...
+                    </aura:if>
+                    <aura:if isTrue="{!!v.isLoading}">
+                        <lightning:spinner aura:id="mySpinner" alternativeText="Hang on a second... We're processing your request..." />
+                        Hang on a second... We're processing your request...
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open"></div>
+    </aura:if>
+
+    <aura:if isTrue="{!!v.showSpinner}">
+        <div class="registration-section">
+            <div class="registration-container">
+                <form>
+                    <br/>
+                    <div class="font-section-header">Please fill in the required information</div>
+                    
+                    <br/>
+                    <aura:iteration items="{!v.dynamicFields}" var="item">
+                        <div class="registration-container-element">
+                            <label class="registration-label">
+                                <aura:if isTrue="{!item.Field.required}">
+                                    <span class="required-mark">*</span>
+                                </aura:if>
+                                {!item.Field.label}
+                            </label>
+
+                            <aura:if isTrue="{!item.IsPicklist}">
+                                <lightning:select value="{!item.Field.inputValue}" required="{!item.Field.required}" name="selectField" aura:id="{!item.Field.key}" label="" variant="label-hidden"
+                                    messageWhenValueMissing="{!item.Field.messageWhenRequired}">
+
+                                    <aura:iteration items="{!item.Field.picklistOptions}" var="option">
+                                        <option value="{!option.value}">{!option.label}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                                <aura:set attribute="else">
+                                    <lightning:input class="field" type="{!item.Field.fieldType}" required="{!item.Field.required}" name="registrationField" aura:id="{!item.Field.key}" label="" 
+                                        variant="label-hidden" messageWhenValueMissing="{!item.Field.messageWhenRequired}" value="{!item.Field.inputValue}"/>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </aura:iteration>
+                    <br/>
+                    <div class="font-section-header">Please select the session you want to attend </div>
+                    <br/>
+                    <br/>
+                    
+                    <table id="customers"  class="registration-session-table">
+                        <tr class="table-header">
+                            <th class="table-select">Select</th>
+                            <th>Session Name</th>
+                            <th class="table-select">Date</th>
+                            <th class="table-select">Start Time</th>
+                            <th class="table-select">End Time</th>
+                        </tr>
+                        <aura:iteration items="{!v.sessionList}" var="session">
+                            <tr class="table-row">
+                                <td class="table-select table-checkbox"><ui:inputCheckbox text="{!session.EventId}" aura:id="boxPack" value="false"/></td>
+                                <td>{!session.EventName}</td>
+                                <td class="table-select"><lightning:formattedText value="{!session.EventDate}"/></td>
+                                <td class="table-select"><lightning:formattedText value="{!session.StartTime}"/></td>
+                                <td class="table-select"><lightning:formattedText value="{!session.EndTime}"/></td>
+                            </tr>
+                        </aura:iteration>
+                    </table>
+                    <br/>
+                    <br/>
+                    
+                    <div class="slds-m-around_medium">
+                        <lightning:button variant="brand" label="Submit" title="Submit" onclick="{! c.handleSubmit }"  class="btn-base registration-btn-submit"/>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

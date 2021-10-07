@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>Screen.Form_7200_05</members>
+		<members>Screen_Element.Closing_Date</members>
+		<members>Screen_Element.Name</members>
+		<members>Screen_Element.Text1</members>
+		<members>Screen_Element.Text2</members>
+		<members>Screen_Element.Text3</members>
+		<name>CustomMetadata</name>
+	</types>
+	<version>49.0</version>
+</Package>

@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title={screenName}>
+        <div class="slds-m-around_medium">
+
+                for:each={lwcData.listScreenElement} for:item="sE">
+            
+                <div key={sE.Id} class="slds-box">
+                    <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-3">   
+                        <span>{sE.Label_Text__c}</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">   
+                        <span>{sE.Type__c}</span>
+                    </div>
+ 
+                </div>
+              </div>
+          
+        </div>
+    </lightning-card>    
+</template>
