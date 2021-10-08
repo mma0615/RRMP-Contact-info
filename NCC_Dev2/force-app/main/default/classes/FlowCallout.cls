@@ -66,9 +66,6 @@ public virtual without sharing class FlowCallout {
 			payload.add(params);
 		}
 		fireAndForget(JSON.serialize(payload), config.Callout_Endpoint__c);
-		// fire to local -- remove before deployment
-        if (UserInfo.getName() == 'Jun Jose')
-        fireAndForget(JSON.serialize(payload), 'callout:Jun_Local_Do_not_Deploy/api/einstein/analyze');
 	}
 
 	public abstract class ApexCallout{
