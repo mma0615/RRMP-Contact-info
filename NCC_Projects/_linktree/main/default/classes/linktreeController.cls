@@ -1,4 +1,4 @@
-public with sharing class linktreeController {
+public without sharing class linktreeController {
 
     @AuraEnabled (cacheable = true)
     public static String getcampaignName(String campaignId){
@@ -34,7 +34,7 @@ public with sharing class linktreeController {
                 ' or security issue. Please contact System Admin'
                 , Logo_URL__c='https://ncc--c.documentforce.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Jpg&versionId=0681U00000Iw7IU&operationContext=DELIVERY&contentId=05T1U00001kxDw8&page=0&d=/a/1U000000PsY0/B7tExGte9gjx3jk4FtE1icpF_aKdFnCa0C7Q4YoKWSs&oid=00D1U000000G62i&dpt=null&viewId=');
         else {
-            CampaignList[0].Name = u.name + ' - ' + CampaignList[0].Name;
+            CampaignList[0].Name = CampaignList[0].Name;
             return CampaignList[0];
         }
             
@@ -49,7 +49,8 @@ public with sharing class linktreeController {
             FROM Event__c 
             WHERE Campaign__c = :campaignId
                 and Show_To_Links__c=true 
-                and Event_Page_URL__c<>null];
+                and Event_Page_URL__c<>null
+            order by name];
 
         return EventList;
     }

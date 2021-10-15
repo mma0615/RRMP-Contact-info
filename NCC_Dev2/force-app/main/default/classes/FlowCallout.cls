@@ -5,7 +5,10 @@ public virtual without sharing class FlowCallout {
 	static final String PAYLOAD_ID = 'salesforceId';
 	static final String PAYLOAD_OBJECT_TYPE = 'sobjectType';
 	static final String PAYLOAD_FIELD_CONTAINER = 'fields';
-
+	// @author: [CCN-858] Updated by dinoBrinas
+	// @description: This is used to avoid the recursive on the apex trigger.
+	// @date: oct082021
+	public static boolean bPreventAI = false;
 
 	@InvocableMethod(label='Call Sentiment Service' description='Apex Callout for calling a webservice' category='Callout')
 	public static void doCallout(List<sObject> records){

@@ -112,6 +112,8 @@ The `sfdx-project.json` file contains useful configuration information for your 
         Object
             Campaigns
                 Logo_URL__c - read/edit
+            Event__c
+                Show_To_Links__c to read/edit
 
 ## Import Surveys
     Manually add importSurvey to Event Layout
